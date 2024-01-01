@@ -6,13 +6,12 @@ class  AppIcons {
 
   static const String baseUrl = "assets/icons" ;
 
-
   static const String abel = "$baseUrl/apple.svg" ;
   static const String cake = "$baseUrl/cake.svg" ;
   static const String call = "$baseUrl/call.svg" ;
   static const String camera = "$baseUrl/camera.svg" ;
   static const String cancel = "$baseUrl/cancel.svg" ;
-  static const String card = "$baseUrl/card.svg" ;
+  static const String card = "$baseUrl/card.svg";
   static const String category = "$baseUrl/catefory.svg" ;
   static const String categoryOutline = "$baseUrl/category_outline.svg" ;
   static const String chat = "$baseUrl/chat.svg" ;
@@ -52,6 +51,8 @@ class  AppIcons {
   static const String subscriptions = "$baseUrl/subscriptions.svg" ;
   static const String support = "$baseUrl/support.svg" ;
   static const String translate = "$baseUrl/translate.svg" ;
+  static const String checkCircle = "$baseUrl/check-circle.svg" ;
+  static const String apple = "$baseUrl/apple.svg" ;
 
 
 
