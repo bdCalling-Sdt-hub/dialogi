@@ -117,17 +117,20 @@ class _PremiumScreenState extends State<PremiumScreen> {
                         height: 16,
                       ),
                       const Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomImage(
                             imageSrc: AppIcons.checkCircle,
                             imageType: ImageType.svg,
                             size: 16,
                           ),
-                          CustomText(
-                            textAlign: TextAlign.start,
-                            maxLines: 2,
-                            text: 'Access to the additional categories',
-                            left: 8,
+                          Expanded(
+                            child: CustomText(
+                              textAlign: TextAlign.start,
+                              maxLines: 2,
+                              text: 'Access to the additional categories',
+                              left: 8,
+                            ),
                           ),
                         ],
                       ),

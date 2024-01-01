@@ -1,3 +1,4 @@
+import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
@@ -6,6 +7,7 @@ import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:dialogi_app/view/widgets/text_field/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -74,7 +76,7 @@ class _SignInScreenState extends State<SignInScreen> {
               isPassword: true,
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
-              hintText: 'Enter your email',
+              hintText: 'Enter your password',
               hintStyle: GoogleFonts.prompt(
                   fontSize: 14.h,
                   fontWeight: FontWeight.w400,
@@ -94,13 +96,18 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
 
             ///forget password
-            CustomText(
-              text: 'Forget Password',
-              color: AppColors.red_500,
-              fontWeight: FontWeight.w500,
-              fontSize: 18,
-              top: 24.h,
-              bottom: 24.h,
+            GestureDetector(
+              onTap: (){
+                Get.toNamed(AppRoutes.forgetPasswordScreen);
+              },
+              child: CustomText(
+                text: 'Forget Password',
+                color: AppColors.red_500,
+                fontWeight: FontWeight.w500,
+                fontSize: 18,
+                top: 24.h,
+                bottom: 24.h,
+              ),
             ),
 
             ///signIn button
@@ -175,7 +182,9 @@ class _SignInScreenState extends State<SignInScreen> {
                     fontSize: 16,
                   ),
                   GestureDetector(
-                    onTap: (){},
+                    onTap: (){
+                      Get.toNamed(AppRoutes.signUpScreen);
+                    },
                     child: const CustomText(
                       text: 'Sign Up',
                       fontSize: 18,
