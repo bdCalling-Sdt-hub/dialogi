@@ -18,7 +18,7 @@ class CustomSettingsContainer extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: EdgeInsets.symmetric(vertical: 12),
         decoration: const BoxDecoration(
             border: Border(
                 bottom: BorderSide(width: 1,color: AppColors.black_50)

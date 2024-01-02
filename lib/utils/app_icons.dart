@@ -54,13 +54,8 @@ class  AppIcons {
   static const String checkCircle = "$baseUrl/check-circle.svg" ;
   static const String apple = "$baseUrl/apple.svg" ;
   static const String homeOutline = "$baseUrl/home_outline.svg" ;
-
-
-
-
-
-
-
-
+  static const String aboutUs = "$baseUrl/about_us.svg" ;
+  static const String faq = "$baseUrl/faq.svg" ;
+  static const String deleteAccount = "$baseUrl/delete_account.svg" ;
 
 }
