@@ -111,7 +111,9 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
 
             ///signIn button
-            CustomElevatedButton(onPressed: (){}, titleText: 'Sign In',buttonWidth: MediaQuery.of(context).size.width,),
+            CustomElevatedButton(onPressed: (){
+              Get.toNamed(AppRoutes.homeScreen);
+            }, titleText: 'Sign In',buttonWidth: MediaQuery.of(context).size.width,),
 
             ///or
             Center(

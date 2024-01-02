@@ -5,7 +5,12 @@ import 'package:dialogi_app/view/screens/auth/sign_in/sign_in/sign_in_screen.dar
 import 'package:dialogi_app/view/screens/auth/sign_up/set_password/set_password_screen.dart';
 import 'package:dialogi_app/view/screens/auth/sign_up/set_photo/set_photo_screen.dart';
 import 'package:dialogi_app/view/screens/auth/sign_up/sign_up/sign_up_screen.dart';
+import 'package:dialogi_app/view/screens/category/category/category_screen.dart';
+import 'package:dialogi_app/view/screens/friends/friends/friends_screen.dart';
+import 'package:dialogi_app/view/screens/home/home/home_screen.dart';
 import 'package:dialogi_app/view/screens/premium/premium_screen.dart';
+import 'package:dialogi_app/view/screens/profile/profile/profile_screen.dart';
+import 'package:dialogi_app/view/screens/settings/settings/settings_screen.dart';
 import 'package:dialogi_app/view/screens/splash/splash_screen.dart';
 import 'package:get/get.dart';
 
@@ -19,6 +24,11 @@ class AppRoutes{
   static String signUpScreen="/sign_up_screen";
   static String setPasswordScreen="/set_password_screen";
   static String setPhotoScreen="/set_photo_screen";
+  static String homeScreen="/home_screen";
+  static String categoryScreen="/category_screen";
+  static String friendsScreen="/friends_screen";
+  static String profileScreen="/profile_screen";
+  static String settingsScreen="/settings_screen";
 
 
   static List<GetPage> routes=[
@@ -31,5 +41,10 @@ class AppRoutes{
     GetPage(name: signUpScreen, page: ()=> const SignUpScreen()),
     GetPage(name: setPasswordScreen, page: ()=> const SetPasswordScreen()),
     GetPage(name: setPhotoScreen, page: ()=> const SetPhotoScreen()),
+    GetPage(name: homeScreen, page: ()=> const HomeScreen()),
+    GetPage(name: categoryScreen, page: ()=> const CategoryScreen()),
+    GetPage(name: friendsScreen, page: ()=> const FriendsScreen()),
+    GetPage(name: profileScreen, page: ()=> const ProfileScreen()),
+    GetPage(name: settingsScreen, page: ()=> const SettingsScreen()),
   ];
 }

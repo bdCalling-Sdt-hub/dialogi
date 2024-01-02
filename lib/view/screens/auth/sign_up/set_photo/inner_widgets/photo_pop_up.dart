@@ -1,9 +1,11 @@
 import 'dart:ffi';
 
 import 'package:dialogi_app/utils/app_colors.dart';
+import 'package:dialogi_app/view/screens/auth/sign_up/set_photo/inner_widgets/photo_controller.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PhotoPopUp extends StatefulWidget {
@@ -14,27 +16,7 @@ class PhotoPopUp extends StatefulWidget {
 }
 
 class _PhotoPopUpState extends State<PhotoPopUp> {
-  String? image;
-  gallery()async{
-    final ImagePicker picker = ImagePicker();
-    final XFile? getImages = await picker.pickImage(source: ImageSource.gallery);
-    if(getImages != null){
-      image = getImages.path;
-      setState(() {
-
-      });
-    }
-  }
-  camera()async{
-    final ImagePicker picker = ImagePicker();
-    final XFile? getImages = await picker.pickImage(source: ImageSource.camera);
-    if(getImages != null){
-      image = getImages.path;
-      setState(() {
-
-      });
-    }
-  }
+ PhotoController controller=Get.put(PhotoController());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -66,7 +48,7 @@ class _PhotoPopUpState extends State<PhotoPopUp> {
           SizedBox(height: 24,),
           GestureDetector(
             onTap: (){
-              gallery();
+              controller.gallery();
             },
             child: CustomText(
               text: 'Gallery',
@@ -84,7 +66,7 @@ class _PhotoPopUpState extends State<PhotoPopUp> {
           SizedBox(height: 24.h,),
           GestureDetector(
             onTap: (){
-              camera();
+              controller.camera();
             },
             child: CustomText(
               text: 'Camera',

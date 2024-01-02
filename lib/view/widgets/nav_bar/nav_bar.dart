@@ -1,4 +1,10 @@
-/*
+import 'package:dialogi_app/utils/app_colors.dart';
+import 'package:dialogi_app/utils/app_icons.dart';
+import 'package:dialogi_app/view/screens/category/category/category_screen.dart';
+import 'package:dialogi_app/view/screens/friends/friends/friends_screen.dart';
+import 'package:dialogi_app/view/screens/home/home/home_screen.dart';
+import 'package:dialogi_app/view/screens/profile/profile/profile_screen.dart';
+import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -17,26 +23,24 @@ class _NavBarState extends State<NavBar> {
   var bottomNavIndex = 0;
 
   List<String> selectedIcon = [
-    AppIcons.home_2,
-    AppIcons.noteText,
-    AppIcons.emptyWallet,
-    AppIcons.phCookingPotLight,
-    AppIcons.profileCircle,
+    AppIcons.home,
+    AppIcons.categoryOutline,
+    AppIcons.friendsOutline,
+    AppIcons.profileOutline,
   ];
 
- */
-/* List<String> selectedText = [
-    AppStrings.home,
-    AppStrings.search,
-    "Settings",
-  ];*//*
+ List<String> selectedText = [
+   'Home',
+   'Category',
+   'Friends',
+   'Profile'
+  ];
 
 
   List<String> unselectedIcon = [
-    AppIcons.home,
-    AppIcons.note,
-    AppIcons.walletEm,
-    AppIcons.phCooking,
+    AppIcons.homeOutline,
+    AppIcons.category,
+    AppIcons.friends,
     AppIcons.profile,
   ];
 
@@ -55,7 +59,7 @@ class _NavBarState extends State<NavBar> {
       const EdgeInsetsDirectional.symmetric(horizontal: 24, vertical: 20),
 
       alignment: Alignment.center,
-      color: AppColors.background,
+      color: Colors.white ,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -68,20 +72,19 @@ class _NavBarState extends State<NavBar> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 index != bottomNavIndex
-                    ? SvgPicture.asset(selectedIcon[index],color: AppColors.primaryColor,
+                    ? SvgPicture.asset(selectedIcon[index],color: AppColors.blue_500,
                     height: 24, width: 24)
-                    : SvgPicture.asset(unselectedIcon[index],color: AppColors.primaryColor,
+                    : SvgPicture.asset(unselectedIcon[index],color: AppColors.blue_500,
                     height: 24, width: 24),
-               */
-/* const SizedBox(height: 4,),
+ const SizedBox(height: 4,),
                 CustomText(
                   color: index == bottomNavIndex
-                      ? AppColors.black_400
-                      : AppColors.white.withOpacity(.8),
+                      ? AppColors.black_500
+                      : AppColors.black_500,
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                   text: selectedText[index],
-                ),*//*
+                ),
 
                 index == bottomNavIndex
                     ? Container(
@@ -110,22 +113,17 @@ class _NavBarState extends State<NavBar> {
       }
     } else if (index == 1) {
       if (!(widget.currentIndex == 1)) {
-        Get.offAll(() => const WorkSchedule(),transition: Transition.noTransition);
+        Get.offAll(() => const CategoryScreen(),transition: Transition.noTransition);
       }
     }  else if (index == 2) {
       if (!(widget.currentIndex == 2)) {
-        Get.offAll(() => const WalletScreen(),transition: Transition.noTransition);
+        Get.offAll(() => const FriendsScreen(),transition: Transition.noTransition);
       }
     }
     else if (index == 3) {
       if (!(widget.currentIndex == 3)) {
-        Get.offAll(() => const RecipeScreen(),transition: Transition.noTransition);
-      }
-    }
-    else if (index == 4) {
-      if (!(widget.currentIndex == 4)) {
-        Get.offAll(() => const ProfileScreen( ),transition: Transition.noTransition);
+        Get.offAll(() => const ProfileScreen(),transition: Transition.noTransition);
       }
     }
   }
-}*/
+}

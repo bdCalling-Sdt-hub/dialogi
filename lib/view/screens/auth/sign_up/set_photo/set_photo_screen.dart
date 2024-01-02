@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
+import 'package:dialogi_app/view/screens/auth/sign_up/set_photo/inner_widgets/photo_controller.dart';
 import 'package:dialogi_app/view/screens/auth/sign_up/set_photo/inner_widgets/photo_pop_up.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
@@ -18,6 +21,7 @@ class SetPhotoScreen extends StatefulWidget {
 }
 
 class _SetPhotoScreenState extends State<SetPhotoScreen> {
+  PhotoController controller=Get.put(PhotoController());
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -72,7 +76,17 @@ class _SetPhotoScreenState extends State<SetPhotoScreen> {
                             return const PhotoPopUp();
                           });
                     },
-                    child: Container(
+                    child:controller.image != null ? Container(
+                      height: 100,
+                      width: 100,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: AppColors.blue_400,width: 1),
+                        image: DecorationImage(image: FileImage(File(controller.image!)),
+                        fit: BoxFit.cover
+                        )
+                      ),
+                    ) : Container(
                       height: 100,
                       width: 100,
                       decoration: BoxDecoration(
