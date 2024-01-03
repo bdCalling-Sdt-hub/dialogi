@@ -1,8 +1,8 @@
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
-import 'package:dialogi_app/view/screens/category/category/category_screen.dart';
+import 'package:dialogi_app/view/screens/category/category_screen.dart';
 import 'package:dialogi_app/view/screens/friends/friends/friends_screen.dart';
-import 'package:dialogi_app/view/screens/home/home/home_screen.dart';
+import 'package:dialogi_app/view/screens/home/screen/home_screen.dart';
 import 'package:dialogi_app/view/screens/profile/profile/profile_screen.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';

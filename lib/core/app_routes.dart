@@ -5,11 +5,13 @@ import 'package:dialogi_app/view/screens/auth/sign_in/sign_in/sign_in_screen.dar
 import 'package:dialogi_app/view/screens/auth/sign_up/set_password/set_password_screen.dart';
 import 'package:dialogi_app/view/screens/auth/sign_up/set_photo/set_photo_screen.dart';
 import 'package:dialogi_app/view/screens/auth/sign_up/sign_up/sign_up_screen.dart';
-import 'package:dialogi_app/view/screens/category/category/category_screen.dart';
+import 'package:dialogi_app/view/screens/category/category_screen.dart';
+import 'package:dialogi_app/view/screens/category_details/category_details.dart';
 import 'package:dialogi_app/view/screens/friends/friends/friends_screen.dart';
-import 'package:dialogi_app/view/screens/home/home/home_screen.dart';
+import 'package:dialogi_app/view/screens/home/screen/home_screen.dart';
 import 'package:dialogi_app/view/screens/premium/premium_screen.dart';
 import 'package:dialogi_app/view/screens/profile/profile/profile_screen.dart';
+import 'package:dialogi_app/view/screens/question_ans/question_ans.dart';
 import 'package:dialogi_app/view/screens/settings/about_us/about_us_screen.dart';
 import 'package:dialogi_app/view/screens/settings/change_language/change_language_screen.dart';
 import 'package:dialogi_app/view/screens/settings/faq/faq_screen.dart';
@@ -23,6 +25,10 @@ import 'package:dialogi_app/view/screens/settings/subscriptions/subscriptions_sc
 import 'package:dialogi_app/view/screens/settings/support/support_screen.dart';
 import 'package:dialogi_app/view/screens/splash/splash_screen.dart';
 import 'package:get/get.dart';
+
+import '../view/screens/category/category_screen.dart';
+import '../view/screens/home/screen/home_screen.dart';
+import '../view/screens/settings/faq/faq_screen.dart';
 
 class AppRoutes{
   static String splashScreen="/splash_screen";
@@ -48,8 +54,9 @@ class AppRoutes{
   static String aboutUsScreen="/about_us_screen";
   static String privacyPolicyScreen="/privacy_policy_screen";
   static String faqScreen="/faq_screen";
-  static String subscriptionsScreen="/subscriptions_screen";
-
+  static String subscriptionsScreen="/subscriptions";
+  static String categoryDetails = "/category_details";
+  static String questionAns = "/question_ans";
 
   static List<GetPage> routes=[
     GetPage(name: splashScreen, page: ()=> const SplashScreen()),
@@ -71,6 +78,8 @@ class AppRoutes{
     GetPage(name: settingsGetOtp, page: ()=> const SettingsGetOtp()),
     GetPage(name: settingsResetPasswordScreen, page: ()=> const SettingsResetPasswordScreen()),
     GetPage(name: changeLanguageScreen, page: ()=> const ChangeLanguageScreen()),
+    GetPage(name: categoryDetails, page: () => const CategoryDetails()),
+    GetPage(name: questionAns, page: () => const QuestionAns()),
     GetPage(name: supportScreen, page: ()=> const SupportScreen()),
     GetPage(name: aboutUsScreen, page: ()=> const AboutUsScreen()),
     GetPage(name: privacyPolicyScreen, page: ()=> const PrivacyPolicyScreen()),

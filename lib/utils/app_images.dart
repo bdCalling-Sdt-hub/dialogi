@@ -19,7 +19,7 @@ static const String paypal = "$baseUrl/paypal.png" ;
 static const String profile = "$baseUrl/profile.png" ;
 static const String visa = "$baseUrl/visa.png" ;
 static const String splashLogo = "$baseUrl/splash_logo.png" ;
-static const String premium = "$baseUrl/premium.png" ;
+static const String premium = "$baseUrl/premium.png";
 
 
 

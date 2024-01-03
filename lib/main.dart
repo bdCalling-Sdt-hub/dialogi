@@ -3,12 +3,21 @@ import 'package:dialogi_app/global/dependncy.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
 
-void main() {
+Future<void> configureTts() async {
+  FlutterTts flutterTts = FlutterTts();
+  await flutterTts.setLanguage('en-US');
+  await flutterTts.setSpeechRate(0.4);
+  await flutterTts.setVolume(1.0);
+}
 
-  DependancyInjection dI =DependancyInjection();
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  DependancyInjection dI = DependancyInjection();
   dI.dependencies();
+  configureTts();
   runApp(const MyApp());
 
   /* runApp(
@@ -30,7 +39,7 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       child: GetMaterialApp(
-        theme: ThemeData(scaffoldBackgroundColor: AppColors.background ),
+        theme: ThemeData(scaffoldBackgroundColor: AppColors.background),
         debugShowCheckedModeBanner: false,
         title: 'Dialogi App',
         initialRoute: AppRoutes.splashScreen,
