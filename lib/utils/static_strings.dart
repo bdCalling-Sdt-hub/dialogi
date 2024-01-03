@@ -81,7 +81,7 @@ class AppStrings {
   static const String youHaveCompleted = "You have completed all questions";
   static const String gotocategories = "Go to categories";
 
-   //Settings
+  //Settings
   static const String changePassword = "Change Password";
   static const String subscriptions = "Subscriptions";
   static const String privacyPolicy = "Privacy Policy";
@@ -93,9 +93,42 @@ class AppStrings {
   static const String newpassword = "New password";
   static const String reEnterNewpassword = "Re-enter new password";
   static const String update = "Update";
-  // static const String newpassword = "Please enter your email address to reset your password.";
-  // static const String newpassword = "New password";
+  static const String weHavesentaverificationcode =
+      "We have sent a verification code to your email address. Please check and enter the code here.";
+  static const String didntReceivetheCode = "Didn’t receive the code?";
+  static const String reset = "Reset";
+  static const String changeLanguage = "Change Language";
+  static const String english = "English";
+  static const String german = "German";
+  static const String currentPlan = "Current Plan";
+  static const String premiumPlus = "Premium Plus";
+  static const String cancelPlan = "Cancel Plan";
+  static const String billedMonthly = "Billed Monthly";
+  static const String billingDate = "Billing Date";
+  static const String enteryourCurrentPasswordToDelete =
+      "Enter your current password to delete your account.";
 
+  //Profile
 
+  static const String premiumMember = "Premium Member";
+  static const String editProfile = "Edit Profile";
 
+  //Upgrade to premium
+  static const String addPaymentMethod = "Add Payment Method";
+  static const String addPaymentMethodForUpgrade = "Add Payment Method";
+  static const String entercardholdername = "Enter card holder name";
+  static const String cardnumber = "Card number";
+  static const String cVVCVC = "CVV/CVC";
+  static const String mMYY = "MM/YY";
+  static const String proceedToPayment = "Proceed to Payment";
+  static const String successful = "Successful";
+  static const String yourPurchaseSuccessfullydone =
+      "Your purchase successfully done";
+  static const String gotoHome = "Go to Home";
+
+  //Friends
+  static const String cancelAnytime = "Cancel anytime";
+  static const String allFriends = "All Friends";
+  static const String message = "Message";
+  static const String sendRequest = "Send Request";
 }
