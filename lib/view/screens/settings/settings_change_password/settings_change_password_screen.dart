@@ -141,7 +141,9 @@ class _SettingsChangePasswordScreenState extends State<SettingsChangePasswordScr
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
-        child: CustomElevatedButton(onPressed: (){}, titleText: 'Update'),
+        child: CustomElevatedButton(onPressed: (){
+          Get.toNamed(AppRoutes.settingsScreen);
+        }, titleText: 'Update'),
       ),
     );
   }

@@ -42,8 +42,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         padding: EdgeInsets.symmetric(vertical: 24,horizontal: 20),
         child: Column(
           children: [
-            CustomSettingsContainer(onTap: (){Get.toNamed(AppRoutes.settingsChangePasswordScreen  );}, imageSrc: AppIcons.lock, text: 'Change Password', icon: AppIcons.chevronRight),
-            CustomSettingsContainer(onTap: (){}, imageSrc: AppIcons.translate, text: 'Change Language', icon: AppIcons.chevronRight),
+            CustomSettingsContainer(onTap: (){Get.toNamed(AppRoutes.settingsChangePasswordScreen );}, imageSrc: AppIcons.lock, text: 'Change Password', icon: AppIcons.chevronRight),
+            CustomSettingsContainer(onTap: (){Get.toNamed(AppRoutes.changeLanguageScreen );}, imageSrc: AppIcons.translate, text: 'Change Language', icon: AppIcons.chevronRight),
             CustomSettingsContainer(onTap: (){}, imageSrc: AppIcons.subscriptions, text: 'Subscriptions', icon: AppIcons.chevronRight),
             CustomSettingsContainer(onTap: (){}, imageSrc: AppIcons.privacy, text: 'Privacy Policy', icon: AppIcons.chevronRight),
             CustomSettingsContainer(onTap: (){}, imageSrc: AppIcons.aboutUs, text: 'About Us', icon: AppIcons.chevronRight),

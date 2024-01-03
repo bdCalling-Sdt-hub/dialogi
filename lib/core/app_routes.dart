@@ -10,6 +10,7 @@ import 'package:dialogi_app/view/screens/friends/friends/friends_screen.dart';
 import 'package:dialogi_app/view/screens/home/home/home_screen.dart';
 import 'package:dialogi_app/view/screens/premium/premium_screen.dart';
 import 'package:dialogi_app/view/screens/profile/profile/profile_screen.dart';
+import 'package:dialogi_app/view/screens/settings/change_language/change_language_screen.dart';
 import 'package:dialogi_app/view/screens/settings/settings/settings_screen.dart';
 import 'package:dialogi_app/view/screens/settings/settings_change_password/settings_change_password_screen.dart';
 import 'package:dialogi_app/view/screens/settings/settings_forget_password/settings_forget_password_screen.dart';
@@ -37,6 +38,7 @@ class AppRoutes{
   static String settingsForgetPasswordScreen="/settings_forget_password_screen";
   static String settingsGetOtp="/settings_get_otp_screen";
   static String settingsResetPasswordScreen="/settings_reset_password_screen";
+  static String changeLanguageScreen="/change_language_screen";
 
 
   static List<GetPage> routes=[
@@ -58,5 +60,6 @@ class AppRoutes{
     GetPage(name: settingsForgetPasswordScreen, page: ()=> const SettingsForgetPasswordScreen()),
     GetPage(name: settingsGetOtp, page: ()=> const SettingsGetOtp()),
     GetPage(name: settingsResetPasswordScreen, page: ()=> const SettingsResetPasswordScreen()),
+    GetPage(name: changeLanguageScreen, page: ()=> const ChangeLanguageScreen()),
   ];
 }
