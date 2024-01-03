@@ -54,7 +54,9 @@ class AppStrings {
   static const String logout = "Logout";
   static const String upgradetoPremiumfor =
       "Upgrade to Premium for better experience";
+
   static const String gotoSubscriptions = "Go to Subscriptions";
+  static const String ques = "Ques";
 
   //Chat
   static const String chat = "Chat";

@@ -6,9 +6,9 @@ import 'package:dialogi_app/view/screens/home/home/home_screen.dart';
 import 'package:dialogi_app/view/screens/profile/profile/profile_screen.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-
 
 class NavBar extends StatefulWidget {
   final int currentIndex;
@@ -29,13 +29,7 @@ class _NavBarState extends State<NavBar> {
     AppIcons.profileOutline,
   ];
 
- List<String> selectedText = [
-   'Home',
-   'Category',
-   'Friends',
-   'Profile'
-  ];
-
+  List<String> selectedText = ['Home', 'Category', 'Friends', 'Profile'];
 
   List<String> unselectedIcon = [
     AppIcons.homeOutline,
@@ -53,30 +47,31 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 90,
+      height: 95.h,
       width: MediaQuery.of(context).size.width,
       padding:
-      const EdgeInsetsDirectional.symmetric(horizontal: 24, vertical: 20),
-
+          const EdgeInsetsDirectional.symmetric(horizontal: 24, vertical: 20),
       alignment: Alignment.center,
-      color: Colors.white ,
+      color: Colors.white,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: List.generate(
           unselectedIcon.length,
-              (index) => InkWell(
+          (index) => InkWell(
             onTap: () => onTap(index),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 index != bottomNavIndex
-                    ? SvgPicture.asset(selectedIcon[index],color: AppColors.blue_500,
-                    height: 24, width: 24)
-                    : SvgPicture.asset(unselectedIcon[index],color: AppColors.blue_500,
-                    height: 24, width: 24),
- const SizedBox(height: 4,),
+                    ? SvgPicture.asset(selectedIcon[index],
+                        color: AppColors.blue_500, height: 24.h, width: 24.w)
+                    : SvgPicture.asset(unselectedIcon[index],
+                        color: AppColors.blue_500, height: 24.h, width: 24.w),
+                const SizedBox(
+                  height: 4,
+                ),
                 CustomText(
                   color: index == bottomNavIndex
                       ? AppColors.black_500
@@ -85,16 +80,15 @@ class _NavBarState extends State<NavBar> {
                   fontWeight: FontWeight.w600,
                   text: selectedText[index],
                 ),
-
                 index == bottomNavIndex
                     ? Container(
-                  width: 8,
-                  height: 8,
-                  decoration: const ShapeDecoration(
-                    color: Colors.white,
-                    shape: OvalBorder(),
-                  ),
-                )
+                        width: 8.w,
+                        height: 8.h,
+                        decoration: const ShapeDecoration(
+                          color: Colors.white,
+                          shape: OvalBorder(),
+                        ),
+                      )
                     : const SizedBox()
               ],
             ),
@@ -109,20 +103,23 @@ class _NavBarState extends State<NavBar> {
     // homeController.scrollController.dispose();
     if (index == 0) {
       if (!(widget.currentIndex == 0)) {
-        Get.offAll(() => const HomeScreen(),transition: Transition.noTransition);
+        Get.offAll(() => const HomeScreen(),
+            transition: Transition.noTransition);
       }
     } else if (index == 1) {
       if (!(widget.currentIndex == 1)) {
-        Get.offAll(() => const CategoryScreen(),transition: Transition.noTransition);
+        Get.offAll(() => const CategoryScreen(),
+            transition: Transition.noTransition);
       }
-    }  else if (index == 2) {
+    } else if (index == 2) {
       if (!(widget.currentIndex == 2)) {
-        Get.offAll(() => const FriendsScreen(),transition: Transition.noTransition);
+        Get.offAll(() => const FriendsScreen(),
+            transition: Transition.noTransition);
       }
-    }
-    else if (index == 3) {
+    } else if (index == 3) {
       if (!(widget.currentIndex == 3)) {
-        Get.offAll(() => const ProfileScreen(),transition: Transition.noTransition);
+        Get.offAll(() => const ProfileScreen(),
+            transition: Transition.noTransition);
       }
     }
   }
