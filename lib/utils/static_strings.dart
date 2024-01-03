@@ -60,6 +60,7 @@ class AppStrings {
 
   static const String gotoSubscriptions = "Go to Subscriptions";
   static const String ques = "Ques";
+  static const String pendingRequests = "Pending Requests";
 
   //Chat
   static const String chat = "Chat";
