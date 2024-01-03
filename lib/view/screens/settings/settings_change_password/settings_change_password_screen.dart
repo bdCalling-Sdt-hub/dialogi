@@ -27,9 +27,14 @@ class _SettingsChangePasswordScreenState extends State<SettingsChangePasswordScr
           appBarContent: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CustomImage(
-                imageSrc: AppIcons.chevronLeft,
-                size: 24,
+              GestureDetector(
+                onTap: (){
+                  Get.back();
+                },
+                child: CustomImage(
+                  imageSrc: AppIcons.chevronLeft,
+                  size: 24,
+                ),
               ),
               CustomText(
                 text: 'Change Password',
