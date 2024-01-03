@@ -1,5 +1,6 @@
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
+import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
@@ -16,8 +17,8 @@ class ChangeLanguageScreen extends StatefulWidget {
 
 class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
   List<String> language=[
-    'English',
-    'German'
+    AppStrings.english,
+    AppStrings.german
   ];
   int selectedItem=0;
   @override
@@ -38,7 +39,7 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                 ),
               ),
               CustomText(
-                text: 'Change Language',
+                text: AppStrings.changeLanguage,
                 fontWeight: FontWeight.w500,
                 fontSize: 18.h,
                 color: AppColors.blue_500,

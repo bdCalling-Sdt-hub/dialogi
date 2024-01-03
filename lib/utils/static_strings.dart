@@ -38,6 +38,9 @@ class AppStrings {
   static const String pleaseuploadApicture =
       "Please upload a picture to complete your profile.";
   static const String skip = "Skip";
+  static const String chooseSource = "Choose Source";
+  static const String gallery = "Gallery";
+  static const String camera = "Camera";
   static const String getStarted = "Get Started";
   static const String photohasbeenuploaded = "Photo has been uploaded.";
 
