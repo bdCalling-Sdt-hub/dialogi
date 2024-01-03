@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:dialogi_app/utils/app_colors.dart';
+import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/screens/auth/sign_up/set_photo/inner_widgets/photo_controller.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class _PhotoPopUpState extends State<PhotoPopUp> {
       child: Column(
         children: [
           CustomText(
-            text: 'Choose Source',
+            text: AppStrings.chooseSource,
             color: AppColors.blue_500,
             fontSize: 16,
             fontWeight: FontWeight.w500,
@@ -51,7 +52,7 @@ class _PhotoPopUpState extends State<PhotoPopUp> {
               controller.gallery();
             },
             child: CustomText(
-              text: 'Gallery',
+              text: AppStrings.gallery,
               color: AppColors.black_500,
               fontSize: 16,
               fontWeight: FontWeight.w500,
@@ -69,7 +70,7 @@ class _PhotoPopUpState extends State<PhotoPopUp> {
               controller.camera();
             },
             child: CustomText(
-              text: 'Camera',
+              text: AppStrings.camera,
               color: AppColors.black_500,
               fontSize: 16,
               fontWeight: FontWeight.w500,

@@ -21,7 +21,7 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.background,
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
@@ -202,6 +202,6 @@ class _SignInScreenState extends State<SignInScreen> {
           ],
         ),
       ),
-    ));
+    );
   }
 }

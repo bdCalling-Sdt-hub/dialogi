@@ -10,12 +10,17 @@ import 'package:dialogi_app/view/screens/friends/friends/friends_screen.dart';
 import 'package:dialogi_app/view/screens/home/home/home_screen.dart';
 import 'package:dialogi_app/view/screens/premium/premium_screen.dart';
 import 'package:dialogi_app/view/screens/profile/profile/profile_screen.dart';
+import 'package:dialogi_app/view/screens/settings/about_us/about_us_screen.dart';
 import 'package:dialogi_app/view/screens/settings/change_language/change_language_screen.dart';
+import 'package:dialogi_app/view/screens/settings/faq/faq_screen.dart';
+import 'package:dialogi_app/view/screens/settings/privacy_policy/privacy_policy_screen.dart';
 import 'package:dialogi_app/view/screens/settings/settings/settings_screen.dart';
 import 'package:dialogi_app/view/screens/settings/settings_change_password/settings_change_password_screen.dart';
 import 'package:dialogi_app/view/screens/settings/settings_forget_password/settings_forget_password_screen.dart';
 import 'package:dialogi_app/view/screens/settings/settings_get_otp/settings_get_otp_screen.dart';
 import 'package:dialogi_app/view/screens/settings/settings_reset_password/settings_reset_password_screen.dart';
+import 'package:dialogi_app/view/screens/settings/subscriptions/subscriptions_screen.dart';
+import 'package:dialogi_app/view/screens/settings/support/support_screen.dart';
 import 'package:dialogi_app/view/screens/splash/splash_screen.dart';
 import 'package:get/get.dart';
 
@@ -39,6 +44,11 @@ class AppRoutes{
   static String settingsGetOtp="/settings_get_otp_screen";
   static String settingsResetPasswordScreen="/settings_reset_password_screen";
   static String changeLanguageScreen="/change_language_screen";
+  static String supportScreen="/support_screen";
+  static String aboutUsScreen="/about_us_screen";
+  static String privacyPolicyScreen="/privacy_policy_screen";
+  static String faqScreen="/faq_screen";
+  static String subscriptionsScreen="/subscriptions_screen";
 
 
   static List<GetPage> routes=[
@@ -61,5 +71,10 @@ class AppRoutes{
     GetPage(name: settingsGetOtp, page: ()=> const SettingsGetOtp()),
     GetPage(name: settingsResetPasswordScreen, page: ()=> const SettingsResetPasswordScreen()),
     GetPage(name: changeLanguageScreen, page: ()=> const ChangeLanguageScreen()),
+    GetPage(name: supportScreen, page: ()=> const SupportScreen()),
+    GetPage(name: aboutUsScreen, page: ()=> const AboutUsScreen()),
+    GetPage(name: privacyPolicyScreen, page: ()=> const PrivacyPolicyScreen()),
+    GetPage(name: faqScreen, page: ()=> const FaqScreen()),
+    GetPage(name: subscriptionsScreen, page: ()=> const SubscriptionsScreen()),
   ];
 }

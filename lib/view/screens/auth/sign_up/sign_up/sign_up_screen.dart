@@ -22,7 +22,7 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.background,
       appBar: CustomAppBar(
         appBarContent: GestureDetector(
@@ -145,7 +145,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
             ),
             SizedBox(height: 64.h,),
-        
+
             /// continue button
             CustomElevatedButton(onPressed: (){
               Get.toNamed(AppRoutes.setPasswordScreen);
@@ -175,10 +175,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ],
               ),
             )
-        
+
           ],
         ),
       ),
-    ));
+    );
   }
 }

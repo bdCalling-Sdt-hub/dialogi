@@ -22,7 +22,7 @@ class ResetPasswordScreen extends StatefulWidget {
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.background,
       appBar: CustomAppBar(
         appBarContent: GestureDetector(
@@ -114,6 +114,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           Get.toNamed(AppRoutes.signInScreen);
         }, titleText: AppStrings.resetPassword),
       ),
-    ));
+    );
   }
 }
