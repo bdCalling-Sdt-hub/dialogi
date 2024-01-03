@@ -1,6 +1,7 @@
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
+import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
@@ -32,14 +33,14 @@ class _SignInScreenState extends State<SignInScreen> {
             /// welcome text
             CustomText(
               textAlign: TextAlign.start,
-              text: 'Welcome to the',
+              text: AppStrings.welcomeToThe,
               fontSize: 18.h,
               fontWeight: FontWeight.w500,
               bottom: 8,
             ),
             CustomText(
               textAlign: TextAlign.start,
-              text: 'Dialogi App',
+              text: AppStrings.dialogiApp,
               fontSize: 30.h,
               fontWeight: FontWeight.w500,
               color: AppColors.blue_500,
@@ -50,7 +51,7 @@ class _SignInScreenState extends State<SignInScreen> {
             CustomTextField(
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
-              hintText: 'Enter your email',
+              hintText: AppStrings.enterYourEmail,
               hintStyle: GoogleFonts.prompt(
                   fontSize: 14.h,
                   fontWeight: FontWeight.w400,
@@ -76,7 +77,7 @@ class _SignInScreenState extends State<SignInScreen> {
               isPassword: true,
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
-              hintText: 'Enter your password',
+              hintText: AppStrings.enteryourpassword,
               hintStyle: GoogleFonts.prompt(
                   fontSize: 14.h,
                   fontWeight: FontWeight.w400,
@@ -101,7 +102,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 Get.toNamed(AppRoutes.forgetPasswordScreen);
               },
               child: CustomText(
-                text: 'Forget Password',
+                text: AppStrings.forgetPassword,
                 color: AppColors.red_500,
                 fontWeight: FontWeight.w500,
                 fontSize: 18,
@@ -113,7 +114,7 @@ class _SignInScreenState extends State<SignInScreen> {
             ///signIn button
             CustomElevatedButton(onPressed: (){
               Get.toNamed(AppRoutes.homeScreen);
-            }, titleText: 'Sign In',buttonWidth: MediaQuery.of(context).size.width,),
+            }, titleText: AppStrings.signIn,buttonWidth: MediaQuery.of(context).size.width,),
 
             ///or
             Center(
@@ -139,7 +140,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 children: [
                   const CustomImage(imageSrc: AppIcons.google,size: 24,imageType: ImageType.svg,),
                   CustomText(
-                    text: 'Continue with Google',
+                    text: AppStrings.continuewithGoogle,
                     color: AppColors.black_500,
                     fontWeight: FontWeight.w500,
                     fontSize: 18,
@@ -163,7 +164,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 children: [
                   const CustomImage(imageSrc: AppIcons.apple,size: 24,imageType: ImageType.svg,),
                   CustomText(
-                    text: 'Continue with Apple',
+                    text: AppStrings.continuewithApple,
                     color: AppColors.black_500,
                     fontWeight: FontWeight.w500,
                     fontSize: 18,
@@ -180,7 +181,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const CustomText(
-                    text: 'Don’t have an account?',
+                    text: AppStrings.donthaveanaccount,
                     fontSize: 16,
                   ),
                   GestureDetector(
@@ -188,7 +189,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       Get.toNamed(AppRoutes.signUpScreen);
                     },
                     child: const CustomText(
-                      text: 'Sign Up',
+                      text: AppStrings.signUp,
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
                       color: AppColors.blue_500,

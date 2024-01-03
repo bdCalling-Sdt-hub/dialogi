@@ -11,10 +11,13 @@ class AppStrings {
   static const String enteryourpassword = "Enter your password";
   static const String forgetPassword = "Forget Password";
   static const String signIn = "Sign In";
+  static const String signUp = "Sign Up";
   static const String or = "Or";
+  static const String getOtp = "Get OTP";
   static const String continuewithGoogle = "Continue with Google";
   static const String continuewithApple = "Continue with Apple";
   static const String donthaveanaccount = "Don’t have an account?";
+  static const String passwordMustHave = "Password must have 8-10 characters.";
 
   //Sign Up
   static const String createnewaccount = "Create new account";

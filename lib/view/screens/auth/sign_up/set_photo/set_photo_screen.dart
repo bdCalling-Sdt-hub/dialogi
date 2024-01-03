@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
+import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/screens/auth/sign_up/set_photo/inner_widgets/photo_controller.dart';
 import 'package:dialogi_app/view/screens/auth/sign_up/set_photo/inner_widgets/photo_pop_up.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
@@ -21,7 +22,7 @@ class SetPhotoScreen extends StatefulWidget {
 }
 
 class _SetPhotoScreenState extends State<SetPhotoScreen> {
-  PhotoController controller=Get.put(PhotoController());
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -37,91 +38,95 @@ class _SetPhotoScreenState extends State<SetPhotoScreen> {
               size: 24,
             )),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            ///Set Profile Picture
-            Column(
+      body: GetBuilder<SignUpController>(
+        builder: (controller) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomText(
-                  text: 'Set Profile Picture',
-                  color: AppColors.blue_500,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 24,
-                  top: 24.h,
-                  bottom: 8.h,
-                ),
-
-                ///fp text
-                CustomText(
-                  textAlign: TextAlign.start,
-                  maxLines: 3,
-                  text: 'Please upload a picture to complete your profile.',
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                  bottom: 44.h,
-                ),
-
-                ///photo
-                Center(
-                  child: GestureDetector(
-                    onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context){
-                            return const PhotoPopUp();
-                          });
-                    },
-                    child:controller.image != null ? Container(
-                      height: 100,
-                      width: 100,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: AppColors.blue_400,width: 1),
-                        image: DecorationImage(image: FileImage(File(controller.image!)),
-                        fit: BoxFit.cover
-                        )
-                      ),
-                    ) : Container(
-                      height: 100,
-                      width: 100,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: AppColors.blue_400,width: 1)
-                      ),
-                      child: const Icon(Icons.person_outline_outlined,size: 24,color: AppColors.blue_400,),
+                ///Set Profile Picture
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomText(
+                      text: AppStrings.setProfilePicture,
+                      color: AppColors.blue_500,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 24,
+                      top: 24.h,
+                      bottom: 8.h,
                     ),
-                  ),
-                ),
-              ],
-            ),
 
-            Column(
-              children: [
-                CustomElevatedButton(
-                  onPressed: () {},
-                  titleText: 'Skip',
-                  buttonWidth: MediaQuery.of(context).size.width,
-                  buttonColor: Colors.white,
-                  borderColor: Colors.black,
-                  titleColor: Colors.black87,
+                    ///fp text
+                    CustomText(
+                      textAlign: TextAlign.start,
+                      maxLines: 3,
+                      text: AppStrings.pleaseuploadApicture,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      bottom: 44.h,
+                    ),
+
+                    ///photo
+                    Center(
+                      child: GestureDetector(
+                        onTap: (){
+                          showModalBottomSheet(
+                              context: context,
+                              builder: (BuildContext context){
+                                return const PhotoPopUp();
+                              });
+                        },
+                        child:controller.image != null ? Container(
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(color: AppColors.blue_400,width: 1),
+                            image: DecorationImage(image: FileImage(File(controller.image!)),
+                            fit: BoxFit.cover
+                            )
+                          ),
+                        ) : Container(
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(color: AppColors.blue_400,width: 1)
+                          ),
+                          child: const Icon(Icons.person_outline_outlined,size: 24,color: AppColors.blue_400,),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 24.h,),
-                CustomElevatedButton(
-                  onPressed: () {
-                    Get.toNamed(AppRoutes.signInScreen);
-                  },
-                  titleText: 'Get Started',
-                  buttonWidth: MediaQuery.of(context).size.width,
+
+                Column(
+                  children: [
+                    CustomElevatedButton(
+                      onPressed: () {},
+                      titleText: AppStrings.skip,
+                      buttonWidth: MediaQuery.of(context).size.width,
+                      buttonColor: Colors.white,
+                      borderColor: Colors.black,
+                      titleColor: Colors.black87,
+                    ),
+                    SizedBox(height: 24.h,),
+                    CustomElevatedButton(
+                      onPressed: () {
+                        Get.toNamed(AppRoutes.signInScreen);
+                      },
+                      titleText: AppStrings.getStarted,
+                      buttonWidth: MediaQuery.of(context).size.width,
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
-        ),
+          );
+        }
       ),
     ));
   }
