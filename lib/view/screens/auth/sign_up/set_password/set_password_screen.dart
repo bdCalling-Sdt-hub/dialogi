@@ -22,7 +22,7 @@ class SetPasswordScreen extends StatefulWidget {
 class _SetPasswordScreenState extends State<SetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.background,
       appBar: CustomAppBar(
         appBarContent: GestureDetector(
@@ -113,6 +113,6 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
           Get.toNamed(AppRoutes.setPhotoScreen);
         }, titleText: AppStrings.continuee),
       ),
-    ));
+    );
   }
 }

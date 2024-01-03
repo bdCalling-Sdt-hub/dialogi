@@ -1,6 +1,7 @@
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
+import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
@@ -37,7 +38,7 @@ class _SettingsResetPasswordScreenState extends State<SettingsResetPasswordScree
                 ),
               ),
               CustomText(
-                text: 'Reset Password',
+                text: AppStrings.resetPassword,
                 fontWeight: FontWeight.w500,
                 fontSize: 18.h,
                 color: AppColors.blue_500,
@@ -51,7 +52,7 @@ class _SettingsResetPasswordScreenState extends State<SettingsResetPasswordScree
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomText(
-              text: 'Password must have 8-10 characters.',
+              text: AppStrings.passwordMustHave,
               fontWeight: FontWeight.w400,
               fontSize: 16.h,
               bottom: 24.h,
@@ -61,7 +62,7 @@ class _SettingsResetPasswordScreenState extends State<SettingsResetPasswordScree
               isPassword: true,
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
-              hintText: 'Enter your password',
+              hintText: AppStrings.enteryourpassword,
               hintStyle: GoogleFonts.prompt(
                   fontSize: 14.h,
                   fontWeight: FontWeight.w400,
@@ -86,7 +87,7 @@ class _SettingsResetPasswordScreenState extends State<SettingsResetPasswordScree
               isPassword: true,
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
-              hintText: 'Re-enter your password',
+              hintText: AppStrings.reenteryourpassword,
               hintStyle: GoogleFonts.prompt(
                   fontSize: 14.h,
                   fontWeight: FontWeight.w400,
@@ -111,7 +112,7 @@ class _SettingsResetPasswordScreenState extends State<SettingsResetPasswordScree
         padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
         child: CustomElevatedButton(onPressed: (){
           Get.toNamed(AppRoutes.settingsChangePasswordScreen);
-        }, titleText: 'Reset'),
+        }, titleText: AppStrings.reset),
       ),
     );
   }
