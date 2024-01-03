@@ -5,7 +5,6 @@ import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_faq/flutter_faq.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -58,7 +57,7 @@ class _FaqScreenState extends State<FaqScreen> {
 
                 },
                 child: Container(
-                  margin: EdgeInsets.only(bottom: 16),
+                  margin:const EdgeInsets.only(bottom: 16),
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color: Colors.white,
