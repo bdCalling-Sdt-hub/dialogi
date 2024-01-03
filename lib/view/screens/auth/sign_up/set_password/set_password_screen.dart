@@ -1,6 +1,7 @@
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
+import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
@@ -37,7 +38,7 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
           children: [
             ///forget pass
             CustomText(
-              text: 'Set Password',
+              text: AppStrings.setPassword,
               color: AppColors.blue_500,
               fontWeight: FontWeight.w500,
               fontSize: 24,
@@ -48,7 +49,7 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
             CustomText(
               textAlign: TextAlign.start,
               maxLines: 3,
-              text: 'Password should be more that 8 characters or more.',
+              text: AppStrings.passwordshouldbemore,
               fontWeight: FontWeight.w500,
               fontSize: 16,
               bottom: 44.h,
@@ -59,7 +60,7 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
               isPassword: true,
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
-              hintText: 'Enter your password',
+              hintText: AppStrings.enteryourpassword,
               hintStyle: GoogleFonts.prompt(
                   fontSize: 14.h,
                   fontWeight: FontWeight.w400,
@@ -84,7 +85,7 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
               isPassword: true,
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
-              hintText: 'Re-enter your password',
+              hintText: AppStrings.reenteryourpassword,
               hintStyle: GoogleFonts.prompt(
                   fontSize: 14.h,
                   fontWeight: FontWeight.w400,
@@ -110,7 +111,7 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
         padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
         child: CustomElevatedButton(onPressed: (){
           Get.toNamed(AppRoutes.setPhotoScreen);
-        }, titleText: 'Continue'),
+        }, titleText: AppStrings.continuee),
       ),
     ));
   }

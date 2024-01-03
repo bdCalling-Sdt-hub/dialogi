@@ -2,6 +2,7 @@ import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/app_images.dart';
+import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
@@ -32,7 +33,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
             CustomText(
               maxLines: 3,
               textAlign: TextAlign.start,
-              text: 'Unlock premium access for unlimited Dialoginess!',
+              text: AppStrings.unlockPremiumAccess,
               fontSize: 30.h,
               fontWeight: FontWeight.w600,
               bottom: 24.h,
@@ -146,7 +147,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
                children: [
                  CustomElevatedButton(
                    buttonWidth: MediaQuery.of(context).size.width,
-                     onPressed: (){}, titleText: 'Get Premium'),
+                     onPressed: (){}, titleText: AppStrings.getPremium),
                  SizedBox(height: 16,),
                  GestureDetector(
                    onTap: (){
@@ -155,7 +156,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
                    child: CustomText(
                      maxLines: 3,
                      textAlign: TextAlign.start,
-                     text: 'Skip for now',
+                     text: AppStrings.skipForNow,
                      fontSize: 18.h,
                      fontWeight: FontWeight.w500,
                      color: AppColors.blue_500,

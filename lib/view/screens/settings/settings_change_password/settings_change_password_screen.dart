@@ -1,7 +1,6 @@
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
-import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
@@ -12,56 +11,51 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ResetPasswordScreen extends StatefulWidget {
-  const ResetPasswordScreen({super.key});
+class SettingsChangePasswordScreen extends StatefulWidget {
+  const SettingsChangePasswordScreen({super.key});
 
   @override
-  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
+  State<SettingsChangePasswordScreen> createState() => _SettingsChangePasswordScreenState();
 }
 
-class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
+class _SettingsChangePasswordScreenState extends State<SettingsChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.background,
       appBar: CustomAppBar(
-        appBarContent: GestureDetector(
-            onTap: (){
-              Get.back();
-
-            },
-            child: CustomImage(imageSrc: AppIcons.chevronLeft,size: 24,)),
-      ),
+          appBarContent: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: (){
+                  Get.back();
+                },
+                child: CustomImage(
+                  imageSrc: AppIcons.chevronLeft,
+                  size: 24,
+                ),
+              ),
+              CustomText(
+                text: 'Change Password',
+                fontWeight: FontWeight.w500,
+                fontSize: 18.h,
+                color: AppColors.blue_500,
+              ),
+              SizedBox()
+            ],
+          )),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(vertical: 24,horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ///forget pass
-            CustomText(
-              text: AppStrings.resetPassword,
-              color: AppColors.blue_500,
-              fontWeight: FontWeight.w500,
-              fontSize: 24,
-              top: 24.h,
-              bottom: 8.h,
-            ),
-            ///fp text
-            CustomText(
-              textAlign: TextAlign.start,
-              maxLines: 3,
-              text: AppStrings.passwordMustHave,
-              fontWeight: FontWeight.w500,
-              fontSize: 16,
-              bottom: 44.h,
-            ),
-
-            ///password
+            /// Current password
             CustomTextField(
               isPassword: true,
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
-              hintText: AppStrings.enteryourpassword,
+              hintText: 'Current password',
               hintStyle: GoogleFonts.prompt(
                   fontSize: 14.h,
                   fontWeight: FontWeight.w400,
@@ -81,12 +75,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             ),
             SizedBox(height: 24.h,),
 
-            ///Re-enter password
+            ///New password
             CustomTextField(
               isPassword: true,
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
-              hintText: AppStrings.reenteryourpassword,
+              hintText: 'New password',
               hintStyle: GoogleFonts.prompt(
                   fontSize: 14.h,
                   fontWeight: FontWeight.w400,
@@ -105,15 +99,52 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               ),
             ),
 
+            SizedBox(height: 24.h,),
+
+            ///Re-enter new password
+            CustomTextField(
+              isPassword: true,
+              keyboardType: TextInputType.text,
+              textAlign: TextAlign.start,
+              hintText: 'Re-enter new password',
+              hintStyle: GoogleFonts.prompt(
+                  fontSize: 14.h,
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.black_300),
+              inputTextStyle: GoogleFonts.prompt(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16.h,
+                  color: AppColors.black_500),
+              fieldBorderColor: Colors.white,
+              fieldBorderRadius: 8,
+              isPrefixIcon: true,
+              prefixIcon: Icon(
+                Icons.lock_outlined,
+                size: 24.h,
+                color: AppColors.blue_500,
+              ),
+            ),
+            GestureDetector(
+              onTap: (){
+                Get.toNamed(AppRoutes.settingsForgetPasswordScreen);
+              },
+              child: CustomText(
+                text: 'Forget Password',
+                fontWeight: FontWeight.w500,
+                fontSize: 18.h,
+                color: AppColors.red_500,
+                top: 24.h,
+              ),
+            ),
           ],
         ),
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
         child: CustomElevatedButton(onPressed: (){
-          Get.toNamed(AppRoutes.signInScreen);
-        }, titleText: AppStrings.resetPassword),
+          Get.toNamed(AppRoutes.settingsScreen);
+        }, titleText: 'Update'),
       ),
-    ));
+    );
   }
 }

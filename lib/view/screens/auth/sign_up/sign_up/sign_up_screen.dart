@@ -1,6 +1,7 @@
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
+import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
@@ -39,7 +40,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           children: [
             ///Create new account
             CustomText(
-              text: 'Create new account',
+              text: AppStrings.createnewaccount,
               color: AppColors.blue_500,
               fontWeight: FontWeight.w500,
               fontSize: 24,
@@ -50,7 +51,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             CustomText(
               textAlign: TextAlign.start,
               maxLines: 3,
-              text: 'Join us for better experience',
+              text: AppStrings.joinusforbetterexperience,
               fontWeight: FontWeight.w500,
               fontSize: 16,
             ),
@@ -59,7 +60,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             CustomTextField(
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
-              hintText: 'Full name',
+              hintText: AppStrings.fullname,
               hintStyle: GoogleFonts.prompt(
                   fontSize: 14.h,
                   fontWeight: FontWeight.w400,
@@ -82,7 +83,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             CustomTextField(
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
-              hintText: 'Enter your email',
+              hintText: AppStrings.enterYourEmail,
               hintStyle: GoogleFonts.prompt(
                   fontSize: 14.h,
                   fontWeight: FontWeight.w400,
@@ -105,7 +106,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             CustomTextField(
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
-              hintText: 'Date of birth',
+              hintText: AppStrings.dateofbirth,
               hintStyle: GoogleFonts.prompt(
                   fontSize: 14.h,
                   fontWeight: FontWeight.w400,
@@ -125,7 +126,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             CustomTextField(
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
-              hintText: 'Address',
+              hintText: AppStrings.address,
               hintStyle: GoogleFonts.prompt(
                   fontSize: 14.h,
                   fontWeight: FontWeight.w400,
@@ -148,7 +149,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             /// continue button
             CustomElevatedButton(onPressed: (){
               Get.toNamed(AppRoutes.setPasswordScreen);
-            }, titleText: 'Continue',buttonWidth: MediaQuery.of(context).size.width,),
+            }, titleText: AppStrings.continuee,buttonWidth: MediaQuery.of(context).size.width,),
             SizedBox(height: 24.h,),
             ///Already have an account?
             Center(
@@ -156,7 +157,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const CustomText(
-                    text: 'Already have an account?',
+                    text: AppStrings.alreadyhaveanaccount,
                     fontSize: 16,
                   ),
                   GestureDetector(
@@ -164,7 +165,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Get.toNamed(AppRoutes.signUpScreen);
                     },
                     child: const CustomText(
-                      text: 'Sign In',
+                      text: AppStrings.signIn,
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
                       color: AppColors.blue_500,

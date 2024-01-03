@@ -1,6 +1,7 @@
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
+import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
@@ -40,7 +41,7 @@ class _OtpScreenState extends State<OtpScreen> {
             children: [
               ///get otp
               CustomText(
-                text: 'Get OTP',
+                text: AppStrings.getOTP,
                 color: AppColors.blue_500,
                 fontWeight: FontWeight.w500,
                 fontSize: 24,
@@ -51,8 +52,8 @@ class _OtpScreenState extends State<OtpScreen> {
               CustomText(
                 textAlign: TextAlign.start,
                 maxLines: 3,
-                text: 'We have sent a verification code to your email address. Please check and enter the code here.',
-                fontWeight: FontWeight.w500,
+                text: AppStrings.weHavesentaverificationcode,
+                fontWeight: FontWeight.w400,
                 fontSize: 16,
                 bottom: 44.h,
               ),
@@ -78,13 +79,22 @@ class _OtpScreenState extends State<OtpScreen> {
                   selectedFillColor: Colors.white,
                   inactiveFillColor: Colors.white,
                   borderWidth: 0.1,
-                  errorBorderColor: AppColors.blue_500,
-                  selectedColor: AppColors.blue_500,
-                  activeColor: AppColors.blue_500,
-                  inactiveColor: AppColors.blue_500,
+                  errorBorderColor: AppColors.blue_300,
+                  selectedColor: AppColors.blue_300,
+                  activeColor: AppColors.blue_300,
+                  inactiveColor: AppColors.blue_300,
                 ),
                 length: 6,
                 enableActiveFill: true,
+              ),
+              SizedBox(height: 24.h,),
+              CustomText(
+                textAlign: TextAlign.start,
+                maxLines: 3,
+                text: AppStrings.didntReceivetheCode,
+                fontWeight: FontWeight.w400,
+                fontSize: 18,
+                color: AppColors.blue_500,
               ),
 
             ],
@@ -94,7 +104,7 @@ class _OtpScreenState extends State<OtpScreen> {
           padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
           child: CustomElevatedButton(onPressed: (){
             Get.toNamed(AppRoutes.resetPasswordScreen);
-          }, titleText: 'Verify'),
+          }, titleText: AppStrings.verify),
         ),
       ),
     );
