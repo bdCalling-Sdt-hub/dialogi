@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/static_strings.dart';

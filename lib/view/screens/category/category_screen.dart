@@ -19,43 +19,41 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        top: false,
-        child: Scaffold(
-            appBar: const CustomAppBar(
-                appBarContent: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomText(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.blue_500,
-                  text: AppStrings.category,
-                ),
-              ],
-            )),
-            bottomNavigationBar: const NavBar(currentIndex: 1),
-            body: GridView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              itemCount: 6,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisExtent: 240.h,
-                  crossAxisSpacing: 8.w,
-                  mainAxisSpacing: 8.h),
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Get.toNamed(AppRoutes.categoryDetails,
-                        parameters: {"title": "Friends"});
-                  },
-                  child: const CustomCard(
-                      img:
-                          "https://images.unsplash.com/photo-1522098635833-216c03d81fbe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnJpZW5kfGVufDB8fDB8fHww",
-                      title: "Friends",
-                      queNum: "40"),
-                );
+    return Scaffold(
+        appBar: const CustomAppBar(
+            appBarContent: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CustomText(
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+              color: AppColors.blue_500,
+              text: AppStrings.category,
+            ),
+          ],
+        )),
+        bottomNavigationBar: const NavBar(currentIndex: 1),
+        body: GridView.builder(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          itemCount: 6,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisExtent: 240.h,
+              crossAxisSpacing: 8.w,
+              mainAxisSpacing: 8.h),
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () {
+                Get.toNamed(AppRoutes.categoryDetails,
+                    parameters: {"title": "Friends"});
               },
-            )));
+              child: const CustomCard(
+                  img:
+                      "https://images.unsplash.com/photo-1522098635833-216c03d81fbe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnJpZW5kfGVufDB8fDB8fHww",
+                  title: "Friends",
+                  queNum: "40"),
+            );
+          },
+        ));
   }
 }

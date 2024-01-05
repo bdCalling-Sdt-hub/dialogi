@@ -8,8 +8,10 @@ import 'package:dialogi_app/view/screens/auth/sign_up/sign_up/sign_up_screen.dar
 import 'package:dialogi_app/view/screens/category/category_screen.dart';
 import 'package:dialogi_app/view/screens/category_details/category_details.dart';
 import 'package:dialogi_app/view/screens/friends/friends/friends_screen.dart';
+import 'package:dialogi_app/view/screens/friends/friends_profile/friends_profile_screen.dart';
 import 'package:dialogi_app/view/screens/home/screen/home_screen.dart';
 import 'package:dialogi_app/view/screens/premium/premium_screen.dart';
+import 'package:dialogi_app/view/screens/profile/edit_profile/edit_profile_screen.dart';
 import 'package:dialogi_app/view/screens/profile/profile/profile_screen.dart';
 import 'package:dialogi_app/view/screens/question_ans/question_ans.dart';
 import 'package:dialogi_app/view/screens/settings/about_us/about_us_screen.dart';
@@ -57,6 +59,8 @@ class AppRoutes{
   static String subscriptionsScreen="/subscriptions";
   static String categoryDetails = "/category_details";
   static String questionAns = "/question_ans";
+  static String editProfileScreen = "/edit_profile_screen";
+  static String friendsProfileScreen = "/friends_profile_screen";
 
   static List<GetPage> routes=[
     GetPage(name: splashScreen, page: ()=> const SplashScreen()),
@@ -85,5 +89,7 @@ class AppRoutes{
     GetPage(name: privacyPolicyScreen, page: ()=> const PrivacyPolicyScreen()),
     GetPage(name: faqScreen, page: ()=> const FaqScreen()),
     GetPage(name: subscriptionsScreen, page: ()=> const SubscriptionsScreen()),
+    GetPage(name: editProfileScreen, page: ()=> const EditProfileScreen()),
+    GetPage(name: friendsProfileScreen, page: ()=> const FriendsProfileScreen()),
   ];
 }

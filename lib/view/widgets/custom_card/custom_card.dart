@@ -25,48 +25,57 @@ class CustomCard extends StatelessWidget {
       child: Column(
         children: [
           //Image
+          
 
-          Container(
-            height: 150.h,
-            decoration: ShapeDecoration(
-              image: DecorationImage(
-                image: NetworkImage(img),
-                fit: BoxFit.cover,
+          Expanded(
+            child: Container(
+              height: 150.h,
+              decoration: ShapeDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(img),
+                  fit: BoxFit.cover,
+                ),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4)),
               ),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4)),
             ),
           ),
           //Title
 
-          CustomText(
-            top: 8.h,
-            bottom: 14.h,
-            fontSize: 18,
-            text: title,
-            fontWeight: FontWeight.w500,
-            color: AppColors.blue_500,
-          ),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              //Question Test
-
-              CustomText(
-                right: 8.w,
-                text: AppStrings.ques,
-                color: AppColors.black_300,
-              ),
-
-              //Number of Question
-
-              CustomText(
-                fontWeight: FontWeight.w500,
-                text: queNum,
-                // color: AppColors.blue_500,
-              ),
-            ],
+          Expanded(
+            child: Column(
+              children: [
+                CustomText(
+                  top: 8.h,
+                  bottom: 14.h,
+                  fontSize: 18,
+                  text: title,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.blue_500,
+                ),
+                
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    //Question Test
+                
+                    CustomText(
+                      right: 8.w,
+                      text: AppStrings.ques,
+                      color: AppColors.black_300,
+                    ),
+                
+                    //Number of Question
+                
+                    CustomText(
+                      fontWeight: FontWeight.w500,
+                      text: queNum,
+                      // color: AppColors.blue_500,
+                    ),
+                  ],
+                ),
+              ],
+            ),
           )
         ],
       ),
