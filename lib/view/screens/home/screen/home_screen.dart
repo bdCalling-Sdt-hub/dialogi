@@ -22,66 +22,63 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: false,
-      child: Scaffold(
-        key: scaffoldKey,
-        bottomNavigationBar: const NavBar(currentIndex: 0),
-        drawer: Drawer(
-          backgroundColor: AppColors.background,
-          elevation: 0,
-          width: MediaQuery.of(context).size.width * .7,
-          child: const HomeDrawer(),
-        ),
-        appBar: CustomAppBar(
-            appBarContent: Row(
-          children: [
-            GestureDetector(
-                onTap: () {
-                  scaffoldKey.currentState!.openDrawer();
-                },
-                child: CustomImage(
-                  imageSrc: AppIcons.drawer,
-                  size: 32.r,
-                )),
-            const Spacer(),
-            const CustomImage(
-              imageSrc: AppIcons.crown,
-              size: 32,
-            ),
-            SizedBox(
-              width: 16.w,
-            ),
-            GestureDetector(
-                onTap: () {},
-                child: const CustomImage(
-                  imageSrc: AppIcons.chat,
-                  size: 32,
-                )),
-          ],
-        )),
-        body: GetBuilder<Homecontroller>(builder: (controller) {
-          return GridView.builder(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            itemCount: 4,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisExtent: 240.h,
-                crossAxisSpacing: 8.w,
-                mainAxisSpacing: 8.h),
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {},
-                child: const CustomCard(
-                    img:
-                        "https://images.unsplash.com/photo-1522098635833-216c03d81fbe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnJpZW5kfGVufDB8fDB8fHww",
-                    title: "Friends",
-                    queNum: "40"),
-              );
-            },
-          );
-        }),
+    return Scaffold(
+      key: scaffoldKey,
+      bottomNavigationBar: const NavBar(currentIndex: 0),
+      drawer: Drawer(
+        backgroundColor: AppColors.background,
+        elevation: 0,
+        width: MediaQuery.of(context).size.width * .7,
+        child: const HomeDrawer(),
       ),
+      appBar: CustomAppBar(
+          appBarContent: Row(
+        children: [
+          GestureDetector(
+              onTap: () {
+                scaffoldKey.currentState!.openDrawer();
+              },
+              child: CustomImage(
+                imageSrc: AppIcons.drawer,
+                size: 32.r,
+              )),
+          const Spacer(),
+          const CustomImage(
+            imageSrc: AppIcons.crown,
+            size: 32,
+          ),
+          SizedBox(
+            width: 16.w,
+          ),
+          GestureDetector(
+              onTap: () {},
+              child: const CustomImage(
+                imageSrc: AppIcons.chat,
+                size: 32,
+              )),
+        ],
+      )),
+      body: GetBuilder<Homecontroller>(builder: (controller) {
+        return GridView.builder(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          itemCount: 4,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisExtent: 240.h,
+              crossAxisSpacing: 8.w,
+              mainAxisSpacing: 8.h),
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () {},
+              child: const CustomCard(
+                  img:
+                      "https://images.unsplash.com/photo-1522098635833-216c03d81fbe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnJpZW5kfGVufDB8fDB8fHww",
+                  title: "Friends",
+                  queNum: "40"),
+            );
+          },
+        );
+      }),
     );
   }
 }
