@@ -19,6 +19,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +30,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         children: [
           GestureDetector(
             onTap: (){
-              Get.back();
+              Get.toNamed(AppRoutes.homeScreen);
             },
             child: const CustomImage(
               imageSrc: AppIcons.chevronLeft,

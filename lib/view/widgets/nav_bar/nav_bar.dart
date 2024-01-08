@@ -32,7 +32,7 @@ class _NavBarState extends State<NavBar> {
   List<String> selectedText = ['Home', 'Category', 'Friends', 'Profile'];
 
   List<String> unselectedIcon = [
-    AppIcons.homeOutline,
+    AppIcons.home,
     AppIcons.category,
     AppIcons.friends,
     AppIcons.profile,
@@ -47,7 +47,7 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 95.h,
+      height: 100.h,
       width: MediaQuery.of(context).size.width,
       padding:
           const EdgeInsetsDirectional.symmetric(horizontal: 24, vertical: 20),
