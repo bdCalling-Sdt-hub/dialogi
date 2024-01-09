@@ -84,8 +84,10 @@ class _ChatScreenState extends State<ChatScreen> {
           );
         },
       ),
-      bottomNavigationBar: Padding(
+      bottomNavigationBar: AnimatedPadding(
+
           padding: EdgeInsets.symmetric(vertical: 24,horizontal:20),
+            duration: Duration(seconds: 1),
             child:Row(
               children: [
                 Expanded(
