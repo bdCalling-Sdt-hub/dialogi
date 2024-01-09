@@ -7,6 +7,9 @@ import 'package:dialogi_app/view/screens/auth/sign_up/set_photo/set_photo_screen
 import 'package:dialogi_app/view/screens/auth/sign_up/sign_up/sign_up_screen.dart';
 import 'package:dialogi_app/view/screens/category/category_screen.dart';
 import 'package:dialogi_app/view/screens/category_details/category_details.dart';
+import 'package:dialogi_app/view/screens/chat/%20chat_premium/chat_premium_screen.dart';
+import 'package:dialogi_app/view/screens/chat/chat/chat_screen.dart';
+import 'package:dialogi_app/view/screens/chat/chat_list/chat_list_screen.dart';
 import 'package:dialogi_app/view/screens/friends/friends/friends_screen.dart';
 import 'package:dialogi_app/view/screens/friends/friends_profile/friends_profile_screen.dart';
 import 'package:dialogi_app/view/screens/home/screen/home_screen.dart';
@@ -61,6 +64,9 @@ class AppRoutes{
   static String questionAns = "/question_ans";
   static String editProfileScreen = "/edit_profile_screen";
   static String friendsProfileScreen = "/friends_profile_screen";
+  static String chatPremiumScreen = "/chat_premium_screen";
+  static String chatListScreen = "/chat_list_screen";
+  static String chatScreen = "/chat_screen";
 
   static List<GetPage> routes=[
     GetPage(name: splashScreen, page: ()=> const SplashScreen()),
@@ -91,5 +97,8 @@ class AppRoutes{
     GetPage(name: subscriptionsScreen, page: ()=> const SubscriptionsScreen()),
     GetPage(name: editProfileScreen, page: ()=> const EditProfileScreen()),
     GetPage(name: friendsProfileScreen, page: ()=> const FriendsProfileScreen()),
+    GetPage(name: chatPremiumScreen, page: ()=> const ChatPremiumScreen()),
+    GetPage(name: chatListScreen, page: ()=> const ChatListScreen()),
+    GetPage(name: chatScreen, page: ()=> const ChatScreen()),
   ];
 }

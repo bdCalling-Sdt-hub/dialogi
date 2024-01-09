@@ -1,3 +1,4 @@
+import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/view/screens/home/home_controller/home_controller.dart';
@@ -51,7 +52,9 @@ class _HomeScreenState extends State<HomeScreen> {
             width: 16.w,
           ),
           GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Get.toNamed(AppRoutes.chatPremiumScreen);
+              },
               child: const CustomImage(
                 imageSrc: AppIcons.chat,
                 size: 32,
