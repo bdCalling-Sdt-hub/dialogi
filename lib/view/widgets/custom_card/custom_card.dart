@@ -25,11 +25,10 @@ class CustomCard extends StatelessWidget {
       child: Column(
         children: [
           //Image
-          
 
           Expanded(
+            flex: 2,
             child: Container(
-              height: 150.h,
               decoration: ShapeDecoration(
                 image: DecorationImage(
                   image: NetworkImage(img),
@@ -53,20 +52,19 @@ class CustomCard extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                   color: AppColors.blue_500,
                 ),
-                
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     //Question Test
-                
+
                     CustomText(
                       right: 8.w,
                       text: AppStrings.ques,
                       color: AppColors.black_300,
                     ),
-                
+
                     //Number of Question
-                
+
                     CustomText(
                       fontWeight: FontWeight.w500,
                       text: queNum,

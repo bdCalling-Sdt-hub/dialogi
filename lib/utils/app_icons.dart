@@ -23,7 +23,7 @@ class AppIcons {
   static const String friendsOutline = "$baseUrl/friends_outline.svg";
   static const String google = "$baseUrl/google.svg";
   static const String greatJob = "$baseUrl/great_job.svg";
-  static const String home = "$baseUrl/home_outline.svg";
+  static const String home = "$baseUrl/home.svg";
   static const String informationCircle = "$baseUrl/information-circle.svg";
   static const String like = "$baseUrl/like.svg";
   static const String location = "$baseUrl/location.svg";

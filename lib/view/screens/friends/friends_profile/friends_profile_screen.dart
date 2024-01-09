@@ -6,7 +6,7 @@ import 'package:dialogi_app/utils/app_images.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
-import 'package:dialogi_app/view/widgets/container/custom_profile_container.dart';
+import 'package:dialogi_app/view/widgets/profile_custom/profile_user_details.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -22,55 +22,43 @@ class FriendsProfileScreen extends StatefulWidget {
 }
 
 class _FriendsProfileScreenState extends State<FriendsProfileScreen> {
-  List<Map<String, String>> profileDetails = [
-    {
-      'details': 'Bassie Cooper',
-      'icon': AppIcons.person,
-    },
-    {
-      'details': 'bassie@gmail.com',
-      'icon': AppIcons.mail,
-    },
-    {
-      'details': '12 Jan 1999',
-      'icon': AppIcons.dob,
-    },
-  ];
-
   ///image
   String? image;
   selectImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? getImages =
-    await picker.pickImage(source: ImageSource.gallery);
+        await picker.pickImage(source: ImageSource.gallery);
     if (getImages != null) {
       image = getImages.path;
       print(image);
       setState(() {});
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
           appBarContent: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                  onTap: (){
-                    Get.back();
-                  },
-                  child: const CustomImage(imageSrc: AppIcons.chevronLeft,size: 24,)),
-              const CustomText(
-                text: 'Jhon zdoe',
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: AppColors.blue_500,
-              ),
-              const SizedBox(),
-
-            ],
-          )),
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+              onTap: () {
+                Get.back();
+              },
+              child: const CustomImage(
+                imageSrc: AppIcons.chevronLeft,
+                size: 24,
+              )),
+          const CustomText(
+            text: 'Jhon zdoe',
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+            color: AppColors.blue_500,
+          ),
+          const SizedBox(),
+        ],
+      )),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
         child: Column(
@@ -85,28 +73,27 @@ class _FriendsProfileScreenState extends State<FriendsProfileScreen> {
                     Center(
                       child: image != null
                           ? Container(
-                        height: 108.h,
-                        width: 108.w,
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: FileImage(
-                                File(image!),
-                              ),
-                              fit: BoxFit.cover,
-                            ),
-                            shape: BoxShape.circle),
-                      )
+                              height: 108.h,
+                              width: 108.w,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: FileImage(
+                                      File(image!),
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  shape: BoxShape.circle),
+                            )
                           : Container(
-                        height: 108.h,
-                        width: 108.w,
-                        decoration: BoxDecoration(
-                            image: const DecorationImage(
-                                image: AssetImage(
-                                    AppImages.friends)),
-                            border: Border.all(
-                                color: AppColors.black_500, width: 1),
-                            shape: BoxShape.circle),
-                      ),
+                              height: 108.h,
+                              width: 108.w,
+                              decoration: BoxDecoration(
+                                  image: const DecorationImage(
+                                      image: AssetImage(AppImages.friends)),
+                                  border: Border.all(
+                                      color: AppColors.black_500, width: 1),
+                                  shape: BoxShape.circle),
+                            ),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -119,7 +106,11 @@ class _FriendsProfileScreenState extends State<FriendsProfileScreen> {
                           decoration: const BoxDecoration(
                               color: AppColors.black_500,
                               shape: BoxShape.circle),
-                          child: const CustomImage(imageSrc: AppIcons.premiumPlus,imageType: ImageType.svg,size: 18,),
+                          child: const CustomImage(
+                            imageSrc: AppIcons.premiumPlus,
+                            imageType: ImageType.svg,
+                            size: 18,
+                          ),
                         ),
                       ),
                     )
@@ -132,20 +123,19 @@ class _FriendsProfileScreenState extends State<FriendsProfileScreen> {
             ),
 
             ///profile details
-            Column(
-              children: List.generate(
-                profileDetails.length,
-                    (index) => CustomProfileContainer(
-                    text: profileDetails[index]['details'] ?? '',
-                    icon: profileDetails[index]['icon'] ?? ''),
-              ),
+            const ProfileUserDetails(
+              name: "Rafsan Hossain",
+              email: "rafsan@gmail.com",
+              dob: "12 jan 1999",
+              address: "USA",
             )
           ],
         ),
       ),
       bottomNavigationBar: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
-          child: CustomElevatedButton(onPressed: (){}, titleText: AppStrings.message)),
+          padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+          child: CustomElevatedButton(
+              onPressed: () {}, titleText: AppStrings.message)),
     );
   }
 }

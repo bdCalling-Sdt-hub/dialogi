@@ -1,6 +1,7 @@
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
+import 'package:dialogi_app/view/screens/question_ans/inner_widget/comment_reply/comment_reply.dart';
 import 'package:dialogi_app/view/screens/question_ans/inner_widget/premium_text.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
@@ -112,7 +113,8 @@ class QuestionAns extends StatelessWidget {
                 onPressed: () {},
                 titleText: AppStrings.next),
 
-            const PremiumText()
+            //const PremiumText()
+            Expanded(child: CommentReply())
           ],
         ),
       ),

@@ -89,6 +89,9 @@ class AppStrings {
   static const String greatJob = "Great Job!";
   static const String youHaveCompleted = "You have completed all questions";
   static const String gotocategories = "Go to categories";
+  static const String discussions = "Discussions";
+  static const String reply = "Reply";
+  static const String enterTextHere = "enter your text";
 
   //Settings
   static const String changePassword = "Change Password";

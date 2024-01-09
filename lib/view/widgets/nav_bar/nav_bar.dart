@@ -23,7 +23,7 @@ class _NavBarState extends State<NavBar> {
   var bottomNavIndex = 0;
 
   List<String> selectedIcon = [
-    AppIcons.home,
+    AppIcons.homeOutline,
     AppIcons.categoryOutline,
     AppIcons.friendsOutline,
     AppIcons.profileOutline,
