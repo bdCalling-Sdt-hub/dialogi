@@ -1,8 +1,8 @@
+import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
-import 'package:dialogi_app/view/screens/question_ans/inner_widget/comment_reply/comment_reply.dart';
-import 'package:dialogi_app/view/screens/question_ans/inner_widget/premium_text.dart';
+import 'package:dialogi_app/view/widgets/alert_dialog/alert_dialog.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
@@ -110,11 +110,41 @@ class QuestionAns extends StatelessWidget {
 
             CustomElevatedButton(
                 buttonWidth: double.maxFinite,
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialogs(
+                            successtext: AppStrings.greatJob,
+                            completeText: AppStrings.youHaveCompleted,
+                            buttonText: AppStrings.gotocategories,
+                            onPressed: () {
+                              Get.toNamed(AppRoutes.categoryScreen);
+                            });
+                      });
+                },
                 titleText: AppStrings.next),
+            SizedBox(
+              height: 44.h,
+            ),
 
+            ///upgrade premium
+
+            const CustomText(
+              text: AppStrings.wanttojointhediscussion,
+              fontWeight: FontWeight.w500,
+            ),
+            SizedBox(
+              height: 8.h,
+            ),
+            const CustomText(
+              text: AppStrings.upgradetoPremium,
+              fontWeight: FontWeight.w600,
+              fontSize: 16,
+              color: AppColors.blue_500,
+            ),
             //const PremiumText()
-            Expanded(child: CommentReply())
+            /*Expanded(child: CommentReply())*/
           ],
         ),
       ),

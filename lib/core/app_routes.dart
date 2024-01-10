@@ -13,9 +13,12 @@ import 'package:dialogi_app/view/screens/chat/chat_list/chat_list_screen.dart';
 import 'package:dialogi_app/view/screens/friends/friends/friends_screen.dart';
 import 'package:dialogi_app/view/screens/friends/friends_profile/friends_profile_screen.dart';
 import 'package:dialogi_app/view/screens/home/screen/home_screen.dart';
+import 'package:dialogi_app/view/screens/notification/notification_screen.dart';
+import 'package:dialogi_app/view/screens/pending_requests/pending_requests_screen.dart';
 import 'package:dialogi_app/view/screens/premium/premium_screen.dart';
 import 'package:dialogi_app/view/screens/profile/edit_profile/edit_profile_screen.dart';
 import 'package:dialogi_app/view/screens/profile/profile/profile_screen.dart';
+import 'package:dialogi_app/view/screens/purchase/purchase_screen.dart';
 import 'package:dialogi_app/view/screens/question_ans/question_ans.dart';
 import 'package:dialogi_app/view/screens/settings/about_us/about_us_screen.dart';
 import 'package:dialogi_app/view/screens/settings/change_language/change_language_screen.dart';
@@ -67,6 +70,9 @@ class AppRoutes{
   static String chatPremiumScreen = "/chat_premium_screen";
   static String chatListScreen = "/chat_list_screen";
   static String chatScreen = "/chat_screen";
+  static String notificationScreen = "/notification_screen";
+  static String pendingRequestsScreen = "/pending_requests_screen";
+  static String purchaseScreen = "/purchase_screen";
 
   static List<GetPage> routes=[
     GetPage(name: splashScreen, page: ()=> const SplashScreen()),
@@ -100,5 +106,8 @@ class AppRoutes{
     GetPage(name: chatPremiumScreen, page: ()=> const ChatPremiumScreen()),
     GetPage(name: chatListScreen, page: ()=> const ChatListScreen()),
     GetPage(name: chatScreen, page: ()=> const ChatScreen()),
+    GetPage(name: notificationScreen, page: ()=> const NotificationScreen()),
+    GetPage(name: pendingRequestsScreen, page: ()=> const PendingRequestsScreen()),
+    GetPage(name: purchaseScreen, page: ()=> const PurchaseScreen()),
   ];
 }

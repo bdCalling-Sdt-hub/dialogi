@@ -22,7 +22,7 @@ class SettingsResetPasswordScreen extends StatefulWidget {
 class _SettingsResetPasswordScreenState extends State<SettingsResetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+      return Scaffold(
       backgroundColor: AppColors.background,
       appBar: CustomAppBar(
           appBarContent: Row(
@@ -32,7 +32,7 @@ class _SettingsResetPasswordScreenState extends State<SettingsResetPasswordScree
                 onTap: (){
                   Get.back();
                 },
-                child: CustomImage(
+                child: const CustomImage(
                   imageSrc: AppIcons.chevronLeft,
                   size: 24,
                 ),
@@ -43,11 +43,11 @@ class _SettingsResetPasswordScreenState extends State<SettingsResetPasswordScree
                 fontSize: 18.h,
                 color: AppColors.blue_500,
               ),
-              SizedBox()
+              const SizedBox()
             ],
           )),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(vertical: 24,horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -111,7 +111,7 @@ class _SettingsResetPasswordScreenState extends State<SettingsResetPasswordScree
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
         child: CustomElevatedButton(onPressed: (){
-          Get.toNamed(AppRoutes.settingsChangePasswordScreen);
+          Get.toNamed(AppRoutes.settingsScreen);
         }, titleText: AppStrings.reset),
       ),
     );

@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
         width: MediaQuery.of(context).size.width * .7,
         child: const HomeDrawer(),
       ),
-      appBar: CustomAppBar(
+      appBar: CustomAppBar (
           appBarContent: Row(
         children: [
           GestureDetector(
@@ -48,6 +48,12 @@ class _HomeScreenState extends State<HomeScreen> {
             imageSrc: AppIcons.crown,
             size: 32,
           ),
+          SizedBox(
+            width: 16.w,
+          ),
+          IconButton(onPressed: (){
+            Get.toNamed(AppRoutes.notificationScreen);
+          }, icon: Icon(Icons.notifications_none_outlined,size: 24,)),
           SizedBox(
             width: 16.w,
           ),
@@ -72,7 +78,10 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisSpacing: 8.h),
           itemBuilder: (context, index) {
             return GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Get.toNamed(AppRoutes.categoryDetails,
+                    parameters: {"title": "Friends"});  
+              },
               child: const CustomCard(
                   img:
                       "https://images.unsplash.com/photo-1522098635833-216c03d81fbe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnJpZW5kfGVufDB8fDB8fHww",

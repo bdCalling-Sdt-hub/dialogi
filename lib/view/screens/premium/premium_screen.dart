@@ -68,7 +68,9 @@ class _PremiumScreenState extends State<PremiumScreen> {
               children: [
                 CustomElevatedButton(
                     buttonWidth: MediaQuery.of(context).size.width,
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(AppRoutes.purchaseScreen);
+                    },
                     titleText: AppStrings.getPremium),
                 const SizedBox(
                   height: 16,

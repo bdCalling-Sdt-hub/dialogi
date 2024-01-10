@@ -127,7 +127,7 @@ class AppStrings {
 
   //Upgrade to premium
   static const String addPaymentMethod = "Add Payment Method";
-  static const String addPaymentMethodForUpgrade = "Add Payment Method";
+  static const String addPaymentMethodForUpgrade = "Add payment method for upgrade subscription.";
   static const String entercardholdername = "Enter card holder name";
   static const String cardnumber = "Card number";
   static const String cVVCVC = "CVV/CVC";
@@ -145,4 +145,12 @@ class AppStrings {
   static const String enterName = "enter name";
   static const String dob = "date-of-birth";
   static const String enterLocation = "enter location";
+
+  ///Notification
+  static const String notification = "Notification";
+  static const String reject = "Reject";
+  static const String accept = "Accept";
+
+
+
 }

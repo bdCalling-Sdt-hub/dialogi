@@ -52,64 +52,60 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
               const SizedBox(
                 width: 8,
               ),
-              Column(
-                crossAxisAlignment: widget.isMe
-                    ? CrossAxisAlignment.end
-                    : CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  GestureDetector(
-                    onLongPress: () {
-                      widget.onpress();
-                    },
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 10),
-                          decoration: BoxDecoration(
-                            color: widget.isMe ? AppColors.blue_500 : AppColors.whiteColor,
-                            borderRadius: BorderRadius.only(
-                              topLeft: widget.isMe
-                                  ? const Radius.circular(8)
-                                  : const Radius.circular(0),
-                              bottomLeft: const Radius.circular(8),
-                              bottomRight: const Radius.circular(8),
-                              topRight: widget.isMe == false
-                                  ? const Radius.circular(8)
-                                  : const Radius.circular(0),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: widget.isMe
+                      ? CrossAxisAlignment.end
+                      : CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    GestureDetector(
+                      onLongPress: () {
+                        widget.onpress();
+                      },
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 10),
+                            decoration: BoxDecoration(
+                              color: widget.isMe ? AppColors.blue_500 : AppColors.whiteColor,
+                              borderRadius: BorderRadius.only(
+                                topLeft: widget.isMe
+                                    ? const Radius.circular(8)
+                                    : const Radius.circular(0),
+                                bottomLeft: const Radius.circular(8),
+                                bottomRight: const Radius.circular(8),
+                                topRight: widget.isMe == false
+                                    ? const Radius.circular(8)
+                                    : const Radius.circular(0),
+                              ),
+                
+                            ),
+                            child: CustomText(
+                             maxLines: 10,
+                              textAlign: TextAlign.left,
+                              fontWeight: FontWeight.w400,
+                              text: widget.text,
+                              color: widget.isMe
+                                  ? AppColors.whiteColor
+                                  : AppColors.black_500,
                             ),
                           ),
-                          child: CustomText(
-                            maxLines: 10,
-                            textAlign: TextAlign.left,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            text: widget.text,
-                            color: widget.isMe
-                                ? AppColors.whiteColor
-                                : AppColors.black_500,
-                          ),
-                        ),
-                        if (widget.isEmoji &&
-                            widget.index == widget.messageIndex)
-                          widget.isMe
-                              ? const Positioned(
-                              bottom: -30, right: 0, child: EmojiDesign())
-                              : const Positioned(
-                              bottom: -30, left: 0, child: EmojiDesign())
-                      ],
+
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  CustomText(
-                    fontSize: 8,
-                    fontWeight: FontWeight.w400,
-                    text: widget.time,
-                    color: AppColors.black_500,
-                  ),
-                ],
+                    const SizedBox(height: 4),
+                    CustomText(
+                      fontSize: 8,
+                      fontWeight: FontWeight.w400,
+                      text: widget.time,
+                      color: AppColors.black_500,
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(
                 width: 8,
@@ -128,33 +124,3 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
   }
 }
 
-class EmojiDesign extends StatelessWidget {
-  const EmojiDesign({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 18),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8), color: AppColors.black_300),
-      child: const Row(
-        children: [
-          CustomImage(
-              size: 18, imageType: ImageType.png, imageSrc: AppIcons.home),
-          CustomImage(
-              size: 18, imageType: ImageType.png, imageSrc: AppIcons.home),
-          CustomImage(
-              size: 18, imageType: ImageType.png, imageSrc: AppIcons.home),
-          CustomImage(
-              size: 18, imageType: ImageType.png, imageSrc: AppIcons.home),
-          CustomImage(
-              size: 18, imageType: ImageType.png, imageSrc: AppIcons.home),
-          CustomImage(
-              size: 18, imageType: ImageType.png, imageSrc: AppIcons.home),
-        ],
-      ),
-    );
-  }
-}
