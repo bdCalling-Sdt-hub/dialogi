@@ -81,7 +81,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
             customRow(
                 icon: AppIcons.pendingReq,
                 text: AppStrings.pendingRequests,
-                ontap: () {}),
+                ontap: () {
+                  Get.toNamed(AppRoutes.pendingRequestsScreen);
+                }),
             const SizedBox(
               height: 32,
             ),

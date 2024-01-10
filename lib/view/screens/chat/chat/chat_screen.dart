@@ -86,47 +86,55 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
       bottomNavigationBar: AnimatedPadding(
 
-          padding: EdgeInsets.symmetric(vertical: 24,horizontal:20),
-            duration: Duration(seconds: 1),
-            child:Row(
+          padding: MediaQuery.of(context).viewInsets,
+            duration: Duration(milliseconds: 100),
+            curve: Curves.decelerate,
+            child:Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Expanded(
-                  child: CustomTextField(
+                Row(
+                  children: [
+                    SizedBox(width: 20.w,),
+                    Expanded(
+                      child: CustomTextField(
 
-                  keyboardType: TextInputType.text,
-                  textAlign: TextAlign.start,
-                  hintText: AppStrings.typemessage,
-                  hintStyle: GoogleFonts.prompt(
-                      fontSize: 14.h,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.black_300),
-                  inputTextStyle: GoogleFonts.prompt(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16.h,
-                      color: AppColors.black_500),
-                  fieldBorderColor: Colors.white,
-                  fieldBorderRadius: 8,
-                    textEditingController: messageController,
+                      keyboardType: TextInputType.text,
+                      textAlign: TextAlign.start,
+                      hintText: AppStrings.typemessage,
+                      hintStyle: GoogleFonts.prompt(
+                          fontSize: 14.h,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.black_300),
+                      inputTextStyle: GoogleFonts.prompt(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16.h,
+                          color: AppColors.black_500),
+                      fieldBorderColor: Colors.white,
+                      fieldBorderRadius: 8,
+                        textEditingController: messageController,
 
-                ),),
-                SizedBox(width: 8.w,),
+                    ),),
+                    SizedBox(width: 8.w,),
 
-                GestureDetector(
-                    onTap: (){
-                      if (messageController.text == "") {
-                      } else {
-                        TimeOfDay currentTime = TimeOfDay.now();
-                        messages.add(
-                          ChatMessageModel(currentTime.format(context).toString(),
-                              messageController.text, true),
-                        );
-                        setState(() {
-                          _scrollToBottom();
-                          messageController.clear();
-                        });
-                      }
-                    },
-                    child: CustomImage(imageSrc: AppIcons.send,imageType: ImageType.svg,size: 32,))
+                    GestureDetector(
+                        onTap: (){
+                          if (messageController.text == "") {
+                          } else {
+                            TimeOfDay currentTime = TimeOfDay.now();
+                            messages.add(
+                              ChatMessageModel(currentTime.format(context).toString(),
+                                  messageController.text, true),
+                            );
+                            setState(() {
+                              _scrollToBottom();
+                              messageController.clear();
+                            });
+                          }
+                        },
+                        child: CustomImage(imageSrc: AppIcons.send,imageType: ImageType.svg,size: 32,)),
+                    SizedBox(width: 20.w,),
+                  ],
+                ),
               ],
             ),
           )

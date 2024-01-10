@@ -162,7 +162,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   GestureDetector(
                     onTap: (){
-                      Get.toNamed(AppRoutes.signUpScreen);
+                      Get.toNamed(AppRoutes.signInScreen);
                     },
                     child: const CustomText(
                       text: AppStrings.signIn,

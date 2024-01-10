@@ -1,3 +1,4 @@
+import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
@@ -20,9 +21,9 @@ class Homecontroller extends GetxController with GetxServiceMixin {
                 color: AppColors.whiteColor,
                 borderRadius: BorderRadius.circular(16.r)),
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 24),
+              padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20    ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   // Align(
                   //   alignment: Alignment.topRight,
@@ -46,7 +47,9 @@ class Homecontroller extends GetxController with GetxServiceMixin {
                   CustomElevatedButton(
                       buttonHeight: 40,
                       titleSize: 14,
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed(AppRoutes.subscriptionsScreen);
+                      },
                       titleText: AppStrings.gotoSubscriptions),
                 ],
               ),
