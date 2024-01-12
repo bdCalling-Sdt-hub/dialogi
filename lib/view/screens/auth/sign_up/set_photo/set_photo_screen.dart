@@ -4,8 +4,9 @@ import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
-import 'package:dialogi_app/view/screens/auth/sign_up/set_photo/inner_widgets/photo_controller.dart';
+
 import 'package:dialogi_app/view/screens/auth/sign_up/set_photo/inner_widgets/photo_pop_up.dart';
+import 'package:dialogi_app/view/screens/auth/sign_up/sign_up_controller/sign_up_controller.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';

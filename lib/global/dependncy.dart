@@ -1,4 +1,5 @@
-import 'package:dialogi_app/view/screens/auth/sign_up/set_photo/inner_widgets/photo_controller.dart';
+
+import 'package:dialogi_app/view/screens/auth/sign_up/sign_up_controller/sign_up_controller.dart';
 import 'package:dialogi_app/view/screens/home/home_controller/home_controller.dart';
 import 'package:dialogi_app/view/screens/profile/profile/profile_controller/profile_controller.dart';
 import 'package:get/get.dart';

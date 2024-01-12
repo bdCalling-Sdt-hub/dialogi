@@ -1,7 +1,8 @@
 
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
-import 'package:dialogi_app/view/screens/auth/sign_up/set_photo/inner_widgets/photo_controller.dart';
+import 'package:dialogi_app/view/screens/auth/sign_up/sign_up_controller/sign_up_controller.dart';
+
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
