@@ -77,7 +77,7 @@ class QuestionAns extends StatelessWidget {
                       maxLines: 2,
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
-                      text: "What does FriendShip mean to you?",
+                      text: "What does Friendship mean to you?",
                     ),
                   ),
 
@@ -88,7 +88,7 @@ class QuestionAns extends StatelessWidget {
                           onTap: () async {
                             FlutterTts flutterTts = FlutterTts();
                             await flutterTts
-                                .speak("What does FriendShip mean to you?");
+                                .speak("What does Friendship mean to you?");
                           },
                           child:
                               const CustomImage(imageSrc: AppIcons.volumeup)))
@@ -137,11 +137,16 @@ class QuestionAns extends StatelessWidget {
             SizedBox(
               height: 8.h,
             ),
-            const CustomText(
-              text: AppStrings.upgradetoPremium,
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
-              color: AppColors.blue_500,
+            GestureDetector(
+              onTap: (){
+                Get.toNamed(AppRoutes.purchaseScreen);
+              },
+              child: const CustomText(
+                text: AppStrings.upgradetoPremium,
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+                color: AppColors.blue_500,
+              ),
             ),
             //const PremiumText()
             /*Expanded(child: CommentReply())*/

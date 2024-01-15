@@ -106,7 +106,9 @@ class _SetPhotoScreenState extends State<SetPhotoScreen> {
             Column(
               children: [
                 CustomElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(AppRoutes.signInScreen);
+                  },
                   titleText: AppStrings.skip,
                   buttonWidth: MediaQuery.of(context).size.width,
                   buttonColor: Colors.white,

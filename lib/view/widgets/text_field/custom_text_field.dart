@@ -33,7 +33,7 @@ class CustomTextField extends StatefulWidget {
       this.maxLength,
       super.key,
       this.prefixIcon,
-      this.height = 58});
+      this.height = 58,this.onTap});
 
   final TextEditingController? textEditingController;
   final FocusNode? focusNode;
@@ -55,6 +55,7 @@ class CustomTextField extends StatefulWidget {
   final Widget? prefixIcon;
   final double fieldBorderRadius;
   final double height;
+  final VoidCallback? onTap;
 
   final Color fieldBorderColor;
   final bool isPassword;
@@ -75,6 +76,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return SizedBox(
       height: widget.height.h,
       child: TextFormField(
+        onTap:widget.onTap,
         inputFormatters: widget.inputFormatters,
         onFieldSubmitted: widget.onFieldSubmitted,
         readOnly: widget.readOnly,

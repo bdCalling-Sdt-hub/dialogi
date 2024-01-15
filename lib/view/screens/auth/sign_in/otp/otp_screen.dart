@@ -31,10 +31,10 @@ class _OtpScreenState extends State<OtpScreen> {
               Get.back();
 
             },
-            child: CustomImage(imageSrc: AppIcons.chevronLeft,size: 24,)),
+            child: const CustomImage(imageSrc: AppIcons.chevronLeft,size: 24,)),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(vertical: 24,horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -87,13 +87,29 @@ class _OtpScreenState extends State<OtpScreen> {
               enableActiveFill: true,
             ),
             SizedBox(height: 24.h,),
-            CustomText(
-              textAlign: TextAlign.start,
-              maxLines: 3,
-              text: AppStrings.didntReceivetheCode,
-              fontWeight: FontWeight.w400,
-              fontSize: 18,
-              color: AppColors.blue_500,
+
+            ///didn't receive the code
+              Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const CustomText(
+                  textAlign: TextAlign.start,
+                  maxLines: 3,
+                  text: AppStrings.didntReceivetheCode,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16,
+                  color: AppColors.blue_500,
+                ),
+                GestureDetector(
+                  onTap: (){},
+                  child: const CustomText(
+                    text: AppStrings.resend,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18,
+                    color: AppColors.blue_500,
+                  ),
+                ),
+              ],
             ),
 
           ],

@@ -53,7 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ///
             const ProfileImage(
                 imageURl:
-                    "https://images.unsplash.com/photo-1664575602554-2087b04935a5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGZlbWFsZXxlbnwwfHwwfHx8MA%3D%3D"),
+                    "https://images.unsplash.com/photo-1682687219356-e820ca126c92?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw0MXx8fGVufDB8fHx8fA%3D%3D"),
 
             SizedBox(
               height: 44.h,

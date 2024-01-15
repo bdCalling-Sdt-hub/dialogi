@@ -46,6 +46,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         padding: EdgeInsets.symmetric(vertical: 24,horizontal: 20),
         child: Column(
           children: [
+            ///<-------- name --------->
             CustomTextField(
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
@@ -68,6 +69,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
             ),
             SizedBox(height: 24.h,),
+
+            /// <---------- date of birth -------->
             CustomTextField(
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
@@ -90,10 +93,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
             ),
             SizedBox(height: 24.h,),
+
+            /// <----------- location --------->
             CustomTextField(
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
-              hintText: AppStrings.dob,
+              hintText: AppStrings.address,
               hintStyle: GoogleFonts.prompt(
                   fontSize: 14.h,
                   fontWeight: FontWeight.w400,
