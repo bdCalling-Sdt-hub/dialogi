@@ -32,7 +32,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
             ),
           ],
         )),
-        //
         bottomNavigationBar: const NavBar(currentIndex: 1),
         body: GridView.builder(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
