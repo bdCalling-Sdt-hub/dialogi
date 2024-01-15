@@ -108,6 +108,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(height: 24.h,),
                 ///date of birth
                 CustomTextField(
+                  onTap: (){
+                    controller.dateofbirthPicker(context);
+                  },
+                  readOnly: true,
                   textEditingController: controller.dobController,
                   keyboardType: TextInputType.text,
                   textAlign: TextAlign.start,
@@ -123,9 +127,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   fieldBorderColor: Colors.white,
                   fieldBorderRadius: 8,
                   isPrefixIcon: true,
-                  prefixIcon: IconButton(onPressed: (){
-                      controller.dateofbirthPicker(context);
-                  }, icon: const Icon(Icons.date_range,size: 24,color: AppColors.blue_500,))
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.all(14.0),
+                    child: CustomImage(imageSrc: AppIcons.dob,size: 12,),
+                  )
+
                 ),
 
                 const SizedBox(height: 24,),

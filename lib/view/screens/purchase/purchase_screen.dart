@@ -57,6 +57,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
             ),
             SizedBox(height: 8.h,),
             const CustomText(
+              maxLines: 2,
               text: AppStrings.addPaymentMethodForUpgrade,
             fontSize: 16,
             ),
@@ -165,14 +166,15 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
         ),
       ),
       bottomNavigationBar: Padding(padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
-              child: CustomElevatedButton(onPressed: (){
+              child: CustomElevatedButton(
+                  onPressed: (){
                 showDialog(context: context,
                     builder: (BuildContext context){
                   return AlertDialogs(successtext: AppStrings.successful, completeText: AppStrings.proceedToPayment, buttonText: AppStrings.gotoHome, onPressed: (){
                     Get.toNamed(AppRoutes.homeScreen);
                   });
                     });
-              }, titleText: AppStrings.gotoHome),
+              }, titleText: AppStrings.proceedToPayment),
       ),
     );
   }

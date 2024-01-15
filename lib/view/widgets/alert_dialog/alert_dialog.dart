@@ -31,13 +31,13 @@ class AlertDialogs extends StatelessWidget {
           ),
           SizedBox(height: 8.h,),
           CustomText(
+            maxLines: 2,
             text: completeText,
             fontSize: 16,
             fontWeight: FontWeight.w500,
           ),
           SizedBox(height: 24.h,),
           CustomElevatedButton(
-
               buttonHeight: 40,
               titleSize: 14,
               onPressed: onPressed,

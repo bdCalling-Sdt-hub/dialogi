@@ -41,6 +41,7 @@ class AppStrings {
   static const String chooseSource = "Choose Source";
   static const String gallery = "Gallery";
   static const String camera = "Camera";
+  static const String resend = "Resend";
   static const String getStarted = "Get Started";
   static const String photohasbeenuploaded = "Photo has been uploaded.";
 

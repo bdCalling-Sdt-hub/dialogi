@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/app_images.dart';
@@ -97,7 +98,7 @@ class _FriendsProfileScreenState extends State<FriendsProfileScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        selectImage();
+                        // selectImage();
                       },
                       child: Align(
                         alignment: Alignment.bottomRight,
@@ -135,7 +136,9 @@ class _FriendsProfileScreenState extends State<FriendsProfileScreen> {
       bottomNavigationBar: Padding(
           padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
           child: CustomElevatedButton(
-              onPressed: () {}, titleText: AppStrings.message)),
+              onPressed: () {
+                Get.toNamed(AppRoutes.chatScreen);
+              }, titleText: AppStrings.message)),
     );
   }
 }

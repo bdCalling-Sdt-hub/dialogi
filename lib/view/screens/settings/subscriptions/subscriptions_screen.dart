@@ -1,3 +1,4 @@
+import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/app_images.dart';
@@ -45,11 +46,13 @@ class _SubscriptionsScreenState extends State<SubscriptionsScreen> {
             ],
           )),
       body:  SingleChildScrollView(
-        padding: EdgeInsets.symmetric(vertical: 24,horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-             SingleChildScrollView(
+
+            /// premium package
+             const SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                   children: [
@@ -73,14 +76,16 @@ class _SubscriptionsScreenState extends State<SubscriptionsScreen> {
                   ]
               ),
             ),
-            SizedBox(height: 24,),
+            const SizedBox(height: 24,),
             CustomText(
               text:AppStrings.currentPlan,
               bottom: 24.h,
             ),
+
+            ///cancel plan
             Container(
-              padding: EdgeInsets.only(bottom: 16,top: 16),
-              decoration: BoxDecoration(
+              padding: const EdgeInsets.only(bottom: 16,top: 16),
+              decoration: const BoxDecoration(
                 border: Border(
                   bottom: BorderSide(color: AppColors.black_50,width: 1)
                 )
@@ -94,18 +99,23 @@ class _SubscriptionsScreenState extends State<SubscriptionsScreen> {
                     fontSize:16.h,
                     color: AppColors.blue_500,
                   ),
-                  CustomText(
-                    text:AppStrings.cancelPlan,
-                    fontWeight: FontWeight.w500,
-                    fontSize:16.h,
-                    color: AppColors.red_500,
+                  InkWell(
+                    onTap: (){
+                      Get.toNamed(AppRoutes.homeScreen);
+                    },
+                    child: CustomText(
+                      text:AppStrings.cancelPlan,
+                      fontWeight: FontWeight.w500,
+                      fontSize:16.h,
+                      color: AppColors.red_500,
+                    ),
                   ),
                 ],
               ),
             ),
             Container(
-              padding: EdgeInsets.only(bottom: 16,top: 16),
-              decoration: BoxDecoration(
+              padding: const EdgeInsets.only(bottom: 16,top: 16),
+              decoration: const BoxDecoration(
                 border: Border(
                   bottom: BorderSide(color: AppColors.black_50,width: 1)
                 )
@@ -127,8 +137,8 @@ class _SubscriptionsScreenState extends State<SubscriptionsScreen> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(bottom: 16,top: 16),
-              decoration: BoxDecoration(
+              padding: const EdgeInsets.only(bottom: 16,top: 16),
+              decoration: const BoxDecoration(
 
               ),
               child: Row(
