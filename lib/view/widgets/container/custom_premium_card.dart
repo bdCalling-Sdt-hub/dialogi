@@ -1,6 +1,5 @@
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
-import 'package:dialogi_app/utils/app_images.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomPremiumCard extends StatelessWidget {
   const CustomPremiumCard(
-      {
-        super.key,
+      {super.key,
       required this.imageSrc,
       required this.premiumText,
       required this.getDialogiText,
@@ -18,8 +16,7 @@ class CustomPremiumCard extends StatelessWidget {
       required this.addText,
       this.addTextColor = AppColors.black_500,
       this.getDialogiTextColor = AppColors.black_500,
-      this.premiumTextColor = AppColors.black_500
-      });
+      this.premiumTextColor = AppColors.black_500});
 
   final String imageSrc;
   final String premiumText;
@@ -34,7 +31,7 @@ class CustomPremiumCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 380.h,
-      margin: EdgeInsets.only(right: 16),
+      margin: const EdgeInsets.only(right: 16),
       width: MediaQuery.of(context).size.width - 90.w,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -71,21 +68,23 @@ class CustomPremiumCard extends StatelessWidget {
             fontWeight: FontWeight.w500,
             color: getDialogiTextColor,
           ),
-       SizedBox(height: 16.h,),
-       if(isPremium)   SizedBox(
-            height: 90.h,
+          SizedBox(
+            height: 16.h,
           ),
+          if (isPremium)
+            SizedBox(
+              height: 90.h,
+            ),
           Expanded(
-            
             child: SingleChildScrollView(
               child: Column(
                 children: List.generate(
                   length,
                   (index) => Container(
-                    margin: EdgeInsets.only(bottom: 16),
+                    margin: const EdgeInsets.only(bottom: 16),
                     child: Row(
                       children: [
-                        CustomImage(
+                        const CustomImage(
                           imageSrc: AppIcons.checkCircle,
                           imageType: ImageType.svg,
                           size: 16,
@@ -104,10 +103,10 @@ class CustomPremiumCard extends StatelessWidget {
               ),
             ),
           ),
-
-          if(isPremium)   SizedBox(
-            height: 40.h,
-          ),
+          if (isPremium)
+            SizedBox(
+              height: 40.h,
+            ),
         ],
       ),
     );

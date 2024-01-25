@@ -103,7 +103,11 @@ class _HomeDrawerState extends State<HomeDrawer> {
             //LogOut
 
             customRow(
-                icon: AppIcons.logout, text: AppStrings.logout, ontap: () {}),
+                icon: AppIcons.logout,
+                text: AppStrings.logout,
+                ontap: () {
+                  Get.offAllNamed(AppRoutes.signInScreen);
+                }),
           ],
         ));
   }

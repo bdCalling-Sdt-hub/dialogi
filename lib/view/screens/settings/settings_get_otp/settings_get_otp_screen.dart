@@ -31,7 +31,7 @@ class _SettingsGetOtpState extends State<SettingsGetOtp> {
                 onTap: (){
                   Get.back();
                 },
-                child: CustomImage(
+                child: const CustomImage(
                   imageSrc: AppIcons.chevronLeft,
                   size: 24,
                 ),
@@ -42,11 +42,11 @@ class _SettingsGetOtpState extends State<SettingsGetOtp> {
                 fontSize: 18.h,
                 color: AppColors.blue_500,
               ),
-              SizedBox()
+              const SizedBox()
             ],
           )),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(vertical: 24,horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -89,7 +89,7 @@ class _SettingsGetOtpState extends State<SettingsGetOtp> {
               enableActiveFill: true,
             ),
             SizedBox(height: 24.h,),
-            CustomText(
+            const CustomText(
               textAlign: TextAlign.start,
               maxLines: 3,
               text: AppStrings.didntReceivetheCode,

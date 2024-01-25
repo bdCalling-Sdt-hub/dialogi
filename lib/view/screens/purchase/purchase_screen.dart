@@ -22,30 +22,36 @@ class PurchaseScreen extends StatefulWidget {
 }
 
 class _PurchaseScreenState extends State<PurchaseScreen> {
+  String? premium = Get.parameters["premium"];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
           appBarContent: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                  onTap: (){
-                    Get.back();
-                  },
-                  child: const CustomImage(imageSrc: AppIcons.chevronLeft,size: 24,)),
-              const CustomText(
-                text: AppStrings.upgradetoPremium,
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: AppColors.blue_500,
-              ),
-              const SizedBox(),
-
-            ],
-          )),
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+              onTap: () {
+                Get.back();
+              },
+              child: const CustomImage(
+                imageSrc: AppIcons.chevronLeft,
+                size: 24,
+              )),
+          CustomText(
+            text: premium == "true"
+                ? AppStrings.upgradetoPremium
+                : AppStrings.upgradetoPremiumPlus,
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+            color: AppColors.blue_500,
+          ),
+          const SizedBox(),
+        ],
+      )),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -55,23 +61,45 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
               fontWeight: FontWeight.w600,
               color: AppColors.blue_500,
             ),
-            SizedBox(height: 8.h,),
+            SizedBox(
+              height: 8.h,
+            ),
             const CustomText(
               maxLines: 2,
               text: AppStrings.addPaymentMethodForUpgrade,
-            fontSize: 16,
+              fontSize: 16,
             ),
-            SizedBox(height: 24.h,),
+            SizedBox(
+              height: 24.h,
+            ),
             Row(
               children: [
-                const CustomImage(imageSrc: AppImages.visa,imageType: ImageType.png,size: 72,),
-                SizedBox(width: 8.w,),
-                const CustomImage(imageSrc: AppImages.masterCard,imageType: ImageType.png,size: 72,),
-                SizedBox(width: 8.w,),
-                const CustomImage(imageSrc: AppImages.paypal,imageType: ImageType.png,size: 72,),
+                const CustomImage(
+                  imageSrc: AppImages.visa,
+                  imageType: ImageType.png,
+                  size: 72,
+                ),
+                SizedBox(
+                  width: 8.w,
+                ),
+                const CustomImage(
+                  imageSrc: AppImages.masterCard,
+                  imageType: ImageType.png,
+                  size: 72,
+                ),
+                SizedBox(
+                  width: 8.w,
+                ),
+                const CustomImage(
+                  imageSrc: AppImages.paypal,
+                  imageType: ImageType.png,
+                  size: 72,
+                ),
               ],
             ),
-            SizedBox(height: 24.h,),
+            SizedBox(
+              height: 24.h,
+            ),
 
             ///card holder name
             CustomTextField(
@@ -95,7 +123,10 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                 color: AppColors.blue_500,
               ),
             ),
-            SizedBox(height: 24.h,),
+            SizedBox(
+              height: 24.h,
+            ),
+
             ///card number
             CustomTextField(
               keyboardType: TextInputType.text,
@@ -118,7 +149,10 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                 color: AppColors.blue_500,
               ),
             ),
-            SizedBox(height: 24.h,),
+            SizedBox(
+              height: 24.h,
+            ),
+
             ///cvv
             CustomTextField(
                 keyboardType: TextInputType.text,
@@ -135,10 +169,18 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                 fieldBorderColor: Colors.white,
                 fieldBorderRadius: 8,
                 isPrefixIcon: true,
-                prefixIcon: IconButton(onPressed: (){}, icon: Icon(Icons.lock_outlined,size: 24,color: AppColors.blue_500,))
+                prefixIcon: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.lock_outlined,
+                      size: 24,
+                      color: AppColors.blue_500,
+                    ))),
+
+            const SizedBox(
+              height: 24,
             ),
 
-            SizedBox(height: 24,),
             ///dob
             CustomTextField(
               keyboardType: TextInputType.text,
@@ -161,20 +203,26 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                 color: AppColors.blue_500,
               ),
             ),
-
           ],
         ),
       ),
-      bottomNavigationBar: Padding(padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
-              child: CustomElevatedButton(
-                  onPressed: (){
-                showDialog(context: context,
-                    builder: (BuildContext context){
-                  return AlertDialogs(successtext: AppStrings.successful, completeText: AppStrings.proceedToPayment, buttonText: AppStrings.gotoHome, onPressed: (){
-                    Get.toNamed(AppRoutes.homeScreen);
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+        child: CustomElevatedButton(
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialogs(
+                        successtext: AppStrings.successful,
+                        completeText: AppStrings.proceedToPayment,
+                        buttonText: AppStrings.gotoHome,
+                        onPressed: () {
+                          Get.toNamed(AppRoutes.homeScreen);
+                        });
                   });
-                    });
-              }, titleText: AppStrings.proceedToPayment),
+            },
+            titleText: AppStrings.proceedToPayment),
       ),
     );
   }

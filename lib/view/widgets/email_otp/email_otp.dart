@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 enum OTPType { digitsOnly, stringOnly, mixed }
@@ -41,7 +42,7 @@ class EmailOTP {
   int? _port;
 
   //Function to set custom SMTP Configuration
-  setSMTP({host, auth, username, password, secure, port}){
+  setSMTP({host, auth, username, password, secure, port}) {
     _host = host;
     _auth = auth;
     _username = username;
@@ -78,12 +79,12 @@ class EmailOTP {
       "user_email": _userEmail,
       "otp_length": _otpLength,
       "type": _type,
-      "smtp_host":_host,
-      "smtp_auth":_auth,
-      "smtp_username":_username,
-      "smtp_password":_password,
-      "smtp_secure":_secure,
-      "smtp_port":_port
+      "smtp_host": _host,
+      "smtp_auth": _auth,
+      "smtp_username": _username,
+      "smtp_password": _password,
+      "smtp_secure": _secure,
+      "smtp_port": _port
     };
     http.Response response = await http.post(
       url,
@@ -108,14 +109,13 @@ class EmailOTP {
     }
   }
 
-
   ///Function will return true / false
   verifyOTP({otp}) {
     if (_getOTP == otp) {
-      print("OTP has been verified! ✅");
+      debugPrint("OTP has been verified! ✅");
       return true;
     } else {
-      print("OTP is invalid ❌");
+      debugPrint("OTP is invalid ❌");
       return false;
     }
   }

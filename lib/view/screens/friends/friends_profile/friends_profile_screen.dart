@@ -31,7 +31,6 @@ class _FriendsProfileScreenState extends State<FriendsProfileScreen> {
         await picker.pickImage(source: ImageSource.gallery);
     if (getImages != null) {
       image = getImages.path;
-      print(image);
       setState(() {});
     }
   }

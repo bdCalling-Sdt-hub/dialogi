@@ -32,7 +32,7 @@ class _SettingsForgetPasswordScreenState extends State<SettingsForgetPasswordScr
                 onTap: (){
                   Get.back();
                 },
-                child: CustomImage(
+                child: const CustomImage(
                   imageSrc: AppIcons.chevronLeft,
                   size: 24,
                 ),
@@ -43,11 +43,11 @@ class _SettingsForgetPasswordScreenState extends State<SettingsForgetPasswordScr
                 fontSize: 18.h,
                 color: AppColors.blue_500,
               ),
-              SizedBox()
+              const SizedBox()
             ],
           )),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(vertical: 24,horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
         child: Column(
           children: [
             CustomText(

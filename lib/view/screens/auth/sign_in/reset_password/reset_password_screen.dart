@@ -30,10 +30,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               Get.back();
 
             },
-            child: CustomImage(imageSrc: AppIcons.chevronLeft,size: 24,)),
+            child: const CustomImage(imageSrc: AppIcons.chevronLeft,size: 24,)),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(vertical: 24,horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

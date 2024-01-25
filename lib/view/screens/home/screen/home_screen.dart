@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           IconButton(onPressed: (){
             Get.toNamed(AppRoutes.notificationScreen);
-          }, icon: Icon(Icons.notifications_none_outlined,size: 24,)),
+          }, icon: const Icon(Icons.notifications_none_outlined,size: 24,)),
           SizedBox(
             width: 16.w,
           ),

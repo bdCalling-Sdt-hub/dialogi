@@ -4,6 +4,8 @@ class AppStrings {
       "Unlock premium access for unlimited Dialoginess!";
 
   static const String getPremium = "Get Premium";
+  static const String getPremiumPlus = "Get Premium Plus";
+
   static const String skipForNow = "Skip for now";
   static const String welcomeToThe = "Welcome to the";
   static const String dialogiApp = "Dialogi App";
@@ -68,8 +70,38 @@ class AppStrings {
 
   //Chat
   static const String chat = "Chat";
+  static const String community = "Community";
+  static const String group = "Group";
+  static const String selectDiscussionPlatform = "Select Discussion Platform";
+  static const String confirm = "Confirm";
+
   static const String chatList = "Chat List";
   static const String typemessage = "Type message";
+
+  //Group Chat
+  static const String selectFriends = "Select Friends";
+  static const String createGroup = "Create Group";
+  static const String createCommunity = "Create Community";
+
+  static const String setGroupName = "Set Group Name";
+  static const String setName = "Set Name";
+
+  static const String enterGroupName = "Enter group name";
+  static const String entertheName = "Enter the name";
+
+  static const String create = "Create";
+  static const String groupMembers = "Group members";
+  static const String changeGroupName = "Change Group Name";
+  static const String deleteConversation = "Delete Conversation";
+  static const String leftGroup = "Left Group";
+  static const String change = "Change";
+  static const String doyouWantToDeletethisGroup =
+      "Do you want to delete this group?";
+  static const String yes = "Yes";
+  static const String no = "No";
+  static const String doYouWantToleftThisGroup =
+      "Do you want to left this group?";
+  static const String discusswithFriends = "Discuss with Friends";
 
   //Nav Bar
   static const String home = "Home";
@@ -87,6 +119,8 @@ class AppStrings {
   static const String wanttojointhediscussion =
       "Want to join the discussion with others?";
   static const String upgradetoPremium = "Upgrade to Premium";
+  static const String upgradetoPremiumPlus = "Upgrade to Premium Plus";
+
   static const String greatJob = "Great Job!";
   static const String youHaveCompleted = "You have completed all questions";
   static const String gotocategories = "Go to categories";
@@ -128,7 +162,8 @@ class AppStrings {
 
   //Upgrade to premium
   static const String addPaymentMethod = "Add Payment Method";
-  static const String addPaymentMethodForUpgrade = "Add payment method for upgrade subscription.";
+  static const String addPaymentMethodForUpgrade =
+      "Add payment method for upgrade subscription.";
   static const String entercardholdername = "Enter card holder name";
   static const String cardnumber = "Card number";
   static const String cVVCVC = "CVV/CVC";
@@ -151,7 +186,4 @@ class AppStrings {
   static const String notification = "Notification";
   static const String reject = "Reject";
   static const String accept = "Accept";
-
-
-
 }

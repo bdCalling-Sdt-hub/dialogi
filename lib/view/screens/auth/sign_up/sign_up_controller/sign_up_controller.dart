@@ -1,7 +1,6 @@
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:image_picker/image_picker.dart';
 
 class SignUpController extends GetxController{
@@ -27,6 +26,7 @@ class SignUpController extends GetxController{
       firstDate: DateTime(1900),
       lastDate: DateTime(2101),
     );
+    // ignore: unrelated_type_equality_checks
     if (picked != null && picked !=dobController.text) {
       dobController.text = "${picked.year}/${picked.month}/${picked.day}";
       update();

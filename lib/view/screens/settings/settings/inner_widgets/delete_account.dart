@@ -35,7 +35,7 @@ class _DeleteAccountState extends State<DeleteAccount> {
                   onTap: (){
                     Get.back();
                   },
-                  child: CustomImage(imageSrc: AppIcons.cancel,size: 24,)),
+                  child: const CustomImage(imageSrc: AppIcons.cancel,size: 24,)),
             ),
             SizedBox(height: 16.h,),
             CustomText(

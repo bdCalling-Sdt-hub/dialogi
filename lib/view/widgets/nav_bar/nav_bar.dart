@@ -1,6 +1,7 @@
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/view/screens/category/category_screen.dart';
+import 'package:dialogi_app/view/screens/community/community.dart';
 import 'package:dialogi_app/view/screens/friends/friends/friends_screen.dart';
 import 'package:dialogi_app/view/screens/home/screen/home_screen.dart';
 import 'package:dialogi_app/view/screens/profile/profile/profile_screen.dart';
@@ -25,16 +26,24 @@ class _NavBarState extends State<NavBar> {
   List<String> selectedIcon = [
     AppIcons.homeOutline,
     AppIcons.categoryOutline,
-    AppIcons.friendsOutline,
+    AppIcons.friendUnSelected,
+    AppIcons.communitUnselected,
     AppIcons.profileOutline,
   ];
 
-  List<String> selectedText = ['Home', 'Category', 'Friends', 'Profile'];
+  List<String> selectedText = [
+    'Home',
+    'Category',
+    'Friends',
+    'Community',
+    'Profile'
+  ];
 
   List<String> unselectedIcon = [
     AppIcons.home,
     AppIcons.category,
-    AppIcons.friends,
+    AppIcons.friendSelected,
+    AppIcons.communitySelected,
     AppIcons.profile,
   ];
 
@@ -66,9 +75,15 @@ class _NavBarState extends State<NavBar> {
               children: [
                 index != bottomNavIndex
                     ? SvgPicture.asset(selectedIcon[index],
-                        color: AppColors.blue_500, height: 24.h, width: 24.w)
+                        // ignore: deprecated_member_use
+                        color: AppColors.blue_500,
+                        height: 24.h,
+                        width: 24.w)
                     : SvgPicture.asset(unselectedIcon[index],
-                        color: AppColors.blue_500, height: 24.h, width: 24.w),
+                        // ignore: deprecated_member_use
+                        color: AppColors.blue_500,
+                        height: 24.h,
+                        width: 24.w),
                 const SizedBox(
                   height: 4,
                 ),
@@ -117,6 +132,11 @@ class _NavBarState extends State<NavBar> {
             transition: Transition.noTransition);
       }
     } else if (index == 3) {
+      if (!(widget.currentIndex == 3)) {
+        Get.offAll(() => const Community(),
+            transition: Transition.noTransition);
+      }
+    } else if (index == 4) {
       if (!(widget.currentIndex == 3)) {
         Get.offAll(() => const ProfileScreen(),
             transition: Transition.noTransition);

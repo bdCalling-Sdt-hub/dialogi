@@ -1,4 +1,3 @@
-
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/screens/auth/sign_up/sign_up_controller/sign_up_controller.dart';
@@ -7,7 +6,6 @@ import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
 class PhotoPopUp extends StatefulWidget {
   const PhotoPopUp({super.key});
@@ -17,23 +15,19 @@ class PhotoPopUp extends StatefulWidget {
 }
 
 class _PhotoPopUpState extends State<PhotoPopUp> {
- SignUpController controller=Get.put(SignUpController());
+  SignUpController controller = Get.put(SignUpController());
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height*.3,
-      // height: 300.h,
-      decoration: const BoxDecoration(
-          color:AppColors.background,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(12),
-              topRight: Radius.circular(12)
-          )
-      ),
-      child: Column(
-        children: [
+        padding: const EdgeInsets.all(20),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height * .3,
+        // height: 300.h,
+        decoration: const BoxDecoration(
+            color: AppColors.background,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(12), topRight: Radius.circular(12))),
+        child: Column(children: [
           CustomText(
             text: AppStrings.chooseSource,
             color: AppColors.blue_500,
@@ -46,9 +40,11 @@ class _PhotoPopUpState extends State<PhotoPopUp> {
             height: 1,
             color: AppColors.blue_400,
           ),
-          SizedBox(height: 24,),
+          const SizedBox(
+            height: 24,
+          ),
           GestureDetector(
-            onTap: (){
+            onTap: () {
               controller.gallery();
             },
             child: CustomText(
@@ -64,9 +60,11 @@ class _PhotoPopUpState extends State<PhotoPopUp> {
             height: 1,
             color: AppColors.black_100,
           ),
-          SizedBox(height: 24.h,),
+          SizedBox(
+            height: 24.h,
+          ),
           GestureDetector(
-            onTap: (){
+            onTap: () {
               controller.camera();
             },
             child: CustomText(
@@ -77,7 +75,6 @@ class _PhotoPopUpState extends State<PhotoPopUp> {
               bottom: 24.h,
             ),
           ),
-        ]
-    ));
+        ]));
   }
 }

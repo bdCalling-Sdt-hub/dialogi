@@ -127,8 +127,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   fieldBorderColor: Colors.white,
                   fieldBorderRadius: 8,
                   isPrefixIcon: true,
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.all(14.0),
+                  prefixIcon: const Padding(
+                    padding: EdgeInsets.all(14.0),
                     child: CustomImage(imageSrc: AppIcons.dob,size: 12,),
                   )
 

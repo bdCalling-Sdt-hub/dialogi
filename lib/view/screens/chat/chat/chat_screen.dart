@@ -1,7 +1,7 @@
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
-import 'package:dialogi_app/view/screens/chat/chat/inner_widget/chat_bubble_message.dart';
+import 'package:dialogi_app/view/widgets/chat_model/chat_bubble_message.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'inner_widget/chat_message_model.dart';
+import '../../../widgets/chat_model/chat_message_model.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -87,7 +87,7 @@ class _ChatScreenState extends State<ChatScreen> {
       bottomNavigationBar: AnimatedPadding(
 
           padding: MediaQuery.of(context).viewInsets,
-            duration: Duration(milliseconds: 100),
+            duration: const Duration(milliseconds: 100),
             curve: Curves.decelerate,
             child:Column(
               mainAxisSize: MainAxisSize.min,
@@ -131,7 +131,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             });
                           }
                         },
-                        child: CustomImage(imageSrc: AppIcons.send,imageType: ImageType.svg,size: 32,)),
+                        child: const CustomImage(imageSrc: AppIcons.send,imageType: ImageType.svg,size: 32,)),
                     SizedBox(width: 20.w,),
                   ],
                 ),

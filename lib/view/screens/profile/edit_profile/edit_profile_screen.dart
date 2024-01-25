@@ -20,30 +20,33 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  String date = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
           appBarContent: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                  onTap: (){
-                    Get.back();
-                  },
-                  child: const CustomImage(imageSrc: AppIcons.chevronLeft,size: 24,)),
-              const CustomText(
-                text: AppStrings.editProfile,
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: AppColors.blue_500,
-              ),
-              const SizedBox(),
-
-            ],
-          )),
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+              onTap: () {
+                Get.back();
+              },
+              child: const CustomImage(
+                imageSrc: AppIcons.chevronLeft,
+                size: 24,
+              )),
+          const CustomText(
+            text: AppStrings.editProfile,
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+            color: AppColors.blue_500,
+          ),
+          const SizedBox(),
+        ],
+      )),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(vertical: 24,horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
         child: Column(
           children: [
             ///<-------- name --------->
@@ -68,10 +71,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 color: AppColors.blue_500,
               ),
             ),
-            SizedBox(height: 24.h,),
+            SizedBox(
+              height: 24.h,
+            ),
 
             /// <---------- date of birth -------->
             CustomTextField(
+              readOnly: true,
+              textEditingController: TextEditingController(text: date),
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
               hintText: AppStrings.dob,
@@ -86,13 +93,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               fieldBorderColor: Colors.white,
               fieldBorderRadius: 8,
               isPrefixIcon: true,
-              prefixIcon: Icon(
-                Icons.date_range_outlined,
-                size: 24.h,
-                color: AppColors.blue_500,
+              prefixIcon: GestureDetector(
+                onTap: () async {
+                  DateTime? selectedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1950),
+                      lastDate: DateTime.now());
+
+                  setState(() {
+                    date =
+                        "${selectedDate!.day}/${selectedDate.month}/${selectedDate.year}";
+                  });
+
+                },
+                child: Icon(
+                  Icons.date_range_outlined,
+                  size: 24.h,
+                  color: AppColors.blue_500,
+                ),
               ),
             ),
-            SizedBox(height: 24.h,),
+            SizedBox(
+              height: 24.h,
+            ),
 
             /// <----------- location --------->
             CustomTextField(
@@ -120,10 +144,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20   ),
-        child: CustomElevatedButton(onPressed: (){
-          Get.toNamed(AppRoutes.profileScreen);
-        }, titleText: AppStrings.update),
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+        child: CustomElevatedButton(
+            onPressed: () {
+              Get.toNamed(AppRoutes.profileScreen);
+            },
+            titleText: AppStrings.update),
       ),
     );
   }

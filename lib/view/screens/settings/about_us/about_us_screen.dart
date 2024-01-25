@@ -43,7 +43,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
               ],
             )),
         body: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(vertical: 24,horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
           child: Column(
             children: [
               CustomText(

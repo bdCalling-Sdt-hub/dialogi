@@ -1,11 +1,9 @@
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
-import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/app_images.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
 import 'package:dialogi_app/view/widgets/container/custom_premium_card.dart';
-import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,6 +17,25 @@ class PremiumScreen extends StatefulWidget {
 }
 
 class _PremiumScreenState extends State<PremiumScreen> {
+  PageController pageController = PageController();
+  int currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    pageController.addListener(() {
+      setState(() {
+        currentIndex = pageController.page!.round();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,41 +57,49 @@ class _PremiumScreenState extends State<PremiumScreen> {
               fontWeight: FontWeight.w600,
               bottom: 24.h,
             ),
-            const SingleChildScrollView(
+            SingleChildScrollView(
+              controller: pageController,
               scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  CustomPremiumCard(
-                      imageSrc: AppImages.premium,
-                      premiumText: 'Premium',
-                      getDialogiText: 'Get Dialogi Premium \$${50}/month',
-                      length: 3,
-                      addText: 'Ad-free experience'),
-                  CustomPremiumCard(
-                    isPremium: false,
-                      imageSrc: AppImages.premium,
-                      premiumText: 'Premium Plus',
-                      getDialogiText: 'Get Dialogi Premium \$${100}/month',
-                      length: 7,
-                      addText: 'All premium features',
-                    addTextColor: Colors.white,
-                    premiumTextColor: Colors.white,
-                    getDialogiTextColor: Colors.white,
-                  )
-                ]
-              ),
+              child: const Row(children: [
+                CustomPremiumCard(
+                    imageSrc: AppImages.premium,
+                    premiumText: 'Premium',
+                    getDialogiText: 'Get Dialogi Premium \$${50}/month',
+                    length: 3,
+                    addText: 'Ad-free experience'),
+                CustomPremiumCard(
+                  isPremium: false,
+                  imageSrc: AppImages.premium,
+                  premiumText: 'Premium Plus',
+                  getDialogiText: 'Get Dialogi Premium \$${100}/month',
+                  length: 7,
+                  addText: 'All premium features',
+                  addTextColor: Colors.white,
+                  premiumTextColor: Colors.white,
+                  getDialogiTextColor: Colors.white,
+                )
+              ]),
             ),
             Column(
               children: [
+                //==================================Get Premium==============================
+
                 CustomElevatedButton(
                     buttonWidth: MediaQuery.of(context).size.width,
                     onPressed: () {
-                      Get.toNamed(AppRoutes.purchaseScreen);
+                      Get.toNamed(AppRoutes.purchaseScreen, parameters: {
+                        "premium": currentIndex == 0 ? "true" : "false"
+                      });
                     },
-                    titleText: AppStrings.getPremium),
+                    titleText: currentIndex == 0
+                        ? AppStrings.getPremium
+                        : AppStrings.getPremiumPlus),
                 const SizedBox(
                   height: 16,
                 ),
+
+                //==================================Skip for now==============================
+
                 GestureDetector(
                   onTap: () {
                     Get.toNamed(AppRoutes.signInScreen);

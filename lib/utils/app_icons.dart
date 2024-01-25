@@ -19,8 +19,7 @@ class AppIcons {
   static const String edit = "$baseUrl/edit.svg";
   static const String eye = "$baseUrl/eye.svg";
   static const String eyeOff = "$baseUrl/eye_off.svg";
-  static const String friends = "$baseUrl/friends.svg";
-  static const String friendsOutline = "$baseUrl/friends_outline.svg";
+
   static const String google = "$baseUrl/google.svg";
   static const String greatJob = "$baseUrl/great_job.svg";
   static const String home = "$baseUrl/home.svg";
@@ -54,5 +53,12 @@ class AppIcons {
   static const String pendingReq = "$baseUrl/pending.svg";
   static const String volumeup = "$baseUrl/volumeup.svg";
   static const String badgeCheck = "$baseUrl/badge-check.svg";
+
+  static const String communitySelected = "$baseUrl/community_selected.svg";
+  static const String communitUnselected = "$baseUrl/community_unselected.svg";
+
+  static const String friendSelected = "$baseUrl/friend_selected.svg";
+  static const String friendUnSelected = "$baseUrl/friend_unselected.svg";
+
   //static const String pendingReq = "$baseUrl/pending.svg";
 }

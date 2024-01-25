@@ -26,7 +26,7 @@ void main() {
       builder: (context) => MyApp(), // Wrap your app
     ),
   );*/
-} 
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
