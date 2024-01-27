@@ -99,8 +99,8 @@ class AppStrings {
       "Do you want to delete this group?";
   static const String yes = "Yes";
   static const String no = "No";
-  static const String doYouWantToleftThisGroup =
-      "Do you want to left this group?";
+  static const String doYouWantToLeaveThisGroup =
+      "Do you want to leave this group?";
   static const String discusswithFriends = "Discuss with Friends";
 
   //Nav Bar

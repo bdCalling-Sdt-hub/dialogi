@@ -85,7 +85,7 @@ class GroupChatPopUps extends StatelessWidget {
                     context: context,
                     ontapYes: () {},
                     ontapNo: () {},
-                    title: AppStrings.doYouWantToleftThisGroup);
+                    title: AppStrings.doYouWantToLeaveThisGroup);
               },
               child: const CustomText(
                 fontSize: 14,
