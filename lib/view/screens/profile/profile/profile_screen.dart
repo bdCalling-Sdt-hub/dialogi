@@ -23,7 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const NavBar(currentIndex: 3),
+      bottomNavigationBar: const NavBar(currentIndex: 4),
       appBar: CustomAppBar(
           appBarContent: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

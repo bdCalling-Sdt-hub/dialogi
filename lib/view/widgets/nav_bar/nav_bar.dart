@@ -26,8 +26,8 @@ class _NavBarState extends State<NavBar> {
   List<String> selectedIcon = [
     AppIcons.homeOutline,
     AppIcons.categoryOutline,
-    AppIcons.friendUnSelected,
-    AppIcons.communitUnselected,
+    AppIcons.friendselected,
+    AppIcons.communitSelected,
     AppIcons.profileOutline,
   ];
 
@@ -42,8 +42,8 @@ class _NavBarState extends State<NavBar> {
   List<String> unselectedIcon = [
     AppIcons.home,
     AppIcons.category,
-    AppIcons.friendSelected,
-    AppIcons.communitySelected,
+    AppIcons.friendunSelected,
+    AppIcons.communityunSelected,
     AppIcons.profile,
   ];
 
@@ -137,7 +137,7 @@ class _NavBarState extends State<NavBar> {
             transition: Transition.noTransition);
       }
     } else if (index == 4) {
-      if (!(widget.currentIndex == 3)) {
+      if (!(widget.currentIndex == 4)) {
         Get.offAll(() => const ProfileScreen(),
             transition: Transition.noTransition);
       }
