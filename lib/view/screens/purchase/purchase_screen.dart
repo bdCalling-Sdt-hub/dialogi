@@ -10,6 +10,7 @@ import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:dialogi_app/view/widgets/text_field/custom_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -129,7 +130,10 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
 
             ///card number
             CustomTextField(
-              keyboardType: TextInputType.text,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+              ],
+              keyboardType: const TextInputType.numberWithOptions(signed: true),
               textAlign: TextAlign.start,
               hintText: AppStrings.cardnumber,
               hintStyle: GoogleFonts.prompt(
@@ -155,7 +159,11 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
 
             ///cvv
             CustomTextField(
-                keyboardType: TextInputType.text,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+                keyboardType:
+                    const TextInputType.numberWithOptions(signed: true),
                 textAlign: TextAlign.start,
                 hintText: AppStrings.cVVCVC,
                 hintStyle: GoogleFonts.prompt(
@@ -183,7 +191,10 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
 
             ///dob
             CustomTextField(
-              keyboardType: TextInputType.text,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+              ],
+              keyboardType: const TextInputType.numberWithOptions(signed: true),
               textAlign: TextAlign.start,
               hintText: AppStrings.mMYY,
               hintStyle: GoogleFonts.prompt(

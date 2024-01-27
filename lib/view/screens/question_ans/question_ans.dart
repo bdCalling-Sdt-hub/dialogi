@@ -123,7 +123,7 @@ class QuestionAns extends StatelessWidget {
                                 child: const CustomImage(
                                     imageSrc: AppIcons.volumeup))),
                         SizedBox(
-                          width: 10.w,
+                          width: 20.w,
                         ),
 
                         //==============================Share Icon========================
@@ -131,11 +131,7 @@ class QuestionAns extends StatelessWidget {
                         Align(
                             alignment: Alignment.bottomLeft,
                             child: GestureDetector(
-                                onTap: () async {
-                                  FlutterTts flutterTts = FlutterTts();
-                                  await flutterTts.speak(
-                                      "What does Friendship mean to you?");
-                                },
+                                onTap: () {},
                                 child: const CustomImage(
                                     imageSrc: AppIcons.share))),
                       ],

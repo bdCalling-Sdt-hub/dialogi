@@ -26,25 +26,29 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
       backgroundColor: AppColors.background,
       appBar: CustomAppBar(
         appBarContent: GestureDetector(
-            onTap: (){
-             Get.back();
+            onTap: () {
+              Get.back();
             },
-            child:const CustomImage(imageSrc: AppIcons.chevronLeft,size: 24,)),
+            child: const CustomImage(
+              imageSrc: AppIcons.chevronLeft,
+              size: 24,
+            )),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ///forget pass
             CustomText(
-              text: AppStrings.forgetPassword,
+              text: AppStrings.forgotPassword,
               color: AppColors.blue_500,
               fontWeight: FontWeight.w500,
               fontSize: 24,
               top: 24.h,
               bottom: 8.h,
             ),
+
             ///fp text
             CustomText(
               textAlign: TextAlign.start,
@@ -77,15 +81,16 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 color: AppColors.blue_500,
               ),
             ),
-
           ],
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
-        child: CustomElevatedButton(onPressed: (){
-          Get.toNamed(AppRoutes.otpScreen);
-        }, titleText: AppStrings.getOTP),
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+        child: CustomElevatedButton(
+            onPressed: () {
+              Get.toNamed(AppRoutes.otpScreen);
+            },
+            titleText: AppStrings.getOTP),
       ),
     );
   }

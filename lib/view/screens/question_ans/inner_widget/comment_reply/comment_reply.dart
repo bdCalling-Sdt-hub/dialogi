@@ -27,14 +27,6 @@ class CommentReply extends StatelessWidget {
             "dislike": "4",
             "replymsg": "Thank you"
           },
-          {
-            "name": "Rafsan Hossain",
-            "image":
-                "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
-            "likes": "34",
-            "dislike": "4",
-            "replymsg": "Keep it up"
-          }
         ]
       }
     },
@@ -55,14 +47,6 @@ class CommentReply extends StatelessWidget {
             "dislike": "4",
             "replymsg": "In Comment section"
           },
-          {
-            "name": "Shanto",
-            "image":
-                "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
-            "likes": "34",
-            "dislike": "4",
-            "replymsg": "Good Work"
-          }
         ]
       }
     }
@@ -158,11 +142,12 @@ class CommentReply extends StatelessWidget {
                     ),
                   ),
 
-                  // Replies
+                  // ================================Replies======================
                   Container(
                     margin: EdgeInsets.only(left: 30.w),
                     height: 100.h,
                     child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: comment["reply"].length,
                       itemBuilder: (context, index) {
                         var reply = comment["reply"][index]!;

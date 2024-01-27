@@ -11,7 +11,7 @@ class AppStrings {
   static const String dialogiApp = "Dialogi App";
   static const String enterYourEmail = "Enter your email";
   static const String enteryourpassword = "Enter your password";
-  static const String forgetPassword = "Forget Password";
+  static const String forgotPassword = "Forgot Password";
   static const String signIn = "Sign In";
   static const String signUp = "Sign Up";
   static const String or = "Or";
@@ -33,8 +33,8 @@ class AppStrings {
   static const String alreadyhaveanaccount = "Already have an account?";
 
   static const String setPassword = "Set Password";
-  static const String passwordshouldbemore =
-      "Password should be more that 8 characters or more.";
+  static const String passwordshouldBe =
+      "Password should be 8 characters or more";
   static const String reenteryourpassword = "Re-enter your password";
   static const String setProfilePicture = "Set Profile Picture";
   static const String pleaseuploadApicture =
@@ -93,7 +93,7 @@ class AppStrings {
   static const String groupMembers = "Group members";
   static const String changeGroupName = "Change Group Name";
   static const String deleteConversation = "Delete Conversation";
-  static const String leftGroup = "Left Group";
+  static const String leaveGroup = "Leave Group";
   static const String change = "Change";
   static const String doyouWantToDeletethisGroup =
       "Do you want to delete this group?";
@@ -186,4 +186,8 @@ class AppStrings {
   static const String notification = "Notification";
   static const String reject = "Reject";
   static const String accept = "Accept";
+
+  //Others
+  static const String cancelSubscription = "Cancel Subscription?";
+  static const String areYouSure = "Are you sure?";
 }

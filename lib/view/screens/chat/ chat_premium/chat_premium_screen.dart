@@ -20,30 +20,51 @@ class ChatPremiumScreen extends StatefulWidget {
 }
 
 class _ChatPremiumScreenState extends State<ChatPremiumScreen> {
+  PageController pageController = PageController();
+  int currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    pageController.addListener(() {
+      setState(() {
+        currentIndex = pageController.page!.round();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
           appBarContent: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                  onTap: (){
-                    Get.back();
-                  },
-                  child: const CustomImage(imageSrc: AppIcons.chevronLeft,size: 24,)),
-              const CustomText(
-                text: AppStrings.chat,
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: AppColors.blue_500,
-              ),
-              const SizedBox(),
-
-            ],
-          )),
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+              onTap: () {
+                Get.back();
+              },
+              child: const CustomImage(
+                imageSrc: AppIcons.chevronLeft,
+                size: 24,
+              )),
+          const CustomText(
+            text: AppStrings.chat,
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+            color: AppColors.blue_500,
+          ),
+          const SizedBox(),
+        ],
+      )),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,38 +77,41 @@ class _ChatPremiumScreenState extends State<ChatPremiumScreen> {
               fontWeight: FontWeight.w600,
               bottom: 24.h,
             ),
-             const SingleChildScrollView(
+            SingleChildScrollView(
+              controller: pageController,
               scrollDirection: Axis.horizontal,
-              child: Row(
-                  children: [
-                    CustomPremiumCard(
-                        imageSrc: AppImages.premium,
-                        premiumText: 'Premium',
-                        getDialogiText: 'Get Dialogi Premium \$${50}/month',
-                        length: 3,
-                        addText: 'Ad-free experience'),
-                    CustomPremiumCard(
-                      isPremium: false,
-                      imageSrc: AppImages.premium,
-                      premiumText: 'Premium Plus',
-                      getDialogiText: 'Get Dialogi Premium \$${100}/month',
-                      length: 7,
-                      addText: 'All premium features',
-                      addTextColor: Colors.white,
-                      premiumTextColor: Colors.white,
-                      getDialogiTextColor: Colors.white,
-                    )
-                  ]
-              ),
+              child: const Row(children: [
+                CustomPremiumCard(
+                    imageSrc: AppImages.premium,
+                    premiumText: 'Premium',
+                    getDialogiText: 'Get Dialogi Premium \$${50}/month',
+                    length: 3,
+                    addText: 'Ad-free experience'),
+                CustomPremiumCard(
+                  isPremium: false,
+                  imageSrc: AppImages.premium,
+                  premiumText: 'Premium Plus',
+                  getDialogiText: 'Get Dialogi Premium \$${100}/month',
+                  length: 7,
+                  addText: 'All premium features',
+                  addTextColor: Colors.white,
+                  premiumTextColor: Colors.white,
+                  getDialogiTextColor: Colors.white,
+                )
+              ]),
             ),
             Column(
               children: [
                 CustomElevatedButton(
                     buttonWidth: MediaQuery.of(context).size.width,
                     onPressed: () {
-                      Get.toNamed(AppRoutes.purchaseScreen);
+                      Get.toNamed(AppRoutes.purchaseScreen, parameters: {
+                        "premium": currentIndex == 0 ? "true" : "false"
+                      });
                     },
-                    titleText: AppStrings.getPremium),
+                    titleText: currentIndex == 0
+                        ? AppStrings.getPremium
+                        : AppStrings.getPremiumPlus),
                 const SizedBox(
                   height: 16,
                 ),

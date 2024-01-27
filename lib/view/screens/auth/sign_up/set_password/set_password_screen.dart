@@ -26,13 +26,16 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
       backgroundColor: AppColors.background,
       appBar: CustomAppBar(
         appBarContent: GestureDetector(
-            onTap: (){
+            onTap: () {
               Get.back();
             },
-            child: const CustomImage(imageSrc: AppIcons.chevronLeft,size: 24,)),
+            child: const CustomImage(
+              imageSrc: AppIcons.chevronLeft,
+              size: 24,
+            )),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -45,11 +48,12 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
               top: 24.h,
               bottom: 8.h,
             ),
+
             ///fp text
             CustomText(
               textAlign: TextAlign.start,
               maxLines: 3,
-              text: AppStrings.passwordshouldbemore,
+              text: AppStrings.passwordshouldBe,
               fontWeight: FontWeight.w500,
               fontSize: 16,
               bottom: 44.h,
@@ -78,7 +82,9 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
                 color: AppColors.blue_500,
               ),
             ),
-            SizedBox(height: 24.h,),
+            SizedBox(
+              height: 24.h,
+            ),
 
             ///Re-enter password
             CustomTextField(
@@ -103,15 +109,16 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
                 color: AppColors.blue_500,
               ),
             ),
-
           ],
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
-        child: CustomElevatedButton(onPressed: (){
-          Get.toNamed(AppRoutes.setPhotoScreen);
-        }, titleText: AppStrings.continuee),
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+        child: CustomElevatedButton(
+            onPressed: () {
+              Get.toNamed(AppRoutes.setPhotoScreen);
+            },
+            titleText: AppStrings.continuee),
       ),
     );
   }

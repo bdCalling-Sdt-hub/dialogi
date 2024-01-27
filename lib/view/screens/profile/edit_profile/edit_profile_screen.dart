@@ -77,6 +77,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
             /// <---------- date of birth -------->
             CustomTextField(
+              onTap: () async {
+                DateTime? selectedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(1950),
+                    lastDate: DateTime.now());
+
+                setState(() {
+                  date =
+                      "${selectedDate!.day}/${selectedDate.month}/${selectedDate.year}";
+                });
+              },
               readOnly: true,
               textEditingController: TextEditingController(text: date),
               keyboardType: TextInputType.text,
@@ -105,7 +117,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     date =
                         "${selectedDate!.day}/${selectedDate.month}/${selectedDate.year}";
                   });
-
                 },
                 child: Icon(
                   Icons.date_range_outlined,

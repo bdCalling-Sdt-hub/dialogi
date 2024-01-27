@@ -16,38 +16,40 @@ class SettingsChangePasswordScreen extends StatefulWidget {
   const SettingsChangePasswordScreen({super.key});
 
   @override
-  State<SettingsChangePasswordScreen> createState() => _SettingsChangePasswordScreenState();
+  State<SettingsChangePasswordScreen> createState() =>
+      _SettingsChangePasswordScreenState();
 }
 
-class _SettingsChangePasswordScreenState extends State<SettingsChangePasswordScreen> {
+class _SettingsChangePasswordScreenState
+    extends State<SettingsChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: CustomAppBar(
           appBarContent: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                onTap: (){
-                  Get.back();
-                },
-                child: const CustomImage(
-                  imageSrc: AppIcons.chevronLeft,
-                  size: 24,
-                ),
-              ),
-              CustomText(
-                text: AppStrings.changePassword,
-                fontWeight: FontWeight.w500,
-                fontSize: 18.h,
-                color: AppColors.blue_500,
-              ),
-              const SizedBox()
-            ],
-          )),
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+            onTap: () {
+              Get.back();
+            },
+            child: const CustomImage(
+              imageSrc: AppIcons.chevronLeft,
+              size: 24,
+            ),
+          ),
+          CustomText(
+            text: AppStrings.changePassword,
+            fontWeight: FontWeight.w500,
+            fontSize: 18.h,
+            color: AppColors.blue_500,
+          ),
+          const SizedBox()
+        ],
+      )),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -74,7 +76,9 @@ class _SettingsChangePasswordScreenState extends State<SettingsChangePasswordScr
                 color: AppColors.blue_500,
               ),
             ),
-            SizedBox(height: 24.h,),
+            SizedBox(
+              height: 24.h,
+            ),
 
             ///New password
             CustomTextField(
@@ -100,7 +104,9 @@ class _SettingsChangePasswordScreenState extends State<SettingsChangePasswordScr
               ),
             ),
 
-            SizedBox(height: 24.h,),
+            SizedBox(
+              height: 24.h,
+            ),
 
             ///Re-enter new password
             CustomTextField(
@@ -126,11 +132,11 @@ class _SettingsChangePasswordScreenState extends State<SettingsChangePasswordScr
               ),
             ),
             GestureDetector(
-              onTap: (){
+              onTap: () {
                 Get.toNamed(AppRoutes.settingsForgetPasswordScreen);
               },
               child: CustomText(
-                text: AppStrings.forgetPassword,
+                text: AppStrings.forgotPassword,
                 fontWeight: FontWeight.w500,
                 fontSize: 18.h,
                 color: AppColors.red_500,
@@ -141,10 +147,12 @@ class _SettingsChangePasswordScreenState extends State<SettingsChangePasswordScr
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
-        child: CustomElevatedButton(onPressed: (){
-          Get.toNamed(AppRoutes.settingsScreen);
-        }, titleText: AppStrings.update),
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+        child: CustomElevatedButton(
+            onPressed: () {
+              Get.toNamed(AppRoutes.settingsScreen);
+            },
+            titleText: AppStrings.update),
       ),
     );
   }

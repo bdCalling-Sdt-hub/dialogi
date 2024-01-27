@@ -24,11 +24,13 @@ class _SignInScreenState extends State<SignInScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 44,),
+            const SizedBox(
+              height: 44,
+            ),
 
             /// welcome text
             CustomText(
@@ -46,7 +48,10 @@ class _SignInScreenState extends State<SignInScreen> {
               color: AppColors.blue_500,
             ),
 
-            SizedBox(height: 64.h,),
+            SizedBox(
+              height: 64.h,
+            ),
+
             ///email
             CustomTextField(
               keyboardType: TextInputType.text,
@@ -70,7 +75,9 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
             ),
 
-            const SizedBox(height: 24,),
+            const SizedBox(
+              height: 24,
+            ),
 
             ///password
             CustomTextField(
@@ -98,11 +105,11 @@ class _SignInScreenState extends State<SignInScreen> {
 
             ///forget password
             GestureDetector(
-              onTap: (){
+              onTap: () {
                 Get.toNamed(AppRoutes.forgetPasswordScreen);
               },
               child: CustomText(
-                text: AppStrings.forgetPassword,
+                text: AppStrings.forgotPassword,
                 color: AppColors.red_500,
                 fontWeight: FontWeight.w500,
                 fontSize: 18,
@@ -112,9 +119,13 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
 
             ///signIn button
-            CustomElevatedButton(onPressed: (){
-              Get.toNamed(AppRoutes.homeScreen);
-            }, titleText: AppStrings.signIn,buttonWidth: MediaQuery.of(context).size.width,),
+            CustomElevatedButton(
+              onPressed: () {
+                Get.toNamed(AppRoutes.homeScreen);
+              },
+              titleText: AppStrings.signIn,
+              buttonWidth: MediaQuery.of(context).size.width,
+            ),
 
             ///or
             Center(
@@ -132,13 +143,15 @@ class _SignInScreenState extends State<SignInScreen> {
               width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.symmetric(vertical: 14),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8)
-              ),
+                  color: Colors.white, borderRadius: BorderRadius.circular(8)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const CustomImage(imageSrc: AppIcons.google,size: 24,imageType: ImageType.svg,),
+                  const CustomImage(
+                    imageSrc: AppIcons.google,
+                    size: 24,
+                    imageType: ImageType.svg,
+                  ),
                   CustomText(
                     text: AppStrings.continuewithGoogle,
                     color: AppColors.black_500,
@@ -149,20 +162,24 @@ class _SignInScreenState extends State<SignInScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 24,),
+            const SizedBox(
+              height: 24,
+            ),
 
             ///apple
             Container(
               width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.symmetric(vertical: 14),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8)
-              ),
+                  color: Colors.white, borderRadius: BorderRadius.circular(8)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const CustomImage(imageSrc: AppIcons.apple,size: 24,imageType: ImageType.svg,),
+                  const CustomImage(
+                    imageSrc: AppIcons.apple,
+                    size: 24,
+                    imageType: ImageType.svg,
+                  ),
                   CustomText(
                     text: AppStrings.continuewithApple,
                     color: AppColors.black_500,
@@ -173,7 +190,9 @@ class _SignInScreenState extends State<SignInScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 34.h,),
+            SizedBox(
+              height: 34.h,
+            ),
 
             ///don't have an account
             Center(
@@ -185,7 +204,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     fontSize: 16,
                   ),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Get.toNamed(AppRoutes.signUpScreen);
                     },
                     child: const CustomText(

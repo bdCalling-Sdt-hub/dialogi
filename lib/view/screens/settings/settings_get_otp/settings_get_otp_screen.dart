@@ -7,6 +7,7 @@ import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -25,28 +26,28 @@ class _SettingsGetOtpState extends State<SettingsGetOtp> {
       backgroundColor: AppColors.background,
       appBar: CustomAppBar(
           appBarContent: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                onTap: (){
-                  Get.back();
-                },
-                child: const CustomImage(
-                  imageSrc: AppIcons.chevronLeft,
-                  size: 24,
-                ),
-              ),
-              CustomText(
-                text: AppStrings.getOTP,
-                fontWeight: FontWeight.w500,
-                fontSize: 18.h,
-                color: AppColors.blue_500,
-              ),
-              const SizedBox()
-            ],
-          )),
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+            onTap: () {
+              Get.back();
+            },
+            child: const CustomImage(
+              imageSrc: AppIcons.chevronLeft,
+              size: 24,
+            ),
+          ),
+          CustomText(
+            text: AppStrings.getOTP,
+            fontWeight: FontWeight.w500,
+            fontSize: 18.h,
+            color: AppColors.blue_500,
+          ),
+          const SizedBox()
+        ],
+      )),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -59,11 +60,16 @@ class _SettingsGetOtpState extends State<SettingsGetOtp> {
               fontSize: 16,
               bottom: 44.h,
             ),
+
             ///pin code
             PinCodeTextField(
-              cursorColor:Colors.black,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+              ],
+              keyboardType: const TextInputType.numberWithOptions(signed: true),
+              cursorColor: Colors.black,
               appContext: (context),
-              validator: (value){
+              validator: (value) {
                 if (value!.length <= 6) {
                   return null;
                 } else {
@@ -88,23 +94,41 @@ class _SettingsGetOtpState extends State<SettingsGetOtp> {
               length: 6,
               enableActiveFill: true,
             ),
-            SizedBox(height: 24.h,),
-            const CustomText(
-              textAlign: TextAlign.start,
-              maxLines: 3,
-              text: AppStrings.didntReceivetheCode,
-              fontWeight: FontWeight.w400,
-              fontSize: 18,
-              color: AppColors.blue_500,
+            SizedBox(
+              height: 24.h,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CustomText(
+                  textAlign: TextAlign.start,
+                  maxLines: 3,
+                  text: AppStrings.didntReceivetheCode,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14.w,
+                  color: AppColors.blue_500,
+                ),
+                CustomText(
+                  textDecoration: TextDecoration.underline,
+                  textAlign: TextAlign.start,
+                  maxLines: 3,
+                  text: AppStrings.resend,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14.w,
+                  color: AppColors.blue_500,
+                ),
+              ],
             ),
           ],
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
-        child: CustomElevatedButton(onPressed: (){
-          Get.toNamed(AppRoutes.settingsResetPasswordScreen);
-        }, titleText: AppStrings.verify),
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+        child: CustomElevatedButton(
+            onPressed: () {
+              Get.toNamed(AppRoutes.settingsResetPasswordScreen);
+            },
+            titleText: AppStrings.verify),
       ),
     );
   }

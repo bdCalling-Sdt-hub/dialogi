@@ -16,38 +16,40 @@ class SettingsForgetPasswordScreen extends StatefulWidget {
   const SettingsForgetPasswordScreen({super.key});
 
   @override
-  State<SettingsForgetPasswordScreen> createState() => _SettingsForgetPasswordScreenState();
+  State<SettingsForgetPasswordScreen> createState() =>
+      _SettingsForgetPasswordScreenState();
 }
 
-class _SettingsForgetPasswordScreenState extends State<SettingsForgetPasswordScreen> {
+class _SettingsForgetPasswordScreenState
+    extends State<SettingsForgetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: CustomAppBar(
           appBarContent: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                onTap: (){
-                  Get.back();
-                },
-                child: const CustomImage(
-                  imageSrc: AppIcons.chevronLeft,
-                  size: 24,
-                ),
-              ),
-              CustomText(
-                text: AppStrings.forgetPassword,
-                fontWeight: FontWeight.w500,
-                fontSize: 18.h,
-                color: AppColors.blue_500,
-              ),
-              const SizedBox()
-            ],
-          )),
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+            onTap: () {
+              Get.back();
+            },
+            child: const CustomImage(
+              imageSrc: AppIcons.chevronLeft,
+              size: 24,
+            ),
+          ),
+          CustomText(
+            text: AppStrings.forgotPassword,
+            fontWeight: FontWeight.w500,
+            fontSize: 18.h,
+            color: AppColors.blue_500,
+          ),
+          const SizedBox()
+        ],
+      )),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
         child: Column(
           children: [
             CustomText(
@@ -58,6 +60,7 @@ class _SettingsForgetPasswordScreenState extends State<SettingsForgetPasswordScr
               fontSize: 16.h,
               bottom: 44.h,
             ),
+
             ///email
             CustomTextField(
               keyboardType: TextInputType.text,
@@ -84,10 +87,12 @@ class _SettingsForgetPasswordScreenState extends State<SettingsForgetPasswordScr
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
-        child: CustomElevatedButton(onPressed: (){
-          Get.toNamed(AppRoutes.settingsGetOtp);
-        }, titleText: AppStrings.getOTP),
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+        child: CustomElevatedButton(
+            onPressed: () {
+              Get.toNamed(AppRoutes.settingsGetOtp);
+            },
+            titleText: AppStrings.getOTP),
       ),
     );
   }

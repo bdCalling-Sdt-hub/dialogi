@@ -7,6 +7,7 @@ import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -25,14 +26,16 @@ class _OtpScreenState extends State<OtpScreen> {
       backgroundColor: AppColors.background,
       appBar: CustomAppBar(
         appBarContent: GestureDetector(
-            onTap: (){
+            onTap: () {
               Get.back();
-
             },
-            child: const CustomImage(imageSrc: AppIcons.chevronLeft,size: 24,)),
+            child: const CustomImage(
+              imageSrc: AppIcons.chevronLeft,
+              size: 24,
+            )),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -45,6 +48,7 @@ class _OtpScreenState extends State<OtpScreen> {
               top: 24.h,
               bottom: 8.h,
             ),
+
             ///otp text
             CustomText(
               textAlign: TextAlign.start,
@@ -57,9 +61,14 @@ class _OtpScreenState extends State<OtpScreen> {
 
             ///pin code
             PinCodeTextField(
-              cursorColor:Colors.black,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+              ],
+              keyboardType: const TextInputType.numberWithOptions(signed: true),
+              textInputAction: TextInputAction.done,
+              cursorColor: Colors.black,
               appContext: (context),
-              validator: (value){
+              validator: (value) {
                 if (value!.length <= 6) {
                   return null;
                 } else {
@@ -84,10 +93,12 @@ class _OtpScreenState extends State<OtpScreen> {
               length: 6,
               enableActiveFill: true,
             ),
-            SizedBox(height: 24.h,),
+            SizedBox(
+              height: 24.h,
+            ),
 
             ///didn't receive the code
-              Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const CustomText(
@@ -99,7 +110,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   color: AppColors.blue_500,
                 ),
                 GestureDetector(
-                  onTap: (){},
+                  onTap: () {},
                   child: const CustomText(
                     text: AppStrings.resend,
                     fontWeight: FontWeight.w500,
@@ -109,15 +120,16 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
               ],
             ),
-
           ],
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
-        child: CustomElevatedButton(onPressed: (){
-          Get.toNamed(AppRoutes.resetPasswordScreen);
-        }, titleText: AppStrings.verify),
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+        child: CustomElevatedButton(
+            onPressed: () {
+              Get.toNamed(AppRoutes.resetPasswordScreen);
+            },
+            titleText: AppStrings.verify),
       ),
     );
   }

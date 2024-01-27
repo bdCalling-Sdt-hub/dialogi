@@ -90,7 +90,7 @@ class GroupChatPopUps extends StatelessWidget {
               child: const CustomText(
                 fontSize: 14,
                 color: AppColors.red_400,
-                text: AppStrings.leftGroup,
+                text: AppStrings.leaveGroup,
               )),
         ),
       ],

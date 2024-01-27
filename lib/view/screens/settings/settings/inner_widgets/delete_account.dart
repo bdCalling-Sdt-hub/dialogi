@@ -1,6 +1,7 @@
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
+import 'package:dialogi_app/view/screens/group_chat/select_friends/create_group_popup.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
@@ -24,20 +25,23 @@ class _DeleteAccountState extends State<DeleteAccount> {
       backgroundColor: AppColors.background,
       elevation: 0,
       title: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8)
-        ),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
         child: Column(
           children: [
             Align(
               alignment: Alignment.bottomRight,
               child: GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     Get.back();
                   },
-                  child: const CustomImage(imageSrc: AppIcons.cancel,size: 24,)),
+                  child: const CustomImage(
+                    imageSrc: AppIcons.cancel,
+                    size: 24,
+                  )),
             ),
-            SizedBox(height: 16.h,),
+            SizedBox(
+              height: 16.h,
+            ),
             CustomText(
               textAlign: TextAlign.start,
               maxLines: 3,
@@ -45,6 +49,7 @@ class _DeleteAccountState extends State<DeleteAccount> {
               fontWeight: FontWeight.w500,
               bottom: 16.h,
             ),
+
             ///password
             CustomTextField(
               isPassword: true,
@@ -68,8 +73,23 @@ class _DeleteAccountState extends State<DeleteAccount> {
                 color: AppColors.blue_500,
               ),
             ),
-            SizedBox(height: 44.h,),
-            CustomElevatedButton(onPressed: (){}, titleText: AppStrings.deleteAccount,buttonColor: AppColors.red_500,buttonWidth: double.infinity,)
+            SizedBox(
+              height: 44.h,
+            ),
+            CustomElevatedButton(
+              onPressed: () {
+                permissionPopUp(
+                    title: AppStrings.areYouSure,
+                    context: context,
+                    ontapYes: () {
+                      navigator!.pop();
+                    },
+                    ontapNo: () {});
+              },
+              titleText: AppStrings.deleteAccount,
+              buttonColor: AppColors.red_500,
+              buttonWidth: double.infinity,
+            )
           ],
         ),
       ),
