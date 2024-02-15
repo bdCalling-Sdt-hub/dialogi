@@ -1,8 +1,8 @@
+import 'package:dialogi_app/controllers/sign_up_controller/sign_up_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
-import 'package:dialogi_app/view/screens/auth/sign_up/sign_up_controller/sign_up_controller.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
@@ -42,7 +42,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ///Create new account
+                ///<<<===================Create new account====================>>>
+
                 CustomText(
                   text: AppStrings.createnewaccount,
                   color: AppColors.blue_500,
@@ -51,7 +52,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   top: 24.h,
                   bottom: 8.h,
                 ),
-                ///Join us
+
+                ///<<<===================Join us================================>>>
+
                 const CustomText(
                   textAlign: TextAlign.start,
                   maxLines: 3,
@@ -60,8 +63,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   fontSize: 16,
                 ),
                 SizedBox(height: 64.h,),
-                ///full name
+
+                ///<<<====================Full Name Field===============================>>>
+
                 CustomTextField(
+                  textEditingController: controller.nameController,
                   keyboardType: TextInputType.text,
                   textAlign: TextAlign.start,
                   hintText: AppStrings.fullname,
@@ -83,8 +89,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
                 SizedBox(height: 24.h,),
-                ///email
+
+                ///<<<====================Email Field=================================>>>
+
                 CustomTextField(
+                  textEditingController: controller.emailController,
                   keyboardType: TextInputType.text,
                   textAlign: TextAlign.start,
                   hintText: AppStrings.enterYourEmail,
@@ -106,13 +115,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
                 SizedBox(height: 24.h,),
-                ///date of birth
+
+                ///<<<===================Date of birth field=========================>>>
+
                 CustomTextField(
                   onTap: (){
-                    controller.dateofbirthPicker(context);
+                    controller.dateOfBirthPicker(context);
                   },
                   readOnly: true,
-                  textEditingController: controller.dobController,
+                  textEditingController: controller.birthDayController,
                   keyboardType: TextInputType.text,
                   textAlign: TextAlign.start,
                   hintText: AppStrings.dateofbirth,
@@ -135,8 +146,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
 
                 const SizedBox(height: 24,),
-                ///address
+
+
+                ///<<<=====================Address field========================>>>
+
                 CustomTextField(
+                  textEditingController: controller.addressController,
                   keyboardType: TextInputType.text,
                   textAlign: TextAlign.start,
                   hintText: AppStrings.address,
@@ -159,12 +174,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 SizedBox(height: 64.h,),
 
-                /// continue button
+                ///<<<=================continue button========================>>>
+
                 CustomElevatedButton(onPressed: (){
                   Get.toNamed(AppRoutes.setPasswordScreen);
                 }, titleText: AppStrings.continuee,buttonWidth: MediaQuery.of(context).size.width,),
                 SizedBox(height: 24.h,),
-                ///Already have an account?
+
+                ///<<<===============Already have an account?===================>>>
+
                 Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

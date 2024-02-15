@@ -9,11 +9,13 @@ import 'package:http_parser/http_parser.dart';
 import '../helper/prefs_helper.dart';
 import '../models/error_response.dart';
 import '../utils/app_constants.dart';
+import '../utils/snack_bar.dart';
 import 'api_url.dart';
 
 
 class ApiClient extends GetxService {
   static var client = http.Client();
+  static int statusCode = 1;
 
   static const String noInternetMessage = "Can't connect to the internet!";
   static const int timeoutInSeconds = 30;
@@ -56,16 +58,22 @@ class ApiClient extends GetxService {
     try {
       debugPrint('====> API Call: $uri\nHeader: ${headers ?? mainHeaders}');
       debugPrint('====> API Body: $body');
-
       http.Response response = await client
           .post(
-        Uri.parse(ApiConstant.baseUrl + uri),
-        body: body,
+          Uri.parse(ApiConstant.baseUrl + uri),
+          body: body,
+          headers: headers
       )
           .timeout(const Duration(seconds: timeoutInSeconds));
+      statusCode = response.statusCode;
+      print('-----------------------$statusCode-=----------------');
       return handleResponse(response, uri);
     } catch (e) {
-      return const Response(statusCode: 1, statusText: noInternetMessage);
+      Get.snackbar(
+          backgroundColor: Colors.red.shade300,
+          "Status Code: $statusCode", "Error Message: $e");
+      return const Response();
+      // return const Response(statusCode: 1, statusText: noInternetMessage);
     }
   }
 
