@@ -103,10 +103,10 @@ class CustomPremiumCard extends StatelessWidget {
               ),
             ),
           ),
-          if (isPremium)
-            SizedBox(
-              height: 40.h,
-            ),
+          // if (isPremium)
+          //   SizedBox(
+          //     height: 40.h,
+          //   ),
         ],
       ),
     );
