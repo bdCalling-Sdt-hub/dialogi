@@ -1,4 +1,6 @@
 
+import 'package:dialogi_app/controllers/category/category_controller.dart';
+import 'package:dialogi_app/controllers/category/sub_category_controller.dart';
 import 'package:dialogi_app/controllers/sign_in_controller/sign_in_controller.dart';
 import 'package:dialogi_app/view/screens/auth/sign_up/sign_up_controller/sign_up_controller.dart';
 import 'package:dialogi_app/view/screens/home/home_controller/home_controller.dart';
@@ -12,5 +14,7 @@ class DependancyInjection extends Bindings {
     Get.lazyPut(() => SignInController(), fenix: true);
     Get.lazyPut(() => Homecontroller(), fenix: true);
     Get.lazyPut(() => ProfileController(), fenix: true);
+    Get.lazyPut(() => CategoryController(), fenix: true);
+    Get.lazyPut(() => SubCategoryController(), fenix: true);
   }
 }

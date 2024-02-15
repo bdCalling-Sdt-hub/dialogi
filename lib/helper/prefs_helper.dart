@@ -5,6 +5,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class PrefsHelper{
 
+
+  static final String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWM0YWUyMWZjMWNiYTIwOWFhNjQ0YjciLCJlbWFpbCI6InVzZXIuZGlhbG9naUBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsInN1YnNjcmlwdGlvbiI6ImRlZmF1bHQiLCJpYXQiOjE3MDc5NzE4OTksImV4cCI6MTcwODA1ODI5OX0.Quz5oOWe9vaom7FiDv3qnqKwndZovlx8PCfJVWhOs78" ;
+
   ///<<<===========================Get Data Form Shared Preference===================>
   static Future<String> getString(String key) async{
     SharedPreferences preferences = await SharedPreferences.getInstance();
