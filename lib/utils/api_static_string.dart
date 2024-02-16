@@ -2,9 +2,10 @@
 class ApiStaticStrings {
   //Auth
   static const name = "Name";
-  static const enterFullName = "Enter full name";
+  static const enterFullName = "Name is required";
   static const email = "Email";
-  static const enterEmail = "Enter email";
+  static const enterEmail = "Email is required";
+  static const enterAddress = "Enter your address";
   static RegExp emailRegexp = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
   static const String enterValidEmail = "Enter valid email";

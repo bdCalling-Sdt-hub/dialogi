@@ -90,8 +90,7 @@ class SignUpController extends GetxController {
       'password': passWordController.text
     };
 
-    var response =
-        await ApiClient.postData(ApiConstant.signUp, body, headers: headers);
+    var response = await ApiService.postApi(ApiConstant.signUp, body, headers);
     if (response.statusCode == 200) {
       if (otpController.text.isEmpty) {
         Get.toNamed(
@@ -101,7 +100,7 @@ class SignUpController extends GetxController {
         Get.offAndToNamed(AppRoutes.signInScreen);
       }
     } else {
-      ApiChecker.checkApi(response);
+      // ApiChecker.checkApi(response);
     }
     signUpLoading = false;
     update();

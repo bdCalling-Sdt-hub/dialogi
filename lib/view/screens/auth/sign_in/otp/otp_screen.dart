@@ -1,4 +1,4 @@
-import 'package:dialogi_app/controllers/sign_up_controller/sign_up_controller.dart';
+import 'package:dialogi_app/controllers/Auth/sign_up_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';

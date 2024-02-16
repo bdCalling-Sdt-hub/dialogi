@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../../../controllers/sign_up_controller/sign_up_controller.dart';
+import '../../../../../controllers/Auth/sign_up_controller.dart';
 
 class SetPhotoScreen extends StatefulWidget {
   const SetPhotoScreen({super.key});

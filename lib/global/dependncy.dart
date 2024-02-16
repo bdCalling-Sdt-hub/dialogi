@@ -1,6 +1,6 @@
 
-import 'package:dialogi_app/controllers/sign_in_controller/sign_in_controller.dart';
-import 'package:dialogi_app/controllers/sign_up_controller/sign_up_controller.dart';
+import 'package:dialogi_app/controllers/Auth/sign_in_controller.dart';
+import 'package:dialogi_app/controllers/Auth/sign_up_controller.dart';
 import 'package:dialogi_app/view/screens/home/home_controller/home_controller.dart';
 import 'package:dialogi_app/view/screens/profile/profile/profile_controller/profile_controller.dart';
 import 'package:get/get.dart';

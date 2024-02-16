@@ -1,4 +1,4 @@
-import 'package:dialogi_app/controllers/sign_in_controller/sign_in_controller.dart';
+import 'package:dialogi_app/controllers/Auth/sign_in_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/api_static_string.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
@@ -22,6 +22,7 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
