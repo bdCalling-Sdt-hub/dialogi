@@ -33,7 +33,7 @@ class SignInController extends GetxController{
 
     var response = await ApiService.postApi(ApiConstant.signIn, body, headers,isHeader: false );
 
-    // print("===========${response}===========");
+    print("===========${jsonDecode(response.responseJson)}===========");
 
     if(response.statusCode == 200){
 
@@ -44,7 +44,7 @@ class SignInController extends GetxController{
       emailController.clear();
       passwordController.clear();
     } else{
-      // ApiChecker.checkApi(response.responseJson);
+      Get.snackbar(response.statusCode.toString(), response.message);
     }
     signInLoading = false;
     update();
