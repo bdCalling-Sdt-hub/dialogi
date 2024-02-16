@@ -1,4 +1,5 @@
-import 'package:dialogi_app/core/app_routes.dart';
+import 'package:dialogi_app/controllers/Auth/password_controller.dart';
+import 'package:dialogi_app/utils/api_static_string.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
@@ -12,14 +13,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ResetPasswordScreen extends StatefulWidget {
-  const ResetPasswordScreen({super.key});
+class ResetPasswordScreen extends StatelessWidget {
+  ResetPasswordScreen({super.key});
 
-  @override
-  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
-}
+  final formKey = GlobalKey<FormState>();
 
-class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,91 +32,120 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               size: 24,
             )),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ///forget pass
-            CustomText(
-              text: AppStrings.resetPassword,
-              color: AppColors.blue_500,
-              fontWeight: FontWeight.w500,
-              fontSize: 24,
-              top: 24.h,
-              bottom: 8.h,
-            ),
+      body: GetBuilder<PasswordController>(
+          builder: (controller) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
 
-            ///fp text
-            CustomText(
-              textAlign: TextAlign.start,
-              maxLines: 3,
-              text: AppStrings.passwordMustHave,
-              fontWeight: FontWeight.w500,
-              fontSize: 16,
-              bottom: 44.h,
-            ),
+                  ///<<<=================forget password text======================>>>
 
-            ///password
-            CustomTextField(
-              isPassword: true,
-              keyboardType: TextInputType.text,
-              textAlign: TextAlign.start,
-              hintText: AppStrings.enteryourpassword,
-              hintStyle: GoogleFonts.prompt(
-                  fontSize: 14.h,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.black_300),
-              inputTextStyle: GoogleFonts.prompt(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16.h,
-                  color: AppColors.black_500),
-              fieldBorderColor: Colors.white,
-              fieldBorderRadius: 8,
-              isPrefixIcon: true,
-              prefixIcon: Icon(
-                Icons.lock_outlined,
-                size: 24.h,
-                color: AppColors.blue_500,
+                  CustomText(
+                    text: AppStrings.resetPassword,
+                    color: AppColors.blue_500,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 24,
+                    top: 24.h,
+                    bottom: 8.h,
+                  ),
+
+                  ///fp text
+                  CustomText(
+                    textAlign: TextAlign.start,
+                    maxLines: 3,
+                    text: AppStrings.passwordMustHave,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                    bottom: 44.h,
+                  ),
+
+                  ///<<<=====================password text field==============================>>>
+
+                  CustomTextField(
+                    textEditingController: controller.passwordController,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return ApiStaticStrings.fieldCantBeEmpty;
+                      } else if (value.length < 8) {
+                        return ApiStaticStrings.passwordLength;
+                      } else if (!ApiStaticStrings.passRegExp.hasMatch(value)) {
+                        return ApiStaticStrings.passMustContainBoth;
+                      } else {
+                        return null;
+                      }
+                    },
+                    isPassword: true,
+                    keyboardType: TextInputType.text,
+                    textAlign: TextAlign.start,
+                    hintText: AppStrings.enteryourpassword,
+                    hintStyle: GoogleFonts.prompt(
+                        fontSize: 14.h,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.black_300),
+                    inputTextStyle: GoogleFonts.prompt(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16.h,
+                        color: AppColors.black_500),
+                    fieldBorderColor: Colors.white,
+                    fieldBorderRadius: 8,
+                    isPrefixIcon: true,
+                    prefixIcon: Icon(
+                      Icons.lock_outlined,
+                      size: 24.h,
+                      color: AppColors.blue_500,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 24.h,
+                  ),
+
+                  ///<<<=====================confirm password text field==============================>>>
+
+                  CustomTextField(
+                    textEditingController: controller.confirmPasswordController,
+                    validator: (value) {
+                      if(value != controller.passwordController.text){
+                        return ApiStaticStrings.passDoesNotMatch;
+                      } else {
+                        return null;
+                      }
+                    },
+                    isPassword: true,
+                    keyboardType: TextInputType.text,
+                    textAlign: TextAlign.start,
+                    hintText: AppStrings.reenteryourpassword,
+                    hintStyle: GoogleFonts.prompt(
+                        fontSize: 14.h,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.black_300),
+                    inputTextStyle: GoogleFonts.prompt(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16.h,
+                        color: AppColors.black_500),
+                    fieldBorderColor: Colors.white,
+                    fieldBorderRadius: 8,
+                    isPrefixIcon: true,
+                    prefixIcon: Icon(
+                      Icons.lock_outlined,
+                      size: 24.h,
+                      color: AppColors.blue_500,
+                    ),
+                  ),
+
+                  Spacer(),
+
+                  controller.isLoading ? const Center(child: CircularProgressIndicator())
+                      : CustomElevatedButton(buttonWidth: Get.width,
+                      onPressed: () {
+                        controller.resetPasswordRepo();
+                      },
+                      titleText: AppStrings.resetPassword)
+                ],
               ),
-            ),
-            SizedBox(
-              height: 24.h,
-            ),
-
-            ///Re-enter password
-            CustomTextField(
-              isPassword: true,
-              keyboardType: TextInputType.text,
-              textAlign: TextAlign.start,
-              hintText: AppStrings.reenteryourpassword,
-              hintStyle: GoogleFonts.prompt(
-                  fontSize: 14.h,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.black_300),
-              inputTextStyle: GoogleFonts.prompt(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16.h,
-                  color: AppColors.black_500),
-              fieldBorderColor: Colors.white,
-              fieldBorderRadius: 8,
-              isPrefixIcon: true,
-              prefixIcon: Icon(
-                Icons.lock_outlined,
-                size: 24.h,
-                color: AppColors.blue_500,
-              ),
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-        child: CustomElevatedButton(
-            onPressed: () {
-              Get.toNamed(AppRoutes.signInScreen);
-            },
-            titleText: AppStrings.resetPassword),
+            );
+          },
       ),
     );
   }

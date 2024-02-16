@@ -31,7 +31,7 @@ class SignInController extends GetxController{
       "password": passwordController.text
     };
 
-    var response = await ApiService.postApi(ApiConstant.signIn, jsonEncode(body), headers);
+    var response = await ApiService.postApi(ApiConstant.signIn, body, headers,isHeader: false );
 
     // print("===========${response}===========");
 

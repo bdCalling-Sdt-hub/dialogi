@@ -1,4 +1,4 @@
-import 'package:dialogi_app/controllers/Auth/password_controller.dart';
+import 'package:dialogi_app/controllers/Auth/sign_up_controller.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
@@ -12,8 +12,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class OtpScreen extends StatelessWidget {
-  OtpScreen({super.key});
+class SignUpOtpScreen extends StatelessWidget {
+  SignUpOtpScreen({super.key});
 
   final formKey = GlobalKey<FormState>();
 
@@ -31,12 +31,12 @@ class OtpScreen extends StatelessWidget {
               size: 24,
             )),
       ),
-      body: GetBuilder<PasswordController>(
+      body: GetBuilder<SignUpController>(
         builder: (controller) {
-          return Form(
-            key: formKey,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+          return SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+            child: Form(
+              key: formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -122,20 +122,23 @@ class OtpScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Spacer(),
-
-                  controller.isLoading? const Center(child: CircularProgressIndicator())
-                      : CustomElevatedButton(
-                    buttonWidth: Get.width,
-                      onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          controller.verifyOtpRepo();
-                        }
-                      },
-                      titleText: AppStrings.verify)
                 ],
               ),
             ),
+          );
+        },
+      ),
+      bottomNavigationBar: GetBuilder<SignUpController>(
+        builder: (controller) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+            child: CustomElevatedButton(
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    controller.signUpUser();
+                  }
+                },
+                titleText: AppStrings.verify),
           );
         },
       ),

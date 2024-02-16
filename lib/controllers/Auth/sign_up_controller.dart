@@ -1,5 +1,4 @@
 import 'package:dialogi_app/core/app_routes.dart';
-import 'package:dialogi_app/services/api_check.dart';
 import 'package:dialogi_app/services/api_services.dart';
 import 'package:dialogi_app/services/api_url.dart';
 import 'package:flutter/cupertino.dart';

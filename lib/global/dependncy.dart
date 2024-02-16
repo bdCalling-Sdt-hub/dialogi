@@ -1,4 +1,5 @@
 
+import 'package:dialogi_app/controllers/Auth/password_controller.dart';
 import 'package:dialogi_app/controllers/Auth/sign_in_controller.dart';
 import 'package:dialogi_app/controllers/Auth/sign_up_controller.dart';
 import 'package:dialogi_app/view/screens/home/home_controller/home_controller.dart';
@@ -13,5 +14,6 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => SignInController(), fenix: true);
     Get.lazyPut(() => Homecontroller(), fenix: true);
     Get.lazyPut(() => ProfileController(), fenix: true);
+    Get.lazyPut(() => PasswordController(), fenix: true);
   }
 }
