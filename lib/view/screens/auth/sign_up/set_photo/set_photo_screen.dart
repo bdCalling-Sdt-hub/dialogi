@@ -6,7 +6,6 @@ import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
 
 import 'package:dialogi_app/view/screens/auth/sign_up/set_photo/inner_widgets/photo_pop_up.dart';
-import 'package:dialogi_app/view/screens/auth/sign_up/sign_up_controller/sign_up_controller.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
@@ -14,6 +13,8 @@ import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+import '../../../../../controllers/Auth/sign_up_controller.dart';
 
 class SetPhotoScreen extends StatefulWidget {
   const SetPhotoScreen({super.key});
@@ -79,7 +80,7 @@ class _SetPhotoScreenState extends State<SetPhotoScreen> {
                             return const PhotoPopUp();
                           });
                     },
-                    child:controller.image != null ? Container(
+                    child:controller.image!= null ? Container(
                       height: 100,
                       width: 100,
                       decoration: BoxDecoration(

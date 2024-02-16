@@ -15,7 +15,7 @@ Future<void> configureTts() async {
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  DependancyInjection dI = DependancyInjection();
+  DependencyInjection dI = DependencyInjection();
   dI.dependencies();
   configureTts();
   runApp(const MyApp());
