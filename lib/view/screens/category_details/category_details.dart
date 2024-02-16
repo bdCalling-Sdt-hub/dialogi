@@ -92,7 +92,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                                 return GestureDetector(
                                   onTap: () {
                                     Get.toNamed(AppRoutes.questionAns,
-                                        parameters: {"title": "Close Friend"});
+                                        parameters: {"title": "${controller.subCategoryList[index].subCategory}"});
                                   },
                                   child: Container(
                                     padding: EdgeInsets.all(12.r),

@@ -156,8 +156,9 @@ class _SignInScreenState extends State<SignInScreen> {
                     const Center(child: CircularProgressIndicator()):
                   CustomElevatedButton(
                   onPressed: () {
+                    Get.toNamed(AppRoutes.homeScreen);
                     if (_formKey.currentState!.validate()){
-                      controller.signInUser();
+                      // controller.signInUser();
                     }
                     // Get.toNamed(AppRoutes.homeScreen);
                   },

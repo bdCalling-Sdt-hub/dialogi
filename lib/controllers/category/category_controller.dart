@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 import 'package:dialogi_app/models/category_model.dart';
+import 'package:dialogi_app/services/api_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../../services/api_services.dart';
+import '../../helper/prefs_helper.dart';
 import '../../services/api_url.dart';
 
 class CategoryController extends GetxController {
@@ -46,11 +47,14 @@ class CategoryController extends GetxController {
       update();
     }
 
+    Map<String, String> header = {
+      'Authorization': "Bearer ${PrefsHelper.token}"
+    };
     var response =
-        await ApiClient.getData("${ApiConstant.categories}?page=$page");
+        await ApiService.getApi("${ApiConstant.categories}?page=$page", header);
 
     if (response.statusCode == 200) {
-      categoryModel = CategoryModel.fromJson(response.body);
+      categoryModel = CategoryModel.fromJson(jsonDecode(response.responseJson));
 
       for (var item in categoryModel!.data!.attributes!.categoryList!) {
         categoryList.add(item);

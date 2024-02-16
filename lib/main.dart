@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
 
+
 Future<void> configureTts() async {
   FlutterTts flutterTts = FlutterTts();
   await flutterTts.setLanguage('en-US');
