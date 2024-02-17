@@ -6,17 +6,27 @@ class PrefsHelper {
   static String token = "";
   static String forgetPasswordToken = "";
 
+
+
+
+
+
+
+
+
+
+
+
   static Future<void> getAllPrefData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    token = preferences.getString(AppConstants.bearerToken) ?? "This can't be empty";
-    forgetPasswordToken = preferences.getString(AppConstants.forgetPasswordToken) ?? "This field can't be empty";
+    token = preferences.getString(AppConstants.bearerToken) ??
+        "";
+    forgetPasswordToken =
+        preferences.getString(AppConstants.forgetPasswordToken) ??
+            "";
 
     print("..................$token............................");
-
   }
-
-
-  static final String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWNkZTRlNzI5NDM5M2M5NjljZmY0MzEiLCJlbWFpbCI6InVzZXIuZGlhbG9naUBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsInN1YnNjcmlwdGlvbiI6ImRlZmF1bHQiLCJpYXQiOjE3MDgxNjExMzAsImV4cCI6MTcwODI0NzUzMH0.lJ1TQYBIzeo54HK-Zn_6gCrETOyzjHo3avK2JDRyhIM" ;
 
   ///<<<===========================Get Data Form Shared Preference===================>
   static Future<String> getString(String key) async {
@@ -38,8 +48,6 @@ class PrefsHelper {
   static Future setString(String key, value) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
 
-    print("=====================================================> key $key") ;
-    print("=====================================================> value $value") ;
 
 
     return preferences.setString(key, value);

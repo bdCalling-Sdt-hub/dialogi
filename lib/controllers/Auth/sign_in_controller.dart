@@ -38,8 +38,16 @@ class SignInController extends GetxController {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.responseJson);
 
-      PrefsHelper.setString(
-          AppConstants.bearerToken, data['data']["accessToken"]);
+
+      print("=========================================> data $data") ;
+
+      PrefsHelper.setString(AppConstants.bearerToken, data['data']["accessToken"]);
+
+
+      PrefsHelper.token = data['data']["accessToken"];
+
+      print(
+          "=============================> token ${data['data']["accessToken"]}");
       Get.toNamed(AppRoutes.homeScreen);
       emailController.clear();
       passwordController.clear();
