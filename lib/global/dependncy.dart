@@ -6,6 +6,8 @@ import 'package:dialogi_app/view/screens/home/home_controller/home_controller.da
 import 'package:dialogi_app/view/screens/profile/profile/profile_controller/profile_controller.dart';
 import 'package:get/get.dart';
 
+import '../controllers/settings_controller/settings_controller.dart';
+
 
 class DependencyInjection extends Bindings {
   @override
@@ -15,5 +17,6 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => Homecontroller(), fenix: true);
     Get.lazyPut(() => ProfileController(), fenix: true);
     Get.lazyPut(() => PasswordController(), fenix: true);
+    Get.lazyPut(() => SettingsController(), fenix: true);
   }
 }
