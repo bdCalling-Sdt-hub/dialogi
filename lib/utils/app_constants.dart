@@ -8,5 +8,7 @@ class AppConstants{
   ///<<<-------------------------All Response Message Static--------------------->
   static String successful = "Request Successful";
   static String error = "Oops, something went wrong";
+  static String userNotExist = "User does not exist";
+  static String forgetPasswordToken = "ForgetPasswordToken";
 
 }

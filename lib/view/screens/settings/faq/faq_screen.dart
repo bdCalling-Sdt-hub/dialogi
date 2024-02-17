@@ -1,3 +1,4 @@
+import 'package:dialogi_app/controllers/settings_controller/settings_controller.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
@@ -16,6 +17,7 @@ class FaqScreen extends StatefulWidget {
 }
 
 class _FaqScreenState extends State<FaqScreen> {
+  SettingsController settingsController = Get.find<SettingsController>();
   bool selectedIndex = false;
 
   @override
@@ -43,67 +45,74 @@ class _FaqScreenState extends State<FaqScreen> {
           const SizedBox()
         ],
       )),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-        child: Column(children: [
-          Column(
-            children: List.generate(
-                1,
-                (index) => GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedIndex = !selectedIndex;
-                        });
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(bottom: 16),
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                const Expanded(
-                                  child: CustomText(
-                                    textAlign: TextAlign.start,
-                                    maxLines: 2,
-                                    text:
-                                        'Lorem ipsum dolor sit amet consectetur?',
-                                    fontWeight: FontWeight.w500,
-                                  ),
+      body: Obx(
+        () => settingsController.isLoading.value
+            ? const Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+                child: Column(children: [
+                  Column(
+                    children: List.generate(
+                        settingsController
+                            .faqContentModelData!.data!.attributes!.length,
+                        (index) => GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  selectedIndex = !selectedIndex;
+                                });
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.only(bottom: 16),
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
-                                const SizedBox(
-                                  width: 4,
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: CustomText(
+                                            textAlign: TextAlign.start,
+                                            maxLines: 2,
+                                            text:
+                                                "${settingsController.faqContentModelData!.data!.attributes![index].question}",
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 4,
+                                        ),
+                                        selectedIndex
+                                            ? const Icon(
+                                                Icons.remove_circle_outline)
+                                            : const Icon(
+                                                Icons.add_circle_outline)
+                                      ],
+                                    ),
+                                    selectedIndex
+                                        ? Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 16,
+                                              ),
+                                              CustomText(
+                                                  textAlign: TextAlign.start,
+                                                  maxLines: 10,
+                                                  text:
+                                                      "${settingsController.faqContentModelData!.data!.attributes![index].answer}"),
+                                            ],
+                                          )
+                                        : const SizedBox()
+                                  ],
                                 ),
-                                selectedIndex
-                                    ? const Icon(Icons.remove_circle_outline)
-                                    : const Icon(Icons.add_circle_outline)
-                              ],
-                            ),
-                            selectedIndex
-                                ? const Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 16,
-                                      ),
-                                      CustomText(
-                                        textAlign: TextAlign.start,
-                                        maxLines: 10,
-                                        text:
-                                            'Lorem ipsum dolor sit amet consectetur. Vel augue orci faucibus fringilla lacus turpis porttitor. Posuere magna cursus parturient augue ut pellentesque suspendisse aliquam nisi. Accumsan eget suspendisse nulla quis semper.',
-                                      ),
-                                    ],
-                                  )
-                                : const SizedBox()
-                          ],
-                        ),
-                      ),
-                    )),
-          ),
-        ]),
+                              ),
+                            )),
+                  ),
+                ]),
+              ),
       ),
     );
   }

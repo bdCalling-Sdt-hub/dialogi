@@ -2,6 +2,7 @@ import 'package:dialogi_app/view/screens/auth/sign_in/forget_password/forget_pas
 import 'package:dialogi_app/view/screens/auth/sign_in/otp/otp_screen.dart';
 import 'package:dialogi_app/view/screens/auth/sign_in/reset_password/reset_password_screen.dart';
 import 'package:dialogi_app/view/screens/auth/sign_in/sign_in/sign_in_screen.dart';
+import 'package:dialogi_app/view/screens/auth/sign_up/otp/signup_otp_screen.dart';
 import 'package:dialogi_app/view/screens/auth/sign_up/set_password/set_password_screen.dart';
 import 'package:dialogi_app/view/screens/auth/sign_up/set_photo/set_photo_screen.dart';
 import 'package:dialogi_app/view/screens/auth/sign_up/sign_up/sign_up_screen.dart';
@@ -45,6 +46,7 @@ class AppRoutes {
   static String signInScreen = "/sign_in_screen";
   static String forgetPasswordScreen = "/forget_password_screen";
   static String otpScreen = "/otp_screen";
+  static String signupOtpScreen = "/signup_otp_screen";
   static String resetPasswordScreen = "/reset_password_screen";
   static String signUpScreen = "/sign_up_screen";
   static String setPasswordScreen = "/set_password_screen";
@@ -86,9 +88,10 @@ class AppRoutes {
     GetPage(name: premiumScreen, page: () => const PremiumScreen()),
     GetPage(name: signInScreen, page: () => const SignInScreen()),
     GetPage(
-        name: forgetPasswordScreen, page: () => const ForgetPasswordScreen()),
-    GetPage(name: otpScreen, page: () => const OtpScreen()),
-    GetPage(name: resetPasswordScreen, page: () => const ResetPasswordScreen()),
+        name: forgetPasswordScreen, page: () => ForgetPasswordScreen()),
+    GetPage(name: otpScreen, page: () => OtpScreen()),
+    GetPage(name: signupOtpScreen, page: () => SignUpOtpScreen()),
+    GetPage(name: resetPasswordScreen, page: () => ResetPasswordScreen()),
     GetPage(name: signUpScreen, page: () =>  SignUpScreen()),
     GetPage(name: setPasswordScreen, page: () => SetPasswordScreen()),
     GetPage(name: setPhotoScreen, page: () => const SetPhotoScreen()),
@@ -96,10 +99,10 @@ class AppRoutes {
     GetPage(name: categoryScreen, page: () => CategoryScreen()),
     GetPage(name: friendsScreen, page: () => const FriendsScreen()),
     GetPage(name: profileScreen, page: () => const ProfileScreen()),
-    GetPage(name: settingsScreen, page: () => const SettingsScreen()),
+    GetPage(name: settingsScreen, page: () => SettingsScreen()),
     GetPage(
         name: settingsChangePasswordScreen,
-        page: () => const SettingsChangePasswordScreen()),
+        page: () => SettingsChangePasswordScreen()),
     GetPage(
         name: settingsForgetPasswordScreen,
         page: () => const SettingsForgetPasswordScreen()),
@@ -111,9 +114,9 @@ class AppRoutes {
         name: changeLanguageScreen, page: () => const ChangeLanguageScreen()),
     GetPage(name: categoryDetails, page: () => const CategoryDetails()),
     GetPage(name: questionAns, page: () => const QuestionAns()),
-    GetPage(name: supportScreen, page: () => const SupportScreen()),
-    GetPage(name: aboutUsScreen, page: () => const AboutUsScreen()),
-    GetPage(name: privacyPolicyScreen, page: () => const PrivacyPolicyScreen()),
+    GetPage(name: supportScreen, page: () => SupportScreen()),
+    GetPage(name: aboutUsScreen, page: () => AboutUsScreen()),
+    GetPage(name: privacyPolicyScreen, page: () => PrivacyPolicyScreen()),
     GetPage(name: faqScreen, page: () => const FaqScreen()),
     GetPage(name: subscriptionsScreen, page: () => const SubscriptionsScreen()),
     GetPage(name: editProfileScreen, page: () => const EditProfileScreen()),

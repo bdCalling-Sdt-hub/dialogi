@@ -1,4 +1,4 @@
-import 'package:dialogi_app/core/app_routes.dart';
+import 'package:dialogi_app/controllers/Auth/password_controller.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
@@ -12,14 +12,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ForgetPasswordScreen extends StatefulWidget {
-  const ForgetPasswordScreen({super.key});
+import '../../../../../utils/api_static_string.dart';
 
-  @override
-  State<ForgetPasswordScreen> createState() => _ForgetPasswordScreenState();
-}
+class ForgetPasswordScreen extends StatelessWidget {
+  ForgetPasswordScreen({super.key});
 
-class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
+  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,64 +33,97 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               size: 24,
             )),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ///forget pass
-            CustomText(
-              text: AppStrings.forgotPassword,
-              color: AppColors.blue_500,
-              fontWeight: FontWeight.w500,
-              fontSize: 24,
-              top: 24.h,
-              bottom: 8.h,
-            ),
+      body: GetBuilder<PasswordController>(
+        builder: (controller) {
+        return  Form(
+          key: formKey,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
 
-            ///fp text
-            CustomText(
-              textAlign: TextAlign.start,
-              maxLines: 2,
-              text: AppStrings.pleaseEnteryourEmailAddresstoreset,
-              fontWeight: FontWeight.w500,
-              fontSize: 16,
-              bottom: 44.h,
-            ),
+                ///<<<======================forget pass text==========================>>>
+                CustomText(
+                  text: AppStrings.forgotPassword,
+                  color: AppColors.blue_500,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 24,
+                  top: 24.h,
+                  bottom: 8.h,
+                ),
 
-            ///email
-            CustomTextField(
-              keyboardType: TextInputType.text,
-              textAlign: TextAlign.start,
-              hintText: AppStrings.enterYourEmail,
-              hintStyle: GoogleFonts.prompt(
-                  fontSize: 14.h,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.black_300),
-              inputTextStyle: GoogleFonts.prompt(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16.h,
-                  color: AppColors.black_500),
-              fieldBorderColor: Colors.white,
-              fieldBorderRadius: 8,
-              isPrefixIcon: true,
-              prefixIcon: Icon(
-                Icons.mail_outline,
-                size: 24.h,
-                color: AppColors.blue_500,
-              ),
+                ///fp text
+                CustomText(
+                  textAlign: TextAlign.start,
+                  maxLines: 2,
+                  text: AppStrings.pleaseEnteryourEmailAddresstoreset,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                  bottom: 44.h,
+                ),
+
+                ///<<<========================email field=================================>>>
+                CustomTextField(
+                  textEditingController: controller.emailController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return ApiStaticStrings.enterEmail;
+                    } else if (!ApiStaticStrings.emailRegexp
+                        .hasMatch(controller.emailController.text)) {
+                      return ApiStaticStrings.enterValidEmail;
+                    } else {
+                      return null;
+                    }
+                  },
+                  keyboardType: TextInputType.text,
+                  textAlign: TextAlign.start,
+                  hintText: AppStrings.enterYourEmail,
+                  hintStyle: GoogleFonts.prompt(
+                      fontSize: 14.h,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.black_300),
+                  inputTextStyle: GoogleFonts.prompt(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16.h,
+                      color: AppColors.black_500),
+                  fieldBorderColor: Colors.white,
+                  fieldBorderRadius: 8,
+                  isPrefixIcon: true,
+                  prefixIcon: Icon(
+                    Icons.mail_outline,
+                    size: 24.h,
+                    color: AppColors.blue_500,
+                  ),
+                ),
+                const Spacer(),
+                ///<<<========================Get Otp Button============================>>>
+                controller.isLoading? const Center(child: CircularProgressIndicator())
+                  : CustomElevatedButton(
+                    buttonWidth: Get.width,
+                    onPressed: () {
+                      if(formKey.currentState!.validate()){
+                        controller.forgetPasswordRepo();
+                      }
+                    },
+                    titleText: AppStrings.getOTP)
+              ],
             ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-        child: CustomElevatedButton(
-            onPressed: () {
-              Get.toNamed(AppRoutes.otpScreen);
-            },
-            titleText: AppStrings.getOTP),
-      ),
+          ),
+        );
+      },),
+      // bottomNavigationBar: GetBuilder<ForgetPasswordController>(builder: (controller) {
+      //   return Padding(
+      //     padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+      //     child: CustomElevatedButton(
+      //         onPressed: () {
+      //           if(isFormKeyValidate){
+      //             controller.forgerPasswordRepo();
+      //           }
+      //         },
+      //         titleText: AppStrings.getOTP),
+      //   );
+      // },),
     );
   }
 }

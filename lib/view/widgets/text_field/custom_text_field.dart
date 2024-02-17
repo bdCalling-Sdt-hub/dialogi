@@ -74,7 +74,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: widget.height.h,
       child: TextFormField(
         onTap: widget.onTap,

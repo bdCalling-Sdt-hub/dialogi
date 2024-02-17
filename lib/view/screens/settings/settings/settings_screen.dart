@@ -1,3 +1,4 @@
+import 'package:dialogi_app/controllers/settings_controller/settings_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
@@ -11,14 +12,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
+class SettingsScreen extends StatelessWidget {
+  SettingsScreen({super.key});
 
-  @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
+  var settingsController = Get.find<SettingsController>();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +26,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
-            onTap: (){
+            onTap: () {
               Get.toNamed(AppRoutes.homeScreen);
             },
             child: const CustomImage(
@@ -47,41 +44,90 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ],
       )),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
         child: Column(
           children: [
-            /// change password
-            CustomSettingsContainer(onTap: (){Get.toNamed(AppRoutes.settingsChangePasswordScreen );}, imageSrc: AppIcons.lock, text: AppStrings.changePassword, icon: AppIcons.chevronRight),
+            ///<<<=================== change password =======================>>>
+
+            CustomSettingsContainer(
+                onTap: () {
+
+                  Get.toNamed(AppRoutes.settingsChangePasswordScreen);
+                },
+                imageSrc: AppIcons.lock,
+                text: AppStrings.changePassword,
+                icon: AppIcons.chevronRight),
 
             ///change Language
-            CustomSettingsContainer(onTap: (){Get.toNamed(AppRoutes.changeLanguageScreen );}, imageSrc: AppIcons.translate, text: AppStrings.changeLanguage, icon: AppIcons.chevronRight),
+            CustomSettingsContainer(
+                onTap: () {
+                  Get.toNamed(AppRoutes.changeLanguageScreen);
+                },
+                imageSrc: AppIcons.translate,
+                text: AppStrings.changeLanguage,
+                icon: AppIcons.chevronRight),
 
             ///Subscriptions
-            CustomSettingsContainer(onTap: (){
-              Get.toNamed(AppRoutes.subscriptionsScreen
-              );
-            }, imageSrc: AppIcons.subscriptions, text: AppStrings.subscriptions, icon: AppIcons.chevronRight),
+            CustomSettingsContainer(
+                onTap: () {
+                  Get.toNamed(AppRoutes.subscriptionsScreen);
+                },
+                imageSrc: AppIcons.subscriptions,
+                text: AppStrings.subscriptions,
+                icon: AppIcons.chevronRight),
 
-            /// Privacy Policy
-            CustomSettingsContainer(onTap: (){Get.toNamed(AppRoutes.privacyPolicyScreen );}, imageSrc: AppIcons.privacy, text: AppStrings.privacyPolicy, icon: AppIcons.chevronRight),
+            ///<<<================== Privacy Policy =========================>>>
 
-            ///about us
-            CustomSettingsContainer(onTap: (){Get.toNamed(AppRoutes.aboutUsScreen );}, imageSrc: AppIcons.aboutUs, text: AppStrings.aboutUs, icon: AppIcons.chevronRight),
+            CustomSettingsContainer(
+                onTap: () {
+                  settingsController.privacyPolicyRepo();
+                },
+                imageSrc: AppIcons.privacy,
+                text: AppStrings.privacyPolicy,
+                icon: AppIcons.chevronRight),
 
-            ///support
-            CustomSettingsContainer(onTap: (){Get.toNamed(AppRoutes.supportScreen );}, imageSrc: AppIcons.support, text: AppStrings.support, icon: AppIcons.chevronRight),
+            ///<<<================== about us ===============================>>>
 
-            ///faq
-            CustomSettingsContainer(onTap: (){Get.toNamed(AppRoutes.faqScreen);}, imageSrc: AppIcons.faq, text: AppStrings.fAQ, icon: AppIcons.chevronRight),
+            CustomSettingsContainer(
+                onTap: () {
+                  settingsController.aboutUsRepo();
+                },
+                imageSrc: AppIcons.aboutUs,
+                text: AppStrings.aboutUs,
+                icon: AppIcons.chevronRight),
+
+            ///<<<=================== supports ==============================>>>
+
+            CustomSettingsContainer(
+                onTap: () {
+                  settingsController.supportsRepo();
+                },
+                imageSrc: AppIcons.support,
+                text: AppStrings.support,
+                icon: AppIcons.chevronRight),
+
+            ///<<<================== faq ===============================>>>>
+
+            CustomSettingsContainer(
+                onTap: () {
+                  settingsController.faqRepo();
+                },
+                imageSrc: AppIcons.faq,
+                text: AppStrings.fAQ,
+                icon: AppIcons.chevronRight),
 
             ///delete account
-            CustomSettingsContainer(onTap: (){
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context){
-                    return const DeleteAccount();
-                  });
-            }, imageSrc: AppIcons.deleteAccount , text: AppStrings.deleteAccount, icon: AppIcons.chevronRight),
+            CustomSettingsContainer(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const DeleteAccount();
+                      });
+                },
+                imageSrc: AppIcons.deleteAccount,
+                text: AppStrings.deleteAccount,
+                icon: AppIcons.chevronRight),
           ],
         ),
       ),

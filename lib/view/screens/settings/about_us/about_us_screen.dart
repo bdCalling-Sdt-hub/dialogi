@@ -1,4 +1,4 @@
-import 'package:dialogi_app/controllers/about_us_controller.dart';
+import 'package:dialogi_app/controllers/settings_controller/settings_controller.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
@@ -6,17 +6,15 @@ import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class AboutUsScreen extends StatefulWidget {
-  const AboutUsScreen({super.key});
+class AboutUsScreen extends StatelessWidget {
+  AboutUsScreen({super.key});
 
-  @override
-  State<AboutUsScreen> createState() => _AboutUsScreenState();
-}
+  SettingsController settingsController = Get.find<SettingsController>();
 
-class _AboutUsScreenState extends State<AboutUsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,49 +41,21 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
             const SizedBox()
           ],
         )),
-        body: GetBuilder<AboutUsController>(builder: (controller) {
-          return SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-            child: Column(
-              children: [
-                // Html(
-                //   data: controller.content,
-                // ),
-                CustomText(
-                  textAlign: TextAlign.start,
-                  maxLines: 10,
-                  text:
-                      '1. Lorem ipsum dolor sit amet consectetur. Imperdiet iaculis convallis bibendum massa id elementum consectetur neque mauris.',
-                  fontSize: 16.h,
-                  bottom: 16.h,
+        body: Obx(() => settingsController.isLoading.value
+            ? const Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+                child: Column(
+                  children: [
+                    Html(
+                      data: settingsController
+                              .contentModelInfo!.data!.attributes?.content
+                              .toString() ??
+                          "No Data Found",
+                    ),
+                  ],
                 ),
-                CustomText(
-                  textAlign: TextAlign.start,
-                  maxLines: 10,
-                  text:
-                      '2. Lorem ipsum dolor sit amet consectetur. Imperdiet iaculis convallis bibendum massa id elementum consectetur neque mauris.',
-                  fontSize: 16.h,
-                  bottom: 16.h,
-                ),
-                CustomText(
-                  textAlign: TextAlign.start,
-                  maxLines: 10,
-                  text:
-                      '3. Lorem ipsum dolor sit amet consectetur. Imperdiet iaculis convallis bibendum massa id elementum consectetur neque mauris.',
-                  fontSize: 16.h,
-                  bottom: 16.h,
-                ),
-                CustomText(
-                  textAlign: TextAlign.start,
-                  maxLines: 10,
-                  text:
-                      '4. Lorem ipsum dolor sit amet consectetur. Imperdiet iaculis convallis bibendum massa id elementum consectetur neque mauris.',
-                  fontSize: 16.h,
-                  bottom: 16.h,
-                ),
-              ],
-            ),
-          );
-        }));
+              )));
   }
 }

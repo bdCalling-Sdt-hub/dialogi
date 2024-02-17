@@ -6,6 +6,7 @@ class ApiStaticStrings {
   static const email = "Email";
   static const enterEmail = "Email is required";
   static const enterAddress = "Enter your address";
+  static const wrongPassword = "Wrong password!!! Please enter your current password";
   static RegExp emailRegexp = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
   static const String enterValidEmail = "Enter valid email";
