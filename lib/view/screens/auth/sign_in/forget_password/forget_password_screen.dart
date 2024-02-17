@@ -103,7 +103,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                     buttonWidth: Get.width,
                     onPressed: () {
                       if(formKey.currentState!.validate()){
-                        controller.forgerPasswordRepo();
+                        controller.forgetPasswordRepo();
                       }
                     },
                     titleText: AppStrings.getOTP)

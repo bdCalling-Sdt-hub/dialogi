@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:dialogi_app/core/app_routes.dart';
+import 'package:dialogi_app/helper/prefs_helper.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_images.dart';
 import 'package:dialogi_app/utils/device_utils.dart';
@@ -7,6 +8,8 @@ import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../utils/app_constants.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,13 +19,27 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
   @override
   void initState() {
     DeviceUtils.allScreenUtils();
     Timer(const Duration(seconds: 2), () {
-      Get.offAndToNamed(AppRoutes.premiumScreen);
+      getLoggedIn();
     });
     super.initState();
+  }
+
+  Future<void> getLoggedIn() async {
+
+    try {
+      if (PrefsHelper.token.isNotEmpty) {
+        Get.offAllNamed(AppRoutes.homeScreen);
+      } else {
+        Get.offAllNamed(AppRoutes.premiumScreen);
+      }
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   @override

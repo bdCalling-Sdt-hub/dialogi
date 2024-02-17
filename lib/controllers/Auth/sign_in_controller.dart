@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 
 import 'package:dialogi_app/helper/prefs_helper.dart';
@@ -12,18 +10,19 @@ import 'package:get/get.dart';
 import '../../core/app_routes.dart';
 import '../../services/api_url.dart';
 
-class SignInController extends GetxController{
+class SignInController extends GetxController {
   bool signInLoading = false;
 
-
-  TextEditingController emailController = TextEditingController(text: kDebugMode? "siamjht@gmail.com" : "");
-  TextEditingController passwordController = TextEditingController(text: kDebugMode? "hello123" : "");
+  TextEditingController emailController =
+      TextEditingController(text: kDebugMode ? "siamjht@gmail.com" : "");
+  TextEditingController passwordController =
+      TextEditingController(text: kDebugMode ? "hello123" : "");
 
   var headers = {
-    'Content-Type' : 'application/json',
+    'Content-Type': 'application/json',
   };
 
-  signInUser() async{
+  signInUser() async {
     signInLoading = true;
     update();
     Map<String, String> body = {
@@ -31,19 +30,20 @@ class SignInController extends GetxController{
       "password": passwordController.text
     };
 
-    var response = await ApiService.postApi(ApiConstant.signIn, body, headers,isHeader: false );
+    var response = await ApiService.postApi(ApiConstant.signIn, body, headers,
+        isHeader: false);
 
     print("===========${jsonDecode(response.responseJson)}===========");
 
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.responseJson);
 
-      var data = jsonDecode(response.responseJson) ;
-
-      PrefsHelper.setString(AppConstants.bearerToken, data["accessToken"]);
+      PrefsHelper.setString(
+          AppConstants.bearerToken, data['data']["accessToken"]);
       Get.toNamed(AppRoutes.homeScreen);
       emailController.clear();
       passwordController.clear();
-    } else{
+    } else {
       Get.snackbar(response.statusCode.toString(), response.message);
     }
     signInLoading = false;

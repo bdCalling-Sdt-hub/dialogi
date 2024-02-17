@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:dialogi_app/controllers/Auth/sign_up_controller.dart';
+import 'package:dialogi_app/helper/prefs_helper.dart';
 import 'package:dialogi_app/services/api_services.dart';
 import 'package:dialogi_app/services/api_url.dart';
 import 'package:dialogi_app/utils/app_constants.dart';
@@ -19,13 +20,17 @@ class PasswordController extends GetxController{
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
 
+  ///<<<============== Change Password Controllers ======================>>>
+  TextEditingController currentPasswordController = TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
+  TextEditingController reEnterNewPasswordController = TextEditingController();
+
 
   bool isLoading = false;
-  var forgetPasswordToken = '';
 
   ///<<<==================Forget Password Repo===============================>>>
 
-  Future<void> forgerPasswordRepo() async {
+  Future<void> forgetPasswordRepo() async {
     isLoading = true;
     update();
     // var header = {
@@ -75,7 +80,8 @@ class PasswordController extends GetxController{
       var responseData = jsonDecode(response.responseJson);
 
       print("///////////////////////${responseData['data']["forgetPasswordToken"]}////////////////////");
-      forgetPasswordToken = responseData['data']["forgetPasswordToken"];
+
+      PrefsHelper.setString(AppConstants.forgetPasswordToken, responseData['data']["forgetPasswordToken"]);
 
       Get.toNamed(AppRoutes.resetPasswordScreen);
 
@@ -97,7 +103,7 @@ class PasswordController extends GetxController{
     update();
     Map<String, String> header =
     {
-      "Forget-password" : "Forget-password $forgetPasswordToken",
+      "Forget-password" : "Forget-password ${PrefsHelper.forgetPasswordToken}",
     };
 
     Map<String, String> body =
@@ -110,6 +116,47 @@ class PasswordController extends GetxController{
     if(response.statusCode == 200){
       Utils.toastMessage(response.message);
       Get.toNamed(AppRoutes.signInScreen);
+
+    } else if(response.statusCode == 400){
+
+      Utils.toastMessage(response.message);
+
+    } else{
+      Get.snackbar(response.statusCode.toString(), response.message);
+    }
+    isLoading = false;
+    update();
+  }
+
+  ///<<<===================Change Password Repo==============================>>>
+
+  Future<void> changePasswordRepo() async{
+    print("Token:----------------${PrefsHelper.token}");
+
+    isLoading = true;
+    update();
+    Map<String, String> header =
+    {
+      "Authorization": "Bearer ${PrefsHelper.token}"
+    };
+
+    Map<String, String> body =
+    {
+      "oldPassword": currentPasswordController.text,
+      "newPassword": newPasswordController.text
+    };
+    var response = await ApiService.patchApi(ApiConstant.changePassword, body, header);
+
+    print('++++++++++++++++++++ ${response.responseJson} ++++++++++++++++++');
+
+    if(response.statusCode == 200){
+      Utils.toastMessage(response.message);
+
+      currentPasswordController.text = "";
+      newPasswordController.text = "";
+      reEnterNewPasswordController.text = "";
+
+      Get.toNamed(AppRoutes.settingsScreen);
 
     } else if(response.statusCode == 400){
 

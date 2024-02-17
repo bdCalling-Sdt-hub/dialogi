@@ -99,7 +99,7 @@ class AppRoutes {
     GetPage(name: settingsScreen, page: () => SettingsScreen()),
     GetPage(
         name: settingsChangePasswordScreen,
-        page: () => const SettingsChangePasswordScreen()),
+        page: () => SettingsChangePasswordScreen()),
     GetPage(
         name: settingsForgetPasswordScreen,
         page: () => const SettingsForgetPasswordScreen()),

@@ -6,6 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
 
+import 'helper/prefs_helper.dart';
+
 Future<void> configureTts() async {
   FlutterTts flutterTts = FlutterTts();
   await flutterTts.setLanguage('en-US');
@@ -13,11 +15,12 @@ Future<void> configureTts() async {
   await flutterTts.setVolume(1.0);
 }
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   DependencyInjection dI = DependencyInjection();
   dI.dependencies();
   configureTts();
+  await PrefsHelper.getAllPrefData() ;
   runApp(const MyApp());
 
   /* runApp(

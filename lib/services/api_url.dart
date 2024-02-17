@@ -1,5 +1,6 @@
 
 class ApiConstant{
+
   ///<<<=================Base Url=========================>>>
   static const baseUrl = "http://192.168.10.18:3000";
 
@@ -25,4 +26,5 @@ class ApiConstant{
   static const aboutUs = "$baseUrl/api/about-us";
   static const supports = "$baseUrl/api/supports";
   static const faqs = "$baseUrl/api/faqs";
+  static const changePassword = "$baseUrl/api/users/change-password";
 }
