@@ -79,7 +79,7 @@ class Attributes {
 class Discussion {
   String? sId;
   String? discussion;
-  User? user;
+  DiscussionUser? user;
   int? likes;
   int? dislikes;
   List<Replies>? replies;
@@ -95,7 +95,7 @@ class Discussion {
   Discussion.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     discussion = json['discussion'];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['user'] != null ? new DiscussionUser.fromJson(json['user']) : null;
     likes = json['likes'];
     dislikes = json['dislikes'];
     if (json['replies'] != null) {
@@ -122,14 +122,14 @@ class Discussion {
   }
 }
 
-class User {
+class DiscussionUser {
   String? sId;
   String? fullName;
   String? image;
 
-  User({this.sId, this.fullName, this.image});
+  DiscussionUser({this.sId, this.fullName, this.image});
 
-  User.fromJson(Map<String, dynamic> json) {
+  DiscussionUser.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     fullName = json['fullName'];
     image = json['image'];
@@ -147,16 +147,16 @@ class User {
 class Replies {
   String? sId;
   String? reply;
-  RepliesUser? repliesUser;
+  User? user;
   int? likes;
   int? dislikes;
 
-  Replies({this.sId, this.reply, this.repliesUser, this.likes, this.dislikes});
+  Replies({this.sId, this.reply, this.user, this.likes, this.dislikes});
 
   Replies.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     reply = json['reply'];
-    repliesUser = json['user'] != null ? new RepliesUser.fromJson(json['user']) : null;
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
     likes = json['likes'];
     dislikes = json['dislikes'];
   }
@@ -165,8 +165,8 @@ class Replies {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
     data['reply'] = this.reply;
-    if (this.repliesUser != null) {
-      data['user'] = this.repliesUser!.toJson();
+    if (this.user != null) {
+      data['user'] = this.user!.toJson();
     }
     data['likes'] = this.likes;
     data['dislikes'] = this.dislikes;
@@ -174,13 +174,13 @@ class Replies {
   }
 }
 
-class RepliesUser {
+class User {
   String? fullName;
   String? image;
 
-  RepliesUser({this.fullName, this.image});
+  User({this.fullName, this.image});
 
-  RepliesUser.fromJson(Map<String, dynamic> json) {
+  User.fromJson(Map<String, dynamic> json) {
     fullName = json['fullName'];
     image = json['image'];
   }

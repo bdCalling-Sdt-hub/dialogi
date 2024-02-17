@@ -116,6 +116,7 @@ class AppStrings {
   static const String penFriends = "Pen Friends";
   static const String enteryouranswer = "Enter your answer";
   static const String next = "Next";
+  static const String add = "Add";
   static const String wanttojointhediscussion =
       "Want to join the discussion with others?";
   static const String upgradetoPremium = "Upgrade to Premium";
@@ -126,7 +127,7 @@ class AppStrings {
   static const String gotocategories = "Go to categories";
   static const String discussions = "Discussions";
   static const String reply = "Reply";
-  static const String enterTextHere = "enter your text";
+  static const String enterTextHere = "Enter your text";
 
   //Settings
   static const String changePassword = "Change Password";
@@ -190,4 +191,5 @@ class AppStrings {
   //Others
   static const String cancelSubscription = "Cancel Subscription?";
   static const String areYouSure = "Are you sure?";
+  static const String view = "View";
 }

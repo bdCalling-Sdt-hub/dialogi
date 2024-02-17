@@ -37,6 +37,8 @@ import 'package:dialogi_app/view/screens/settings/support/support_screen.dart';
 import 'package:dialogi_app/view/screens/splash/splash_screen.dart';
 import 'package:get/get.dart';
 
+import '../view/screens/discussion_details/discussion_details_screen.dart';
+
 class AppRoutes {
   static String splashScreen = "/splash_screen";
   static String premiumScreen = "/premium_screen";
@@ -77,6 +79,7 @@ class AppRoutes {
   static String selectFriends = "/select_friends";
   static String groupChat = "/group_chat";
   static String groupMembers = "/group_members";
+  static String discussionDetails = "/discussion_details_screen.dart";
 
   static List<GetPage> routes = [
     GetPage(name: splashScreen, page: () => const SplashScreen()),
@@ -126,5 +129,6 @@ class AppRoutes {
     GetPage(name: selectFriends, page: () => const SelectFriendsGroupChat()),
     GetPage(name: groupChat, page: () => const GroupChat()),
     GetPage(name: groupMembers, page: () => const GroupMembers()),
+    GetPage(name: discussionDetails, page: () => const DiscussionDetailsScreen()),
   ];
 }

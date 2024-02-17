@@ -1,62 +1,20 @@
 import 'package:dialogi_app/controllers/question_ans_controller.dart';
-import 'package:dialogi_app/utils/app_constants.dart';
+import 'package:dialogi_app/core/app_routes.dart';
+import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:dialogi_app/view/widgets/text_field/custom_text_field.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../../../controllers/category/sub_category_controller.dart';
 import '../../../../../services/api_url.dart';
 
 class CommentReply extends StatelessWidget {
-  CommentReply({super.key});
-
-  // final List<Map<String, Map>> comments = [
-  //   {
-  //     "comment": {
-  //       "commentBody": "Nice. Keep going",
-  //       "name": "Nils",
-  //       "image":
-  //           "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
-  //       "likes": "34",
-  //       "dislike": "4",
-  //       "reply": [
-  //         {
-  //           "name": "Rafsan",
-  //           "image":
-  //               "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
-  //           "likes": "34",
-  //           "dislike": "4",
-  //           "replymsg": "Thank you"
-  //         },
-  //       ]
-  //     }
-  //   },
-  //   {
-  //     "comment": {
-  //       "commentBody": "How to find that",
-  //       "name": "Humayun",
-  //       "image":
-  //           "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
-  //       "likes": "34",
-  //       "dislike": "4",
-  //       "reply": [
-  //         {
-  //           "name": "Nadim",
-  //           "image":
-  //               "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
-  //           "likes": "34",
-  //           "dislike": "4",
-  //           "replymsg": "In Comment section"
-  //         },
-  //       ]
-  //     }
-  //   }
-  // ];
+  const CommentReply({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -75,14 +33,16 @@ class CommentReply extends StatelessWidget {
 
           //===========================Comment reply section=======================
 
-          SizedBox(
-            height: 230.h,
-            child: ListView.builder(
-              itemCount: controller.questionAnsModel!.data!.attributes!
-                  .questions![0].discussions!.length,
-              itemBuilder: (context, index) {
-                var comment = controller.questionAnsModel!.data!.attributes!
-                    .questions![0].discussions![index];
+          Expanded(
+              child: ListView.builder(
+            controller: controller.discussionScrollController,
+            physics: const BouncingScrollPhysics(),
+            itemCount: controller.isLoadingMoreDiscussion
+                ? controller.discussionList.length + 1
+                : controller.discussionList.length,
+            itemBuilder: (context, index) {
+              if (index < controller.discussionList.length) {
+                var comment = controller.discussionList[index];
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -143,131 +103,158 @@ class CommentReply extends StatelessWidget {
                             ],
                           ),
 
-                          // Reply
-                          TextButton(
-                            onPressed: () {},
-                            child: const CustomText(text: AppStrings.reply),
+                          InkWell(
+                            onTap: () => controller.addReply(comment.sId!),
+                            child: Center(
+                                child: CustomText(
+                              text: AppStrings.reply,
+                              left: 10.w,
+                              right: 10.w,
+                              textAlign: TextAlign.center,
+                            )),
                           ),
+
+                          // ReplyS
                         ],
                       ),
                     ),
 
-                    // ================================Replies======================
-                    Container(
-                      margin: EdgeInsets.only(left: 30.w),
-                      // height: 100.h,
-                      child: ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: comment.limitedReplies!.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          print(
-                              "=======================================>comment.limitedReplies!.length ${comment.limitedReplies!.length}");
-                          var reply = comment.limitedReplies![index];
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Image of the Reply person
-                                  Container(
-                                    width: 26.w,
-                                    height: 26.w,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                        image: NetworkImage(
-                                            "${ApiConstant.baseUrl}/${reply.user!.image!}"),
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 8),
-
-                                  // Name and comment of the Reply person
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      CustomText(text: reply.user!.fullName!),
-                                      const SizedBox(height: 8),
-                                      CustomText(
-                                        textAlign: TextAlign.left,
-                                        text: reply.reply!,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-
-                              // Like Dislike reply
-                              Padding(
-                                padding: EdgeInsets.only(left: 35.w, top: 5.h),
-                                child: Row(
-                                  children: [
-                                    // Like
-                                    Row(
-                                      children: [
-                                        const CustomImage(
-                                            imageSrc: AppIcons.like),
-                                        SizedBox(width: 10.w),
-                                        CustomText(
-                                            text: reply.likes.toString()),
-                                      ],
-                                    ),
-                                    SizedBox(width: 10.w),
-
-                                    // Dislike
-                                    Row(
-                                      children: [
-                                        const CustomImage(
-                                            imageSrc: AppIcons.dislike),
-                                        SizedBox(width: 10.w),
-                                        CustomText(
-                                            text: reply.dislikes.toString()),
-                                      ],
-                                    ),
-
-                                    // Reply
-                                    TextButton(
-                                      onPressed: () {},
-                                      child: const CustomText(
-                                          text: AppStrings.reply),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          );
+                    Padding(
+                      padding:
+                          EdgeInsets.only(left: 45.w, bottom: 16.h, top: 12.h),
+                      child: InkWell(
+                        onTap: () {
+                          Get.toNamed(AppRoutes.discussionDetails,
+                              parameters: {"discussionID": "${comment.sId!}"});
                         },
+                        child: CustomText(
+                          text:
+                              "${AppStrings.view} ${comment.totalReplies} ${AppStrings.reply}",
+                          color: AppColors.blue_600,
+                        ),
                       ),
                     ),
+
+                    /// ================================Replies======================
+                    // Container(
+                    //   margin: EdgeInsets.only(left: 30.w),
+                    //   // height: 100.h,
+                    //   child: ListView.builder(
+                    //     physics: const NeverScrollableScrollPhysics(),
+                    //     itemCount:1,
+                    //     shrinkWrap: true,
+                    //     itemBuilder: (context, index) {
+                    //       print(
+                    //           "=======================================>comment.limitedReplies!.length ${comment.limitedReplies}");
+                    //       var reply = comment.limitedReplies;
+                    //       return Column(
+                    //         crossAxisAlignment: CrossAxisAlignment.start,
+                    //         children: [
+                    //           Row(
+                    //             crossAxisAlignment: CrossAxisAlignment.start,
+                    //             children: [
+                    //               // Image of the Reply person
+                    //               Container(
+                    //                 width: 26.w,
+                    //                 height: 26.w,
+                    //                 decoration: BoxDecoration(
+                    //                   shape: BoxShape.circle,
+                    //                   image: DecorationImage(
+                    //                     image: NetworkImage(
+                    //                         "${ApiConstant.baseUrl}/${reply!.user!.image}"),
+                    //                     fit: BoxFit.fill,
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //               const SizedBox(width: 8),
+                    //
+                    //               // Name and comment of the Reply person
+                    //               Column(
+                    //                 crossAxisAlignment:
+                    //                     CrossAxisAlignment.start,
+                    //                 children: [
+                    //                   CustomText(text: reply.user!.fullName!),
+                    //                   const SizedBox(height: 8),
+                    //                   CustomText(
+                    //                     textAlign: TextAlign.left,
+                    //                     text: reply.reply!,
+                    //                   ),
+                    //                 ],
+                    //               ),
+                    //             ],
+                    //           ),
+                    //
+                    //           // Like Dislike reply
+                    //           Padding(
+                    //             padding: EdgeInsets.only(left: 35.w, top: 5.h),
+                    //             child: Row(
+                    //               children: [
+                    //                 // Like
+                    //                 Row(
+                    //                   children: [
+                    //                     const CustomImage(
+                    //                         imageSrc: AppIcons.like),
+                    //                     SizedBox(width: 10.w),
+                    //                     CustomText(
+                    //                         text: reply.likes.toString()),
+                    //                   ],
+                    //                 ),
+                    //                 SizedBox(width: 10.w),
+                    //
+                    //                 // Dislike
+                    //                 Row(
+                    //                   children: [
+                    //                     const CustomImage(
+                    //                         imageSrc: AppIcons.dislike),
+                    //                     SizedBox(width: 10.w),
+                    //                     CustomText(
+                    //                         text: reply.dislikes.toString()),
+                    //                   ],
+                    //                 ),
+                    //
+                    //                 // Reply
+                    //                 TextButton(
+                    //                   onPressed: () {},
+                    //                   child: const CustomText(
+                    //                       text: AppStrings.reply),
+                    //                 ),
+                    //               ],
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       );
+                    //     },
+                    //   ),
+                    // ),
                   ],
                 );
-              },
-            ),
-          ),
+              } else {
+                return const Center(child: CircularProgressIndicator());
+              }
+            },
+          )),
 
           //===========================Text Input field===========================
 
-          Row(
-            children: [
-              const Expanded(
-                  child: CustomTextField(
-                hintText: AppStrings.enterTextHere,
-              )),
-              Padding(
-                padding: EdgeInsets.only(left: 10.w),
-                child: GestureDetector(
-                    onTap: () {},
-                    child: const CustomImage(imageSrc: AppIcons.send)),
-              )
-            ],
-          ),
-          SizedBox(
-            height: 20.h,
-          )
+          controller.isReplay
+              ? Row(
+                  children: [
+                    Expanded(
+                        child: CustomTextField(
+                      textEditingController: controller.replyController,
+                      hintText: AppStrings.enterTextHere,
+                    )),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.w),
+                      child: GestureDetector(
+                          onTap: () => controller.addReplyRepo(),
+                          child: controller.isLoadingReplay
+                              ? const CircularProgressIndicator()
+                              : const CustomImage(imageSrc: AppIcons.send)),
+                    )
+                  ],
+                )
+              : const SizedBox(),
         ],
       );
     });

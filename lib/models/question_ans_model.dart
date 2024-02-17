@@ -111,154 +111,57 @@ class Questions {
 class Discussions {
   String? sId;
   String? discussion;
-  int? totalReplies;
+  User? user;
   int? likes;
   int? dislikes;
-  User? user;
-  List<LimitedReplies>? limitedReplies;
+  int? totalReplies;
 
   Discussions(
       {this.sId,
         this.discussion,
-        this.totalReplies,
+        this.user,
         this.likes,
         this.dislikes,
-        this.user,
-        this.limitedReplies});
+        this.totalReplies});
 
   Discussions.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     discussion = json['discussion'];
-    totalReplies = json['totalReplies'];
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
     likes = json['likes'];
     dislikes = json['dislikes'];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
-    if (json['limitedReplies'] != null) {
-      limitedReplies = <LimitedReplies>[];
-      json['limitedReplies'].forEach((v) {
-        limitedReplies!.add(new LimitedReplies.fromJson(v));
-      });
-    }
+    totalReplies = json['totalReplies'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
     data['discussion'] = this.discussion;
-    data['totalReplies'] = this.totalReplies;
-    data['likes'] = this.likes;
-    data['dislikes'] = this.dislikes;
     if (this.user != null) {
       data['user'] = this.user!.toJson();
     }
-    if (this.limitedReplies != null) {
-      data['limitedReplies'] =
-          this.limitedReplies!.map((v) => v.toJson()).toList();
-    }
+    data['likes'] = this.likes;
+    data['dislikes'] = this.dislikes;
+    data['totalReplies'] = this.totalReplies;
     return data;
   }
 }
 
 class User {
-  String? sId;
   String? fullName;
-  String? email;
-  String? password;
   String? image;
-  String? role;
-  String? subscription;
-  String? createdAt;
-  String? updatedAt;
-  int? iV;
 
-  User(
-      {this.sId,
-        this.fullName,
-        this.email,
-        this.password,
-        this.image,
-        this.role,
-        this.subscription,
-        this.createdAt,
-        this.updatedAt,
-        this.iV});
+  User({this.fullName, this.image});
 
   User.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
     fullName = json['fullName'];
-    email = json['email'];
-    password = json['password'];
     image = json['image'];
-    role = json['role'];
-    subscription = json['subscription'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    iV = json['__v'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
     data['fullName'] = this.fullName;
-    data['email'] = this.email;
-    data['password'] = this.password;
     data['image'] = this.image;
-    data['role'] = this.role;
-    data['subscription'] = this.subscription;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
-    return data;
-  }
-}
-
-class LimitedReplies {
-  String? sId;
-  String? reply;
-  String? discussion;
-  User? user;
-  int? likes;
-  int? dislikes;
-  String? createdAt;
-  String? updatedAt;
-  int? iV;
-
-  LimitedReplies(
-      {this.sId,
-        this.reply,
-        this.discussion,
-        this.user,
-        this.likes,
-        this.dislikes,
-        this.createdAt,
-        this.updatedAt,
-        this.iV});
-
-  LimitedReplies.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    reply = json['reply'];
-    discussion = json['discussion'];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
-    likes = json['likes'];
-    dislikes = json['dislikes'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    iV = json['__v'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['reply'] = this.reply;
-    data['discussion'] = this.discussion;
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
-    }
-    data['likes'] = this.likes;
-    data['dislikes'] = this.dislikes;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
     return data;
   }
 }
