@@ -18,15 +18,6 @@ class CategoryController extends GetxController {
 
   var categoryId = "";
 
-  @override
-  void onInit() {
-    page = 1;
-    categoryRepo();
-    scrollController.addListener(() {
-      scrollControllerCall();
-    });
-    super.onInit();
-  }
 
   Future<void> scrollControllerCall() async {
     if (scrollController.position.pixels ==

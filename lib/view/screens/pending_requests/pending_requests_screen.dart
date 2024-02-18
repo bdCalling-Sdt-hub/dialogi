@@ -1,4 +1,5 @@
 import 'package:dialogi_app/controllers/friends/pending_request_controller.dart';
+import 'package:dialogi_app/services/api_url.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
@@ -8,6 +9,8 @@ import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../helper/prefs_helper.dart';
 
 class PendingRequestsScreen extends StatefulWidget {
   const PendingRequestsScreen({super.key});
@@ -60,10 +63,16 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
             child: ListView.builder(
-                itemCount: 5,
+                itemCount: controller.friendRequestList.length,
                 itemBuilder: (BuildContext context, int index) {
+
+                  var item = controller.friendRequestList[index].participants[0].sId == PrefsHelper.clientId ?
+                  controller.friendRequestList[index].participants[1] :
+                  controller.friendRequestList[index].participants[0]
+                  ;
                   return CustomPendingRequests(
-                      pendingText: "fdkhfk",
+                      pendingText: item.fullName,
+                      image: "${ApiConstant.baseUrl}/${item.image}",
                       timeText: '1 hour ago',
                       onTapReject: () {},
                       onTapAccept: () {});

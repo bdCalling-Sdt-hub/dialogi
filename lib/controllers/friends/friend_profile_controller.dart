@@ -1,6 +1,3 @@
-
-
-
 import 'dart:convert';
 
 import 'package:dialogi_app/models/friend_profile_model.dart';
@@ -11,27 +8,17 @@ import '../../services/api_url.dart';
 import '../../utils/app_utils.dart';
 
 class FriendProfileController extends GetxController {
+  bool isLoading = false;
+  bool sendIsLoading = false;
 
-  bool isLoading = false ;
-
-
-  FriendProfileModel? friendProfileModel ;
-
-
-
-
-
+  FriendProfileModel? friendProfileModel;
 
   Future<void> friendProfileRepo(String userId) async {
+    isLoading = true;
+    update();
 
-      isLoading = true;
-      update();
-
-
-
-
-    var response = await ApiService.getApi(
-        "${ApiConstant.friendProfile}/$userId");
+    var response =
+        await ApiService.getApi("${ApiConstant.friendProfile}/$userId");
 
     if (response.statusCode == 200) {
       print(response.responseJson);
@@ -45,11 +32,26 @@ class FriendProfileController extends GetxController {
     update();
   }
 
+  Future<void> sendRequestRepo(String participantId) async {
+    sendIsLoading = true;
+    update();
+    Map<String, String> body = {
+      "participantId": participantId,
+    };
 
+    var response = await ApiService.postApi(
+      ApiConstant.friends,
+      body,
+    );
 
+    print("===========${jsonDecode(response.responseJson)}===========");
 
-
-
-
-
+    if (response.statusCode == 201) {
+      friendProfileModel!.data!.attributes!.friendRequestStatus = "pending" ;
+    } else {
+      Get.snackbar(response.statusCode.toString(), response.message);
+    }
+    sendIsLoading = false;
+    update();
+  }
 }

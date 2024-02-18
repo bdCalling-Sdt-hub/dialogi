@@ -51,8 +51,7 @@ class _FriendsProfileScreenState extends State<FriendsProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-    print("==================================> user ID $userID") ;
+    print("==================================> user ID $userID");
     return Scaffold(
         appBar: CustomAppBar(
             appBarContent: Row(
@@ -140,32 +139,33 @@ class _FriendsProfileScreenState extends State<FriendsProfileScreen> {
                 : Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 24, horizontal: 20),
-                    child: controller.friendProfileModel!.data!.attributes!
-                                .friendRequestStatus ==
-                            "rejected"
-                        ? CustomElevatedButton(
-                            onPressed: () {
-                              Get.toNamed(AppRoutes.chatScreen);
-                            },
-                            titleText: AppStrings.sendRequest)
-                        :controller.friendProfileModel!.data!.attributes!
-                        .friendRequestStatus ==
-                        "pending" ?
-                    CustomElevatedButton(
-                            onPressed: () {
-                              Get.toNamed(AppRoutes.chatScreen);
-                            },
-                            titleText: AppStrings.requestSend) :
+                    child: controller.sendIsLoading
+                        ? CircularProgressIndicator()
+                        : controller.friendProfileModel!.data!.attributes!
+                                    .friendRequestStatus ==
+                                "accepted"
+                            ? CustomElevatedButton(
+                                onPressed: () {
+                                  // Get.toNamed(AppRoutes.chatScreen);
+                                },
+                                titleText: AppStrings.message)
+                            : controller.friendProfileModel!.data!.attributes!
+                                        .friendRequestStatus ==
+                                    "pending"
+                                ? CustomElevatedButton(
+                                    onPressed: () {
+                                      // Get.toNamed(AppRoutes.chatScreen);
+                                    },
+                                    titleText: AppStrings.requestSend,
+                        buttonColor: AppColors.black_300,
 
-                    CustomElevatedButton(
-                        onPressed: () {
-                          Get.toNamed(AppRoutes.chatScreen);
-                        },
-                        titleText: AppStrings.message)
-
+                    )
 
 
-            );
+                                : CustomElevatedButton(
+                                    onPressed: () =>
+                                        controller.sendRequestRepo(userID),
+                                    titleText: AppStrings.sendRequest));
           },
         ));
   }

@@ -1,12 +1,13 @@
-class PendingRequestModel {
+class FriendModel {
   String? status;
   String? statusCode;
   String? message;
   Data? data;
 
-  PendingRequestModel({this.status, this.statusCode, this.message, this.data});
+  FriendModel(
+      {this.status, this.statusCode, this.message, this.data});
 
-  PendingRequestModel.fromJson(Map<String, dynamic> json) {
+  FriendModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     statusCode = json['statusCode'];
     message = json['message'];
@@ -79,8 +80,9 @@ class FriendList {
   String? sId;
   List<Participants>? participants;
   String? status;
+  String? createdAt;
 
-  FriendList({this.sId, this.participants, this.status});
+  FriendList({this.sId, this.participants, this.status, this.createdAt});
 
   FriendList.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -91,6 +93,7 @@ class FriendList {
       });
     }
     status = json['status'];
+    createdAt = json['createdAt'];
   }
 
   Map<String, dynamic> toJson() {
@@ -100,6 +103,7 @@ class FriendList {
       data['participants'] = this.participants!.map((v) => v.toJson()).toList();
     }
     data['status'] = this.status;
+    data['createdAt'] = this.createdAt;
     return data;
   }
 }

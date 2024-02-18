@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomPendingRequests extends StatelessWidget {
-  const CustomPendingRequests({super.key, required this.pendingText, required this.timeText, required this.onTapReject, required this.onTapAccept});
+  const CustomPendingRequests({super.key, required this.pendingText,required this.image, required this.timeText, required this.onTapReject, required this.onTapAccept});
 
   final String pendingText;
   final String timeText;
+  final String image;
   final VoidCallback onTapReject;
   final VoidCallback onTapAccept;
 
@@ -29,9 +30,9 @@ class CustomPendingRequests extends StatelessWidget {
           Container(
             height: 40,
             width: 40,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                image: DecorationImage(image: AssetImage(AppImages.john))
+                image: DecorationImage(image: NetworkImage(image))
             ),
           ),
           SizedBox(width: 16.w,),

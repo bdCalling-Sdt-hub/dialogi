@@ -4,6 +4,7 @@ import '../utils/app_constants.dart';
 
 class PrefsHelper {
   static String token = "";
+  static String clientId = "";
   static String forgetPasswordToken = "";
 
 
@@ -19,13 +20,13 @@ class PrefsHelper {
 
   static Future<void> getAllPrefData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    token = preferences.getString(AppConstants.bearerToken) ??
-        "";
+    token = preferences.getString(AppConstants.bearerToken) ?? "";
+    clientId = preferences.getString("clientId") ?? "";
     forgetPasswordToken =
         preferences.getString(AppConstants.forgetPasswordToken) ??
             "";
 
-    print("..................$token............................");
+    print("..................$clientId............................");
   }
 
   ///<<<===========================Get Data Form Shared Preference===================>

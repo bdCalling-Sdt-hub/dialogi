@@ -1,4 +1,6 @@
+import 'package:dialogi_app/controllers/friends/friend_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
+import 'package:dialogi_app/services/api_url.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/app_images.dart';
@@ -18,58 +20,59 @@ class FriendsScreen extends StatefulWidget {
 }
 
 class _FriendsScreenState extends State<FriendsScreen> {
+
+  FriendController friendController = Get.put(FriendController()) ;
+
+
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    friendController.myFriendRepo();
+    friendController.scrollController.addListener(() {
+      friendController.scrollControllerCall();
+    }) ;
+    super.initState();
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const NavBar(currentIndex: 2),
-      appBar: const CustomAppBar(
-          appBarContent: Center(
-        child: CustomText(
-          text: AppStrings.allFriends,
-          fontSize: 18,
-          fontWeight: FontWeight.w500,
-          color: AppColors.blue_500,
-        ),
-      )),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-        child: Column(
-          children: [
-            CustomAllFriends(
-              imageSrc: AppImages.friends,
-              text: 'Jhon Doe',
-              icon: AppIcons.chat,
-              onTap: () {
-                Get.toNamed(AppRoutes.friendsProfileScreen);
-              },
-            ),
-            CustomAllFriends(
-              imageSrc: AppImages.friends,
-              text: 'Jhon Doe',
-              icon: AppIcons.chat,
-              onTap: () {
-                Get.toNamed(AppRoutes.friendsProfileScreen);
-              },
-            ),
-            CustomAllFriends(
-              imageSrc: AppImages.friends,
-              text: 'Jhon Doe',
-              icon: AppIcons.chat,
-              onTap: () {
-                Get.toNamed(AppRoutes.friendsProfileScreen);
-              },
-            ),
-            CustomAllFriends(
-              imageSrc: AppImages.friends,
-              text: 'Jhon Doe',
-              icon: AppIcons.chat,
-              onTap: () {
-                Get.toNamed(AppRoutes.friendsProfileScreen);
-              },
-            ),
-          ],
-        ),
-      ),
-    );
+        bottomNavigationBar: const NavBar(currentIndex: 2),
+        appBar: const CustomAppBar(
+            appBarContent: Center(
+          child: CustomText(
+            text: AppStrings.allFriends,
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+            color: AppColors.blue_500,
+          ),
+        )),
+        body: GetBuilder<FriendController>(builder: (controller) {
+          return Padding(
+              padding: EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+              child: ListView.builder(
+                controller: controller.scrollController,
+                  itemCount: controller.friendList.length,
+                  itemBuilder: (BuildContext context, int index) {
+
+                    var item = controller.friendList[index];
+                    return Column(
+                      children: [
+                        CustomAllFriends(
+                          imageSrc: "${ApiConstant.baseUrl}/${item.participants[1].image}",
+                          text: item.participants[1].fullName,
+                          icon: AppIcons.chat,
+                          onTap: () {
+                            Get.toNamed(AppRoutes.friendsProfileScreen);
+                          },
+                        ),
+                      ],
+                    );
+                  }));
+        }));
   }
 }

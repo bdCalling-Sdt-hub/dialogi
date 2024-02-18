@@ -13,7 +13,7 @@ class ApiStaticStrings {
   static const String fieldCantBeEmpty = "Field can't be empty";
   static const String passwordLength =
       "Password should be atleast 8 characters";
-  static RegExp passRegExp = RegExp(r'(?=.*[a-zA-Z])(?=.*?[0-9])');
+  static RegExp passRegExp = RegExp(r'(?=.*[a-z])');
   static const String passMustContainBoth =
       "'Password must contain both alphabets and numerics'";
   static const String passDoesNotMatch = "Password does not match";
