@@ -50,15 +50,21 @@ class CommentReply extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // Image of the main comment person
-                        Container(
-                          width: 26.w,
-                          height: 26.w,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                  "${ApiConstant.baseUrl}/${comment.user!.image}"),
-                              fit: BoxFit.fill,
+                        GestureDetector(
+                           onTap: (){
+                             Get.toNamed(AppRoutes.friendsProfileScreen,
+                             parameters: {"userID": "${comment.user!.sId}"}) ;
+                           },
+                          child: Container(
+                            width: 26.w,
+                            height: 26.w,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                    "${ApiConstant.baseUrl}/${comment.user!.image}"),
+                                fit: BoxFit.fill,
+                              ),
                             ),
                           ),
                         ),
@@ -104,7 +110,7 @@ class CommentReply extends StatelessWidget {
                           ),
 
                           InkWell(
-                            onTap: () => controller.addReply(comment.sId!),
+                            onTap: () => controller.addReply(comment.sId!, index),
                             child: Center(
                                 child: CustomText(
                               text: AppStrings.reply,
@@ -127,11 +133,26 @@ class CommentReply extends StatelessWidget {
                           Get.toNamed(AppRoutes.discussionDetails,
                               parameters: {"discussionID": "${comment.sId!}"});
                         },
-                        child: CustomText(
+                        child: controller.isLoadingReplay ?
+                        controller.indexNumber == index ?
+                        SizedBox(
+                                height: 16.w,
+                                width: 16.w,
+
+                                child: CircularProgressIndicator(
+                                      strokeWidth: 2.w,
+                                )) :
+                        CustomText(
                           text:
-                              "${AppStrings.view} ${comment.totalReplies} ${AppStrings.reply}",
+                          "${AppStrings.view} ${comment.totalReplies} ${AppStrings.reply}",
                           color: AppColors.blue_600,
-                        ),
+                        ) :
+                        CustomText(
+                          text:
+                          "${AppStrings.view} ${comment.totalReplies} ${AppStrings.reply}",
+                          color: AppColors.blue_600,
+                        )
+                        ,
                       ),
                     ),
 

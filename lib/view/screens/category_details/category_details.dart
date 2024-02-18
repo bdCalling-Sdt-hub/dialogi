@@ -32,7 +32,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
 
   @override
   Widget build(BuildContext context) {
-    String? title = Get.parameters["title"];
+    String title = Get.parameters["title"] ?? " ";
     return Scaffold(
         //App Bar
 

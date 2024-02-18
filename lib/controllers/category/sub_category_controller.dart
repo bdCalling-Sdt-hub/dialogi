@@ -15,7 +15,6 @@ class SubCategoryController extends GetxController {
   List subCategoryList = [];
 
   SubCategoryModel? subCategoryModel;
-
   CategoryController categoryController = Get.put(CategoryController());
 
   int page = 1;

@@ -22,6 +22,7 @@ class QuestionAnsController extends GetxController {
   bool isReplay = false;
 
   String replyDiscussionID = "";
+  int indexNumber = 0;
 
   QuestionAnsModel? questionAnsModel;
   List discussionList = [];
@@ -113,6 +114,12 @@ class QuestionAnsController extends GetxController {
     if (response.statusCode == 201) {
       print("========================================> fgfgjhjh");
       replyController.clear() ;
+
+
+      questionAnsModel!.data!.attributes!.questions![0].discussions![indexNumber].totalReplies = questionAnsModel!.data!.attributes!.questions![0].discussions![indexNumber].totalReplies! + 1 ;
+
+
+
     } else {
       Utils.snackBarMessage(response.statusCode.toString(), response.message);
     }
@@ -151,8 +158,9 @@ class QuestionAnsController extends GetxController {
     update();
   }
 
-  Future<void> addReply(String id) async {
+  Future<void> addReply(String id, int index) async {
     replyDiscussionID = id;
+    indexNumber = index ;
     isReplay = true;
     update();
 

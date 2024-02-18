@@ -1,13 +1,12 @@
-class QuestionAnsModel {
+class PendingRequestModel {
   String? status;
   String? statusCode;
   String? message;
   Data? data;
 
-  QuestionAnsModel(
-      {this.status, this.statusCode, this.message, this.data,});
+  PendingRequestModel({this.status, this.statusCode, this.message, this.data});
 
-  QuestionAnsModel.fromJson(Map<String, dynamic> json) {
+  PendingRequestModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     statusCode = json['statusCode'];
     message = json['message'];
@@ -47,16 +46,16 @@ class Data {
 }
 
 class Attributes {
-  List<Questions>? questions;
+  List<FriendList>? friendList;
   Pagination? pagination;
 
-  Attributes({this.questions, this.pagination});
+  Attributes({this.friendList, this.pagination});
 
   Attributes.fromJson(Map<String, dynamic> json) {
-    if (json['questions'] != null) {
-      questions = <Questions>[];
-      json['questions'].forEach((v) {
-        questions!.add(new Questions.fromJson(v));
+    if (json['friendList'] != null) {
+      friendList = <FriendList>[];
+      json['friendList'].forEach((v) {
+        friendList!.add(new FriendList.fromJson(v));
       });
     }
     pagination = json['pagination'] != null
@@ -66,8 +65,8 @@ class Attributes {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.questions != null) {
-      data['questions'] = this.questions!.map((v) => v.toJson()).toList();
+    if (this.friendList != null) {
+      data['friendList'] = this.friendList!.map((v) => v.toJson()).toList();
     }
     if (this.pagination != null) {
       data['pagination'] = this.pagination!.toJson();
@@ -76,92 +75,51 @@ class Attributes {
   }
 }
 
-class Questions {
+class FriendList {
   String? sId;
-  String? question;
-  String? subCategory;
-  List<Discussions>? discussions;
+  List<Participants>? participants;
+  String? status;
 
-  Questions({this.sId, this.question, this.subCategory, this.discussions});
+  FriendList({this.sId, this.participants, this.status});
 
-  Questions.fromJson(Map<String, dynamic> json) {
+  FriendList.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
-    question = json['question'];
-    subCategory = json['subCategory'];
-    if (json['discussions'] != null) {
-      discussions = <Discussions>[];
-      json['discussions'].forEach((v) {
-        discussions!.add(new Discussions.fromJson(v));
+    if (json['participants'] != null) {
+      participants = <Participants>[];
+      json['participants'].forEach((v) {
+        participants!.add(new Participants.fromJson(v));
       });
     }
+    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
-    data['question'] = this.question;
-    data['subCategory'] = this.subCategory;
-    if (this.discussions != null) {
-      data['discussions'] = this.discussions!.map((v) => v.toJson()).toList();
+    if (this.participants != null) {
+      data['participants'] = this.participants!.map((v) => v.toJson()).toList();
     }
+    data['status'] = this.status;
     return data;
   }
 }
 
-class Discussions {
+class Participants {
   String? sId;
-  String? discussion;
-  User? user;
-  int? likes;
-  int? dislikes;
-  int? totalReplies;
-
-  Discussions(
-      {this.sId,
-        this.discussion,
-        this.user,
-        this.likes,
-        this.dislikes,
-        this.totalReplies});
-
-  Discussions.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    discussion = json['discussion'];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
-    likes = json['likes'];
-    dislikes = json['dislikes'];
-    totalReplies = json['totalReplies'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['discussion'] = this.discussion;
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
-    }
-    data['likes'] = this.likes;
-    data['dislikes'] = this.dislikes;
-    data['totalReplies'] = this.totalReplies;
-    return data;
-  }
-}
-
-class User {
   String? fullName;
-  String? image ;
-  String? sId      ;
+  String? image;
 
-  User({this.fullName, this.image});
+  Participants({this.sId, this.fullName, this.image});
 
-  User.fromJson(Map<String, dynamic> json) {
+  Participants.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
     fullName = json['fullName'];
     image = json['image'];
-    sId = json['_id'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
     data['fullName'] = this.fullName;
     data['image'] = this.image;
     return data;

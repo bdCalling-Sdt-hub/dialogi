@@ -12,12 +12,15 @@ import '../services/api_url.dart';
 class DiscussionDetailsController extends GetxController {
   bool isLoading = false;
   bool isMoreLoading = false;
+  bool isReplay = false;
+  bool isLoadingReplay = false;
   List repliesList = [];
   int page = 1;
 
   DiscussionDetailsModel? discussionDetailsModel;
 
   final ScrollController scrollController = ScrollController();
+  TextEditingController replyController = TextEditingController() ;
 
   Future<void> scrollControllerCall(String discussionID) async {
     if (scrollController.position.pixels ==
@@ -27,7 +30,7 @@ class DiscussionDetailsController extends GetxController {
       await discussionDetailsRepo(discussionID);
       isMoreLoading = false;
       update();
-    } else {}
+    }
   }
 
   Future<void> discussionDetailsRepo(String discussionID) async {
@@ -38,15 +41,9 @@ class DiscussionDetailsController extends GetxController {
       update();
     }
 
-    Map<String, String> header = {
-      'Authorization': "Bearer ${PrefsHelper.token}"
-    };
     var response = await ApiService.getApi(
-        "${ApiConstant.discussions}/$discussionID?page=$page", header:header);
-
-    print("===============================================================>statusCode ${response.statusCode}") ;
-    print("===============================================================>message ${response.message}") ;
-    print("===============================================================>responseJson ${response.responseJson}") ;
+      "${ApiConstant.discussions}/$discussionID?page=$page",
+    );
 
     if (response.statusCode == 200) {
       discussionDetailsModel =
@@ -56,10 +53,58 @@ class DiscussionDetailsController extends GetxController {
           in discussionDetailsModel!.data!.attributes!.discussion!.replies!) {
         repliesList.add(item);
       }
+
+      print("=======================> ${repliesList.length}");
       page = page + 1;
     }
 
     isLoading = false;
     update();
   }
+
+
+  Future<void> addReplyRepo(String DiscussionID) async {
+
+    isLoadingReplay = true;
+    update();
+
+    Map<String, String> header = {
+      'Authorization': "Bearer ${PrefsHelper.token}"
+    };
+
+    Map<String, String> body = {
+      ///==================================> Discussion ID dite hobe<=====================================
+      'discussion': DiscussionID,
+      'reply': replyController.text
+    };
+
+    var response = await ApiService.postApi(ApiConstant.reply, body,header: header);
+
+    if (response.statusCode == 201) {
+      print("========================================> fgfgjhjh");
+      replyController.clear() ;
+      isMoreLoading = false ;
+      update();
+      repliesList.clear() ;
+      page = 1 ;
+      await discussionDetailsRepo(DiscussionID) ;
+      isMoreLoading = true ;
+      update();
+
+    } else {
+      Utils.snackBarMessage(response.statusCode.toString(), response.message);
+    }
+
+    isLoadingReplay = false;
+    update();
+    isReplay = false;
+    update();
+  }
+
+  Future<void> addReply() async {
+    isReplay = true;
+    update();
+
+  }
+
 }

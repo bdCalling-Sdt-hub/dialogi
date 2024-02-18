@@ -179,6 +179,8 @@ class AppStrings {
   static const String cancelAnytime = "Cancel anytime";
   static const String allFriends = "All Friends";
   static const String message = "Message";
+  static const String sendRequest = "Send Request";
+  static const String requestSend = "Request Send";
   static const String enterName = "enter name";
   static const String dob = "date-of-birth";
   static const String enterLocation = "enter location";
