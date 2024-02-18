@@ -34,11 +34,6 @@ class PrefsHelper {
   ///<<<=====================Save Data To Shared Preference=======================>
   static Future setString(String key, value) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-
-    print("=====================================================> key $key") ;
-    print("=====================================================> value $value") ;
-
-
     return preferences.setString(key, value);
   }
 

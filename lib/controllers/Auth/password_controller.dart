@@ -1,8 +1,6 @@
 
 
 import 'dart:convert';
-
-import 'package:dialogi_app/controllers/Auth/sign_up_controller.dart';
 import 'package:dialogi_app/helper/prefs_helper.dart';
 import 'package:dialogi_app/services/api_services.dart';
 import 'package:dialogi_app/services/api_url.dart';
