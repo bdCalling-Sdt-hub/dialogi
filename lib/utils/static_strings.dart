@@ -192,4 +192,7 @@ class AppStrings {
   static const String cancelSubscription = "Cancel Subscription?";
   static const String areYouSure = "Are you sure?";
   static const String view = "View";
+  static const String noInternet = "No Internet";
+  static const String checkInternet = "please, check your internet connection";
+  static const String back = "Back";
 }

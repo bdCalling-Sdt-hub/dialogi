@@ -51,7 +51,7 @@ class CategoryController extends GetxController {
       'Authorization': "Bearer ${PrefsHelper.token}"
     };
     var response =
-        await ApiService.getApi("${ApiConstant.categories}?page=$page", header);
+        await ApiService.getApi("${ApiConstant.categories}?page=$page",header: header);
 
     if (response.statusCode == 200) {
       categoryModel = CategoryModel.fromJson(jsonDecode(response.responseJson));

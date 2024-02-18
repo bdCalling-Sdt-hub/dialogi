@@ -89,7 +89,8 @@ class SignUpController extends GetxController {
       'password': passWordController.text
     };
 
-    var response = await ApiService.postApi(ApiConstant.signUp, body, headers);
+    var response =
+        await ApiService.postApi(ApiConstant.signUp, body, header: headers);
     if (response.statusCode == 200) {
       if (otpController.text.isEmpty) {
         Get.toNamed(

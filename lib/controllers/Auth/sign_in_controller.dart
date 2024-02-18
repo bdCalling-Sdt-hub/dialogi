@@ -16,7 +16,7 @@ class SignInController extends GetxController {
   TextEditingController emailController =
       TextEditingController(text: kDebugMode ? "siamjht@gmail.com" : "");
   TextEditingController passwordController =
-      TextEditingController(text: kDebugMode ? "hello123" : "");
+      TextEditingController(text: kDebugMode ? "hello999" : "");
 
   var headers = {
     'Content-Type': 'application/json',
@@ -30,8 +30,8 @@ class SignInController extends GetxController {
       "password": passwordController.text
     };
 
-    var response = await ApiService.postApi(ApiConstant.signIn, body, headers,
-        isHeader: false);
+    var response = await ApiService.postApi(ApiConstant.signIn, body,
+       );
 
     print("===========${jsonDecode(response.responseJson)}===========");
 

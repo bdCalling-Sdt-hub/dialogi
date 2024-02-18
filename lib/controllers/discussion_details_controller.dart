@@ -42,7 +42,7 @@ class DiscussionDetailsController extends GetxController {
       'Authorization': "Bearer ${PrefsHelper.token}"
     };
     var response = await ApiService.getApi(
-        "${ApiConstant.discussions}/$discussionID?page=$page", header);
+        "${ApiConstant.discussions}/$discussionID?page=$page", header:header);
 
     print("===============================================================>statusCode ${response.statusCode}") ;
     print("===============================================================>message ${response.message}") ;

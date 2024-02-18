@@ -56,7 +56,7 @@ class SubCategoryController extends GetxController {
 
     var response = await ApiService.getApi(
         "${ApiConstant.subCategory}/${categoryController.categoryId}?page=$page&limit=15",
-        header);
+        header:header);
 
     if (response.statusCode == 200) {
       print(response.responseJson);

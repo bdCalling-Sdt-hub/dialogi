@@ -23,7 +23,7 @@ class AboutUsController extends GetxController {
       // 'Authorization': "Bearer ${PrefsHelper.token}"
     };
     var response =
-        await ApiService.getApi(ApiConstant.aboutUs, header, isHeader: false);
+        await ApiService.getApi(ApiConstant.aboutUs, header:header);
 
     if (response.statusCode == 200) {
       htmlContent =

@@ -67,7 +67,7 @@ class QuestionAnsController extends GetxController {
 
     var response = await ApiService.getApi(
         "${ApiConstant.questions}/$subCategory/${categoryController.categoryId}?page=$page&limit=1&discussionLimit=5&discussionPage=$discussionPage",
-        header);
+        header:header);
 
     if (response.statusCode == 200) {
       print(response.responseJson);
@@ -108,7 +108,7 @@ class QuestionAnsController extends GetxController {
       'reply': replyController.text
     };
 
-    var response = await ApiService.postApi(ApiConstant.reply, body, header);
+    var response = await ApiService.postApi(ApiConstant.reply, body,header: header);
 
     if (response.statusCode == 201) {
       print("========================================> fgfgjhjh");
@@ -138,7 +138,7 @@ class QuestionAnsController extends GetxController {
     };
 
     var response =
-        await ApiService.postApi(ApiConstant.discussions, body, header);
+        await ApiService.postApi(ApiConstant.discussions, body, header : header);
 
     if (response.statusCode == 201) {
       discussionController.clear() ;
