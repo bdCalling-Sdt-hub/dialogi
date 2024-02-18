@@ -162,6 +162,7 @@ class ApiService {
         return ApiResponseModel(400, "Error", response.body);
       case 404:
         // Get.offAllNamed(AppRoute.logIn);
+      print("--------------${response.body}");
         return ApiResponseModel(404, "Error", response.body);
       case 409:
         // Get.offAllNamed(AppRoute.logIn);

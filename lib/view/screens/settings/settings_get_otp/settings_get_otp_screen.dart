@@ -1,3 +1,4 @@
+import 'package:dialogi_app/controllers/Auth/password_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
@@ -12,14 +13,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class SettingsGetOtp extends StatefulWidget {
-  const SettingsGetOtp({super.key});
+class SettingsGetOtp extends StatelessWidget {
+  SettingsGetOtp({super.key});
 
-  @override
-  State<SettingsGetOtp> createState() => _SettingsGetOtpState();
-}
+  // PasswordController passwordController = Get.find<PasswordController>();
+  final _formKey = GlobalKey<FormState>();
 
-class _SettingsGetOtpState extends State<SettingsGetOtp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,90 +45,107 @@ class _SettingsGetOtpState extends State<SettingsGetOtp> {
           const SizedBox()
         ],
       )),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ///otp text
-            CustomText(
-              textAlign: TextAlign.start,
-              maxLines: 3,
-              text: AppStrings.weHavesentaverificationcode,
-              fontWeight: FontWeight.w400,
-              fontSize: 16,
-              bottom: 44.h,
-            ),
-
-            ///pin code
-            PinCodeTextField(
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-              ],
-              keyboardType: const TextInputType.numberWithOptions(signed: true),
-              cursorColor: Colors.black,
-              appContext: (context),
-              validator: (value) {
-                if (value!.length <= 6) {
-                  return null;
-                } else {
-                  return "Please enter the OTP code.";
-                }
-              },
-              autoFocus: true,
-              pinTheme: PinTheme(
-                shape: PinCodeFieldShape.box,
-                borderRadius: BorderRadius.circular(8),
-                fieldHeight: 56.h,
-                fieldWidth: 44.w,
-                activeFillColor: Colors.white,
-                selectedFillColor: Colors.white,
-                inactiveFillColor: Colors.white,
-                borderWidth: 0.1,
-                errorBorderColor: AppColors.blue_300,
-                selectedColor: AppColors.blue_300,
-                activeColor: AppColors.blue_300,
-                inactiveColor: AppColors.blue_300,
-              ),
-              length: 6,
-              enableActiveFill: true,
-            ),
-            SizedBox(
-              height: 24.h,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: GetBuilder<PasswordController>(
+        builder: (passwordController) {
+        return Padding(
+          padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 20.w),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                ///otp text
                 CustomText(
                   textAlign: TextAlign.start,
                   maxLines: 3,
-                  text: AppStrings.didntReceivetheCode,
+                  text: AppStrings.weHavesentaverificationcode,
                   fontWeight: FontWeight.w400,
-                  fontSize: 14.w,
-                  color: AppColors.blue_500,
+                  fontSize: 16,
+                  bottom: 44.h,
                 ),
-                CustomText(
-                  textDecoration: TextDecoration.underline,
-                  textAlign: TextAlign.start,
-                  maxLines: 3,
-                  text: AppStrings.resend,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14.w,
-                  color: AppColors.blue_500,
+
+                ///pin code
+                PinCodeTextField(
+                  controller: passwordController.settingsOtpController,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
+                  keyboardType: const TextInputType.numberWithOptions(signed: true),
+                  cursorColor: Colors.black,
+                  appContext: (context),
+                  validator: (value) {
+                    if (value!.length <= 6) {
+                      return null;
+                    } else {
+                      return "Please enter the OTP code.";
+                    }
+                  },
+                  autoFocus: true,
+                  pinTheme: PinTheme(
+                    shape: PinCodeFieldShape.box,
+                    borderRadius: BorderRadius.circular(8),
+                    fieldHeight: 56.h,
+                    fieldWidth: 44.w,
+                    activeFillColor: Colors.white,
+                    selectedFillColor: Colors.white,
+                    inactiveFillColor: Colors.white,
+                    borderWidth: 0.1,
+                    errorBorderColor: AppColors.blue_300,
+                    selectedColor: AppColors.blue_300,
+                    activeColor: AppColors.blue_300,
+                    inactiveColor: AppColors.blue_300,
+                  ),
+                  length: 6,
+                  enableActiveFill: true,
                 ),
+                SizedBox(
+                  height: 24.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomText(
+                      textAlign: TextAlign.start,
+                      maxLines: 3,
+                      text: AppStrings.didntReceivetheCode,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14.w,
+                      color: AppColors.blue_500,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        passwordController.settingsVerifyOtpRepo();
+                      },
+                      child: CustomText(
+                        textDecoration: TextDecoration.underline,
+                        textAlign: TextAlign.start,
+                        maxLines: 3,
+                        text: AppStrings.resend,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14.w,
+                        color: AppColors.blue_500,
+                      ),
+                    ),
+                  ],
+                ),
+                const Spacer(),
+
+                ///<<<======================= Verify Button =====================>>>
+
+                passwordController.isLoading? const Center(child:CircularProgressIndicator())
+                    : CustomElevatedButton(
+                    buttonWidth: Get.width,
+                    onPressed: () {
+                      if(_formKey.currentState!.validate()){
+                        passwordController.settingsVerifyOtpRepo();
+                      }
+                    },
+                    titleText: AppStrings.verify)
               ],
             ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-        child: CustomElevatedButton(
-            onPressed: () {
-              Get.toNamed(AppRoutes.settingsResetPasswordScreen);
-            },
-            titleText: AppStrings.verify),
-      ),
+          ),
+        );
+      },),
     );
   }
 }
