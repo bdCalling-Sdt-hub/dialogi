@@ -267,7 +267,6 @@ class PasswordController extends GetxController {
       Get.offNamed(AppRoutes.settingsScreen);
 
     } else if (response.statusCode == 400) {
-    } else if (response.statusCode == 400) {
       Utils.toastMessage(response.message);
     } else {
       Get.snackbar(response.statusCode.toString(), response.message);
