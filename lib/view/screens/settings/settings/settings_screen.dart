@@ -58,7 +58,7 @@ class SettingsScreen extends StatelessWidget {
                 text: AppStrings.changePassword,
                 icon: AppIcons.chevronRight),
 
-            ///change Language
+            ///<<<==================== change Language ======================>>>
             CustomSettingsContainer(
                 onTap: () {
                   Get.toNamed(AppRoutes.changeLanguageScreen);
@@ -67,7 +67,7 @@ class SettingsScreen extends StatelessWidget {
                 text: AppStrings.changeLanguage,
                 icon: AppIcons.chevronRight),
 
-            ///Subscriptions
+            ///<<<=================== Subscriptions =========================>>>
             CustomSettingsContainer(
                 onTap: () {
                   Get.toNamed(AppRoutes.subscriptionsScreen);
@@ -106,7 +106,7 @@ class SettingsScreen extends StatelessWidget {
                 text: AppStrings.support,
                 icon: AppIcons.chevronRight),
 
-            ///<<<================== faq ===============================>>>>
+            ///<<<==================== faq =================================>>>>
 
             CustomSettingsContainer(
                 onTap: () {
@@ -116,7 +116,7 @@ class SettingsScreen extends StatelessWidget {
                 text: AppStrings.fAQ,
                 icon: AppIcons.chevronRight),
 
-            ///delete account
+            ///<<<=================== delete account ========================>>>
             CustomSettingsContainer(
                 onTap: () {
                   showDialog(

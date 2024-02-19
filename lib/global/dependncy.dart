@@ -8,6 +8,7 @@ import 'package:dialogi_app/view/screens/home/home_controller/home_controller.da
 import 'package:dialogi_app/view/screens/profile/profile/profile_controller/profile_controller.dart';
 import 'package:get/get.dart';
 
+import '../controllers/Auth/delete_account_controller.dart';
 import '../controllers/settings_controller/settings_controller.dart';
 
 import '../controllers/category/category_controller.dart';
@@ -29,5 +30,6 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => DiscussionDetailsController(), fenix: true);
     Get.lazyPut(() => PasswordController(), fenix: true);
     Get.lazyPut(() => SettingsController(), fenix: true);
+    Get.lazyPut(() => DeleteAccountController(), fenix: true);
   }
 }

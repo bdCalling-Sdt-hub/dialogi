@@ -10,11 +10,15 @@ import '../helper/prefs_helper.dart';
 import '../utils/app_utils.dart';
 
 class ApiService {
+
+  ///<<<======================== Main Header ==============================>>>
   static Map<String, String> mainHeader = {
     'Authorization': "Bearer ${PrefsHelper.token}"
   };
 
   static const int timeOut = 30;
+
+  ///<<<======================== Post Api ==============================>>>
 
   static Future<ApiResponseModel> postApi(String url, body,
       {Map<String, String>? header}) async {
@@ -54,6 +58,8 @@ class ApiService {
     return responseJson;
   }
 
+  ///<<<======================== Get Api ==============================>>>
+
   static Future<ApiResponseModel> getApi(String url,
       {Map<String, String>? header}) async {
     dynamic responseJson;
@@ -89,6 +95,8 @@ class ApiService {
     return responseJson;
   }
 
+  ///<<<======================== Put Api ==============================>>>
+
   static Future<ApiResponseModel> putApi(
       String url, Map<String, String> body, Map<String, String> header) async {
     dynamic responseJson;
@@ -113,6 +121,8 @@ class ApiService {
 
     return responseJson;
   }
+
+  ///<<<======================== Patch Api ==============================>>>
 
   static Future<ApiResponseModel> patchApi(
       String url, Map<String, String> body, Map<String, String> header,
@@ -148,6 +158,37 @@ class ApiService {
     return responseJson;
   }
 
+  ///<<<======================== Delete Api ==============================>>>
+
+  static Future<ApiResponseModel> deleteApi(String url, body,
+      {Map<String, String>? header}) async {
+    dynamic responseJson;
+
+    try{
+
+      final response = await http
+          .post(Uri.parse(url), body: body, headers: header ?? mainHeader)
+          .timeout(const Duration(seconds: timeOut));
+      responseJson = handleResponse(response);
+
+    } on SocketException{
+
+      Get.toNamed(AppRoutes.noInternet);
+      return ApiResponseModel(503, "No internet connection", '');
+
+    } on FormatException {
+
+      return ApiResponseModel(400, "Bad response request", '');
+
+    } on TimeoutException {
+
+      Get.toNamed(AppRoutes.noInternet);
+      return ApiResponseModel(408, "Request time out", "");
+
+    }
+    return responseJson;
+  }
+
   static dynamic handleResponse(http.Response response) {
     switch (response.statusCode) {
       case 200:
@@ -162,7 +203,6 @@ class ApiService {
         return ApiResponseModel(400, "Error", response.body);
       case 404:
         // Get.offAllNamed(AppRoute.logIn);
-      print("--------------${response.body}");
         return ApiResponseModel(404, "Error", response.body);
       case 409:
         // Get.offAllNamed(AppRoute.logIn);

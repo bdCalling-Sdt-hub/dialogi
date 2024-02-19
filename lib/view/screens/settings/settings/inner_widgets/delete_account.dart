@@ -1,3 +1,4 @@
+import 'package:dialogi_app/controllers/Auth/delete_account_controller.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
@@ -11,6 +12,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../utils/api_static_string.dart';
+
 class DeleteAccount extends StatefulWidget {
   const DeleteAccount({super.key});
 
@@ -19,6 +22,9 @@ class DeleteAccount extends StatefulWidget {
 }
 
 class _DeleteAccountState extends State<DeleteAccount> {
+
+  DeleteAccountController deleteAccountController = Get.find<DeleteAccountController>();
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -50,8 +56,17 @@ class _DeleteAccountState extends State<DeleteAccount> {
               bottom: 16.h,
             ),
 
-            ///password
+            ///<<<================== password text field ====================>>>
+
             CustomTextField(
+              textEditingController: deleteAccountController.passwordController,
+              validator: (value) {
+                if (value.isEmpty) {
+                  return ApiStaticStrings.fieldCantBeEmpty;
+                } else {
+                  return null;
+                }
+              },
               isPassword: true,
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
@@ -76,15 +91,20 @@ class _DeleteAccountState extends State<DeleteAccount> {
             SizedBox(
               height: 44.h,
             ),
+
+            ///<<<================= Delete account button ===================>>>
+
             CustomElevatedButton(
               onPressed: () {
                 permissionPopUp(
                     title: AppStrings.areYouSure,
                     context: context,
                     ontapYes: () {
-                      navigator!.pop();
+                      deleteAccountController.deleteAccountRepo();
                     },
-                    ontapNo: () {});
+                    ontapNo: () {
+                      Get.back();
+                    });
               },
               titleText: AppStrings.deleteAccount,
               buttonColor: AppColors.red_500,
