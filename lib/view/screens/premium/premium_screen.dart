@@ -76,29 +76,17 @@ class _PremiumScreenState extends State<PremiumScreen> {
                         child: Row(children: [
                           CustomPremiumCard(
                               imageSrc: AppImages.premium,
-                              premiumText: subscriptionController
-                                  .subscriptionsPlanModel!
-                                  .data!
-                                  .attributes!
-                                  .subscriptionsList![0]
-                                  .name
-                                  .toString(),
+                              premiumText: subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[0].name.toString() ?? "Premium",
                               getDialogiText:
-                                  'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].price}/month',
+                                  'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[0].price ?? 00}/month',
                               length: 3,
                               addText: 'Ad-free experience'),
                           CustomPremiumCard(
                             isPremium: false,
                             imageSrc: AppImages.premium,
-                            premiumText: subscriptionController
-                                .subscriptionsPlanModel!
-                                .data!
-                                .attributes!
-                                .subscriptionsList![1]
-                                .name
-                                .toString(),
+                            premiumText: subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[1].name.toString() ?? "Premium Plus",
                             getDialogiText:
-                                'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].price}/month',
+                                'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[1].price ?? 00}/month',
                             length: 7,
                             addText: 'All premium features',
                             addTextColor: Colors.white,
