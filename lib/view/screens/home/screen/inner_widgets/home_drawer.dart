@@ -1,5 +1,7 @@
 import 'package:dialogi_app/core/app_routes.dart';
+import 'package:dialogi_app/helper/prefs_helper.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
+import 'package:dialogi_app/utils/app_constants.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
@@ -76,7 +78,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
               height: 44.h,
             ),
 
-            //Pending  Req
+            ///<<<==================== Pending Request ======================>>>
 
             customRow(
                 icon: AppIcons.pendingReq,
@@ -88,7 +90,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
               height: 32,
             ),
 
-            //Settings
+            ///<<<======================= Settings ==========================>>>
 
             customRow(
                 icon: AppIcons.setting,
@@ -100,12 +102,13 @@ class _HomeDrawerState extends State<HomeDrawer> {
               height: 32,
             ),
 
-            //LogOut
+            ///<<<====================== Logout =============================>>>
 
             customRow(
                 icon: AppIcons.logout,
                 text: AppStrings.logout,
                 ontap: () {
+                  PrefsHelper.removeAllPrefData();
                   Get.offAllNamed(AppRoutes.signInScreen);
                 }),
           ],

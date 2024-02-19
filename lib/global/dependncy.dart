@@ -14,6 +14,7 @@ import '../controllers/settings_controller/settings_controller.dart';
 import '../controllers/category/category_controller.dart';
 import '../controllers/category/sub_category_controller.dart';
 import '../controllers/discussion_details_controller.dart';
+import '../controllers/subscription_controller.dart';
 
 
 class DependencyInjection extends Bindings {
@@ -31,5 +32,6 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => PasswordController(), fenix: true);
     Get.lazyPut(() => SettingsController(), fenix: true);
     Get.lazyPut(() => DeleteAccountController(), fenix: true);
+    Get.lazyPut(() => SubscriptionController(), fenix: true);
   }
 }

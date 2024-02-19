@@ -58,7 +58,7 @@ class _SettingsForgetPasswordScreenState
         builder: (passwordController) {
         return Form(
           key: _formKey,
-          child: Padding(
+          child: SingleChildScrollView(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
             child: Column(
               children: [
@@ -105,23 +105,28 @@ class _SettingsForgetPasswordScreenState
                     color: AppColors.blue_500,
                   ),
                 ),
-                Spacer(),
 
                 ///<<<====================Get otp button ====================>>>
-
-                passwordController.isLoading? const Center(child: CircularProgressIndicator())
-                    : CustomElevatedButton(
-                    buttonWidth: Get.width,
-                    onPressed: () {
-                      if(_formKey.currentState!.validate()){
-                        passwordController.settingsForgetPasswordRepo();
-                      }
-                    },
-                    titleText: AppStrings.getOTP)
               ],
             ),
           ),
         );
+      },),
+      bottomNavigationBar: GetBuilder<PasswordController>(
+        builder: (passwordController) {
+          return passwordController.isLoading?
+          const Center(child: CircularProgressIndicator())
+              : Padding(
+                padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 20.w),
+                child: CustomElevatedButton(
+                buttonWidth: Get.width,
+                onPressed: () {
+                  if(_formKey.currentState!.validate()){
+                    passwordController.settingsForgetPasswordRepo();
+                  }
+                },
+                titleText: AppStrings.getOTP),
+              );
       },),
     );
   }

@@ -17,18 +17,30 @@ class SubscriptionController extends GetxController{
     isLoading = true;
     update();
 
-    Get.toNamed(AppRoutes.subscriptionsScreen);
+    // Get.toNamed(AppRoutes.subscriptionsScreen);
 
     ApiService.getApi(ApiConstant.subscriptions).then((apiResponseModel) {
+
+
+      print("kjfksjdfhbsdfhdsjkfhsdkjhfdkj") ;
+
+      print("jdfhdfhshf ${apiResponseModel.statusCode}") ;
+      print("jdfhdfhshf ${apiResponseModel.message}") ;
+      print("jdfhdfhshf ${apiResponseModel.responseJson}") ;
 
       if(apiResponseModel.statusCode == 200){
 
         var jsonData = jsonDecode(apiResponseModel.responseJson);
         subscriptionsPlanModel = SubscriptionsPlanModel.fromJson(jsonData);
-        print("=========>${subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].name}<========");
+        print("=========>ergtgdfgvfdgf ${subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].name}<========");
       } else {
         Get.snackbar(apiResponseModel.statusCode.toString(), apiResponseModel.message);
       }
+
+      isLoading = false;
+      update();
     });
+
+
   }
 }

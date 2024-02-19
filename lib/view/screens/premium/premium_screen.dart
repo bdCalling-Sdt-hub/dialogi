@@ -1,3 +1,4 @@
+import 'package:dialogi_app/controllers/subscription_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_images.dart';
@@ -17,12 +18,16 @@ class PremiumScreen extends StatefulWidget {
 }
 
 class _PremiumScreenState extends State<PremiumScreen> {
+  SubscriptionController subscriptionController =
+      Get.find<SubscriptionController>();
+
   PageController pageController = PageController();
   int currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
+    subscriptionController.subscriptionRepo();
     pageController.addListener(() {
       setState(() {
         currentIndex = pageController.page!.round();
@@ -40,83 +45,109 @@ class _PremiumScreenState extends State<PremiumScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 24,
-            ),
-            CustomText(
-              maxLines: 3,
-              textAlign: TextAlign.start,
-              text: AppStrings.unlockPremiumAccess,
-              fontSize: 30.h,
-              fontWeight: FontWeight.w600,
-              bottom: 24.h,
-            ),
-            SingleChildScrollView(
-              controller: pageController,
-              scrollDirection: Axis.horizontal,
-              child: const Row(children: [
-                CustomPremiumCard(
-                    imageSrc: AppImages.premium,
-                    premiumText: 'Premium',
-                    getDialogiText: 'Get Dialogi Premium \$${50}/month',
-                    length: 3,
-                    addText: 'Ad-free experience'),
-                CustomPremiumCard(
-                  isPremium: false,
-                  imageSrc: AppImages.premium,
-                  premiumText: 'Premium Plus',
-                  getDialogiText: 'Get Dialogi Premium \$${100}/month',
-                  length: 7,
-                  addText: 'All premium features',
-                  addTextColor: Colors.white,
-                  premiumTextColor: Colors.white,
-                  getDialogiTextColor: Colors.white,
-                )
-              ]),
-            ),
-            Column(
-              children: [
-                //==================================Get Premium==============================
+      body: GetBuilder<SubscriptionController>(
+        builder: (controller) {
+          return controller.isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      CustomText(
+                        maxLines: 3,
+                        textAlign: TextAlign.start,
+                        text: AppStrings.unlockPremiumAccess,
+                        fontSize: 30.h,
+                        fontWeight: FontWeight.w600,
+                        bottom: 24.h,
+                      ),
 
-                CustomElevatedButton(
-                    buttonWidth: MediaQuery.of(context).size.width,
-                    onPressed: () {
-                      Get.toNamed(AppRoutes.purchaseScreen, parameters: {
-                        "premium": currentIndex == 0 ? "true" : "false"
-                      });
-                    },
-                    titleText: currentIndex == 0
-                        ? AppStrings.getPremium
-                        : AppStrings.getPremiumPlus),
-                const SizedBox(
-                  height: 16,
-                ),
+                      ///<<<=================== Get Premium  ==========================>>>
 
-                //==================================Skip for now==============================
+                      SingleChildScrollView(
+                        controller: pageController,
+                        scrollDirection: Axis.horizontal,
+                        child: Row(children: [
+                          CustomPremiumCard(
+                              imageSrc: AppImages.premium,
+                              premiumText: subscriptionController
+                                  .subscriptionsPlanModel!
+                                  .data!
+                                  .attributes!
+                                  .subscriptionsList![0]
+                                  .name
+                                  .toString(),
+                              getDialogiText:
+                                  'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].price}/month',
+                              length: 3,
+                              addText: 'Ad-free experience'),
+                          CustomPremiumCard(
+                            isPremium: false,
+                            imageSrc: AppImages.premium,
+                            premiumText: subscriptionController
+                                .subscriptionsPlanModel!
+                                .data!
+                                .attributes!
+                                .subscriptionsList![1]
+                                .name
+                                .toString(),
+                            getDialogiText:
+                                'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].price}/month',
+                            length: 7,
+                            addText: 'All premium features',
+                            addTextColor: Colors.white,
+                            premiumTextColor: Colors.white,
+                            getDialogiTextColor: Colors.white,
+                          )
+                        ]),
+                      ),
+                      Column(
+                        children: [
+                          ///<<<================= Get Premium Button ====================>>>
 
-                GestureDetector(
-                  onTap: () {
-                    Get.toNamed(AppRoutes.signInScreen);
-                  },
-                  child: CustomText(
-                    maxLines: 3,
-                    textAlign: TextAlign.start,
-                    text: AppStrings.skipForNow,
-                    fontSize: 18.h,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.blue_500,
+                          CustomElevatedButton(
+                              buttonWidth: MediaQuery.of(context).size.width,
+                              onPressed: () {
+                                Get.toNamed(AppRoutes.purchaseScreen,
+                                    parameters: {
+                                      "premium":
+                                          currentIndex == 0 ? "true" : "false"
+                                    });
+                              },
+                              titleText: currentIndex == 0
+                                  ? AppStrings.getPremium
+                                  : AppStrings.getPremiumPlus),
+                          const SizedBox(
+                            height: 16,
+                          ),
+
+                          ///======================== Skip for now =====================>>>
+
+                          GestureDetector(
+                            onTap: () {
+                              Get.toNamed(AppRoutes.signInScreen);
+                            },
+                            child: CustomText(
+                              maxLines: 3,
+                              textAlign: TextAlign.start,
+                              text: AppStrings.skipForNow,
+                              fontSize: 18.h,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.blue_500,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
                   ),
-                ),
-              ],
-            )
-          ],
-        ),
+                );
+        },
       ),
     );
   }

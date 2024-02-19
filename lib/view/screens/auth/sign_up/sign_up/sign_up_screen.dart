@@ -73,6 +73,9 @@ class SignUpScreen extends StatelessWidget {
                       if (value!.isEmpty) {
                         return ApiStaticStrings.enterFullName;
                       }
+                      else {
+                        return null;
+                      }
                     },
                     keyboardType: TextInputType.text,
                     textAlign: TextAlign.start,

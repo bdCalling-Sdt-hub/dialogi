@@ -6,16 +6,20 @@ class PrefsHelper {
   static String token = "";
   static String forgetPasswordToken = "";
 
+
+  ///<<<======================== Get All Data Form Shared Preference ==============>
+
   static Future<void> getAllPrefData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    token = preferences.getString(AppConstants.bearerToken) ?? "This can't be empty";
-    forgetPasswordToken = preferences.getString(AppConstants.forgetPasswordToken) ?? "This field can't be empty";
+    token = preferences.getString(AppConstants.bearerToken) ?? "";
+    forgetPasswordToken = preferences.getString(AppConstants.forgetPasswordToken) ?? "";
 
     print("..................$token............................");
 
   }
 
-  ///<<<===========================Get Data Form Shared Preference===================>
+  ///<<<======================== Get Data Form Shared Preference ==============>
+
   static Future<String> getString(String key) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return preferences.getString(key) ?? "";
@@ -31,14 +35,10 @@ class PrefsHelper {
     return preferences.getInt(key) ?? (-1);
   }
 
-  ///<<<=====================Save Data To Shared Preference=======================>
+  ///<<<=====================Save Data To Shared Preference=====================>
+
   static Future setString(String key, value) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-
-    print("=====================================================> key $key") ;
-    print("=====================================================> value $value") ;
-
-
     return preferences.setString(key, value);
   }
 
@@ -53,8 +53,16 @@ class PrefsHelper {
   }
 
   ///<<<==========================Remove Value==================================>
+
   static Future remove(String key) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return preferences.remove(key);
+  }
+
+ ///<<<======================== Get All Data Form Shared Preference ============>
+  static Future<void> removeAllPrefData() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.remove(AppConstants.bearerToken);
+    preferences.remove(AppConstants.forgetPasswordToken);
   }
 }
