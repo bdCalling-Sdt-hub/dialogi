@@ -1,3 +1,4 @@
+import 'package:dialogi_app/controllers/category/category_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
@@ -9,14 +10,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../services/api_url.dart';
+
 class CategoryScreen extends StatefulWidget {
-  const CategoryScreen({super.key});
+  CategoryScreen({super.key});
 
   @override
   State<CategoryScreen> createState() => _CategoryScreenState();
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,27 +44,49 @@ class _CategoryScreenState extends State<CategoryScreen> {
         )),
         //
         bottomNavigationBar: const NavBar(currentIndex: 1),
-        body: GridView.builder(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          itemCount: 6,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisExtent: 250.h,
-              crossAxisSpacing: 8.w,
-              mainAxisSpacing: 8.h),
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                Get.toNamed(AppRoutes.categoryDetails,
-                    parameters: {"title": "Friends"});
-              },
-              child: const CustomCard(
-                  img:
-                      "https://images.unsplash.com/photo-1522098635833-216c03d81fbe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnJpZW5kfGVufDB8fDB8fHww",
-                  title: "Friends",
-                  queNum: "40"),
-            );
-          },
-        ));
+        body: GetBuilder<CategoryController>(builder: (controller) {
+          return controller.isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : GridView.builder(
+                  controller: controller.scrollController,
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  // itemCount: controller.categoryList.length,
+                  itemCount: controller.isMoreLoading
+                      ? controller.categoryList.length + 1
+                      : controller.categoryList.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisExtent: 250.h,
+                      crossAxisSpacing: 8.w,
+                      mainAxisSpacing: 8.h),
+
+                  itemBuilder: (context, index) {
+                    print(
+                        "=============================> controller ${controller.categoryList.length}");
+
+                    if (index < controller.categoryList.length) {
+                      return GestureDetector(
+                        onTap: () {
+                          controller.categoryId =
+                              controller.categoryList[index].sId;
+                          Get.toNamed(AppRoutes.categoryDetails,
+                              parameters: {"title": "Friends"});
+                        },
+                        child: CustomCard(
+                            img:
+                                "${ApiConstant.baseUrl}${controller.categoryList[index].image}",
+                            title:
+                                controller.categoryList[index].name.toString(),
+                            queNum:
+                                controller.categoryList[index].iV.toString()),
+                      );
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  },
+                );
+        }));
   }
 }

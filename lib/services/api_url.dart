@@ -1,6 +1,4 @@
-
-class ApiConstant{
-
+class ApiConstant {
   ///<<<=================Base Url=========================>>>
   static const baseUrl = "http://192.168.10.18:3000";
 

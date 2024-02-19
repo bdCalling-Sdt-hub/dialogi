@@ -10,5 +10,6 @@ class AppConstants{
   static String error = "Oops, something went wrong";
   static String userNotExist = "User does not exist";
   static String forgetPasswordToken = "ForgetPasswordToken";
+  static String otpSend = "OTP send to your email";
 
 }

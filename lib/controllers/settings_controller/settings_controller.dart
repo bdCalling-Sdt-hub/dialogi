@@ -25,7 +25,7 @@ class SettingsController extends GetxController {
 
     Map<String, String> header = {};
 
-    ApiService.getApi(ApiConstant.aboutUs, header, isHeader: false)
+    ApiService.getApi(ApiConstant.aboutUs, header:header)
         .then((apiResponseModel) {
       print(
           "=========> ${apiResponseModel.statusCode}<===> ${apiResponseModel.responseJson}<========");
@@ -56,7 +56,7 @@ class SettingsController extends GetxController {
 
     Map<String, String> header = {};
 
-    ApiService.getApi(ApiConstant.supports, header, isHeader: false)
+    ApiService.getApi(ApiConstant.supports, header:header)
         .then((apiResponseModel) {
       print(
           "=========> ${apiResponseModel.statusCode}<===> ${apiResponseModel.responseJson}<========");
@@ -86,7 +86,7 @@ class SettingsController extends GetxController {
 
     Map<String, String> header = {};
 
-    ApiService.getApi(ApiConstant.faqs, header, isHeader: false)
+    ApiService.getApi(ApiConstant.faqs, header:header)
         .then((apiResponseModel) {
       print(
           "=========> ${apiResponseModel.statusCode}<===> ${apiResponseModel.responseJson}<========");
@@ -117,7 +117,7 @@ class SettingsController extends GetxController {
 
     Map<String, String> header = {};
 
-    ApiService.getApi(ApiConstant.privacyPolicy, header, isHeader: false)
+    ApiService.getApi(ApiConstant.privacyPolicy, header:header)
         .then((apiResponseModel) {
 
       print("=========> ${apiResponseModel.statusCode}<===> ${apiResponseModel.responseJson}<========");

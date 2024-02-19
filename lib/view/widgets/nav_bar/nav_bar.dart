@@ -123,7 +123,7 @@ class _NavBarState extends State<NavBar> {
       }
     } else if (index == 1) {
       if (!(widget.currentIndex == 1)) {
-        Get.offAll(() => const CategoryScreen(),
+        Get.offAll(() => CategoryScreen(),
             transition: Transition.noTransition);
       }
     } else if (index == 2) {
