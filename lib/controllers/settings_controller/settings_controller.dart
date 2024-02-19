@@ -58,8 +58,7 @@ class SettingsController extends GetxController {
 
     ApiService.getApi(ApiConstant.supports, header:header)
         .then((apiResponseModel) {
-      print(
-          "=========> ${apiResponseModel.statusCode}<===> ${apiResponseModel.responseJson}<========");
+      print("=========> ${apiResponseModel.statusCode}<===> ${apiResponseModel.responseJson}<========");
 
       if (apiResponseModel.statusCode == 200) {
 
@@ -88,8 +87,8 @@ class SettingsController extends GetxController {
 
     ApiService.getApi(ApiConstant.faqs, header:header)
         .then((apiResponseModel) {
-      print(
-          "=========> ${apiResponseModel.statusCode}<===> ${apiResponseModel.responseJson}<========");
+
+      print("=========> ${apiResponseModel.statusCode}<===> ${apiResponseModel.responseJson}<========");
 
       if (apiResponseModel.statusCode == 200) {
 
