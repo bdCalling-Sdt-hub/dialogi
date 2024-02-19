@@ -66,13 +66,13 @@ class SettingsChangePasswordScreen extends StatelessWidget {
 
               CustomTextField(
                 textEditingController: passwordController.currentPasswordController,
-                // validator: (value) {
-                //   if(value != passwordController.passwordController.text){
-                //     return ApiStaticStrings.wrongPassword;
-                //   } else if(value!.isEmpty){
-                //     return ApiStaticStrings.fieldCantBeEmpty;
-                //   } return null;
-                // },
+                validator: (value) {
+                  if(value != passwordController.passwordController.text){
+                    return ApiStaticStrings.wrongPassword;
+                  } else if(value!.isEmpty){
+                    return ApiStaticStrings.fieldCantBeEmpty;
+                  } return null;
+                },
                 isPassword: true,
                 keyboardType: TextInputType.text,
                 textAlign: TextAlign.start,

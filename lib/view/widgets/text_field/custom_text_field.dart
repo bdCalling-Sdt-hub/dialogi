@@ -74,57 +74,55 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: widget.height.h,
-      child: TextFormField(
-        onTap: widget.onTap,
-        inputFormatters: widget.inputFormatters,
-        onFieldSubmitted: widget.onFieldSubmitted,
-        readOnly: widget.readOnly,
-        controller: widget.textEditingController,
-        focusNode: widget.focusNode,
-        maxLength: widget.maxLength,
-        keyboardType: widget.keyboardType,
-        textInputAction: widget.textInputAction,
-        cursorColor: widget.cursorColor,
-        style: widget.inputTextStyle,
-        onChanged: widget.onChanged,
-        maxLines: widget.maxLines,
-        obscureText: widget.isPassword ? obscureText : false,
-        validator: widget.validator,
-        decoration: InputDecoration(
-          hintText: widget.hintText,
-          hintStyle: widget.hintStyle,
-          fillColor: widget.fillColor,
-          filled: true,
-          prefixIcon: widget.prefixIcon,
-          suffixIcon: widget.isPassword
-              ? GestureDetector(
-                  onTap: toggle,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 16, right: 16, top: 16, bottom: 16),
-                    child: SvgPicture.asset(
-                        obscureText ? AppIcons.eyeOff : AppIcons.eye,
-                        height: 22,
-                        width: 22),
-                  ),
-                )
-              : widget.suffixIcon,
-          suffixIconColor: widget.suffixIconColor,
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(widget.fieldBorderRadius),
-              borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
-              gapPadding: 0),
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(widget.fieldBorderRadius),
-              borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
-              gapPadding: 0),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(widget.fieldBorderRadius),
-              borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
-              gapPadding: 0),
-        ),
+    return TextFormField(
+      onTap: widget.onTap,
+      inputFormatters: widget.inputFormatters,
+      onFieldSubmitted: widget.onFieldSubmitted,
+      readOnly: widget.readOnly,
+      controller: widget.textEditingController,
+      focusNode: widget.focusNode,
+      maxLength: widget.maxLength,
+      keyboardType: widget.keyboardType,
+      textInputAction: widget.textInputAction,
+      cursorColor: widget.cursorColor,
+      style: widget.inputTextStyle,
+      onChanged: widget.onChanged,
+      maxLines: widget.maxLines,
+      obscureText: widget.isPassword ? obscureText : false,
+      validator: widget.validator,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.symmetric(vertical: 18.h),
+        hintText: widget.hintText,
+        hintStyle: widget.hintStyle,
+        fillColor: widget.fillColor,
+        filled: true,
+        prefixIcon: widget.prefixIcon,
+        suffixIcon: widget.isPassword
+            ? GestureDetector(
+                onTap: toggle,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 16, right: 16, top: 16, bottom: 16),
+                  child: SvgPicture.asset(
+                      obscureText ? AppIcons.eyeOff : AppIcons.eye,
+                      height: 22,
+                      width: 22),
+                ),
+              )
+            : widget.suffixIcon,
+        suffixIconColor: widget.suffixIconColor,
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(widget.fieldBorderRadius),
+            borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
+            gapPadding: 0),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(widget.fieldBorderRadius),
+            borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
+            gapPadding: 0),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(widget.fieldBorderRadius),
+            borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
+            gapPadding: 0),
       ),
     );
   }
