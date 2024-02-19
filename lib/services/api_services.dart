@@ -90,12 +90,12 @@ class ApiService {
   }
 
   static Future<ApiResponseModel> putApi(
-      String url, Map<String, String> body, Map<String, String> header) async {
+      String url, Map<String, String> body, {Map<String, String>? header}) async {
     dynamic responseJson;
 
     try {
       final response = await http
-          .put(Uri.parse(url), body: body, headers: header)
+          .put(Uri.parse(url), body: body, headers: header ?? mainHeader)
           .timeout(const Duration(seconds: timeOut));
       responseJson = handleResponse(response);
     } on SocketException {

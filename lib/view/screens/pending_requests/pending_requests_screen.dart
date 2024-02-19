@@ -26,7 +26,6 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
   @override
   void initState() {
     pendingRequestController.pendingRequestRepo();
-
     pendingRequestController.scrollController.addListener(() {
       pendingRequestController.scrollControllerCall();
     });
@@ -66,16 +65,16 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                 itemCount: controller.friendRequestList.length,
                 itemBuilder: (BuildContext context, int index) {
 
-                  var item = controller.friendRequestList[index].participants[0].sId == PrefsHelper.clientId ?
+                  var item = controller.friendRequestList.isNotEmpty ? controller.friendRequestList[index].participants[0].sId == PrefsHelper.clientId ?
                   controller.friendRequestList[index].participants[1] :
-                  controller.friendRequestList[index].participants[0]
+                  controller.friendRequestList[index].participants[0] : null
                   ;
                   return CustomPendingRequests(
                       pendingText: item.fullName,
                       image: "${ApiConstant.baseUrl}/${item.image}",
                       timeText: '1 hour ago',
-                      onTapReject: () {},
-                      onTapAccept: () {});
+                      onTapReject: () => controller.requestActionRepo(item.sId, "rejected", index),
+                      onTapAccept: () => controller.requestActionRepo(item.sId, "accepted", index),);
                 }),
           );
         }));
