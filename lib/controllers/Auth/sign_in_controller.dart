@@ -42,9 +42,14 @@ class SignInController extends GetxController {
       print("=========================================> data $data") ;
 
       PrefsHelper.setString(AppConstants.bearerToken, data['data']["accessToken"]);
+      PrefsHelper.setString("clientId", data['data']["attributes"]["_id"]);
 
 
       PrefsHelper.token = data['data']["accessToken"];
+      PrefsHelper.clientId = data['data']["attributes"]["_id"];
+
+
+      print("==========================================->clientId ${data['data']["attributes"]["_id"]}") ;
 
       print(
           "=============================> token ${data['data']["accessToken"]}");

@@ -32,7 +32,7 @@ class CustomAllFriends extends StatelessWidget {
               height: 50,
               width: 50,
               decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage(imageSrc)),
+                  image: DecorationImage(image: NetworkImage(imageSrc)),
                   shape: BoxShape.circle),
             ),
             SizedBox(

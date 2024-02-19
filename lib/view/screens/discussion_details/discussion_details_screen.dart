@@ -9,6 +9,7 @@ import '../../../utils/app_icons.dart';
 import '../../../utils/static_strings.dart';
 import '../../widgets/image/custom_image.dart';
 import '../../widgets/text/custom_text.dart';
+import '../../widgets/text_field/custom_text_field.dart';
 
 class DiscussionDetailsScreen extends StatefulWidget {
   const DiscussionDetailsScreen({super.key});
@@ -29,6 +30,9 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
 
   @override
   void initState() {
+    discussionDetailsController.scrollController.addListener(() {
+      discussionDetailsController.scrollControllerCall(discussionID);
+    })   ;
     discussionDetailsController.discussionDetailsRepo(discussionID);
     // TODO: implement initState
     super.initState();
@@ -125,17 +129,17 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                                 ],
                               ),
 
-                              InkWell(
-                                onTap: () => questionAnsController
-                                    .addReply(discussionID),
-                                child: Center(
-                                    child: CustomText(
-                                  text: AppStrings.reply,
-                                  left: 10.w,
-                                  right: 10.w,
-                                  textAlign: TextAlign.center,
-                                )),
-                              ),
+                              // InkWell(
+                              //   onTap: () => questionAnsController
+                              //       .addReply(discussionID),
+                              //   child: Center(
+                              //       child: CustomText(
+                              //     text: AppStrings.reply,
+                              //     left: 10.w,
+                              //     right: 10.w,
+                              //     textAlign: TextAlign.center,
+                              //   )),
+                              // ),
                             ],
                           ),
                         ),
@@ -148,6 +152,7 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                           child: Padding(
                             padding: EdgeInsets.only(left: 35.w),
                             child: ListView.builder(
+                              controller: controller.scrollController,
                               itemCount: controller.repliesList.length,
                               itemBuilder: (context, index) {
                                 var item = controller.repliesList[index];
@@ -192,7 +197,7 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                                     // Like Dislike reply
                                     Padding(
                                       padding:
-                                          EdgeInsets.only(left: 35.w, top: 5.h),
+                                          EdgeInsets.only(left: 35.w, top: 5.h, ),
                                       child: Row(
                                         children: [
                                           // Like
@@ -220,24 +225,48 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                                           ),
 
                                           // Reply
-                                          TextButton(
-                                            onPressed: () {},
-                                            child: const CustomText(
-                                                text: AppStrings.reply),
-                                          ),
+                                          // TextButton(
+                                          //   onPressed: () => controller.addReply(),
+                                          //   child: const CustomText(
+                                          //       text: AppStrings.reply),
+                                          // ),
                                         ],
                                       ),
                                     ),
+
+                                    SizedBox(height: 12.h,)
                                   ],
                                 );
                               },
                             ),
                           ),
                         ),
+                        Row(
+                          children: [
+                            Expanded(
+                                child: CustomTextField(
+                                  textEditingController: controller.replyController,
+                                  hintText: AppStrings.enterTextHere,
+                                )),
+                            Padding(
+                              padding: EdgeInsets.only(left: 10.w),
+                              child: GestureDetector(
+                                  onTap: () => controller.addReplyRepo(discussionID),
+                                  child: controller.isLoadingReplay
+                                      ? const CircularProgressIndicator()
+                                      : const CustomImage(imageSrc: AppIcons.send)),
+                            )
+                          ],
+                        )
                       ],
                     ),
                   );
           },
-        ));
+        ),
+
+
+
+
+    );
   }
 }

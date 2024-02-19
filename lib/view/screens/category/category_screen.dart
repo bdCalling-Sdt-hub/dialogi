@@ -22,8 +22,17 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
 
 
+  CategoryController categoryController = Get.put(CategoryController()) ;
+
+
   @override
   void initState() {
+
+    categoryController.page = 1;
+    categoryController.categoryRepo();
+    categoryController.scrollController.addListener(() {
+      categoryController.scrollControllerCall();
+    });
     // TODO: implement initState
     super.initState();
   }

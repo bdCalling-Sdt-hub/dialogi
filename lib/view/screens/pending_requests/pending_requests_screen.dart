@@ -1,3 +1,5 @@
+import 'package:dialogi_app/controllers/friends/pending_request_controller.dart';
+import 'package:dialogi_app/services/api_url.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
@@ -8,6 +10,8 @@ import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../helper/prefs_helper.dart';
+
 class PendingRequestsScreen extends StatefulWidget {
   const PendingRequestsScreen({super.key});
 
@@ -16,36 +20,63 @@ class PendingRequestsScreen extends StatefulWidget {
 }
 
 class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
+  PendingRequestController pendingRequestController =
+      Get.put(PendingRequestController());
+
+  @override
+  void initState() {
+    pendingRequestController.pendingRequestRepo();
+    pendingRequestController.scrollController.addListener(() {
+      pendingRequestController.scrollControllerCall();
+    });
+
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-          appBarContent: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                  onTap: (){
-                    Get.back();
-                  },
-                  child: const CustomImage(imageSrc: AppIcons.chevronLeft,size: 24,)),
-              const CustomText(
-                text: AppStrings.pendingRequests,
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: AppColors.blue_500,
-              ),
-              const SizedBox(),
+        appBar: CustomAppBar(
+            appBarContent: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+                onTap: () {
+                  Get.back();
+                },
+                child: const CustomImage(
+                  imageSrc: AppIcons.chevronLeft,
+                  size: 24,
+                )),
+            const CustomText(
+              text: AppStrings.pendingRequests,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+              color: AppColors.blue_500,
+            ),
+            const SizedBox(),
+          ],
+        )),
+        body: GetBuilder<PendingRequestController>(builder: (controller) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+            child: ListView.builder(
+                itemCount: controller.friendRequestList.length,
+                itemBuilder: (BuildContext context, int index) {
 
-            ],
-          )),
-      body: Padding(
-          padding:const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
-        child: ListView.builder(
-            itemCount: 5,
-            itemBuilder:(BuildContext context,int index){
-              return CustomPendingRequests(pendingText: 'Bassie sent you a request.', timeText: '1 hour ago', onTapReject: (){}, onTapAccept: (){});
-            } ),
-      ),
-    );
+                  var item = controller.friendRequestList.isNotEmpty ? controller.friendRequestList[index].participants[0].sId == PrefsHelper.clientId ?
+                  controller.friendRequestList[index].participants[1] :
+                  controller.friendRequestList[index].participants[0] : null
+                  ;
+                  return CustomPendingRequests(
+                      pendingText: item.fullName,
+                      image: "${ApiConstant.baseUrl}/${item.image}",
+                      timeText: '1 hour ago',
+                      onTapReject: () => controller.requestActionRepo(item.sId, "rejected", index),
+                      onTapAccept: () => controller.requestActionRepo(item.sId, "accepted", index),);
+                }),
+          );
+        }));
   }
 }
