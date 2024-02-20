@@ -46,6 +46,7 @@ class QuestionAnsController extends GetxController {
     if (discussionScrollController.position.pixels ==
         discussionScrollController.position.maxScrollExtent) {
       isLoadingMoreDiscussion = true;
+
       update();
       await questionsRepo(subCategory);
       isLoadingMoreDiscussion = false;
