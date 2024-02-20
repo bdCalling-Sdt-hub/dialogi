@@ -91,7 +91,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       obscureText: widget.isPassword ? obscureText : false,
       validator: widget.validator,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(vertical: 18.h),
+        contentPadding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 14.w),
         hintText: widget.hintText,
         hintStyle: widget.hintStyle,
         fillColor: widget.fillColor,

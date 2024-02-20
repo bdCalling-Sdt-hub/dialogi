@@ -1,6 +1,7 @@
 import 'package:dialogi_app/controllers/friends/friend_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/services/api_url.dart';
+import 'package:dialogi_app/services/socket_service.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/app_images.dart';
@@ -53,7 +54,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
         )),
         body: GetBuilder<FriendController>(builder: (controller) {
           return Padding(
-              padding: EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
               child: ListView.builder(
                 controller: controller.scrollController,
                   itemCount: controller.friendList.length,
@@ -63,12 +64,10 @@ class _FriendsScreenState extends State<FriendsScreen> {
                     return Column(
                       children: [
                         CustomAllFriends(
-                          imageSrc: "${ApiConstant.baseUrl}/${item.participants[1].image}",
-                          text: item.participants[1].fullName,
+                          imageSrc: "${ApiConstant.baseUrl}/${item.participants[0].image}",
+                          text: item.participants[0].fullName,
                           icon: AppIcons.chat,
-                          onTap: () {
-                            Get.toNamed(AppRoutes.friendsProfileScreen);
-                          },
+                          onTap: () => controller.addNewChat(),
                         ),
                       ],
                     );

@@ -30,10 +30,13 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
 
   @override
   void initState() {
+
+    discussionDetailsController.page= 1 ;
+    discussionDetailsController.discussionDetailsRepo(discussionID);
+
     discussionDetailsController.scrollController.addListener(() {
       discussionDetailsController.scrollControllerCall(discussionID);
     })   ;
-    discussionDetailsController.discussionDetailsRepo(discussionID);
     // TODO: implement initState
     super.initState();
   }
@@ -48,7 +51,8 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
           builder: (controller) {
             return controller.isLoading
                 ? const Center(child: CircularProgressIndicator())
-                : Padding(
+                : controller.discussionDetailsModel == null ? SizedBox() :
+            Padding(
                     padding:
                         EdgeInsets.symmetric(vertical: 24.h, horizontal: 20.w),
                     child: Column(

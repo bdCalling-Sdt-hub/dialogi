@@ -3,6 +3,7 @@ import 'package:dialogi_app/controllers/Auth/password_controller.dart';
 import 'package:dialogi_app/controllers/Auth/sign_in_controller.dart';
 import 'package:dialogi_app/controllers/Auth/sign_up_controller.dart';
 import 'package:dialogi_app/controllers/about_us_controller.dart';
+import 'package:dialogi_app/controllers/chat/chatcontroller.dart';
 import 'package:dialogi_app/controllers/friends/friend_controller.dart';
 import 'package:dialogi_app/controllers/friends/pending_request_controller.dart';
 import 'package:dialogi_app/controllers/question_ans_controller.dart';
@@ -37,5 +38,6 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => SubscriptionController(), fenix: true);
     Get.lazyPut(() => PendingRequestController(), fenix: true);
     Get.lazyPut(() => FriendController(), fenix: true);
+    Get.lazyPut(() => ChatController(), fenix: true);
   }
 }
