@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 
 import '../../global/api_response_model.dart';
@@ -9,7 +10,23 @@ import '../core/app_routes.dart';
 import '../helper/prefs_helper.dart';
 import '../utils/app_utils.dart';
 
+
+///<<<======================= Google Sign In Service ========================>>>
+
+class GoogleSignInService {
+  ///>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Static instance of GoogleSignIn>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>///
+  static final _googleSignIn = GoogleSignIn();
+  ///>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Login method>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>///
+
+  static Future<GoogleSignInAccount?> login() => _googleSignIn.signIn();
+  ///>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Logout method:>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>///
+
+  static Future logout() => _googleSignIn.signOut();
+}
+
+
 class ApiService {
+
 
   ///<<<======================== Main Header ==============================>>>
   static Map<String, String> mainHeader = {

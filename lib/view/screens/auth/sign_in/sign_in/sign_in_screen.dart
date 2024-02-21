@@ -1,3 +1,4 @@
+
 import 'package:dialogi_app/controllers/Auth/sign_in_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/api_static_string.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
 
@@ -22,6 +24,37 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
+
+  //
+  // Future googleSignIn() async {
+  //   try {
+  //     final user = await GoogleSignInService.login();
+  //
+  //     await user?.authentication;
+  //     log(user!.displayName.toString());
+  //     log(user.email);
+  //     log(user.id);
+  //     log(user.photoUrl.toString());
+  //     print(context.mounted);
+  //     if (context.mounted) {
+  //       Navigator.push(
+  //           context,
+  //           MaterialPageRoute(
+  //               builder: (context) => SuccessLogin(
+  //                   name: user.displayName!, email: user.email)));
+  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //           content: Column(
+  //             children: [
+  //               Text(
+  //                   "Name: ${user.displayName}\nEmail: ${user.email}\nId: ${user.id}\nPhotoUrl: ${user.photoUrl}"),
+  //               Image.network(user.photoUrl.toString()),
+  //             ],
+  //           )));
+  //     }
+  //   } catch (exception) {
+  //     log(exception.toString());
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +72,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   height: 44,
                 ),
 
-                /// welcome text
+                ///<<<=================== welcome text =========================>>>
                 CustomText(
                   textAlign: TextAlign.start,
                   text: AppStrings.welcomeToThe,
@@ -59,7 +92,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   height: 64.h,
                 ),
 
-                ///<<<==============Email field===============================>>>
+                ///<<<============== Email field ===============================>>>
 
                 CustomTextField(
                   validator: (value) {
@@ -98,7 +131,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   height: 24,
                 ),
 
-                ///<<<====================Password field=======================>>>
+                ///<<<==================== Password field =======================>>>
 
                 CustomTextField(
                   validator: (value) {
@@ -135,7 +168,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                 ),
 
-                ///<<<================forget password==========================>>>
+                ///<<<================ forget password ==========================>>>
                 GestureDetector(
                   onTap: () {
                     Get.toNamed(AppRoutes.forgetPasswordScreen);
@@ -150,7 +183,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                 ),
 
-                ///<<<==================signIn button========================>>>
+                ///<<<================== signIn button ========================>>>
 
                 controller.signInLoading?
                     const Center(child: CircularProgressIndicator()):
@@ -176,35 +209,40 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                 ),
 
-                ///google
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  decoration: BoxDecoration(
-                      color: Colors.white, borderRadius: BorderRadius.circular(8)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const CustomImage(
-                        imageSrc: AppIcons.google,
-                        size: 24,
-                        imageType: ImageType.svg,
-                      ),
-                      CustomText(
-                        text: AppStrings.continuewithGoogle,
-                        color: AppColors.black_500,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 18,
-                        left: 8.w,
-                      ),
-                    ],
+                ///<<<======================= google sign in ==================>>>
+
+                GestureDetector(
+                  onTap: controller.googleSignIn,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    decoration: BoxDecoration(
+                        color: Colors.white, borderRadius: BorderRadius.circular(8)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const CustomImage(
+                          imageSrc: AppIcons.google,
+                          size: 24,
+                          imageType: ImageType.svg,
+                        ),
+                        CustomText(
+                          text: AppStrings.continuewithGoogle,
+                          color: AppColors.black_500,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18,
+                          left: 8.w,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(
                   height: 24,
                 ),
 
-                ///apple
+                ///<<<==================== apple sign in =====================>>>
+
                 Container(
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.symmetric(vertical: 14),
