@@ -10,7 +10,6 @@ import '../helper/prefs_helper.dart';
 import '../utils/app_utils.dart';
 
 class ApiService {
-
   ///<<<======================== Main Header ==============================>>>
   static Map<String, String> mainHeader = {
     'Authorization': "Bearer ${PrefsHelper.token}"
@@ -44,13 +43,12 @@ class ApiService {
       // Utils.toastMessage("please, check your internet connection");
 
       Get.toNamed(AppRoutes.noInternet);
-
       return ApiResponseModel(503, "No internet connection", '');
     } on FormatException {
       return ApiResponseModel(400, "Bad Response Request", '');
     } on TimeoutException {
       // Utils.toastMessage("please, check your internet connection");
-      Get.toNamed(AppRoutes.noInternet);
+      // Get.toNamed(AppRoutes.noInternet);
 
       return ApiResponseModel(408, "Request Time Out", "");
     }
@@ -87,7 +85,7 @@ class ApiService {
     } on TimeoutException {
       // Utils.toastMessage("please, check your internet connection");
 
-      Get.toNamed(AppRoutes.noInternet);
+      // Get.toNamed(AppRoutes.noInternet);
 
       return ApiResponseModel(408, "Request Time Out", "");
     }
@@ -97,8 +95,8 @@ class ApiService {
 
   ///<<<======================== Put Api ==============================>>>
 
-  static Future<ApiResponseModel> putApi(
-      String url, Map<String, String> body, {Map<String, String>? header}) async {
+  static Future<ApiResponseModel> putApi(String url, Map<String, String> body,
+      {Map<String, String>? header}) async {
     dynamic responseJson;
 
     try {
@@ -115,7 +113,7 @@ class ApiService {
       return ApiResponseModel(400, "Bad Response Request", '');
     } on TimeoutException {
       // Utils.toastMessage("please, check your internet connection");
-      Get.toNamed(AppRoutes.noInternet);
+      // Get.toNamed(AppRoutes.noInternet);
       return ApiResponseModel(408, "Request Time Out", "");
     }
 
@@ -150,7 +148,7 @@ class ApiService {
       return ApiResponseModel(400, "Bad Response Request", '');
     } on TimeoutException {
       // Utils.toastMessage("please, check your internet connection");
-      Get.toNamed(AppRoutes.noInternet);
+      // Get.toNamed(AppRoutes.noInternet);
 
       return ApiResponseModel(408, "Request Time Out", "");
     }
@@ -164,27 +162,19 @@ class ApiService {
       {Map<String, String>? header}) async {
     dynamic responseJson;
 
-    try{
-
+    try {
       final response = await http
           .post(Uri.parse(url), body: body, headers: header ?? mainHeader)
           .timeout(const Duration(seconds: timeOut));
       responseJson = handleResponse(response);
-
-    } on SocketException{
-
+    } on SocketException {
       Get.toNamed(AppRoutes.noInternet);
       return ApiResponseModel(503, "No internet connection", '');
-
     } on FormatException {
-
       return ApiResponseModel(400, "Bad response request", '');
-
     } on TimeoutException {
-
-      Get.toNamed(AppRoutes.noInternet);
+      // Get.toNamed(AppRoutes.noInternet);
       return ApiResponseModel(408, "Request time out", "");
-
     }
     return responseJson;
   }

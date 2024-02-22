@@ -1,21 +1,23 @@
 import 'dart:io';
 
 import 'package:dialogi_app/utils/app_colors.dart';
-import 'package:dialogi_app/view/screens/profile/profile/profile_controller/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../controllers/profile_controller.dart';
+
 class ProfileImage extends StatelessWidget {
   final String imageURl;
+
   const ProfileImage({super.key, required this.imageURl});
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(builder: (controller) {
       return SizedBox(
-        height: 108,
-        width: 108,
+        height: 108.w,
+        width: 108.w,
         child: Stack(
           children: [
             Center(
@@ -24,9 +26,10 @@ class ProfileImage extends StatelessWidget {
                   controller.selectImageGallery();
                 },
                 child: Container(
-                  height: 108.h,
+                  height: 108.w,
                   width: 108.w,
                   decoration: BoxDecoration(
+
                       image: controller.image != null
                           ? DecorationImage(
                               image: FileImage(
@@ -35,8 +38,10 @@ class ProfileImage extends StatelessWidget {
                               fit: BoxFit.cover,
                             )
                           : DecorationImage(
-                              image: NetworkImage(imageURl), fit: BoxFit.cover),
-                      shape: BoxShape.circle),
+                              image: NetworkImage(imageURl), fit: BoxFit.cover, ),
+                      shape: BoxShape.circle,
+                    border: Border.all(color: AppColors.black_500, width: 3.w)
+                  ),
                 ),
               ),
             ),
@@ -50,9 +55,9 @@ class ProfileImage extends StatelessWidget {
                   padding: const EdgeInsets.all(8),
                   decoration: const BoxDecoration(
                       color: AppColors.black_500, shape: BoxShape.circle),
-                  child: const Icon(
+                  child: Icon(
                     Icons.photo_camera_outlined,
-                    size: 18,
+                    size: 18.sp,
                     color: AppColors.whiteColor,
                   ),
                 ),

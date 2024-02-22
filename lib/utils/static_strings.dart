@@ -197,4 +197,6 @@ class AppStrings {
   static const String noInternet = "No Internet";
   static const String checkInternet = "please, check your internet connection";
   static const String back = "Back";
+  static const String somethingWrong = "Something wrong!";
+  static const String tryAgain = "Try Again";
 }

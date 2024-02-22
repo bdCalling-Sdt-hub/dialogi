@@ -1,3 +1,4 @@
+import 'package:dialogi_app/helper/prefs_helper.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
@@ -23,17 +24,34 @@ class GroupChat extends StatefulWidget {
 class _GroupChatState extends State<GroupChat> {
   final ScrollController _scrollController = ScrollController();
   final List<ChatMessageModel> messages = [
-    ChatMessageModel('03.20', 'What does friendship mean to you!', false,
+    ChatMessageModel(
+        time: "3:20",
+        text: "What does friendship mean to you!",
+        image: "/uploads/users/transferred-1708428924239.png",
+        isMe: false,
         isQuestion: true),
-    ChatMessageModel('03.20', 'Hello!', false),
-    ChatMessageModel('11.05', 'Hi there!', true),
-    ChatMessageModel('08.25', 'How are you?', false),
+    ChatMessageModel(
+        time: "3:20",
+        text: "Hello",
+        image: "/uploads/users/transferred-1708428924239.png",
+        isMe: false),
+    ChatMessageModel(
+        time: "3:20",
+        text: "Hi there!",
+        image: "/uploads/users/transferred-1708428924239.png",
+        isMe: false),
+    ChatMessageModel(
+        time: "3:20",
+        text: "How are you?",
+        image: "/uploads/users/transferred-1708428924239.png",
+        isMe: false),
   ];
 
   int currentIndex = 0;
 
   bool isInputField = true;
   final TextEditingController messageController = TextEditingController();
+
   void _scrollToBottom() {
     _scrollController.animateTo(
       _scrollController.position.extentTotal,
@@ -75,6 +93,7 @@ class _GroupChatState extends State<GroupChat> {
 
             return ChatBubbleMessage(
               index: index,
+              image: message.image,
               messageIndex: currentIndex,
               isEmoji: !isInputField,
               isQuestion: message.isQuestion,
@@ -84,7 +103,7 @@ class _GroupChatState extends State<GroupChat> {
                   isInputField = !isInputField;
                 });
               },
-              time: message.sender,
+              time: message.time,
               text: message.text,
               isMe: message.isMe,
             );
@@ -132,10 +151,12 @@ class _GroupChatState extends State<GroupChat> {
                         } else {
                           TimeOfDay currentTime = TimeOfDay.now();
                           messages.add(
-                            ChatMessageModel(
-                                currentTime.format(context).toString(),
-                                messageController.text,
-                                true),
+                            ChatMessageModel(time: currentTime.format(context).toString(), text: messageController.text, image: PrefsHelper.myImage, isMe: true)
+
+                            // ChatMessageModel(
+                            //     currentTime.format(context).toString(),
+                            //     messageController.text,
+                            //     true),
                           );
                           setState(() {
                             _scrollToBottom();

@@ -1,20 +1,24 @@
 import 'dart:convert';
 
+import 'package:dialogi_app/helper/prefs_helper.dart';
 import 'package:dialogi_app/models/friend_profile_model.dart';
 import 'package:get/get.dart';
 
+import '../../core/app_routes.dart';
+import '../../global/api_response_model.dart';
 import '../../services/api_services.dart';
 import '../../services/api_url.dart';
+import '../../services/socket_service.dart';
 import '../../utils/app_utils.dart';
 
 class FriendProfileController extends GetxController {
-  bool isLoading = false;
+  Status status = Status.completed;
   bool sendIsLoading = false;
 
   FriendProfileModel? friendProfileModel;
 
   Future<void> friendProfileRepo(String userId) async {
-    isLoading = true;
+    status = Status.loading;
     update();
 
     var response =
@@ -24,12 +28,14 @@ class FriendProfileController extends GetxController {
       print(response.responseJson);
       friendProfileModel =
           FriendProfileModel.fromJson(jsonDecode(response.responseJson));
+
+      status = Status.completed;
+      update();
     } else {
       Utils.snackBarMessage(response.statusCode.toString(), response.message);
+      status = Status.error;
+      update();
     }
-
-    isLoading = false;
-    update();
   }
 
   Future<void> sendRequestRepo(String participantId) async {
@@ -47,11 +53,31 @@ class FriendProfileController extends GetxController {
     print("===========${jsonDecode(response.responseJson)}===========");
 
     if (response.statusCode == 201) {
-      friendProfileModel!.data!.attributes!.friendRequestStatus = "pending" ;
+      friendProfileModel!.data!.attributes!.friendRequestStatus = "pending";
     } else {
       Get.snackbar(response.statusCode.toString(), response.message);
     }
     sendIsLoading = false;
     update();
+  }
+
+  createChatRoom(String userId) async {
+    var body = {
+      "participants": [userId, PrefsHelper.clientId],
+      "subscription": "premium-plus"
+      //groupName = "xyz"
+      //type = ""
+      //groupAdmin = "user ID"
+    };
+
+    print("================================================> body $body");
+
+    SocketServices.socket.emitWithAck("add-new-chat", body, ack: (data) {
+      print(
+          "===============================================================> Received acknowledgment: $data");
+
+      Get.toNamed(AppRoutes.chatScreen,
+          parameters: {"chatId": data['data']['chatId']});
+    });
   }
 }

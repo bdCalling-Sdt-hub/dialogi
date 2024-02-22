@@ -6,71 +6,67 @@ import 'package:get/get.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
 import '../../core/app_routes.dart';
+import '../../global/api_response_model.dart';
+import '../../models/chat_model.dart';
 import '../../models/friend_model.dart';
 import '../../services/api_services.dart';
 import '../../services/api_url.dart';
+import '../../utils/app_utils.dart';
 
 class FriendController extends GetxController {
-  bool isLoading = false;
-  bool isMoreLoading = false;
-  List friendList = [];
 
-  FriendModel? pendingRequestModel;
+
+  Status status = Status.completed;
+
+  Status statusMore = Status.completed;
 
   int page = 1;
-  final ScrollController scrollController = ScrollController();
+
+  List chatList = [];
+
+  ChatModel chatModel = ChatModel();
+
+  ScrollController scrollController = ScrollController();
 
   Future<void> scrollControllerCall() async {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
-      isMoreLoading = true;
+      statusMore = Status.loading;
       update();
-      await myFriendRepo();
-      isMoreLoading = false;
+      await chatRepo();
+      statusMore = Status.completed;
       update();
+    } else {
+      print(
+          "======================================================> sdfdsjfdsklfjdslkfjsfjlksdjlkf");
     }
   }
 
-  Future<void> myFriendRepo() async {
+  Future<void> chatRepo() async {
     if (page == 1) {
-      isLoading = true;
+      status = Status.loading;
       update();
     }
 
-    var response = await ApiService.getApi(
-        "${ApiConstant.friends}?status=accepted&page=$page");
+    var response = await ApiService.getApi("${ApiConstant.chats}?page=$page");
 
     if (response.statusCode == 200) {
       print(response.responseJson);
-      pendingRequestModel =
-          FriendModel.fromJson(jsonDecode(response.responseJson));
+      chatModel = ChatModel.fromJson(jsonDecode(response.responseJson));
 
-      for (var item in pendingRequestModel!.data!.attributes!.friendList!) {
-        friendList.add(item);
+      if (chatModel.data?.attributes?.chatList != null &&
+          chatModel.data!.attributes!.chatList!.isNotEmpty) {
+        chatList.addAll(chatModel.data!.attributes!.chatList!);
       }
+
       page = page + 1;
+      status = Status.completed;
+      update();
+    } else {
+      Utils.snackBarMessage(response.statusCode.toString(), response.message);
+      status = Status.error;
+      update();
     }
-
-    isLoading = false;
-    update();
   }
 
-  addNewChat() async {
-    var body = {
-      "participants": ["65cdfa0614dd5e651e5ce531", "65d45ec33b8aaf63cf093fc0"],
-      "subscription": "premium-plus"
-      //groupName = "xyz"
-      //type = ""
-      //groupAdmin = "user ID"
-    };
-
-    print("================================================> body $body");
-
-    SocketServices.socket.emitWithAck("add-new-chat", body, ack: (data) {
-      print(
-          "===============================================================> Received acknowledgment: $data");
-
-      Get.toNamed(AppRoutes.chatScreen);
-    });
-  }
 }

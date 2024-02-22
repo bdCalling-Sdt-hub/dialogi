@@ -65,14 +65,12 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                 itemCount: controller.friendRequestList.length,
                 itemBuilder: (BuildContext context, int index) {
 
-                  var item = controller.friendRequestList.isNotEmpty ? controller.friendRequestList[index].participants[0].sId == PrefsHelper.clientId ?
-                  controller.friendRequestList[index].participants[1] :
-                  controller.friendRequestList[index].participants[0] : null
+                  var item = controller.friendRequestList[index]
                   ;
                   return CustomPendingRequests(
-                      pendingText: item.fullName,
-                      image: "${ApiConstant.baseUrl}/${item.image}",
-                      timeText: '1 hour ago',
+                      pendingText: item.participants[0].fullName,
+                      image: "${ApiConstant.baseUrl}/${item.participants[0].image}",
+                      timeText: controller.getFormattedDate(item.createdAt),
                       onTapReject: () => controller.requestActionRepo(item.sId, "rejected", index),
                       onTapAccept: () => controller.requestActionRepo(item.sId, "accepted", index),);
                 }),
