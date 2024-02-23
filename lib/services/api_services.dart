@@ -3,11 +3,12 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:mime/mime.dart';
 
 import '../../global/api_response_model.dart';
 import '../core/app_routes.dart';
 import '../helper/prefs_helper.dart';
-import '../utils/app_utils.dart';
+import 'package:http_parser/http_parser.dart';
 
 class ApiService {
   ///<<<======================== Main Header ==============================>>>
@@ -179,6 +180,8 @@ class ApiService {
     return responseJson;
   }
 
+
+
   static dynamic handleResponse(http.Response response) {
     switch (response.statusCode) {
       case 200:
@@ -202,6 +205,63 @@ class ApiService {
         return ApiResponseModel(500, "Internal Server Error", response.body);
     }
   }
+
+
+
+
+
+  static Future<ApiResponseModel> multipartRequest(
+      {required String url,
+        required File imageFile,
+        required Map<String, String> body,
+        Map<String, String>? header}) async {
+    dynamic responseJson;
+
+    try {
+      var request = http.MultipartRequest('PUT', Uri.parse(url));
+
+
+      body.forEach((key, value) {
+        request.fields[key] = value;
+      });
+
+      var mimeType = lookupMimeType(imageFile.path);
+
+      var img = await http.MultipartFile.fromPath('image', imageFile.path,
+          contentType: MediaType.parse(mimeType!));
+      request.files.add(img);
+
+      request.headers['Authorization'] = "Bearer ${PrefsHelper.token}";
+
+      var response = await request.send();
+
+      if (response.statusCode == 200) {
+        return ApiResponseModel(200, "Success", await response.stream.bytesToString());
+      } else {
+        return ApiResponseModel(response.statusCode, "Error", await response.stream.bytesToString());
+
+      }
+    } on SocketException {
+      // Utils.toastMessage("please, check your internet connection");
+
+      Get.toNamed(AppRoutes.noInternet);
+      return ApiResponseModel(503, "No internet connection", '');
+    } on FormatException {
+      return ApiResponseModel(400, "Bad Response Request", '');
+    } on TimeoutException {
+      // Utils.toastMessage("please, check your internet connection");
+      // Get.toNamed(AppRoutes.noInternet);
+
+      return ApiResponseModel(408, "Request Time Out", "");
+    }
+
+    return responseJson;
+  }
+
+
+
+
+
 }
 
 // import 'dart:convert';

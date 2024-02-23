@@ -7,6 +7,7 @@ class PrefsHelper {
   static String clientId = "";
   static String forgetPasswordToken = "";
   static String myImage = "/uploads/users/transferred-1708428924239.png";
+  static String mySubscription = "premium-plus";
 
 
   ///<<<======================== Get All Data Form Shared Preference ==============>

@@ -1,5 +1,6 @@
 import 'package:dialogi_app/controllers/friends/friend_profile_controller.dart';
 import 'package:dialogi_app/global/api_response_model.dart';
+import 'package:dialogi_app/helper/prefs_helper.dart';
 import 'package:dialogi_app/services/api_url.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
@@ -145,32 +146,41 @@ class _FriendsProfileScreenState extends State<FriendsProfileScreen> {
               bottomNavigationBar: Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-                  child: controller.sendIsLoading
-                      ? CircularProgressIndicator()
-                      : controller.friendProfileModel!.data!.attributes!
-                                  .friendRequestStatus ==
-                              "accepted"
-                          ? CustomElevatedButton(
-                              onPressed: () {
-                                controller.createChatRoom(userID) ;
-
-                                // Get.toNamed(AppRoutes.chatScreen);
-                              },
-                              titleText: AppStrings.message)
+                  child: userID == PrefsHelper.clientId
+                      ? const SizedBox()
+                      : controller.sendIsLoading
+                          ? const CircularProgressIndicator()
                           : controller.friendProfileModel!.data!.attributes!
                                       .friendRequestStatus ==
-                                  "pending"
+                                  "accepted"
                               ? CustomElevatedButton(
                                   onPressed: () {
+                                    controller.createChatRoom(
+                                        userID,
+                                        controller
+                                            .friendProfileModel!
+                                            .data!
+                                            .attributes!
+                                            .userDetails!
+                                            .fullName!);
+
                                     // Get.toNamed(AppRoutes.chatScreen);
                                   },
-                                  titleText: AppStrings.requestSend,
-                                  buttonColor: AppColors.black_300,
-                                )
-                              : CustomElevatedButton(
-                                  onPressed: () =>
-                                      controller.sendRequestRepo(userID),
-                                  titleText: AppStrings.sendRequest))),
+                                  titleText: AppStrings.message)
+                              : controller.friendProfileModel!.data!.attributes!
+                                          .friendRequestStatus ==
+                                      "pending"
+                                  ? CustomElevatedButton(
+                                      onPressed: () {
+                                        // Get.toNamed(AppRoutes.chatScreen);
+                                      },
+                                      titleText: AppStrings.requestSend,
+                                      buttonColor: AppColors.black_300,
+                                    )
+                                  : CustomElevatedButton(
+                                      onPressed: () =>
+                                          controller.sendRequestRepo(userID),
+                                      titleText: AppStrings.sendRequest))),
         };
       },
     );

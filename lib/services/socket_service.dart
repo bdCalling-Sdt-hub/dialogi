@@ -50,6 +50,4 @@ class SocketServices {
     //   // notificationService.showNotification(data);
     // });
   }
-
-
 }

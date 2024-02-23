@@ -61,7 +61,7 @@ class FriendProfileController extends GetxController {
     update();
   }
 
-  createChatRoom(String userId) async {
+  createChatRoom(String userId, String name) async {
     var body = {
       "participants": [userId, PrefsHelper.clientId],
       "subscription": "premium-plus"
@@ -76,8 +76,11 @@ class FriendProfileController extends GetxController {
       print(
           "===============================================================> Received acknowledgment: $data");
 
-      Get.toNamed(AppRoutes.chatScreen,
-          parameters: {"chatId": data['data']['chatId']});
+      Get.toNamed(AppRoutes.chatScreen, parameters: {
+        "chatId": data['data']['chatId'],
+        "type": "single",
+        "name": name
+      });
     });
   }
 }

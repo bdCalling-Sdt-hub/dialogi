@@ -85,20 +85,18 @@ class ChatList {
   List<Participants>? participants;
   String? groupName;
   String? type;
+  String? groupAdmin;
   String? image;
-  String? createdAt;
-  String? updatedAt;
-  int? iV;
+  LatestMessage? latestMessage;
 
   ChatList(
       {this.sId,
       this.participants,
       this.groupName,
       this.type,
+      this.groupAdmin,
       this.image,
-      this.createdAt,
-      this.updatedAt,
-      this.iV});
+      this.latestMessage});
 
   ChatList.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -110,10 +108,11 @@ class ChatList {
     }
     groupName = json['groupName'];
     type = json['type'];
+    groupAdmin = json['groupAdmin'];
     image = json['image'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    iV = json['__v'];
+    latestMessage = json['latestMessage'] != null
+        ? new LatestMessage.fromJson(json['latestMessage'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -124,10 +123,11 @@ class ChatList {
     }
     data['groupName'] = this.groupName;
     data['type'] = this.type;
+    data['groupAdmin'] = this.groupAdmin;
     data['image'] = this.image;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
+    if (this.latestMessage != null) {
+      data['latestMessage'] = this.latestMessage!.toJson();
+    }
     return data;
   }
 }
@@ -150,6 +150,28 @@ class Participants {
     data['_id'] = this.sId;
     data['fullName'] = this.fullName;
     data['image'] = this.image;
+    return data;
+  }
+}
+
+class LatestMessage {
+  String? sId;
+  String? message;
+  String? createdAt;
+
+  LatestMessage({this.sId, this.message, this.createdAt});
+
+  LatestMessage.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    message = json['message'];
+    createdAt = json['createdAt'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['message'] = this.message;
+    data['createdAt'] = this.createdAt;
     return data;
   }
 }

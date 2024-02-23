@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           GestureDetector(
               onTap: () {
-                Get.toNamed(AppRoutes.chatPremiumScreen);
+                Get.toNamed(AppRoutes.chatListScreen);
               },
               child: const CustomImage(
                 imageSrc: AppIcons.chat,

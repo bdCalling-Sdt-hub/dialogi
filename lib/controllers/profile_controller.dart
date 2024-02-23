@@ -1,13 +1,13 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dialogi_app/global/api_response_model.dart';
 import 'package:dialogi_app/helper/prefs_helper.dart';
-import 'package:dialogi_app/models/friend_model.dart';
 import 'package:dialogi_app/models/profile_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../models/friend_profile_model.dart';
 import '../services/api_services.dart';
 import '../services/api_url.dart';
 import '../utils/app_utils.dart';
@@ -19,6 +19,12 @@ class ProfileController extends GetxController {
 
   ProfileModel profileModel = ProfileModel();
 
+  TextEditingController nameController = TextEditingController();
+
+  TextEditingController dateController = TextEditingController();
+
+  TextEditingController addressController = TextEditingController();
+
   Future<void> profileRepo() async {
     status = Status.loading;
     update();
@@ -28,8 +34,7 @@ class ProfileController extends GetxController {
 
     if (response.statusCode == 200) {
       print(response.responseJson);
-      profileModel =
-          ProfileModel.fromJson(jsonDecode(response.responseJson));
+      profileModel = ProfileModel.fromJson(jsonDecode(response.responseJson));
 
       status = Status.completed;
       update();
@@ -40,15 +45,11 @@ class ProfileController extends GetxController {
     }
   }
 
-
-
-
-
   //Pick Image from Gallary
   selectImageGallery() async {
     final ImagePicker picker = ImagePicker();
     final XFile? getImages =
-    await picker.pickImage(source: ImageSource.gallery, imageQuality: 50);
+        await picker.pickImage(source: ImageSource.gallery, imageQuality: 50);
     if (getImages != null) {
       image = getImages.path;
       update();
@@ -60,10 +61,61 @@ class ProfileController extends GetxController {
   selectImageCamera() async {
     final ImagePicker picker = ImagePicker();
     final XFile? getImages =
-    await picker.pickImage(source: ImageSource.camera, imageQuality: 50);
+        await picker.pickImage(source: ImageSource.camera, imageQuality: 50);
     if (getImages != null) {
       image = getImages.path;
       update();
     }
   }
+
+  Future<void> updateProfileRepo() async {
+    Map<String, String> body = {
+      "fullName": nameController.text,
+      "dateOfBirth": dateController.text,
+      "address": addressController.text,
+    };
+
+    File imageFile = File(image!);
+
+    print("============================================> body $body");
+    var response = await ApiService.multipartRequest(
+        url: ApiConstant.users, imageFile: imageFile, body: body);
+
+    if (response.statusCode == 200) {
+      Get.back();
+      print("=============================================> Update Successful");
+    } else {
+      print("=============================================> Update Successful");
+    }
+  }
+
+  ///================================fhsdjh=====================================
+  ///
+
+// static Future<ApiResponseModel> Multipart() async {
+//   File imageFile = File(image!);
+//
+//   try {
+//     var request = http.MultipartRequest('PUT', Uri.parse(ApiConstant.users));
+//
+//     Map<String, String> params = {};
+//
+//     params.forEach((key, value) {
+//       request.fields[key] = value;
+//     });
+//
+//     var mimeType = lookupMimeType(imageFile!.path);
+//
+//     var img = await http.MultipartFile.fromPath('image', imageFile.path,
+//         contentType: MediaType.parse(mimeType!));
+//     request.files.add(img);
+//
+//     request.headers['Authorization'] = "Bearer ${PrefsHelper.token}";
+//
+//     var response = await request.send();
+//   } catch (e, s) {
+//     print('Error sending request: $e');
+//     print('Error s: $s');
+//   }
+// }
 }

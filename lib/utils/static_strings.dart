@@ -70,8 +70,8 @@ class AppStrings {
 
   //Chat
   static const String chat = "Chat";
-  static const String community = "Community";
-  static const String group = "Group";
+  static const String community = "community";
+  static const String group = "group";
   static const String selectDiscussionPlatform = "Select Discussion Platform";
   static const String confirm = "Confirm";
 
@@ -181,7 +181,7 @@ class AppStrings {
   static const String message = "Message";
   static const String sendRequest = "Send Request";
   static const String requestSend = "Request Send";
-  static const String enterName = "enter name";
+  static const String enterName = "Enter name";
   static const String dob = "date-of-birth";
   static const String enterLocation = "enter location";
 

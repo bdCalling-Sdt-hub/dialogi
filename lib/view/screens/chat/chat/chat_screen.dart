@@ -15,6 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../widgets/chat_model/chat_message_model.dart';
+import '../../group_chat/group_chat/grp_chat_appbar/grp_chat_appbar.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -27,6 +28,8 @@ class _ChatScreenState extends State<ChatScreen> {
   MessageController chatController = Get.put(MessageController());
 
   String chatId = Get.parameters["chatId"] ?? "";
+  String name = Get.parameters["name"] ?? "";
+  String type = Get.parameters["type"] ?? "";
 
   @override
   void initState() {
@@ -50,25 +53,26 @@ class _ChatScreenState extends State<ChatScreen> {
         Status.completed => Scaffold(
             appBar: CustomAppBar(
                 appBarContent: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: const CustomImage(
-                      imageSrc: AppIcons.chevronLeft,
-                      size: 24,
-                    )),
-                const CustomText(
-                  text: AppStrings.chat,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.blue_500,
-                ),
-                const SizedBox(),
-              ],
-            )),
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: const CustomImage(
+                          imageSrc: AppIcons.chevronLeft,
+                          size: 24,
+                        )),
+                    CustomText(
+                      left: 25.w,
+                      text: name,
+                      fontSize: 18.w,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.blue_500,
+                    ),
+                    type == "single" ? const SizedBox() : const GroupChatPopUps()
+                  ],
+                )),
             body: ListView.builder(
                 reverse: true,
                 controller: controller.scrollController,
