@@ -86,7 +86,7 @@ class SignUpController extends GetxController {
       'email': emailController.text,
       'dateOfBirth': birthDayController.text,
       'address': addressController.text,
-      'password': passWordController.text
+      'password': passWordController.text,
     };
 
     var response =

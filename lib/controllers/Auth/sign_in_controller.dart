@@ -82,6 +82,7 @@ class SignInController extends GetxController {
       log(user.email);
       log(user.id);
       log(user.photoUrl.toString());
+      log(user.toString());
       if(Get.context!.mounted){
         Get.to(SuccessLogin(name: user.displayName!, email: user.email));
         Get.snackbar(

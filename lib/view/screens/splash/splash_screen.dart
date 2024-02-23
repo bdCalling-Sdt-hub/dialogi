@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> getLoggedIn() async {
 
-    print("======================================================>token ${PrefsHelper.token}");
+    print("====================================================>token ${PrefsHelper.token}");
 
 
     try {
