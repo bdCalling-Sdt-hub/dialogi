@@ -57,6 +57,7 @@ dependencies:
   google_sign_in: ^6.2.1
   flutter_stripe: ^10.0.0
   mime: ^1.0.4
+  animated_item_picker: ^2.0.0
 
 
 
