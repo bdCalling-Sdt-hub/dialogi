@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
 
     try {
-      Get.toNamed(AppRoutes.signInScreen);
+      Get.toNamed(AppRoutes.premiumScreen);
       // if (PrefsHelper.token.isNotEmpty) {
       //   Get.offAllNamed(AppRoutes.homeScreen);
       // } else {

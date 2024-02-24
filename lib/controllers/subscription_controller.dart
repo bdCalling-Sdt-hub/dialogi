@@ -31,7 +31,9 @@ class SubscriptionController extends GetxController{
 
         var jsonData = jsonDecode(apiResponseModel.responseJson);
         subscriptionsPlanModel = SubscriptionsPlanModel.fromJson(jsonData);
-        print("=========>ergtgdfgvfdgf ${subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].name}<========");
+
+        print("=========> ${subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].name}<========");
+
       } else {
         Get.snackbar(apiResponseModel.statusCode.toString(), apiResponseModel.message);
       }
