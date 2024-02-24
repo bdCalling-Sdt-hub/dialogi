@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../core/app_routes.dart';
 import '../services/api_services.dart';
 import '../services/api_url.dart';
 import '../utils/app_utils.dart';
@@ -75,47 +76,16 @@ class ProfileController extends GetxController {
       "address": addressController.text,
     };
 
-    File imageFile = File(image!);
-
     print("============================================> body $body");
     var response = await ApiService.multipartRequest(
-        url: ApiConstant.users, imageFile: imageFile, body: body);
+        url: ApiConstant.users, imagePath: image, body: body);
 
     if (response.statusCode == 200) {
-      Get.back();
+      Get.offAllNamed(AppRoutes.homeScreen);
+
       print("=============================================> Update Successful");
     } else {
       print("=============================================> Update Successful");
     }
   }
-
-  ///================================fhsdjh=====================================
-  ///
-
-// static Future<ApiResponseModel> Multipart() async {
-//   File imageFile = File(image!);
-//
-//   try {
-//     var request = http.MultipartRequest('PUT', Uri.parse(ApiConstant.users));
-//
-//     Map<String, String> params = {};
-//
-//     params.forEach((key, value) {
-//       request.fields[key] = value;
-//     });
-//
-//     var mimeType = lookupMimeType(imageFile!.path);
-//
-//     var img = await http.MultipartFile.fromPath('image', imageFile.path,
-//         contentType: MediaType.parse(mimeType!));
-//     request.files.add(img);
-//
-//     request.headers['Authorization'] = "Bearer ${PrefsHelper.token}";
-//
-//     var response = await request.send();
-//   } catch (e, s) {
-//     print('Error sending request: $e');
-//     print('Error s: $s');
-//   }
-// }
 }

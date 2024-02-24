@@ -13,6 +13,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../services/api_url.dart';
+import '../../../widgets/profile_custom/profile_image.dart';
+
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
 
@@ -53,6 +56,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
         child: Column(
           children: [
+
+            ProfileImage(imageURl: "${ApiConstant.baseUrl}${profileController.profileModel.data!.attributes!.image!}"),
+
+            SizedBox(height: 44.h,),
             ///<-------- name --------->
             CustomTextField(
               textEditingController: profileController.nameController,
@@ -90,7 +97,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     lastDate: DateTime.now());
 
                 date =
-                    "${selectedDate!.day} ${selectedDate.month} ${selectedDate.year}";
+                "${selectedDate!.year}-${selectedDate.month}-${selectedDate.day}";
+
                 profileController.dateController.text = date;
 
                 // profileController.dateController.text = date;
@@ -120,7 +128,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       lastDate: DateTime.now());
 
                   date =
-                      "${selectedDate!.day} ${selectedDate.month} ${selectedDate.year}";
+                      "${selectedDate!.year}-${selectedDate.month}-${selectedDate.day}";
 
                   profileController.dateController.text = date;
                 },

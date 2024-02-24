@@ -89,7 +89,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             title:
                                 controller.categoryList[index].name.toString(),
                             queNum:
-                                controller.categoryList[index].iV.toString()),
+                                controller.categoryList[index].questionCount.toString()),
                       );
                     } else {
                       return const Center(child: CircularProgressIndicator());

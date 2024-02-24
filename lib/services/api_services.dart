@@ -180,8 +180,6 @@ class ApiService {
     return responseJson;
   }
 
-
-
   static dynamic handleResponse(http.Response response) {
     switch (response.statusCode) {
       case 200:
@@ -206,40 +204,38 @@ class ApiService {
     }
   }
 
-
-
-
-
   static Future<ApiResponseModel> multipartRequest(
       {required String url,
-        required File imageFile,
-        required Map<String, String> body,
-        Map<String, String>? header}) async {
+      String? imagePath,
+      required Map<String, String> body,
+      Map<String, String>? header}) async {
     dynamic responseJson;
 
     try {
       var request = http.MultipartRequest('PUT', Uri.parse(url));
 
-
       body.forEach((key, value) {
         request.fields[key] = value;
       });
 
-      var mimeType = lookupMimeType(imageFile.path);
+      if (imagePath != null) {
+        var mimeType = lookupMimeType(imagePath);
 
-      var img = await http.MultipartFile.fromPath('image', imageFile.path,
-          contentType: MediaType.parse(mimeType!));
-      request.files.add(img);
+        var img = await http.MultipartFile.fromPath('image', imagePath,
+            contentType: MediaType.parse(mimeType!));
+        request.files.add(img);
+      }
 
       request.headers['Authorization'] = "Bearer ${PrefsHelper.token}";
 
       var response = await request.send();
 
       if (response.statusCode == 200) {
-        return ApiResponseModel(200, "Success", await response.stream.bytesToString());
+        return ApiResponseModel(
+            200, "Success", await response.stream.bytesToString());
       } else {
-        return ApiResponseModel(response.statusCode, "Error", await response.stream.bytesToString());
-
+        return ApiResponseModel(response.statusCode, "Error",
+            await response.stream.bytesToString());
       }
     } on SocketException {
       // Utils.toastMessage("please, check your internet connection");
@@ -257,11 +253,6 @@ class ApiService {
 
     return responseJson;
   }
-
-
-
-
-
 }
 
 // import 'dart:convert';

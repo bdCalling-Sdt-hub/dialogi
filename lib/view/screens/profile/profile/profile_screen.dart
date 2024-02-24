@@ -74,8 +74,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       /// profile image
                       ///
-                      ProfileImage(
-                          imageURl: "${ApiConstant.baseUrl}${controller.profileModel.data!.attributes!.image!}"),
+                      // ProfileImage(imageURl: "${ApiConstant.baseUrl}${controller.profileModel.data!.attributes!.image!}"),
+
+                      Center(
+                        child: Container(
+                          height: 108.w,
+                          width: 108.w,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage("${ApiConstant.baseUrl}${controller.profileModel.data!.attributes!.image!}"),
+                                fit: BoxFit.cover,
+                              ),
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                  color: AppColors.black_500, width: 3.w)),
+                        ),
+                      ),
 
                       SizedBox(
                         height: 44.h,
@@ -100,7 +114,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         size: 24,
                                       ),
                                       CustomText(
-                                        text: controller.profileModel.data!.attributes!.subscription!,
+                                        text: controller.profileModel.data!
+                                            .attributes!.subscription!,
                                         fontSize: 18,
                                         color: AppColors.whiteColor,
                                         left: 12,
@@ -119,8 +134,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         name:
                             controller.profileModel.data!.attributes!.fullName!,
                         email: controller.profileModel.data!.attributes!.email!,
-                        dob: " ",
-                        address: " ",
+                        dob: controller
+                                .profileModel.data?.attributes?.dateOfBirth
+                                ?.split('T')[0] ??
+                            " ",
+                        address:
+                            controller.profileModel.data?.attributes?.address ??
+                                " ",
                       )
                     ],
                   ),

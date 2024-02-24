@@ -31,11 +31,13 @@ class ProfileModel {
 }
 
 class Data {
+  String? type;
   Attributes? attributes;
 
-  Data({this.attributes});
+  Data({this.type, this.attributes});
 
   Data.fromJson(Map<String, dynamic> json) {
+    type = json['type'];
     attributes = json['attributes'] != null
         ? new Attributes.fromJson(json['attributes'])
         : null;
@@ -43,6 +45,7 @@ class Data {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['type'] = this.type;
     if (this.attributes != null) {
       data['attributes'] = this.attributes!.toJson();
     }
@@ -61,6 +64,8 @@ class Attributes {
   String? createdAt;
   String? updatedAt;
   int? iV;
+  String? address;
+  String? dateOfBirth;
 
   Attributes(
       {this.sId,
@@ -72,7 +77,9 @@ class Attributes {
       this.subscription,
       this.createdAt,
       this.updatedAt,
-      this.iV});
+      this.iV,
+      this.address,
+      this.dateOfBirth});
 
   Attributes.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -85,6 +92,8 @@ class Attributes {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
+    address = json['address'];
+    dateOfBirth = json['dateOfBirth'];
   }
 
   Map<String, dynamic> toJson() {
@@ -99,6 +108,8 @@ class Attributes {
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     data['__v'] = this.iV;
+    data['address'] = this.address;
+    data['dateOfBirth'] = this.dateOfBirth;
     return data;
   }
 }
