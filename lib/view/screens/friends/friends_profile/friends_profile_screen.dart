@@ -11,6 +11,7 @@ import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:dialogi_app/view/widgets/profile_custom/profile_user_details.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -34,19 +35,6 @@ class _FriendsProfileScreenState extends State<FriendsProfileScreen> {
     friendProfileController.friendProfileRepo(userID);
     // TODO: implement initState
     super.initState();
-  }
-
-  ///image
-  String? image;
-
-  selectImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? getImages =
-        await picker.pickImage(source: ImageSource.gallery);
-    if (getImages != null) {
-      image = getImages.path;
-      setState(() {});
-    }
   }
 
   @override
@@ -81,68 +69,98 @@ class _FriendsProfileScreenState extends State<FriendsProfileScreen> {
                   const SizedBox(),
                 ],
               )),
-              body: switch (controller.status) {
-                Status.loading =>
-                  const Center(child: CircularProgressIndicator()),
-                Status.error => ErrorScreen(
-                    onTap: () =>
-                        friendProfileController.friendProfileRepo(userID)),
-                Status.completed => SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 24, horizontal: 20),
-                    child: Column(
-                      children: [
-                        /// profile image
-                        Center(
-                          child: SizedBox(
-                            height: 108,
-                            width: 108,
-                            child: Stack(
-                              children: [
-                                Center(
-                                  child: Image.network(
-                                      "${ApiConstant.baseUrl}/${controller.friendProfileModel!.data!.attributes!.userDetails!.image}"),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    // selectImage();
-                                  },
-                                  child: Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: Container(
-                                      padding: const EdgeInsets.all(8),
-                                      decoration: const BoxDecoration(
-                                          color: AppColors.black_500,
-                                          shape: BoxShape.circle),
-                                      child: const CustomImage(
-                                        imageSrc: AppIcons.premiumPlus,
-                                        imageType: ImageType.svg,
-                                        size: 18,
-                                      ),
+              body: SingleChildScrollView(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+                child: Column(
+                  children: [
+                    /// profile image
+                    Center(
+                      child: SizedBox(
+                        height: 108,
+                        width: 108,
+                        child: Stack(
+                          children: [
+                            Center(
+                              child: Container(
+                                height: 108.w,
+                                width: 108.w,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                          "${ApiConstant.baseUrl}/${controller.friendProfileModel!.data!.attributes!.userDetails!.image}"),
+                                      fit: BoxFit.cover,
                                     ),
-                                  ),
-                                )
-                              ],
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                        color: AppColors.black_500,
+                                        width: 3.w)),
+                              ),
                             ),
-                          ),
+                            SizedBox(
+                              height: 44.h,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                // selectImage();
+                              },
+                              child: Align(
+                                alignment: Alignment.bottomRight,
+                                child: Container(
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: const BoxDecoration(
+                                      color: AppColors.black_500,
+                                      shape: BoxShape.circle),
+                                  child: const CustomImage(
+                                    imageSrc: AppIcons.premiumPlus,
+                                    imageType: ImageType.svg,
+                                    size: 18,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
                         ),
-                        SizedBox(
-                          height: 44.h,
-                        ),
-
-                        ///profile details
-                        ProfileUserDetails(
-                          name: controller.friendProfileModel!.data!.attributes!
-                              .userDetails!.fullName!,
-                          email: controller.friendProfileModel!.data!
-                              .attributes!.userDetails!.email!,
-                          dob: " ",
-                          address: " ",
-                        )
-                      ],
+                      ),
                     ),
-                  ),
-              },
+                    SizedBox(
+                      height: 44.h,
+                    ),
+
+                    Container(
+                      padding: EdgeInsets.all(16.h),
+                      decoration: BoxDecoration(
+                        color: AppColors.whiteColor,
+                        borderRadius: BorderRadius.circular(8.r),
+                      ),
+                      child: Row(
+                        children: [
+                          const CustomImage(
+                            imageSrc: AppIcons.person,
+                            size: 18,
+                          ),
+                          CustomText(
+                            text: controller.friendProfileModel!.data!
+                                .attributes!.userDetails!.fullName!,
+                            fontSize: 16,
+                            left: 12,
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    ///profile details
+                    // ProfileUserDetails(
+                    //   name: controller.friendProfileModel!.data!.attributes!
+                    //       .userDetails!.fullName!,
+                    //   email: controller.friendProfileModel!.data!
+                    //       .attributes!.userDetails!.email!,
+                    //   dob: " ",
+                    //   address: " ",
+                    // )
+                  ],
+                ),
+              ),
               bottomNavigationBar: Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 24, horizontal: 20),

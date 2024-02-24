@@ -6,7 +6,8 @@ class PrefsHelper {
   static String token = "";
   static String clientId = "";
   static String forgetPasswordToken = "";
-  static String myImage = "/uploads/users/transferred-1708428924239.png";
+  static String myImage = "";
+  static String myName = "";
   static String mySubscription = "premium-plus";
 
 
@@ -16,6 +17,11 @@ class PrefsHelper {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     token = preferences.getString(AppConstants.bearerToken) ?? "";
     clientId = preferences.getString("clientId") ?? "";
+    myImage = preferences.getString("myImage") ?? "";
+    myName = preferences.getString("myName") ?? "";
+
+
+
     forgetPasswordToken =
         preferences.getString(AppConstants.forgetPasswordToken) ??
             "";

@@ -16,7 +16,7 @@ class SignInController extends GetxController {
   TextEditingController emailController =
       TextEditingController(text: kDebugMode ? "siamjht@gmail.com" : "");
   TextEditingController passwordController =
-      TextEditingController(text: kDebugMode ? "hello999" : "");
+      TextEditingController(text: kDebugMode ? "hello123" : "");
 
   var headers = {
     'Content-Type': 'application/json',
@@ -43,10 +43,14 @@ class SignInController extends GetxController {
 
       PrefsHelper.setString(AppConstants.bearerToken, data['data']["accessToken"]);
       PrefsHelper.setString("clientId", data['data']["attributes"]["_id"]);
+      PrefsHelper.setString("myImage", data['data']["attributes"]["image"]);
+      PrefsHelper.setString("myName", data['data']["attributes"]["fullName"]);
 
 
       PrefsHelper.token = data['data']["accessToken"];
       PrefsHelper.clientId = data['data']["attributes"]["_id"];
+      PrefsHelper.myImage = data['data']["attributes"]["image"];
+      PrefsHelper.myName = data['data']["attributes"]["fullName"];
 
 
       print("==========================================->clientId ${data['data']["attributes"]["_id"]}") ;

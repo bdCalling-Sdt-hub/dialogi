@@ -9,11 +9,13 @@ import '../global/api_response_model.dart';
 import '../helper/prefs_helper.dart';
 import '../services/api_services.dart';
 import '../services/api_url.dart';
+import '../services/socket_service.dart';
 
 class DiscussionDetailsController extends GetxController {
   Status status = Status.completed;
   bool isMoreLoading = false;
   bool isReplay = false;
+  bool isLike = false;
   bool isLoadingReplay = false;
   List repliesList = [];
   int page = 1;
@@ -106,5 +108,73 @@ class DiscussionDetailsController extends GetxController {
   Future<void> addReply() async {
     isReplay = true;
     update();
+  }
+
+  discussionLike(String discussionId) async {
+    var body = {
+      "type": "discussion", //it can be discussionn or reply
+      "discussion": discussionId, //if type === discussion
+      "user": PrefsHelper.clientId
+    };
+
+    print("================================================> body $body");
+
+    SocketServices.socket.emitWithAck("dialogi-like", body, ack: (data) {
+      isLike = true;
+      update();
+
+      var check = data['message'];
+
+      if (check == "Liked successfully") {
+        discussionDetailsModel!.data!.attributes!.discussion!.likes =
+            discussionDetailsModel!.data!.attributes!.discussion!.likes! + 1;
+      } else {
+        if (discussionDetailsModel!.data!.attributes!.discussion!.likes != 0) {
+          discussionDetailsModel!.data!.attributes!.discussion!.likes =
+              discussionDetailsModel!.data!.attributes!.discussion!.likes! - 1;
+        }
+      }
+
+      isLike = false;
+      update();
+
+      print(
+          "===============================================================> Received acknowledgment: $data");
+      print(
+          "===============================================================> discussionList[index].likes: ${discussionDetailsModel!.data!.attributes!.discussion!.likes}");
+    });
+  }
+
+  replyLike(String replyId, int index) async {
+    var body = {
+      "type": "reply", //it can be discussionn or reply
+      "reply": replyId, //if type === discussion
+      "user": PrefsHelper.clientId
+    };
+
+    print("================================================> body $body");
+
+    SocketServices.socket.emitWithAck("dialogi-like", body, ack: (data) {
+      isLike = true;
+      update();
+
+      var check = data['message'];
+
+      if (check == "Liked successfully") {
+        repliesList[index].likes = repliesList[index].likes + 1;
+      } else {
+        if (repliesList[index].likes != 0) {
+          repliesList[index].likes = repliesList[index].likes - 1;
+        }
+      }
+
+      isLike = false;
+      update();
+
+      print(
+          "===============================================================> Received acknowledgment: $data");
+      print(
+          "===============================================================> discussionList[index].likes: ${discussionDetailsModel!.data!.attributes!.discussion!.likes}");
+    });
   }
 }

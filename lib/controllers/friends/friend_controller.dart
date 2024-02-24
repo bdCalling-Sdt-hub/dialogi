@@ -89,6 +89,4 @@ class FriendController extends GetxController {
       });
     });
   }
-
-
 }

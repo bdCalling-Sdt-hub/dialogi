@@ -5,12 +5,12 @@ import 'package:dialogi_app/utils/app_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../helper/prefs_helper.dart';
+import '../../global/api_response_model.dart';
 import '../../services/api_services.dart';
 import '../../services/api_url.dart';
 
 class PendingRequestController extends GetxController {
-  bool isLoading = false;
+  Status status = Status.completed;
   bool isMoreLoading = false;
   bool actionIsLoading = false;
   List friendRequestList = [];
@@ -33,7 +33,7 @@ class PendingRequestController extends GetxController {
 
   Future<void> pendingRequestRepo() async {
     if (page == 1) {
-      isLoading = true;
+      status = Status.loading;
       update();
     }
 
@@ -51,12 +51,15 @@ class PendingRequestController extends GetxController {
         friendRequestList.add(item);
       }
       page = page + 1;
+      status = Status.completed;
+      update();
     } else {
       Utils.snackBarMessage(response.statusCode.toString(), response.message);
+      status = Status.error;
+      update();
     }
 
-    isLoading = false;
-    update();
+
   }
 
   Future<void> requestActionRepo(

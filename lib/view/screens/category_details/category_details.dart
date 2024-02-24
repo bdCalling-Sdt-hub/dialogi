@@ -1,8 +1,10 @@
 import 'package:dialogi_app/controllers/category/sub_category_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
+import 'package:dialogi_app/global/api_response_model.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
+import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -52,7 +54,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                   color: AppColors.blue_500,
-                  text: title!,
+                  text: title,
                 ),
               ),
             )
@@ -61,82 +63,81 @@ class _CategoryDetailsState extends State<CategoryDetails> {
         body: GetBuilder<SubCategoryController>(builder: (controller) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                //Sub Category Title
-                CustomText(
-                  text: AppStrings.subCategories,
-                  right: 20.w,
-                  fontSize: 18,
-                  bottom: 16.h,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.blue_500,
-                ),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              //Sub Category Title
+              CustomText(
+                text: AppStrings.subCategories,
+                right: 20.w,
+                fontSize: 18,
+                bottom: 16.h,
+                fontWeight: FontWeight.w500,
+                color: AppColors.blue_500,
+              ),
 
-                //Contents
+              //Contents
 
-                Expanded(
-                    child: controller.isLoading
-                        ? const Center(
-                            child: CircularProgressIndicator(),
-                          )
-                        : ListView.builder(
-                            controller: controller.scrollController,
-                            // itemCount: controller.subCategoryList.length,
-                            itemCount: controller.isMoreLoading
-                                ? controller.subCategoryList.length + 1
-                                : controller.subCategoryList.length,
-                            itemBuilder: (context, index) {
-                              if (index < controller.subCategoryList.length) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    Get.toNamed(AppRoutes.questionAns,
-                                        parameters: {"title": "${controller.subCategoryList[index].subCategory}"});
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.all(12.r),
-                                    margin: EdgeInsets.only(bottom: 16.h),
-                                    width: double.maxFinite,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: AppColors.black_50),
-                                        borderRadius:
-                                            BorderRadius.circular(8.r),
-                                        color: AppColors.whiteColor),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        //Title
+              Expanded(
+                  child: switch (controller.status) {
+                Status.loading =>
+                  const Center(child: CircularProgressIndicator()),
+                Status.error => ErrorScreen(onTap: () {
+                    controller.page = 1;
+                    controller.subCategoryRepo();
+                  }),
+                Status.completed => ListView.builder(
+                    controller: controller.scrollController,
+                    // itemCount: controller.subCategoryList.length,
+                    itemCount: controller.isMoreLoading
+                        ? controller.subCategoryList.length + 1
+                        : controller.subCategoryList.length,
+                    itemBuilder: (context, index) {
+                      if (index < controller.subCategoryList.length) {
+                        return GestureDetector(
+                          onTap: () {
+                            Get.toNamed(AppRoutes.questionAns, parameters: {
+                              "title":
+                                  "${controller.subCategoryList[index].subCategory}"
+                            });
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(12.r),
+                            margin: EdgeInsets.only(bottom: 16.h),
+                            width: double.maxFinite,
+                            decoration: BoxDecoration(
+                                border: Border.all(color: AppColors.black_50),
+                                borderRadius: BorderRadius.circular(8.r),
+                                color: AppColors.whiteColor),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                //Title
 
-                                        CustomText(
-                                          text: controller
-                                              .subCategoryList[index]
-                                              .subCategory,
-                                        ),
+                                CustomText(
+                                  text: controller
+                                      .subCategoryList[index].subCategory,
+                                ),
 
-                                        //Question Ammount
+                                //Question Ammount
 
-                                        CustomText(
-                                          fontWeight: FontWeight.w500,
-                                          color: AppColors.blue_500,
-                                          text:
-                                              "${controller.subCategoryList[index].count ?? 0} ",
-                                          // "${index} ",
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              } else {
-                                return const Center(
-                                    child: CircularProgressIndicator());
-                              }
-                            },
-                          ))
-              ],
-            ),
+                                CustomText(
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.blue_500,
+                                  text:
+                                      "${controller.subCategoryList[index].count ?? 0} ",
+                                  // "${index} ",
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      } else {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                    },
+                  ),
+              })
+            ]),
           );
         }));
   }

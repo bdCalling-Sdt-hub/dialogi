@@ -14,6 +14,7 @@ import '../../view/widgets/chat_model/chat_message_model.dart';
 
 class MessageController extends GetxController {
   Status status = Status.completed;
+  bool isMessage = false ;
   Status statusMore = Status.completed;
 
   final ScrollController scrollController = ScrollController();
@@ -58,8 +59,11 @@ class MessageController extends GetxController {
         // messages.add(ChatMessageModel(localTime(item.createdAt!), item.message!,
         //     PrefsHelper.clientId == item.sender!.sId ? true : false));
 
-
-        messages.add(ChatMessageModel(time: localTime(item.createdAt!), text: item.message!, image: item.sender!.image!, isMe: PrefsHelper.clientId == item.sender!.sId ? true : false));
+        messages.add(ChatMessageModel(
+            time: localTime(item.createdAt!),
+            text: item.message!,
+            image: item.sender!.image!,
+            isMe: PrefsHelper.clientId == item.sender!.sId ? true : false));
       }
 
       print("=======================> ${messages.length}");
@@ -82,6 +86,30 @@ class MessageController extends GetxController {
   }
 
   addNewMessage(String chatId) async {
+    TimeOfDay currentTime = TimeOfDay.now();
+
+    isMessage = true ;
+    update();
+
+    messages.insert(
+        0,
+        ChatMessageModel(
+            time: currentTime.format(Get.context!).toString(),
+            text: messageController.text,
+            image: PrefsHelper.myImage,
+            isMe: true)
+
+        // ChatMessageModel(
+        //     currentTime.format(context).toString(),
+        //     controller.messageController.text,
+        //     true),
+        );
+
+    isMessage = false ;
+    update();
+
+    print("====================================> image ${PrefsHelper.myImage}");
+
     var body = {
       "chat": chatId,
       "message": messageController.text,
@@ -89,6 +117,7 @@ class MessageController extends GetxController {
     };
 
     print("================================================> body $body");
+    messageController.clear();
 
     SocketServices.socket.emitWithAck("add-new-message", body, ack: (data) {
       print(
@@ -104,7 +133,13 @@ class MessageController extends GetxController {
       var time = localTime(data['createdAt']);
 
       // messages.insert(0, ChatMessageModel(time, data['message'], false));
-      messages.insert(0, ChatMessageModel(time: time, text: data['message'], image: data['sender']['image'], isMe: false));
+      messages.insert(
+          0,
+          ChatMessageModel(
+              time: time,
+              text: data['message'],
+              image: data['sender']['image'],
+              isMe: false));
 
       status = Status.completed;
       update();

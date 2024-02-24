@@ -2,29 +2,40 @@ import 'dart:convert';
 
 import 'package:dialogi_app/controllers/category/category_controller.dart';
 import 'package:dialogi_app/controllers/category/sub_category_controller.dart';
+import 'package:dialogi_app/models/add_discussion_model.dart';
+import 'package:dialogi_app/models/question_ans_model.dart';
 import 'package:dialogi_app/models/question_ans_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
+import '../global/api_response_model.dart';
 import '../helper/prefs_helper.dart';
+import '../models/question_ans_model.dart';
 import '../models/reply_model.dart';
 import '../services/api_services.dart';
 import '../services/api_url.dart';
+import '../services/socket_service.dart';
 import '../utils/app_utils.dart';
 
 class QuestionAnsController extends GetxController {
-  bool isLoading = false;
+  Status status = Status.completed;
+
   bool isLoadingDiscussion = false;
   bool isLoadingMoreDiscussion = false;
   bool isLoadingReplay = false;
   bool isReplay = false;
+  bool isLike = false;
+  bool isDislike = false;
+  bool isAddDiscussion = false;
 
   String replyDiscussionID = "";
   int indexNumber = 0;
 
   QuestionAnsModel? questionAnsModel;
+  AddDiscussionModel? addDiscussionModel;
+
   List discussionList = [];
   List<ReplyModel> replyList = [];
 
@@ -59,7 +70,7 @@ class QuestionAnsController extends GetxController {
 
   Future<void> questionsRepo(String subCategory) async {
     if (discussionPage == 1) {
-      isLoading = true;
+      status = Status.loading;
       update();
     }
 
@@ -68,11 +79,12 @@ class QuestionAnsController extends GetxController {
     };
 
     var response = await ApiService.getApi(
-        "${ApiConstant.questions}/$subCategory/${categoryController.categoryId}?page=$page&limit=1&discussionLimit=5&discussionPage=$discussionPage",
-        header:header);
+        "${ApiConstant.questions}/$subCategory/${categoryController.categoryId}?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage",
+        header: header);
 
     if (response.statusCode == 200) {
       print(response.responseJson);
+
       questionAnsModel =
           QuestionAnsModel.fromJson(jsonDecode(response.responseJson));
 
@@ -86,17 +98,17 @@ class QuestionAnsController extends GetxController {
 
       print(
           "========================================. ${discussionList.length}");
-      print("========================================. ${discussionPage}");
+      print("========================================. $discussionPage");
+      status = Status.completed;
+      update();
     } else {
       Utils.snackBarMessage(response.statusCode.toString(), response.message);
+      status = Status.error;
+      update();
     }
-
-    isLoading = false;
-    update();
   }
 
   Future<void> addReplyRepo() async {
-
     isLoadingReplay = true;
     update();
 
@@ -110,17 +122,21 @@ class QuestionAnsController extends GetxController {
       'reply': replyController.text
     };
 
-    var response = await ApiService.postApi(ApiConstant.reply, body,header: header);
+    var response =
+        await ApiService.postApi(ApiConstant.reply, body, header: header);
 
     if (response.statusCode == 201) {
       print("========================================> fgfgjhjh");
-      replyController.clear() ;
+      replyController.clear();
 
-
-      questionAnsModel!.data!.attributes!.questions![0].discussions![indexNumber].totalReplies = questionAnsModel!.data!.attributes!.questions![0].discussions![indexNumber].totalReplies! + 1 ;
-
-
-
+      questionAnsModel!.data!.attributes!.questions![0]
+          .discussions![indexNumber].totalReplies = questionAnsModel!
+              .data!
+              .attributes!
+              .questions![0]
+              .discussions![indexNumber]
+              .totalReplies! +
+          1;
     } else {
       Utils.snackBarMessage(response.statusCode.toString(), response.message);
     }
@@ -146,10 +162,34 @@ class QuestionAnsController extends GetxController {
     };
 
     var response =
-        await ApiService.postApi(ApiConstant.discussions, body, header : header);
+        await ApiService.postApi(ApiConstant.discussions, body, header: header);
 
     if (response.statusCode == 201) {
-      discussionController.clear() ;
+      discussionController.clear();
+      isAddDiscussion = true;
+      update();
+      print(
+          "===========================================> respose ${response.responseJson}");
+
+      addDiscussionModel =
+          AddDiscussionModel.fromJson(jsonDecode(response.responseJson));
+
+      var item = addDiscussionModel!.data!.attributes!;
+      var data = Discussions(
+          sId: item.sId,
+          discussion: item.discussion,
+          dislikes: item.dislikes,
+          likes: item.likes,
+          totalReplies: 0,
+          user: User(
+              sId: PrefsHelper.clientId,
+              image: PrefsHelper.myImage,
+              fullName: PrefsHelper.myName));
+
+      discussionList.add(data);
+
+      isAddDiscussion = false;
+      update();
       print("========================================> fgfgjhjh");
     } else {
       Utils.snackBarMessage(response.statusCode.toString(), response.message);
@@ -161,10 +201,76 @@ class QuestionAnsController extends GetxController {
 
   Future<void> addReply(String id, int index) async {
     replyDiscussionID = id;
-    indexNumber = index ;
+    indexNumber = index;
     isReplay = true;
     update();
 
     print("===========================================> id : $id");
+  }
+
+  discussionLike(String discussionId, int index) async {
+    var body = {
+      "type": "discussion", //it can be discussionn or reply
+      "discussion": discussionId, //if type === discussion
+      "user": PrefsHelper.clientId
+    };
+
+    print("================================================> body $body");
+
+    SocketServices.socket.emitWithAck("dialogi-like", body, ack: (data) {
+      isLike = true;
+      update();
+
+      var check = data['message'];
+
+      if (check == "Liked successfully") {
+        discussionList[index].likes = discussionList[index].likes + 1;
+      } else {
+        if (discussionList[index].likes != 0) {
+          discussionList[index].likes = discussionList[index].likes - 1;
+        }
+      }
+
+      isLike = false;
+      update();
+
+      print(
+          "===============================================================> Received acknowledgment: $data");
+      print(
+          "===============================================================> discussionList[index].likes: ${discussionList[index].likes}");
+    });
+  }
+
+  discussionDislike(String discussionId, int index) async {
+    var body = {
+      "type": "discussion", //it can be discussionn or reply
+      "discussion": discussionId, //if type === discussion
+      "user": PrefsHelper.clientId
+    };
+
+    print("================================================> body $body");
+
+    SocketServices.socket.emitWithAck("dialogi-dislike", body, ack: (data) {
+      isDislike = true;
+      update();
+
+      var check = data['message'];
+
+      if (check == "Disliked successfully") {
+        discussionList[index].dislikes = discussionList[index].dislikes + 1;
+      } else {
+        if (discussionList[index].dislikes != 0) {
+          discussionList[index].dislikes = discussionList[index].dislikes - 1;
+        }
+      }
+
+      isDislike = false;
+      update();
+
+      print(
+          "===============================================================> Received acknowledgment: $data");
+      print(
+          "===============================================================> discussionList[index].dislikes: ${discussionList[index].likes}");
+    });
   }
 }

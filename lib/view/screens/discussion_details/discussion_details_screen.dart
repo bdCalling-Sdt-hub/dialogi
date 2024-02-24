@@ -3,9 +3,11 @@ import 'package:dialogi_app/global/api_response_model.dart';
 import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../controllers/discussion_details_controller.dart';
+import '../../../core/app_routes.dart';
 import '../../../services/api_url.dart';
 import '../../../utils/app_icons.dart';
 import '../../../utils/static_strings.dart';
@@ -32,13 +34,12 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
 
   @override
   void initState() {
-
-    discussionDetailsController.page= 1 ;
+    discussionDetailsController.page = 1;
     discussionDetailsController.discussionDetailsRepo(discussionID);
 
     discussionDetailsController.scrollController.addListener(() {
       discussionDetailsController.scrollControllerCall(discussionID);
-    })   ;
+    });
     // TODO: implement initState
     super.initState();
   }
@@ -48,18 +49,17 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
     print(
         "============================================================> discussionID $discussionID");
     return Scaffold(
-        appBar: AppBar(),
-        body: GetBuilder<DiscussionDetailsController>(
-          builder: (controller) {
-            return switch (controller.status) {
-              Status.loading => const Center(child: CircularProgressIndicator()),
-              Status.error => ErrorScreen(onTap: () {
-                controller.page= 1 ;
+      appBar: AppBar(),
+      body: GetBuilder<DiscussionDetailsController>(
+        builder: (controller) {
+          return switch (controller.status) {
+            Status.loading => const Center(child: CircularProgressIndicator()),
+            Status.error => ErrorScreen(onTap: () {
+                controller.page = 1;
                 controller.discussionDetailsRepo(discussionID);
               }),
-              Status.completed => Padding(
-                padding:
-                EdgeInsets.symmetric(vertical: 24.h, horizontal: 20.w),
+            Status.completed => Padding(
+                padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 20.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -67,15 +67,24 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // Image of the main comment person
-                        Container(
-                          width: 26.w,
-                          height: 26.w,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                  "${ApiConstant.baseUrl}/${controller.discussionDetailsModel!.data!.attributes!.discussion!.user!.image}"),
-                              fit: BoxFit.fill,
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed(AppRoutes.friendsProfileScreen,
+                                parameters: {
+                                  "userID":
+                                      "${controller.discussionDetailsModel!.data!.attributes!.discussion!.user!.sId}"
+                                });
+                          },
+                          child: Container(
+                            width: 26.w,
+                            height: 26.w,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                    "${ApiConstant.baseUrl}/${controller.discussionDetailsModel!.data!.attributes!.discussion!.user!.image}"),
+                                fit: BoxFit.fill,
+                              ),
                             ),
                           ),
                         ),
@@ -86,13 +95,8 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CustomText(
-                                text: controller
-                                    .discussionDetailsModel!
-                                    .data!
-                                    .attributes!
-                                    .discussion!
-                                    .user!
-                                    .fullName!),
+                                text: controller.discussionDetailsModel!.data!
+                                    .attributes!.discussion!.user!.fullName!),
                             const SizedBox(height: 8),
                             CustomText(
                               textAlign: TextAlign.left,
@@ -110,15 +114,30 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                       child: Row(
                         children: [
                           // Like
-                          Row(
-                            children: [
-                              const CustomImage(imageSrc: AppIcons.like),
-                              SizedBox(width: 10.w),
-                              CustomText(
-                                  text: controller.discussionDetailsModel!
-                                      .data!.attributes!.discussion!.likes
-                                      .toString()),
-                            ],
+                          GestureDetector(
+                            onTap: () => controller.discussionLike(controller
+                                .discussionDetailsModel!
+                                .data!
+                                .attributes!
+                                .discussion!
+                                .sId!),
+                            child: controller.isLike
+                                ? const CircularProgressIndicator()
+                                : Row(
+                                    children: [
+                                      const CustomImage(
+                                          imageSrc: AppIcons.like),
+                                      SizedBox(width: 10.w),
+                                      CustomText(
+                                          text: controller
+                                              .discussionDetailsModel!
+                                              .data!
+                                              .attributes!
+                                              .discussion!
+                                              .likes
+                                              .toString()),
+                                    ],
+                                  ),
                           ),
                           SizedBox(width: 10.w),
 
@@ -128,12 +147,8 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                               const CustomImage(imageSrc: AppIcons.dislike),
                               SizedBox(width: 10.w),
                               CustomText(
-                                  text: controller
-                                      .discussionDetailsModel!
-                                      .data!
-                                      .attributes!
-                                      .discussion!
-                                      .dislikes
+                                  text: controller.discussionDetailsModel!.data!
+                                      .attributes!.discussion!.dislikes
                                       .toString()),
                             ],
                           ),
@@ -169,18 +184,40 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Container(
-                                      width: 26.w,
-                                      height: 26.w,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                          image: NetworkImage(
-                                              "${ApiConstant.baseUrl}/${item.user!.image!}"),
-                                          fit: BoxFit.fill,
+                                    // Container(
+                                    //   width: 26.w,
+                                    //   height: 26.w,
+                                    //   decoration: BoxDecoration(
+                                    //     shape: BoxShape.circle,
+                                    //     image: DecorationImage(
+                                    //       image: NetworkImage(
+                                    //           "${ApiConstant.baseUrl}/${item.user!.image!}"),
+                                    //       fit: BoxFit.fill,
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    // const SizedBox(width: 8),
+
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.toNamed(
+                                            AppRoutes.friendsProfileScreen,
+                                            parameters: {
+                                              "userID": "${item.user!.sId}"
+                                            });
+                                      },
+                                      child: Container(
+                                        width: 26.w,
+                                        height: 26.w,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                                "${ApiConstant.baseUrl}/${item.user!.image}"),
+                                            fit: BoxFit.fill,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -189,10 +226,9 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                                     // Name and comment of the Reply person
                                     Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        CustomText(
-                                            text: item.user!.fullName!),
+                                        CustomText(text: item.user!.fullName!),
                                         const SizedBox(height: 8),
                                         CustomText(
                                           textAlign: TextAlign.left,
@@ -205,19 +241,28 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
 
                                 // Like Dislike reply
                                 Padding(
-                                  padding:
-                                  EdgeInsets.only(left: 35.w, top: 5.h, ),
+                                  padding: EdgeInsets.only(
+                                    left: 35.w,
+                                    top: 5.h,
+                                  ),
                                   child: Row(
                                     children: [
                                       // Like
-                                      Row(
-                                        children: [
-                                          const CustomImage(
-                                              imageSrc: AppIcons.like),
-                                          SizedBox(width: 10.w),
-                                          CustomText(
-                                              text: item.likes.toString()),
-                                        ],
+                                      GestureDetector(
+                                        onTap: () => controller.replyLike(
+                                            item.sId, index),
+                                        child: controller.isLike
+                                            ? const CircularProgressIndicator()
+                                            : Row(
+                                                children: [
+                                                  const CustomImage(
+                                                      imageSrc: AppIcons.like),
+                                                  SizedBox(width: 10.w),
+                                                  CustomText(
+                                                      text: item.likes
+                                                          .toString()),
+                                                ],
+                                              ),
                                       ),
                                       SizedBox(width: 10.w),
 
@@ -228,8 +273,7 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                                               imageSrc: AppIcons.dislike),
                                           SizedBox(width: 10.w),
                                           CustomText(
-                                              text:
-                                              item.dislikes.toString()),
+                                              text: item.dislikes.toString()),
                                         ],
                                       ),
 
@@ -243,7 +287,9 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                                   ),
                                 ),
 
-                                SizedBox(height: 12.h,)
+                                SizedBox(
+                                  height: 12.h,
+                                )
                               ],
                             );
                           },
@@ -254,13 +300,14 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                       children: [
                         Expanded(
                             child: CustomTextField(
-                              textEditingController: controller.replyController,
-                              hintText: AppStrings.enterTextHere,
-                            )),
+                          textEditingController: controller.replyController,
+                          hintText: AppStrings.enterTextHere,
+                        )),
                         Padding(
                           padding: EdgeInsets.only(left: 10.w),
                           child: GestureDetector(
-                              onTap: () => controller.addReplyRepo(discussionID),
+                              onTap: () =>
+                                  controller.addReplyRepo(discussionID),
                               child: controller.isLoadingReplay
                                   ? const CircularProgressIndicator()
                                   : const CustomImage(imageSrc: AppIcons.send)),
@@ -270,17 +317,9 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                   ],
                 ),
               ),
-            } ;
-
-
-
-
-          },
-        ),
-
-
-
-
+          };
+        },
+      ),
     );
   }
 }
