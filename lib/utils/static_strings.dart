@@ -31,6 +31,7 @@ class AppStrings {
   static const String address = "Address";
   static const String continuee = "Continue";
   static const String alreadyhaveanaccount = "Already have an account?";
+  static const String profilePictureSet = "Set your profile picture";
 
   static const String setPassword = "Set Password";
   static const String passwordshouldBe =

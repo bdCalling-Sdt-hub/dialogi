@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 
 import '../../core/app_routes.dart';
 import '../../services/api_url.dart';
-import '../../testScreen/success_login.dart';
+
 
 class SignInController extends GetxController {
   bool signInLoading = false;
@@ -35,10 +35,11 @@ class SignInController extends GetxController {
       "password": passwordController.text
     };
 
-    var response = await ApiService.postApi(ApiConstant.signIn, body,
-       );
+    var response = await ApiService.postApi(ApiConstant.signIn, body,);
 
     print("===========${jsonDecode(response.responseJson)}===========");
+    signInLoading = false;
+    update();
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.responseJson);
@@ -61,9 +62,6 @@ class SignInController extends GetxController {
       Get.toNamed(AppRoutes.homeScreen);
       emailController.clear();
       passwordController.clear();
-      signInLoading = false;
-      update();
-
     } else {
       Get.snackbar(response.statusCode.toString(), response.message);
     }
@@ -78,24 +76,55 @@ class SignInController extends GetxController {
 
       final user = await GoogleSignInService.login();
       await user?.authentication;
-      log(user!.displayName.toString());
-      log(user.email);
-      log(user.id);
-      log(user.photoUrl.toString());
-      log(user.toString());
+      // log(user!.displayName.toString());
+      // log(user.email);
+      // log(user.id);
+      // log(user.photoUrl.toString());
+      log(user!.toString());
+
       if(Get.context!.mounted){
-        Get.to(SuccessLogin(name: user.displayName!, email: user.email));
-        Get.snackbar(
-            "User login details",
-            "",
-            backgroundColor: Colors.blue.shade200,
-            messageText: Column(
-              children: [
-                Text("Name: ${user.displayName}\n Email: ${user.email} \n Id: ${user.id} \n"),
-                Image.network(user.photoUrl.toString()),
-              ],
-            )
-        );
+        // Get.to(SuccessLogin(name: user.displayName!, email: user.email));
+        Map<String, String> body = {
+          "fullName": user.displayName ?? "No name found",
+          "email": user.email
+        };
+
+        var response = await ApiService.postApi(ApiConstant.googleSignIn, body,);
+
+        print("===========${jsonDecode(response.responseJson)}===========");
+        signInLoading = false;
+        update();
+
+        if (response.statusCode == 200) {
+          var data = jsonDecode(response.responseJson);
+
+          print("======================> data $data") ;
+
+          PrefsHelper.setString(AppConstants.bearerToken, data['data']["accessToken"]);
+          PrefsHelper.setString("clientId", data['data']["attributes"]["_id"]);
+          PrefsHelper.token = data['data']["accessToken"];
+          PrefsHelper.clientId = data['data']["attributes"]["_id"];
+
+
+          print("=====================->clientId ${data['data']["attributes"]["_id"]}") ;
+
+          print(
+              "====================> token ${data['data']["accessToken"]}");
+          Get.toNamed(AppRoutes.homeScreen);
+        } else {
+          Get.snackbar(response.statusCode.toString(), response.message);
+        }
+        // Get.snackbar(
+        //     "User login details",
+        //     "",
+        //     backgroundColor: Colors.blue.shade200,
+        //     messageText: Column(
+        //       children: [
+        //         Text("Name: ${user.displayName}\n Email: ${user.email} \n Id: ${user.id} \n"),
+        //         Image.network(user.photoUrl.toString()),
+        //       ],
+        //     )
+        // );
       }
 
       signInLoading = false;

@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
+import 'package:mime/mime.dart';
+import 'package:http_parser/http_parser.dart';
 
 import '../../global/api_response_model.dart';
 import '../core/app_routes.dart';
@@ -205,6 +207,48 @@ class ApiService {
     }
     return responseJson;
   }
+
+  ///<<<======================= Multipart Request ============================>>>
+
+  static Future<ApiResponseModel> signUpMultipartRequest(
+      {required String url,
+        String? imagePath,
+        required Map<String,String> body,
+        required String otp}) async {
+
+    try{
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      body.forEach((key, value) {
+        request.fields[key] = value;
+      });
+
+      if(imagePath != null){
+        var mimeType = lookupMimeType(imagePath);
+        var img = await http.MultipartFile.fromPath('image', imagePath, contentType: MediaType.parse(mimeType!));
+        request.files.add(img);
+      }
+
+      request.headers["Otp"] = "OTP $otp" ;
+
+      var response = await request.send();
+
+      if(response.statusCode == 200){
+        return ApiResponseModel(200, "Success", await response.stream.bytesToString());
+      } else {
+        return ApiResponseModel(response.statusCode, "Error", await response.stream.bytesToString());
+      }
+    } on SocketException{
+      Get.toNamed(AppRoutes.noInternet);
+      return ApiResponseModel(503, "No internet connection", '');
+    } on FormatException{
+      return ApiResponseModel(400, "Bad Response Request", '');
+    } on TimeoutException{
+      return ApiResponseModel(408, "Request Time Out", "");
+    }
+  }
+
+
+  ///<<<================== Api Response Status Code Handle ====================>>>
 
   static dynamic handleResponse(http.Response response) {
     switch (response.statusCode) {

@@ -12,6 +12,7 @@ import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../../../../../controllers/Auth/sign_up_controller.dart';
@@ -47,7 +48,9 @@ class _SetPhotoScreenState extends State<SetPhotoScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ///Set Profile Picture
+
+            ///<<<==================== Set Profile Picture ===================>>>
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -104,11 +107,15 @@ class _SetPhotoScreenState extends State<SetPhotoScreen> {
               ],
             ),
 
+
             Column(
               children: [
+
+                ///<<<==================== Skip Button =========================>>>
+
                 CustomElevatedButton(
                   onPressed: () {
-                    Get.toNamed(AppRoutes.signInScreen);
+                    Get.toNamed(AppRoutes.setPasswordScreen);
                   },
                   titleText: AppStrings.skip,
                   buttonWidth: MediaQuery.of(context).size.width,
@@ -117,9 +124,16 @@ class _SetPhotoScreenState extends State<SetPhotoScreen> {
                   titleColor: Colors.black87,
                 ),
                 SizedBox(height: 24.h,),
+
+                ///<<<==================== Get Started Button =========================>>>
+
                 CustomElevatedButton(
                   onPressed: () {
-                    Get.toNamed(AppRoutes.signInScreen);
+                    if(controller.image == null){
+                      Fluttertoast.showToast(msg: AppStrings.profilePictureSet);
+                    } else {
+                      Get.toNamed(AppRoutes.setPasswordScreen);
+                    }
                   },
                   titleText: AppStrings.getStarted,
                   buttonWidth: MediaQuery.of(context).size.width,

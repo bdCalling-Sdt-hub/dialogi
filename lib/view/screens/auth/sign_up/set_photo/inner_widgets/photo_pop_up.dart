@@ -15,7 +15,7 @@ class PhotoPopUp extends StatefulWidget {
 }
 
 class _PhotoPopUpState extends State<PhotoPopUp> {
-  SignUpController controller = Get.put(SignUpController());
+  SignUpController controller = Get.find<SignUpController>();
 
   @override
   Widget build(BuildContext context) {

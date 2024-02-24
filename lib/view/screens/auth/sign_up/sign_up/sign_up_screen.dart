@@ -195,11 +195,15 @@ class SignUpScreen extends StatelessWidget {
 
                   ///<<<=================continue button========================>>>
 
-                  CustomElevatedButton(onPressed: (){
-                    if(_formKey.currentState!.validate()){
-                      Get.toNamed(AppRoutes.setPasswordScreen);
+                  controller.signUpLoading
+                      ? const Center(child: CircularProgressIndicator())
+                      : CustomElevatedButton(onPressed: (){
+                      if(_formKey.currentState!.validate()){
+                        Get.toNamed(AppRoutes.setPhotoScreen);
                     }
-                  }, titleText: AppStrings.continuee,buttonWidth: MediaQuery.of(context).size.width,),
+                  }, titleText: AppStrings.continuee,buttonWidth: Get.width,),
+
+
                   SizedBox(height: 24.h,),
 
                   ///<<<===============Already have an account?===================>>>

@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/services/api_services.dart';
 import 'package:dialogi_app/services/api_url.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -72,14 +75,18 @@ class SignUpController extends GetxController {
   bool signUpLoading = false;
 
   ///<<<====================SignUp Api Call===========================>>>
+
   signUpUser() async {
     signUpLoading = true;
     update();
 
-    Map<String, String> headers = {
-      'OTP': 'OTP ${otpController.text.isNotEmpty ? otpController.text : " "}',
-      'Cookie': 'i18next=en'
-    };
+    print("Sign up controller called");
+
+    // Map<String, String> headers = {
+    //   'OTP': 'OTP ${otpController.text.isNotEmpty ? otpController.text : " "}',
+    //   'Cookie': 'i18next=en'
+    // };
+
 
     Map<String, String> body = {
       'fullName': nameController.text,
@@ -89,17 +96,32 @@ class SignUpController extends GetxController {
       'password': passWordController.text,
     };
 
+    print("+++++++++ Body: $body ++++++++");
+    print("+++++++++ image: $image ++++++++");
+
     var response =
-        await ApiService.postApi(ApiConstant.signUp, body, header: headers);
+        await ApiService.signUpMultipartRequest (url: ApiConstant.signUp, imagePath: image, body: body, otp: otpController.text);
+
+    print("=============${response.statusCode}::::${response.responseJson}===============");
     if (response.statusCode == 200) {
       if (otpController.text.isEmpty) {
+        Fluttertoast.showToast(msg: "Otp send to you mail");
         Get.toNamed(
-          AppRoutes.otpScreen,
+          AppRoutes.signupOtpScreen,
         );
       } else {
         Get.offAndToNamed(AppRoutes.signInScreen);
       }
-    } else {
+    } else if (response.statusCode == 201) {
+      if (otpController.text.isEmpty) {
+        Fluttertoast.showToast(msg: "Otp send to you mail");
+        Get.toNamed(
+          AppRoutes.signupOtpScreen,
+        );
+      } else {
+        Get.offAndToNamed(AppRoutes.homeScreen);
+      }
+    }else {
       // ApiChecker.checkApi(response);
     }
     signUpLoading = false;

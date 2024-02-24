@@ -5,6 +5,7 @@ class ApiConstant {
 
   static const signUp = "$baseUrl/api/users/sign-up";
   static const signIn = "$baseUrl/api/users/sign-in";
+  static const googleSignIn = "$baseUrl/api/users/sign-in-with-provider";
   static const forgetPassword = "$baseUrl/api/users/forget-password";
   static const verifyOtp = "$baseUrl/api/users/verify-otp";
   static const resetPassword = "$baseUrl/api/users/reset-password";
