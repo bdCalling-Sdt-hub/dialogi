@@ -1,16 +1,13 @@
 
 import 'dart:convert';
 
-import 'package:dialogi_app/controllers/subscription_controller.dart';
+import 'package:dialogi_app/controllers/subscription_controllers/subscription_controller.dart';
 import 'package:dialogi_app/models/payment_model.dart';
 import 'package:dialogi_app/services/api_services.dart';
 import 'package:dialogi_app/services/api_url.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-import '../helper/prefs_helper.dart';
+import '../../helper/prefs_helper.dart';
 
 class PaymentController extends GetxController{
   SubscriptionController subscriptionController = Get.find<SubscriptionController>();

@@ -1,3 +1,4 @@
+import 'package:dialogi_app/controllers/subscription_controllers/stripe_payment_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
@@ -23,6 +24,8 @@ class PurchaseScreen extends StatefulWidget {
 }
 
 class _PurchaseScreenState extends State<PurchaseScreen> {
+  StripePaymentController stripePaymentController = Get.find<StripePaymentController>();
+
   String? premium = Get.parameters["premium"];
   bool visaCardChecked = false;
   bool masterCardChecked = false;
@@ -54,7 +57,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
           const SizedBox(),
         ],
       )),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -369,6 +372,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
         padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
         child: CustomElevatedButton(
             onPressed: () {
+              stripePaymentController.makePayment(amount: '5', currency: 'USD');
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
