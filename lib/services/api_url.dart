@@ -5,6 +5,7 @@ class ApiConstant {
 
   static const signUp = "$baseUrl/api/users/sign-up";
   static const signIn = "$baseUrl/api/users/sign-in";
+  static const googleSignIn = "$baseUrl/api/users/sign-in-with-provider";
   static const forgetPassword = "$baseUrl/api/users/forget-password";
   static const verifyOtp = "$baseUrl/api/users/verify-otp";
   static const resetPassword = "$baseUrl/api/users/reset-password";
@@ -18,6 +19,7 @@ class ApiConstant {
   static const discussions = "$baseUrl/api/discussions";
   static const discussionsSpecific = "$baseUrl/api/discussions/specific";
   static const subscriptions = "$baseUrl/api/subscriptions";
+  static const payment = "$baseUrl/api/payments";
   static const payments = "$baseUrl/api/payments";
   static const friends = "$baseUrl/api/friends";
   static const privacyPolicy = "$baseUrl/api/privacy-policies";

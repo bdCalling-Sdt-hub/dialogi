@@ -1,4 +1,4 @@
-import 'package:dialogi_app/controllers/subscription_controller.dart';
+
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_images.dart';
@@ -12,6 +12,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../controllers/subscription_controllers/payment_controller.dart';
+import '../../../controllers/subscription_controllers/subscription_controller.dart';
+
 class PremiumScreen extends StatefulWidget {
   const PremiumScreen({super.key});
 
@@ -22,6 +25,7 @@ class PremiumScreen extends StatefulWidget {
 class _PremiumScreenState extends State<PremiumScreen> {
   SubscriptionController subscriptionController =
       Get.find<SubscriptionController>();
+  PaymentController paymentController = Get.find<PaymentController>();
 
   PageController pageController = PageController();
   int currentIndex = 0;
@@ -85,14 +89,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
                         child: Row(children: [
                           CustomPremiumCard(
                               imageSrc: AppImages.premium,
-                              premiumText: subscriptionController
-                                      .subscriptionsPlanModel
-                                      ?.data
-                                      ?.attributes
-                                      ?.subscriptionsList?[0]
-                                      .name
-                                      .toString() ??
-                                  "Premium",
+                              premiumText: subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[0].name.toString() ?? "Premium",
                               getDialogiText:
                                   'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[0].price ?? 00}/month',
                               length: 3,
@@ -100,14 +97,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
                           CustomPremiumCard(
                             isPremium: false,
                             imageSrc: AppImages.premium,
-                            premiumText: subscriptionController
-                                    .subscriptionsPlanModel
-                                    ?.data
-                                    ?.attributes
-                                    ?.subscriptionsList?[1]
-                                    .name
-                                    .toString() ??
-                                "Premium Plus",
+                            premiumText: subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[1].name.toString() ?? "Premium Plus",
                             getDialogiText:
                                 'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[1].price ?? 00}/month',
                             length: 7,
@@ -120,11 +110,13 @@ class _PremiumScreenState extends State<PremiumScreen> {
                       ),
                       Column(
                         children: [
+
                           ///<<<================= Get Premium Button ====================>>>
 
                           CustomElevatedButton(
                               buttonWidth: MediaQuery.of(context).size.width,
                               onPressed: () {
+                                paymentController.makePaymentRepo();
                                 Get.toNamed(AppRoutes.purchaseScreen,
                                     parameters: {
                                       "premium":

@@ -6,6 +6,7 @@ import 'package:dialogi_app/controllers/about_us_controller.dart';
 import 'package:dialogi_app/controllers/chat/message_controller.dart';
 import 'package:dialogi_app/controllers/friends/friend_controller.dart';
 import 'package:dialogi_app/controllers/friends/pending_request_controller.dart';
+import 'package:dialogi_app/controllers/subscription_controllers/payment_controller.dart';
 import 'package:dialogi_app/controllers/question_ans_controller.dart';
 import 'package:dialogi_app/view/screens/home/home_controller/home_controller.dart';
 import 'package:get/get.dart';
@@ -17,7 +18,8 @@ import '../controllers/settings_controller/settings_controller.dart';
 import '../controllers/category/category_controller.dart';
 import '../controllers/category/sub_category_controller.dart';
 import '../controllers/discussion_details_controller.dart';
-import '../controllers/subscription_controller.dart';
+import '../controllers/subscription_controllers/stripe_payment_controller.dart';
+import '../controllers/subscription_controllers/subscription_controller.dart';
 
 
 class DependencyInjection extends Bindings {
@@ -39,5 +41,7 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => FriendController(), fenix: true);
     Get.lazyPut(() => MessageController(), fenix: true);
     Get.lazyPut(() => ProfileController(), fenix: true);
+    Get.lazyPut(() => PaymentController(), fenix: true);
+    Get.lazyPut(() => StripePaymentController(), fenix: true);
   }
 }

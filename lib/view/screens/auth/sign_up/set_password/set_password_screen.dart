@@ -1,4 +1,4 @@
-import 'package:dialogi_app/core/app_routes.dart';
+
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
@@ -144,11 +144,15 @@ class SetPasswordScreen extends StatelessWidget {
             );
           },),
 
+      ///<<<================= Get Otp Button ==========================>>>
+
       bottomNavigationBar: GetBuilder<SignUpController>(
         builder: (controller) {
           return Padding(
           padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-          child: CustomElevatedButton(
+          child: controller.signUpLoading
+              ? const Center(child: CircularProgressIndicator())
+              : CustomElevatedButton(
               onPressed: () {
                 if(_formKey.currentState!.validate()){
                   controller.signUpUser();

@@ -31,6 +31,7 @@ class AppStrings {
   static const String address = "Address";
   static const String continuee = "Continue";
   static const String alreadyhaveanaccount = "Already have an account?";
+  static const String profilePictureSet = "Set your profile picture";
 
   static const String setPassword = "Set Password";
   static const String passwordshouldBe =
@@ -119,8 +120,8 @@ class AppStrings {
   static const String add = "Add";
   static const String wanttojointhediscussion =
       "Want to join the discussion with others?";
-  static const String upgradetoPremium = "Upgrade to Premium";
-  static const String upgradetoPremiumPlus = "Upgrade to Premium Plus";
+  static const String upgradetoPremium = "Premium Subscription";
+  static const String upgradetoPremiumPlus = "Premium Plus Subscription";
 
   static const String greatJob = "Great Job!";
   static const String youHaveCompleted = "You have completed all questions";
@@ -163,8 +164,8 @@ class AppStrings {
 
   //Upgrade to premium
   static const String addPaymentMethod = "Add Payment Method";
-  static const String addPaymentMethodForUpgrade =
-      "Add payment method for upgrade subscription.";
+  static const String selectPaymentMethodForUpgrade =
+      "Select a payment method to upgrade subscription.";
   static const String entercardholdername = "Enter card holder name";
   static const String cardnumber = "Card number";
   static const String cVVCVC = "CVV/CVC";

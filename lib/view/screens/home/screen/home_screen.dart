@@ -7,6 +7,7 @@ import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/custom_card/custom_card.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/nav_bar/nav_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -21,6 +22,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Homecontroller homecontroller = Get.put(Homecontroller());
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -61,9 +63,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 size: 32.r,
               )),
           const Spacer(),
-          const CustomImage(
-            imageSrc: AppIcons.crown,
-            size: 32,
+          GestureDetector(
+            onTap: (){
+              homecontroller.showPopUpPremiumPackage();
+            },
+            child: const CustomImage(
+              imageSrc: AppIcons.crown,
+              size: 32,
+            ),
           ),
           SizedBox(
             width: 16.w,
