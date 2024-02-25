@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../controllers/friends/friend_controller.dart';
+
 class ChatPremiumScreen extends StatefulWidget {
   const ChatPremiumScreen({super.key});
 
@@ -20,6 +22,11 @@ class ChatPremiumScreen extends StatefulWidget {
 }
 
 class _ChatPremiumScreenState extends State<ChatPremiumScreen> {
+
+  FriendController friendController = Get.put(FriendController());
+
+
+
   PageController pageController = PageController();
   int currentIndex = 0;
 

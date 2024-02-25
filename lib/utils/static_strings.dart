@@ -31,6 +31,7 @@ class AppStrings {
   static const String address = "Address";
   static const String continuee = "Continue";
   static const String alreadyhaveanaccount = "Already have an account?";
+  static const String profilePictureSet = "Set your profile picture";
 
   static const String setPassword = "Set Password";
   static const String passwordshouldBe =
@@ -70,8 +71,8 @@ class AppStrings {
 
   //Chat
   static const String chat = "Chat";
-  static const String community = "Community";
-  static const String group = "Group";
+  static const String community = "community";
+  static const String group = "group";
   static const String selectDiscussionPlatform = "Select Discussion Platform";
   static const String confirm = "Confirm";
 
@@ -119,8 +120,8 @@ class AppStrings {
   static const String add = "Add";
   static const String wanttojointhediscussion =
       "Want to join the discussion with others?";
-  static const String upgradetoPremium = "Upgrade to Premium";
-  static const String upgradetoPremiumPlus = "Upgrade to Premium Plus";
+  static const String upgradetoPremium = "Premium Subscription";
+  static const String upgradetoPremiumPlus = "Premium Plus Subscription";
 
   static const String greatJob = "Great Job!";
   static const String youHaveCompleted = "You have completed all questions";
@@ -163,8 +164,8 @@ class AppStrings {
 
   //Upgrade to premium
   static const String addPaymentMethod = "Add Payment Method";
-  static const String addPaymentMethodForUpgrade =
-      "Add payment method for upgrade subscription.";
+  static const String selectPaymentMethodForUpgrade =
+      "Select a payment method to upgrade subscription.";
   static const String entercardholdername = "Enter card holder name";
   static const String cardnumber = "Card number";
   static const String cVVCVC = "CVV/CVC";
@@ -181,7 +182,7 @@ class AppStrings {
   static const String message = "Message";
   static const String sendRequest = "Send Request";
   static const String requestSend = "Request Send";
-  static const String enterName = "enter name";
+  static const String enterName = "Enter name";
   static const String dob = "date-of-birth";
   static const String enterLocation = "enter location";
 
@@ -197,4 +198,7 @@ class AppStrings {
   static const String noInternet = "No Internet";
   static const String checkInternet = "please, check your internet connection";
   static const String back = "Back";
+  static const String somethingWrong = "Something wrong!";
+  static const String tryAgain = "Try Again";
+  static const String favoriteList = "Favorite List";
 }

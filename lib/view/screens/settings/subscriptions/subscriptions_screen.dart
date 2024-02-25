@@ -1,4 +1,4 @@
-import 'package:dialogi_app/controllers/subscription_controller.dart';
+import 'package:dialogi_app/controllers/subscription_controllers/subscription_controller.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/app_images.dart';
@@ -21,7 +21,7 @@ class SubscriptionsScreen extends StatefulWidget {
 }
 
 class _SubscriptionsScreenState extends State<SubscriptionsScreen> {
-  SubscriptionController subscriptionController = Get.put(SubscriptionController());
+  SubscriptionController subscriptionController = Get.find<SubscriptionController>();
 
   @override
   void initState() {

@@ -5,7 +5,7 @@ class QuestionAnsModel {
   Data? data;
 
   QuestionAnsModel(
-      {this.status, this.statusCode, this.message, this.data,});
+      {this.status, this.statusCode, this.message, this.data});
 
   QuestionAnsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -49,8 +49,9 @@ class Data {
 class Attributes {
   List<Questions>? questions;
   Pagination? pagination;
+  Pagination? discussionPagination;
 
-  Attributes({this.questions, this.pagination});
+  Attributes({this.questions, this.pagination, this.discussionPagination});
 
   Attributes.fromJson(Map<String, dynamic> json) {
     if (json['questions'] != null) {
@@ -62,6 +63,9 @@ class Attributes {
     pagination = json['pagination'] != null
         ? new Pagination.fromJson(json['pagination'])
         : null;
+    discussionPagination = json['discussionPagination'] != null
+        ? new Pagination.fromJson(json['discussionPagination'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -71,6 +75,9 @@ class Attributes {
     }
     if (this.pagination != null) {
       data['pagination'] = this.pagination!.toJson();
+    }
+    if (this.discussionPagination != null) {
+      data['discussionPagination'] = this.discussionPagination!.toJson();
     }
     return data;
   }
@@ -149,10 +156,10 @@ class Discussions {
 
 class User {
   String? fullName;
-  String? image ;
-  String? sId      ;
+  String? image;
+  String? sId;
 
-  User({this.fullName, this.image});
+  User({this.fullName, this.image, this.sId});
 
   User.fromJson(Map<String, dynamic> json) {
     fullName = json['fullName'];
@@ -164,6 +171,7 @@ class User {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['fullName'] = this.fullName;
     data['image'] = this.image;
+    data['_id'] = this.sId;
     return data;
   }
 }

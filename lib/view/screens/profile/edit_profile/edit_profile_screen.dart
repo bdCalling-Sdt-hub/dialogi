@@ -1,3 +1,4 @@
+import 'package:dialogi_app/controllers/profile_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
@@ -12,6 +13,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../services/api_url.dart';
+import '../../../widgets/profile_custom/profile_image.dart';
+
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
 
@@ -20,9 +24,16 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  ProfileController profileController = Get.put(ProfileController());
+
   String date = "";
+
   @override
   Widget build(BuildContext context) {
+
+    profileController.nameController.text = profileController.profileModel.data?.attributes?.fullName ?? "" ;
+    profileController.dateController.text = profileController.profileModel.data?.attributes?.dateOfBirth ?? "" ;
+    profileController.addressController.text = profileController.profileModel.data?.attributes?.address ?? "" ;
     return Scaffold(
       appBar: CustomAppBar(
           appBarContent: Row(
@@ -49,8 +60,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
         child: Column(
           children: [
+
+            ProfileImage(imageURl: "${ApiConstant.baseUrl}${profileController.profileModel.data!.attributes!.image!}"),
+
+            SizedBox(height: 44.h,),
             ///<-------- name --------->
             CustomTextField(
+              textEditingController: profileController.nameController,
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
               hintText: AppStrings.enterName,
@@ -84,13 +100,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     firstDate: DateTime(1950),
                     lastDate: DateTime.now());
 
-                setState(() {
-                  date =
-                      "${selectedDate!.day}/${selectedDate.month}/${selectedDate.year}";
-                });
+                date =
+                "${selectedDate!.year}-${selectedDate.month}-${selectedDate.day}";
+
+                profileController.dateController.text = date;
+
+                // profileController.dateController.text = date;
               },
               readOnly: true,
-              textEditingController: TextEditingController(text: date),
+              textEditingController: profileController.dateController,
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
               hintText: AppStrings.dob,
@@ -113,10 +131,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       firstDate: DateTime(1950),
                       lastDate: DateTime.now());
 
-                  setState(() {
-                    date =
-                        "${selectedDate!.day}/${selectedDate.month}/${selectedDate.year}";
-                  });
+                  date =
+                      "${selectedDate!.year}-${selectedDate.month}-${selectedDate.day}";
+
+                  profileController.dateController.text = date;
                 },
                 child: Icon(
                   Icons.date_range_outlined,
@@ -131,6 +149,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
             /// <----------- location --------->
             CustomTextField(
+              textEditingController: profileController.addressController,
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
               hintText: AppStrings.address,
@@ -157,9 +176,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
         child: CustomElevatedButton(
-            onPressed: () {
-              Get.toNamed(AppRoutes.profileScreen);
-            },
+            onPressed: () => profileController.updateProfileRepo(),
             titleText: AppStrings.update),
       ),
     );

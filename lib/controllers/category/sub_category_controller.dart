@@ -2,15 +2,18 @@ import 'dart:convert';
 
 import 'package:dialogi_app/controllers/category/category_controller.dart';
 import 'package:dialogi_app/models/sub_category_model.dart';
+import 'package:dialogi_app/utils/app_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../global/api_response_model.dart';
 import '../../helper/prefs_helper.dart';
 import '../../services/api_services.dart';
 import '../../services/api_url.dart';
 
 class SubCategoryController extends GetxController {
-  bool isLoading = false;
+  Status status = Status.completed;
+
   bool isMoreLoading = false;
   List subCategoryList = [];
 
@@ -19,18 +22,6 @@ class SubCategoryController extends GetxController {
 
   int page = 1;
   final ScrollController scrollController = ScrollController();
-
-  // @override
-  // void onInit() {
-  //   page = 1;
-  //   subCategoryRepo();
-  //   scrollController.addListener(() {
-  //     scrollControllerCall();
-  //   });
-  //
-  //   print("=========================> ${categoryController.categoryId}");
-  //   super.onInit();
-  // }
 
   Future<void> scrollControllerCall() async {
     if (scrollController.position.pixels ==
@@ -45,7 +36,7 @@ class SubCategoryController extends GetxController {
 
   Future<void> subCategoryRepo() async {
     if (page == 1) {
-      isLoading = true;
+      status = Status.loading;
       update();
     }
 
@@ -55,7 +46,7 @@ class SubCategoryController extends GetxController {
 
     var response = await ApiService.getApi(
         "${ApiConstant.subCategory}/${categoryController.categoryId}?page=$page&limit=15",
-        header:header);
+        header: header);
 
     if (response.statusCode == 200) {
       print(response.responseJson);
@@ -66,9 +57,12 @@ class SubCategoryController extends GetxController {
         subCategoryList.add(item);
       }
       page = page + 1;
+      status = Status.completed;
+      update();
+    } else {
+      Utils.snackBarMessage(response.statusCode.toString(), response.message);
+      status = Status.error;
+      update();
     }
-
-    isLoading = false;
-    update();
   }
 }

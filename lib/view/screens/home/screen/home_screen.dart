@@ -7,9 +7,12 @@ import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/custom_card/custom_card.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/nav_bar/nav_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+import '../../../../helper/prefs_helper.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,10 +22,26 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Homecontroller homecontroller = Get.put(Homecontroller());
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    Homecontroller.getAccessStatus();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    print(
+        "===========================================> token ${PrefsHelper.token}");
+    print(
+        "===========================================> clientId ${PrefsHelper.clientId}");
+    print(
+        "===========================================> myName ${PrefsHelper.myName}");
+    print(
+        "===========================================> myImage ${PrefsHelper.myImage}");
     return Scaffold(
       key: scaffoldKey,
       bottomNavigationBar: const NavBar(currentIndex: 0),
@@ -32,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
         width: MediaQuery.of(context).size.width * .7,
         child: const HomeDrawer(),
       ),
-      appBar: CustomAppBar (
+      appBar: CustomAppBar(
           appBarContent: Row(
         children: [
           GestureDetector(
@@ -44,22 +63,32 @@ class _HomeScreenState extends State<HomeScreen> {
                 size: 32.r,
               )),
           const Spacer(),
-          const CustomImage(
-            imageSrc: AppIcons.crown,
-            size: 32,
+          GestureDetector(
+            onTap: (){
+              homecontroller.showPopUpPremiumPackage();
+            },
+            child: const CustomImage(
+              imageSrc: AppIcons.crown,
+              size: 32,
+            ),
           ),
           SizedBox(
             width: 16.w,
           ),
-          IconButton(onPressed: (){
-            Get.toNamed(AppRoutes.notificationScreen);
-          }, icon: const Icon(Icons.notifications_none_outlined,size: 24,)),
+          IconButton(
+              onPressed: () {
+                Get.toNamed(AppRoutes.notificationScreen);
+              },
+              icon: const Icon(
+                Icons.notifications_none_outlined,
+                size: 24,
+              )),
           SizedBox(
             width: 16.w,
           ),
           GestureDetector(
               onTap: () {
-                Get.toNamed(AppRoutes.chatPremiumScreen);
+                Get.toNamed(AppRoutes.chatListScreen);
               },
               child: const CustomImage(
                 imageSrc: AppIcons.chat,
@@ -80,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
             return GestureDetector(
               onTap: () {
                 Get.toNamed(AppRoutes.categoryDetails,
-                    parameters: {"title": "Friends"});  
+                    parameters: {"title": "Friends"});
               },
               child: const CustomCard(
                   img:

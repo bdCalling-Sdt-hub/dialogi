@@ -6,6 +6,7 @@ import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -98,6 +99,33 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 ontap: () {
                   Get.toNamed(AppRoutes.settingsScreen);
                 }),
+            const SizedBox(
+              height: 32,
+            ),
+
+            ///<<<====================== Logout =============================>>>
+
+            GestureDetector(
+              onTap: () {
+              Get.toNamed(AppRoutes.favoriteList) ;
+              },
+              child: Container(
+                decoration: const BoxDecoration(),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.favorite_border_outlined,
+                      color: AppColors.blue_500,
+                    ),
+                    CustomText(
+                      text: AppStrings.favoriteList,
+                      left: 16.w,
+                    )
+                  ],
+                ),
+              ),
+            ),
+
             const SizedBox(
               height: 32,
             ),

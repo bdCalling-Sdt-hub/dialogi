@@ -1,9 +1,15 @@
+import 'package:dialogi_app/controllers/profile_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
+import 'package:dialogi_app/global/api_response_model.dart';
+import 'package:dialogi_app/helper/prefs_helper.dart';
+import 'package:dialogi_app/services/api_url.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
+import 'package:dialogi_app/utils/app_images.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
+import 'package:dialogi_app/view/screens/home/home_controller/home_controller.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
-import 'package:dialogi_app/view/widgets/profile_custom/profile_image.dart';
+import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:dialogi_app/view/widgets/profile_custom/profile_user_details.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/nav_bar/nav_bar.dart';
@@ -20,81 +26,204 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  ProfileController profileController = Get.put(ProfileController());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    profileController.profileRepo();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    print("=============================> ${PrefsHelper.clientId}");
+    print(
+        "=============================>Homecontroller.accessStatusModel!.status ${Homecontroller.accessStatusModel!.status}");
     return Scaffold(
-      bottomNavigationBar: const NavBar(currentIndex: 4),
-      appBar: CustomAppBar(
-          appBarContent: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const SizedBox(),
-          const CustomText(
-            text: AppStrings.profile,
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-            color: AppColors.blue_500,
-          ),
-          GestureDetector(
-              onTap: () {
-                Get.toNamed(AppRoutes.editProfileScreen);
-              },
-              child: const CustomImage(
-                imageSrc: AppIcons.edit,
-                size: 24,
-              ))
-        ],
-      )),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-        child: Column(
+        bottomNavigationBar: const NavBar(currentIndex: 4),
+        appBar: CustomAppBar(
+            appBarContent: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            /// profile image
-            ///
-            const ProfileImage(
-                imageURl:
-                    "https://images.unsplash.com/photo-1682687219356-e820ca126c92?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw0MXx8fGVufDB8fHx8fA%3D%3D"),
-
-            SizedBox(
-              height: 44.h,
+            const SizedBox(),
+            const CustomText(
+              text: AppStrings.profile,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+              color: AppColors.blue_500,
             ),
-
-            ///premium member
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: AppColors.black_500,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Row(
-                children: [
-                  CustomImage(
-                    imageSrc: AppIcons.badgeCheck,
-                    size: 24,
-                  ),
-                  CustomText(
-                    text: AppStrings.premiumMember,
-                    fontSize: 18,
-                    color: AppColors.whiteColor,
-                    left: 12,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 44.h,
-            ),
-
-            ///profile details
-            const ProfileUserDetails(
-              name: "Rafsan Hossain",
-              email: "rafsan@gmail.com",
-              dob: "12 jan 1999",
-              address: "USA",
-            )
+            GestureDetector(
+                onTap: () {
+                  Get.toNamed(AppRoutes.editProfileScreen);
+                },
+                child: const CustomImage(
+                  imageSrc: AppIcons.edit,
+                  size: 24,
+                )),
           ],
-        ),
-      ),
-    );
+        )),
+        body: GetBuilder<ProfileController>(
+          builder: (controller) {
+            return switch (controller.status) {
+              Status.loading => const CircularProgressIndicator(),
+              Status.error =>
+                ErrorScreen(onTap: () => controller.profileRepo()),
+              Status.completed => SingleChildScrollView(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+                  child: Column(
+                    children: [
+                      /// profile image
+                      ///
+                      // ProfileImage(imageURl: "${ApiConstant.baseUrl}${controller.profileModel.data!.attributes!.image!}"),
+
+                      // Center(
+                      //   child: Container(
+                      //     height: 108.w,
+                      //     width: 108.w,
+                      //     decoration: BoxDecoration(
+                      //         image: DecorationImage(
+                      //           image: NetworkImage("${ApiConstant.baseUrl}${controller.profileModel.data!.attributes!.image!}"),
+                      //           fit: BoxFit.cover,
+                      //         ),
+                      //         shape: BoxShape.circle,
+                      //         border: Border.all(
+                      //             color: AppColors.black_500, width: 3.w)),
+                      //   ),
+                      // ),
+
+                      Center(
+                        child: SizedBox(
+                          height: 108.w,
+                          width: 108.w,
+                          child: Stack(
+                            children: [
+                              Center(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    controller.selectImageGallery();
+                                  },
+                                  child: Container(
+                                    height: 108.w,
+                                    width: 108.w,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          fit: BoxFit.fill,
+                                          image: NetworkImage(
+                                            "${ApiConstant.baseUrl}${controller.profileModel.data!.attributes!.image!}",
+                                          ),
+                                        ),
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                            color: AppColors.black_500,
+                                            width: 3.w)),
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                  onTap: () {
+                                    // controller.selectImageCamera();
+                                  },
+                                  child: controller.profileModel.data!
+                                              .attributes!.subscription ==
+                                          "default"
+                                      ? const SizedBox()
+                                      : controller.profileModel.data!
+                                                  .attributes!.subscription ==
+                                              "premium"
+                                          ? Align(
+                                              alignment: Alignment.bottomRight,
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(6),
+                                                decoration: const BoxDecoration(
+                                                    color: AppColors.black_500,
+                                                    shape: BoxShape.circle),
+                                                child: const Icon(
+                                                  Icons.diamond_outlined,
+                                                  color: AppColors.blue_300,
+                                                ),
+                                              ),
+                                            )
+                                          : Align(
+                                              alignment: Alignment.bottomRight,
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(2),
+                                                decoration: const BoxDecoration(
+                                                    color: AppColors.black_500,
+                                                    shape: BoxShape.circle),
+                                                child: CustomImage(
+                                                  imageSrc: AppImages.crown,
+                                                  imageType: ImageType.png,
+                                                  size: 30.sp,
+                                                  imageColor: Colors.amber,
+                                                ),
+                                              ),
+                                            ))
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(
+                        height: 44.h,
+                      ),
+
+                      ///premium member
+                      controller.profileModel.data!.attributes!.subscription ==
+                              "default"
+                          ? const SizedBox()
+                          : Column(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(16),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.black_500,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      const CustomImage(
+                                        imageSrc: AppIcons.badgeCheck,
+                                        size: 24,
+                                      ),
+                                      CustomText(
+                                        text: controller.profileModel.data!
+                                            .attributes!.subscription!,
+                                        fontSize: 18,
+                                        color: AppColors.whiteColor,
+                                        left: 12,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 44.h,
+                                ),
+                              ],
+                            ),
+
+                      ///profile details
+                      ProfileUserDetails(
+                        name:
+                            controller.profileModel.data!.attributes!.fullName!,
+                        email: controller.profileModel.data!.attributes!.email!,
+                        dob: controller
+                                .profileModel.data?.attributes?.dateOfBirth
+                                ?.split('T')[0] ??
+                            "",
+                        address:
+                            controller.profileModel.data?.attributes?.address ??
+                                "",
+                      )
+                    ],
+                  ),
+                ),
+            };
+          },
+        ));
   }
 }

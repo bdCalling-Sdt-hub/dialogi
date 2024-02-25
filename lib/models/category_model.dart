@@ -81,16 +81,16 @@ class CategoryList {
   String? sId;
   String? name;
   String? type;
-  int? iV;
+  int? questionCount;
 
-  CategoryList({this.image, this.sId, this.name, this.type, this.iV});
+  CategoryList({this.image, this.sId, this.name, this.type, this.questionCount});
 
   CategoryList.fromJson(Map<String, dynamic> json) {
     image = json['image'];
     sId = json['_id'];
     name = json['name'];
     type = json['type'];
-    iV = json['__v'];
+    questionCount = json['questionCount'];
   }
 
   Map<String, dynamic> toJson() {
@@ -99,7 +99,7 @@ class CategoryList {
     data['_id'] = this.sId;
     data['name'] = this.name;
     data['type'] = this.type;
-    data['__v'] = this.iV;
+    data['__v'] = this.questionCount;
     return data;
   }
 }

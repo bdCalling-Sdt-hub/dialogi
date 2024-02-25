@@ -1,4 +1,4 @@
-import 'package:dialogi_app/controllers/subscription_controller.dart';
+
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_images.dart';
@@ -6,9 +6,14 @@ import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
 import 'package:dialogi_app/view/widgets/container/custom_premium_card.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+import '../../../controllers/subscription_controllers/payment_controller.dart';
+import '../../../controllers/subscription_controllers/subscription_controller.dart';
 
 class PremiumScreen extends StatefulWidget {
   const PremiumScreen({super.key});
@@ -20,6 +25,7 @@ class PremiumScreen extends StatefulWidget {
 class _PremiumScreenState extends State<PremiumScreen> {
   SubscriptionController subscriptionController =
       Get.find<SubscriptionController>();
+  PaymentController paymentController = Get.find<PaymentController>();
 
   PageController pageController = PageController();
   int currentIndex = 0;
@@ -56,8 +62,15 @@ class _PremiumScreenState extends State<PremiumScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(
-                        height: 24,
+                      SizedBox(
+                        height: 1.h,
+                      ),
+
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: IconButton(
+                            onPressed: () => Get.toNamed(AppRoutes.signInScreen),
+                            icon: const Icon(Icons.cancel_rounded)),
                       ),
                       CustomText(
                         maxLines: 3,
@@ -97,11 +110,13 @@ class _PremiumScreenState extends State<PremiumScreen> {
                       ),
                       Column(
                         children: [
+
                           ///<<<================= Get Premium Button ====================>>>
 
                           CustomElevatedButton(
                               buttonWidth: MediaQuery.of(context).size.width,
                               onPressed: () {
+                                paymentController.makePaymentRepo();
                                 Get.toNamed(AppRoutes.purchaseScreen,
                                     parameters: {
                                       "premium":

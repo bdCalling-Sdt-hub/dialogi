@@ -1,3 +1,4 @@
+import 'package:dialogi_app/controllers/subscription_controllers/stripe_payment_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
@@ -23,7 +24,12 @@ class PurchaseScreen extends StatefulWidget {
 }
 
 class _PurchaseScreenState extends State<PurchaseScreen> {
+  StripePaymentController stripePaymentController = Get.find<StripePaymentController>();
+
   String? premium = Get.parameters["premium"];
+  bool visaCardChecked = false;
+  bool masterCardChecked = false;
+  bool paypalCardChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -56,164 +62,309 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const CustomText(
-              text: AppStrings.addPaymentMethod,
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
-              color: AppColors.blue_500,
-            ),
             SizedBox(
               height: 8.h,
             ),
             const CustomText(
               maxLines: 2,
-              text: AppStrings.addPaymentMethodForUpgrade,
-              fontSize: 16,
+              text: AppStrings.selectPaymentMethodForUpgrade,
+              fontSize: 24,
+              fontWeight: FontWeight.w500,
+              color: AppColors.blue_500,
             ),
-            SizedBox(
-              height: 24.h,
-            ),
-            Row(
-              children: [
-                const CustomImage(
-                  imageSrc: AppImages.visa,
-                  imageType: ImageType.png,
-                  size: 72,
-                ),
-                SizedBox(
-                  width: 8.w,
-                ),
-                const CustomImage(
-                  imageSrc: AppImages.masterCard,
-                  imageType: ImageType.png,
-                  size: 72,
-                ),
-                SizedBox(
-                  width: 8.w,
-                ),
-                const CustomImage(
-                  imageSrc: AppImages.paypal,
-                  imageType: ImageType.png,
-                  size: 72,
-                ),
-              ],
-            ),
+
             SizedBox(
               height: 24.h,
             ),
 
-            ///card holder name
-            CustomTextField(
-              keyboardType: TextInputType.text,
-              textAlign: TextAlign.start,
-              hintText: AppStrings.entercardholdername,
-              hintStyle: GoogleFonts.prompt(
-                  fontSize: 14.h,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.black_300),
-              inputTextStyle: GoogleFonts.prompt(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16.h,
-                  color: AppColors.black_500),
-              fieldBorderColor: Colors.white,
-              fieldBorderRadius: 8,
-              isPrefixIcon: true,
-              prefixIcon: Icon(
-                Icons.person,
-                size: 24.h,
-                color: AppColors.blue_500,
-              ),
-            ),
-            SizedBox(
-              height: 24.h,
-            ),
+            ///<<<================= Card Icons List ======================>>>
 
-            ///card number
-            CustomTextField(
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-              ],
-              keyboardType: const TextInputType.numberWithOptions(signed: true),
-              textAlign: TextAlign.start,
-              hintText: AppStrings.cardnumber,
-              hintStyle: GoogleFonts.prompt(
-                  fontSize: 14.h,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.black_300),
-              inputTextStyle: GoogleFonts.prompt(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16.h,
-                  color: AppColors.black_500),
-              fieldBorderColor: Colors.white,
-              fieldBorderRadius: 8,
-              isPrefixIcon: true,
-              prefixIcon: Icon(
-                Icons.credit_card,
-                size: 24.h,
-                color: AppColors.blue_500,
-              ),
-            ),
-            SizedBox(
-              height: 24.h,
-            ),
-
-            ///cvv
-            CustomTextField(
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 40.h,
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        visaCardChecked = true;
+                        masterCardChecked = false;
+                        paypalCardChecked = false;
+                      });
+                    },
+                    child: Container(
+                      decoration: visaCardChecked? BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 10,
+                            color: AppColors.blue_300,
+                            offset: Offset(0, 0)
+                          )
+                        ]
+                      ): null,
+                      child: const CustomImage(
+                        imageSrc: AppImages.visa,
+                        imageType: ImageType.png,
+                        size: 100,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 40.h,
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        visaCardChecked = false;
+                        masterCardChecked = true;
+                        paypalCardChecked = false;
+                      });
+                    },
+                    child: Container(
+                      decoration: masterCardChecked? BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                                blurRadius: 10,
+                                color: AppColors.blue_300,
+                                offset: Offset(0, 0)
+                            )
+                          ]
+                      ): null,
+                      child: const CustomImage(
+                        imageSrc: AppImages.masterCard,
+                        imageType: ImageType.png,
+                        size: 100,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 40.h,
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        visaCardChecked = false;
+                        masterCardChecked = false;
+                        paypalCardChecked = true;
+                      });
+                    },
+                    child: Container(
+                      decoration: paypalCardChecked? BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                                blurRadius: 10,
+                                color: AppColors.blue_300,
+                                offset: Offset(0, 0)
+                            )
+                          ]
+                      ): null,
+                      child: const CustomImage(
+                        imageSrc: AppImages.paypal,
+                        imageType: ImageType.png,
+                        size: 100,
+                      ),
+                    ),
+                  ),
                 ],
-                keyboardType:
-                    const TextInputType.numberWithOptions(signed: true),
-                textAlign: TextAlign.start,
-                hintText: AppStrings.cVVCVC,
-                hintStyle: GoogleFonts.prompt(
-                    fontSize: 14.h,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.black_300),
-                inputTextStyle: GoogleFonts.prompt(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16.h,
-                    color: AppColors.black_500),
-                fieldBorderColor: Colors.white,
-                fieldBorderRadius: 8,
-                isPrefixIcon: true,
-                prefixIcon: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.lock_outlined,
-                      size: 24,
-                      color: AppColors.blue_500,
-                    ))),
-
-            const SizedBox(
-              height: 24,
-            ),
-
-            ///dob
-            CustomTextField(
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-              ],
-              keyboardType: const TextInputType.numberWithOptions(signed: true),
-              textAlign: TextAlign.start,
-              hintText: AppStrings.mMYY,
-              hintStyle: GoogleFonts.prompt(
-                  fontSize: 14.h,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.black_300),
-              inputTextStyle: GoogleFonts.prompt(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16.h,
-                  color: AppColors.black_500),
-              fieldBorderColor: Colors.white,
-              fieldBorderRadius: 8,
-              isPrefixIcon: true,
-              prefixIcon: Icon(
-                Icons.date_range_outlined,
-                size: 24.h,
-                color: AppColors.blue_500,
               ),
             ),
+
+            // Column(
+            //   crossAxisAlignment: CrossAxisAlignment.center,
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //
+            //     CheckboxListTile(
+            //       contentPadding: EdgeInsets.only(left: 60),
+            //       title: Transform.translate(
+            //         offset: Offset(-60, 0),
+            //         child: CustomImage(
+            //           imageSrc: AppImages.visa,
+            //           imageType: ImageType.png,
+            //           size: 100.w,
+            //         ),
+            //       ),
+            //       value: visaCardChecked,
+            //       onChanged: (newValue) {
+            //         setState(() {
+            //           visaCardChecked = newValue!;
+            //           masterCardChecked = false;
+            //           paypalCardChecked = false;
+            //         });
+            //       },
+            //       controlAffinity:
+            //           ListTileControlAffinity.leading, //  <-- leading Checkbox
+            //     ),
+            //     SizedBox(
+            //       height: 8.h,
+            //     ),
+            //     CheckboxListTile(
+            //       contentPadding: EdgeInsets.only(left: 50),
+            //       title: Transform.translate(
+            //         offset: Offset(-60, 0),
+            //         child: CustomImage(
+            //           imageSrc: AppImages.masterCard,
+            //           imageType: ImageType.png,
+            //           size: 100.w,
+            //         ),
+            //       ),
+            //       value: masterCardChecked,
+            //       onChanged: (newValue) {
+            //         setState(() {
+            //           visaCardChecked = false;
+            //           masterCardChecked = newValue!;
+            //           paypalCardChecked = false;
+            //         });
+            //       },
+            //       controlAffinity:
+            //           ListTileControlAffinity.leading, //  <-- leading Checkbox
+            //     ),
+            //     SizedBox(
+            //       height: 8.h,
+            //     ),
+            //     CheckboxListTile(
+            //       contentPadding: EdgeInsets.only(left: 50),
+            //       title: Transform.translate(
+            //         offset: Offset(-60, 0),
+            //         child: CustomImage(
+            //           imageSrc: AppImages.paypal,
+            //           imageType: ImageType.png,
+            //           size: 100.w,
+            //         ),
+            //       ),
+            //       value: paypalCardChecked,
+            //       onChanged: (newValue) {
+            //         setState(() {
+            //           visaCardChecked = false;
+            //           masterCardChecked = false;
+            //           paypalCardChecked = newValue!;
+            //         });
+            //       },
+            //       controlAffinity:
+            //           ListTileControlAffinity.leading, //  <-- leading Checkbox
+            //     ),
+            //   ],
+            // ),
+
+            ///<<<=============== card holder Details =====================>>>
+
+            // Column(
+            //   children: [
+            //     CustomTextField(
+            //       keyboardType: TextInputType.text,
+            //       textAlign: TextAlign.start,
+            //       hintText: AppStrings.entercardholdername,
+            //       hintStyle: GoogleFonts.prompt(
+            //           fontSize: 14.h,
+            //           fontWeight: FontWeight.w400,
+            //           color: AppColors.black_300),
+            //       inputTextStyle: GoogleFonts.prompt(
+            //           fontWeight: FontWeight.w400,
+            //           fontSize: 16.h,
+            //           color: AppColors.black_500),
+            //       fieldBorderColor: Colors.white,
+            //       fieldBorderRadius: 8,
+            //       isPrefixIcon: true,
+            //       prefixIcon: Icon(
+            //         Icons.person,
+            //         size: 24.h,
+            //         color: AppColors.blue_500,
+            //       ),
+            //     ),
+            //     SizedBox(
+            //       height: 24.h,
+            //     ),
+            //
+            //     ///card number
+            //     CustomTextField(
+            //       inputFormatters: [
+            //         FilteringTextInputFormatter.digitsOnly,
+            //       ],
+            //       keyboardType: const TextInputType.numberWithOptions(signed: true),
+            //       textAlign: TextAlign.start,
+            //       hintText: AppStrings.cardnumber,
+            //       hintStyle: GoogleFonts.prompt(
+            //           fontSize: 14.h,
+            //           fontWeight: FontWeight.w400,
+            //           color: AppColors.black_300),
+            //       inputTextStyle: GoogleFonts.prompt(
+            //           fontWeight: FontWeight.w400,
+            //           fontSize: 16.h,
+            //           color: AppColors.black_500),
+            //       fieldBorderColor: Colors.white,
+            //       fieldBorderRadius: 8,
+            //       isPrefixIcon: true,
+            //       prefixIcon: Icon(
+            //         Icons.credit_card,
+            //         size: 24.h,
+            //         color: AppColors.blue_500,
+            //       ),
+            //     ),
+            //     SizedBox(
+            //       height: 24.h,
+            //     ),
+            //
+            //     ///cvv
+            //     CustomTextField(
+            //         inputFormatters: [
+            //           FilteringTextInputFormatter.digitsOnly,
+            //         ],
+            //         keyboardType:
+            //         const TextInputType.numberWithOptions(signed: true),
+            //         textAlign: TextAlign.start,
+            //         hintText: AppStrings.cVVCVC,
+            //         hintStyle: GoogleFonts.prompt(
+            //             fontSize: 14.h,
+            //             fontWeight: FontWeight.w400,
+            //             color: AppColors.black_300),
+            //         inputTextStyle: GoogleFonts.prompt(
+            //             fontWeight: FontWeight.w400,
+            //             fontSize: 16.h,
+            //             color: AppColors.black_500),
+            //         fieldBorderColor: Colors.white,
+            //         fieldBorderRadius: 8,
+            //         isPrefixIcon: true,
+            //         prefixIcon: IconButton(
+            //             onPressed: () {},
+            //             icon: const Icon(
+            //               Icons.lock_outlined,
+            //               size: 24,
+            //               color: AppColors.blue_500,
+            //             ))),
+            //
+            //     const SizedBox(
+            //       height: 24,
+            //     ),
+            //
+            //     ///dob
+            //     CustomTextField(
+            //       inputFormatters: [
+            //         FilteringTextInputFormatter.digitsOnly,
+            //       ],
+            //       keyboardType: const TextInputType.numberWithOptions(signed: true),
+            //       textAlign: TextAlign.start,
+            //       hintText: AppStrings.mMYY,
+            //       hintStyle: GoogleFonts.prompt(
+            //           fontSize: 14.h,
+            //           fontWeight: FontWeight.w400,
+            //           color: AppColors.black_300),
+            //       inputTextStyle: GoogleFonts.prompt(
+            //           fontWeight: FontWeight.w400,
+            //           fontSize: 16.h,
+            //           color: AppColors.black_500),
+            //       fieldBorderColor: Colors.white,
+            //       fieldBorderRadius: 8,
+            //       isPrefixIcon: true,
+            //       prefixIcon: Icon(
+            //         Icons.date_range_outlined,
+            //         size: 24.h,
+            //         color: AppColors.blue_500,
+            //       ),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),
@@ -221,6 +372,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
         padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
         child: CustomElevatedButton(
             onPressed: () {
+              stripePaymentController.makePayment(amount: '5', currency: 'USD');
               showDialog(
                   context: context,
                   builder: (BuildContext context) {

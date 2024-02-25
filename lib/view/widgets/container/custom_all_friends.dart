@@ -22,7 +22,6 @@ class CustomAllFriends extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 12),
         decoration: const BoxDecoration(
             border: Border(
                 bottom: BorderSide(width: 1, color: AppColors.black_50))),
@@ -32,7 +31,8 @@ class CustomAllFriends extends StatelessWidget {
               height: 50,
               width: 50,
               decoration: BoxDecoration(
-                  image: DecorationImage(image: NetworkImage(imageSrc)),
+                  image: DecorationImage(
+                      image: NetworkImage(imageSrc), fit: BoxFit.fill),
                   shape: BoxShape.circle),
             ),
             SizedBox(
