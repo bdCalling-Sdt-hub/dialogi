@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 
 import '../../core/app_routes.dart';
 import '../../services/api_url.dart';
+import '../../testScreen/success_login.dart';
 
 
 class SignInController extends GetxController {
@@ -66,6 +67,9 @@ class SignInController extends GetxController {
       Get.toNamed(AppRoutes.homeScreen);
       emailController.clear();
       passwordController.clear();
+      signInLoading = false;
+      update();
+
     } else {
       Get.snackbar(response.statusCode.toString(), response.message);
     }
@@ -80,6 +84,7 @@ class SignInController extends GetxController {
 
       final user = await GoogleSignInService.login();
       await user?.authentication;
+
       // log(user!.displayName.toString());
       // log(user.email);
       // log(user.id);
@@ -129,6 +134,7 @@ class SignInController extends GetxController {
         //       ],
         //     )
         // );
+
       }
 
       signInLoading = false;
