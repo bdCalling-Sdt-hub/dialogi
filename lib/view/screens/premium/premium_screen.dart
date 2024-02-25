@@ -1,4 +1,4 @@
-import 'package:dialogi_app/controllers/subscription_controller.dart';
+
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_images.dart';
@@ -9,6 +9,9 @@ import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+import '../../../controllers/subscription_controllers/payment_controller.dart';
+import '../../../controllers/subscription_controllers/subscription_controller.dart';
 
 class PremiumScreen extends StatefulWidget {
   const PremiumScreen({super.key});
