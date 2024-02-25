@@ -1,5 +1,4 @@
 import 'package:dialogi_app/controllers/friends/friend_controller.dart';
-import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/global/api_response_model.dart';
 import 'package:dialogi_app/services/api_url.dart';
 import 'package:dialogi_app/utils/app_colors.dart';

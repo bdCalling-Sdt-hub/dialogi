@@ -6,7 +6,6 @@ import 'package:dialogi_app/services/api_services.dart';
 import 'package:dialogi_app/services/api_url.dart';
 import 'package:get/get.dart';
 
-import '../core/app_routes.dart';
 
 class SubscriptionController extends GetxController{
 
