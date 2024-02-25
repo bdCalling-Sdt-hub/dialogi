@@ -91,19 +91,22 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                         const SizedBox(width: 8),
 
                         // Name and comment of the main comment person
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomText(
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomText(
+                                  text: controller.discussionDetailsModel!.data!
+                                      .attributes!.discussion!.user!.fullName!),
+                              const SizedBox(height: 8),
+                              CustomText(
+                                maxLines: 100,
+                                textAlign: TextAlign.left,
                                 text: controller.discussionDetailsModel!.data!
-                                    .attributes!.discussion!.user!.fullName!),
-                            const SizedBox(height: 8),
-                            CustomText(
-                              textAlign: TextAlign.left,
-                              text: controller.discussionDetailsModel!.data!
-                                  .attributes!.discussion!.discussion!,
-                            ),
-                          ],
+                                    .attributes!.discussion!.discussion!,
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -142,15 +145,23 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                           SizedBox(width: 10.w),
 
                           // Dislike
-                          Row(
-                            children: [
-                              const CustomImage(imageSrc: AppIcons.dislike),
-                              SizedBox(width: 10.w),
-                              CustomText(
-                                  text: controller.discussionDetailsModel!.data!
-                                      .attributes!.discussion!.dislikes
-                                      .toString()),
-                            ],
+                          GestureDetector(
+                            onTap: () => controller.discussionDislike(controller
+                                .discussionDetailsModel!
+                                .data!
+                                .attributes!
+                                .discussion!
+                                .sId!),
+                            child: Row(
+                              children: [
+                                const CustomImage(imageSrc: AppIcons.dislike),
+                                SizedBox(width: 10.w),
+                                CustomText(
+                                    text: controller.discussionDetailsModel!
+                                        .data!.attributes!.discussion!.dislikes
+                                        .toString()),
+                              ],
+                            ),
                           ),
 
                           // InkWell(
@@ -224,17 +235,20 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                                     const SizedBox(width: 8),
 
                                     // Name and comment of the Reply person
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        CustomText(text: item.user!.fullName!),
-                                        const SizedBox(height: 8),
-                                        CustomText(
-                                          textAlign: TextAlign.left,
-                                          text: item.reply!,
-                                        ),
-                                      ],
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          CustomText(text: item.user!.fullName!),
+                                          const SizedBox(height: 8),
+                                          CustomText(
+                                            maxLines: 100,
+                                            textAlign: TextAlign.left,
+                                            text: item.reply!,
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -267,14 +281,21 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                                       SizedBox(width: 10.w),
 
                                       // Dislike
-                                      Row(
-                                        children: [
-                                          const CustomImage(
-                                              imageSrc: AppIcons.dislike),
-                                          SizedBox(width: 10.w),
-                                          CustomText(
-                                              text: item.dislikes.toString()),
-                                        ],
+                                      GestureDetector(
+                                        onTap: () => controller.replyDislike(item.sId, index),
+                                        child: controller.isDislike
+                                            ? const CircularProgressIndicator()
+                                            : Row(
+                                                children: [
+                                                  const CustomImage(
+                                                      imageSrc:
+                                                          AppIcons.dislike),
+                                                  SizedBox(width: 10.w),
+                                                  CustomText(
+                                                      text: item.dislikes
+                                                          .toString()),
+                                                ],
+                                              ),
                                       ),
 
                                       // Reply

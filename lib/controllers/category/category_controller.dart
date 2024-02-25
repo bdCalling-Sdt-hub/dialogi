@@ -1,14 +1,17 @@
 import 'dart:convert';
 
 import 'package:dialogi_app/global/api_response_model.dart';
+import 'package:dialogi_app/models/access_status_model.dart';
 import 'package:dialogi_app/models/category_model.dart';
 import 'package:dialogi_app/services/api_services.dart';
 import 'package:dialogi_app/utils/app_utils.dart';
+import 'package:dialogi_app/view/screens/home/home_controller/home_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../helper/prefs_helper.dart';
 import '../../services/api_url.dart';
+import '../../services/socket_service.dart';
 
 class CategoryController extends GetxController {
   Status status = Status.completed;
@@ -64,5 +67,33 @@ class CategoryController extends GetxController {
       status = Status.completed;
       update();
     }
+  }
+
+  getContextStatus() async {
+    Homecontroller.status = Status.loading;
+    update();
+
+    var body = {
+      "userId": PrefsHelper.clientId,
+      "type": "category",
+
+    };
+
+    print("================================================> body $body");
+
+    SocketServices.socket.emitWithAck("dialogi-content-access", body,
+        ack: (data) {
+      var check = data['status'];
+
+      if (check == "Error") {
+        Homecontroller.status = Status.error;
+      } else {
+        Homecontroller.accessStatusModel = AccessStatusModel.fromJson(data);
+        Homecontroller.status = Status.completed;
+      }
+
+      print(
+          "===============================================================> Received acknowledgment: $data");
+    });
   }
 }

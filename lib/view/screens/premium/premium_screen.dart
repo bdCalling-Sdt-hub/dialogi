@@ -6,7 +6,9 @@ import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
 import 'package:dialogi_app/view/widgets/container/custom_premium_card.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -56,8 +58,15 @@ class _PremiumScreenState extends State<PremiumScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(
-                        height: 24,
+                      SizedBox(
+                        height: 1.h,
+                      ),
+
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: IconButton(
+                            onPressed: () => Get.toNamed(AppRoutes.signInScreen),
+                            icon: const Icon(Icons.cancel_rounded)),
                       ),
                       CustomText(
                         maxLines: 3,
@@ -76,7 +85,14 @@ class _PremiumScreenState extends State<PremiumScreen> {
                         child: Row(children: [
                           CustomPremiumCard(
                               imageSrc: AppImages.premium,
-                              premiumText: subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[0].name.toString() ?? "Premium",
+                              premiumText: subscriptionController
+                                      .subscriptionsPlanModel
+                                      ?.data
+                                      ?.attributes
+                                      ?.subscriptionsList?[0]
+                                      .name
+                                      .toString() ??
+                                  "Premium",
                               getDialogiText:
                                   'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[0].price ?? 00}/month',
                               length: 3,
@@ -84,7 +100,14 @@ class _PremiumScreenState extends State<PremiumScreen> {
                           CustomPremiumCard(
                             isPremium: false,
                             imageSrc: AppImages.premium,
-                            premiumText: subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[1].name.toString() ?? "Premium Plus",
+                            premiumText: subscriptionController
+                                    .subscriptionsPlanModel
+                                    ?.data
+                                    ?.attributes
+                                    ?.subscriptionsList?[1]
+                                    .name
+                                    .toString() ??
+                                "Premium Plus",
                             getDialogiText:
                                 'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[1].price ?? 00}/month',
                             length: 7,

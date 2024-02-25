@@ -30,6 +30,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    profileController.nameController.text = profileController.profileModel.data?.attributes?.fullName ?? "" ;
+    profileController.dateController.text = profileController.profileModel.data?.attributes?.dateOfBirth ?? "" ;
+    profileController.addressController.text = profileController.profileModel.data?.attributes?.address ?? "" ;
     return Scaffold(
       appBar: CustomAppBar(
           appBarContent: Row(

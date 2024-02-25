@@ -199,4 +199,5 @@ class AppStrings {
   static const String back = "Back";
   static const String somethingWrong = "Something wrong!";
   static const String tryAgain = "Try Again";
+  static const String favoriteList = "Favorite List";
 }

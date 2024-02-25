@@ -16,6 +16,7 @@ class DiscussionDetailsController extends GetxController {
   bool isMoreLoading = false;
   bool isReplay = false;
   bool isLike = false;
+  bool isDislike = false;
   bool isLoadingReplay = false;
   List repliesList = [];
   int page = 1;
@@ -175,6 +176,77 @@ class DiscussionDetailsController extends GetxController {
           "===============================================================> Received acknowledgment: $data");
       print(
           "===============================================================> discussionList[index].likes: ${discussionDetailsModel!.data!.attributes!.discussion!.likes}");
+    });
+  }
+
+
+  replyDislike(String replyId, int index) async {
+    var body = {
+      "type": "reply", //it can be discussionn or reply
+      "reply": replyId, //if type === discussion
+      "user": PrefsHelper.clientId
+    };
+
+    print("================================================> body $body");
+
+    SocketServices.socket.emitWithAck("dialogi-dislike", body, ack: (data) {
+      isDislike = true;
+      update();
+
+      var check = data['message'];
+
+      if (check == "Disliked successfully") {
+        repliesList[index].dislikes = repliesList[index].dislikes + 1;
+      } else {
+        if (repliesList[index].dislikes != 0) {
+          repliesList[index].dislikes = repliesList[index].dislikes - 1;
+        }
+      }
+
+      isDislike = false;
+      update();
+
+      print(
+          "===============================================================> Received acknowledgment: $data");
+      print(
+          "===============================================================> discussionList[index].likes: ${discussionDetailsModel!.data!.attributes!.discussion!.likes}");
+    });
+  }
+
+  discussionDislike(String discussionId) async {
+    var body = {
+      "type": "discussion", //it can be discussionn or reply
+      "discussion": discussionId, //if type === discussion
+      "user": PrefsHelper.clientId
+    };
+
+    print("================================================> body $body");
+
+    SocketServices.socket.emitWithAck("dialogi-dislike", body, ack: (data) {
+      isDislike = true;
+      update();
+
+      var check = data['message'];
+
+      if (check == "Disliked successfully") {
+        discussionDetailsModel!.data!.attributes!.discussion!.dislikes =
+            discussionDetailsModel!.data!.attributes!.discussion!.dislikes! + 1;
+      } else {
+        if (discussionDetailsModel!.data!.attributes!.discussion!.dislikes !=
+            0) {
+          discussionDetailsModel!.data!.attributes!.discussion!.dislikes =
+              discussionDetailsModel!.data!.attributes!.discussion!.dislikes! -
+                  1;
+        }
+      }
+
+      isDislike = false;
+      update();
+
+      print(
+          "===============================================================> Received acknowledgment: $data");
+      print(
+          "===============================================================> discussionList[index].dislikes: ${discussionDetailsModel!.data!.attributes!.discussion!.likes}");
     });
   }
 }

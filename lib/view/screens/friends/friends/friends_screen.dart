@@ -38,6 +38,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
     return Scaffold(
         bottomNavigationBar: const NavBar(currentIndex: 2),
         appBar: const CustomAppBar(
+          appBarHeight: 40,
             appBarContent: Center(
           child: CustomText(
             text: AppStrings.allFriends,
@@ -51,8 +52,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
             Status.loading => const Center(child: CircularProgressIndicator()),
             Status.error => ErrorScreen(onTap: () {}),
             Status.completed => Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ListView.builder(
                     controller: controller.scrollController,
                     itemCount: controller.friendList.length,
@@ -70,6 +70,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                                   item.participants[0].fullName)
                               // onTap: () => controller.addNewChat(),
                               ),
+                          SizedBox(height: 16,)
                         ],
                       );
                     }))

@@ -3,10 +3,12 @@ import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/global/api_response_model.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
+import 'package:dialogi_app/view/screens/home/home_controller/home_controller.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/custom_card/custom_card.dart';
 import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:dialogi_app/view/widgets/nav_bar/nav_bar.dart';
+import 'package:dialogi_app/view/widgets/subscription_popup/subcription_popup.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -79,10 +81,21 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   if (index < controller.categoryList.length) {
                     return GestureDetector(
                       onTap: () {
-                        controller.categoryId =
-                            controller.categoryList[index].sId;
-                        Get.toNamed(AppRoutes.categoryDetails,
-                            parameters: {"title": "Friends"});
+                        if (Homecontroller.status == Status.completed) {
+                          controller.getContextStatus();
+                          if (Homecontroller.accessStatusModel!.data!
+                                  .categoryAccessNumber !=
+                              0) {
+                            controller.categoryId =
+                                controller.categoryList[index].sId;
+                            Get.toNamed(AppRoutes.categoryDetails,
+                                parameters: {"title": "Friends"});
+                          } else {
+                            SubscriptionPopup.showPopUpPremiumPackage();
+                          }
+                        } else {
+                          Homecontroller.getAccessStatus();
+                        }
                       },
                       child: CustomCard(
                           img:

@@ -129,14 +129,9 @@ class QuestionAnsController extends GetxController {
       print("========================================> fgfgjhjh");
       replyController.clear();
 
-      questionAnsModel!.data!.attributes!.questions![0]
-          .discussions![indexNumber].totalReplies = questionAnsModel!
-              .data!
-              .attributes!
-              .questions![0]
-              .discussions![indexNumber]
-              .totalReplies! +
-          1;
+      var item = discussionList[indexNumber];
+
+      item.totalReplies = item.totalReplies + 1;
     } else {
       Utils.snackBarMessage(response.statusCode.toString(), response.message);
     }
@@ -190,6 +185,8 @@ class QuestionAnsController extends GetxController {
 
       isAddDiscussion = false;
       update();
+
+      print("jkdhfsdjfjsdjfsjlf");
       print("========================================> fgfgjhjh");
     } else {
       Utils.snackBarMessage(response.statusCode.toString(), response.message);

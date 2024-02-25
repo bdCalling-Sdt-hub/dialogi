@@ -62,7 +62,7 @@ class _FriendsProfileScreenState extends State<FriendsProfileScreen> {
                   CustomText(
                     text: controller.friendProfileModel!.data!.attributes!
                         .userDetails!.fullName!,
-                    fontSize: 18,
+                    fontSize: 20,
                     fontWeight: FontWeight.w500,
                     color: AppColors.blue_500,
                   ),

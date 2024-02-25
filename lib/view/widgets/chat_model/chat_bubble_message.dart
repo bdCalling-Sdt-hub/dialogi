@@ -90,6 +90,9 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
                     child: ClipOval(
                         child: Image.network(
                       "${ApiConstant.baseUrl}${widget.image}",
+                      width: 36.sp,
+                      height: 36.sp,
+                      fit: BoxFit.fill,
                     ))),
               const SizedBox(
                 width: 8,
@@ -154,8 +157,12 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
                     radius: 20.sp,
                     child: ClipOval(
                         child: Image.network(
-                          "${ApiConstant.baseUrl}${widget.image}",
-                        ))),            ],
+                      "${ApiConstant.baseUrl}${widget.image}",
+                      width: 36.sp,
+                      height: 36.sp,
+                      fit: BoxFit.fill,
+                    ))),
+            ],
           ),
         ],
       ),

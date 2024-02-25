@@ -77,17 +77,20 @@ class CommentReply extends StatelessWidget {
                                   const SizedBox(width: 8),
 
                                   // Name and comment of the main comment person
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      CustomText(text: comment.user!.fullName!),
-                                      const SizedBox(height: 8),
-                                      CustomText(
-                                        textAlign: TextAlign.left,
-                                        text: comment.discussion!,
-                                      ),
-                                    ],
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        CustomText(text: comment.user!.fullName!),
+                                         const SizedBox(height: 8),
+                                        CustomText(
+                                          maxLines: 1,
+                                          textAlign: TextAlign.left,
+                                          text: comment.discussion!,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),

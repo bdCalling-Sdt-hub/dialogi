@@ -29,7 +29,6 @@ class ProfileImage extends StatelessWidget {
                   height: 108.w,
                   width: 108.w,
                   decoration: BoxDecoration(
-
                       image: controller.image != null
                           ? DecorationImage(
                               image: FileImage(
@@ -38,10 +37,12 @@ class ProfileImage extends StatelessWidget {
                               fit: BoxFit.cover,
                             )
                           : DecorationImage(
-                              image: NetworkImage(imageURl), fit: BoxFit.cover, ),
+                              image: NetworkImage(imageURl),
+                              fit: BoxFit.cover,
+                            ),
                       shape: BoxShape.circle,
-                    border: Border.all(color: AppColors.black_500, width: 3.w)
-                  ),
+                      border:
+                          Border.all(color: AppColors.black_500, width: 3.w)),
                 ),
               ),
             ),
