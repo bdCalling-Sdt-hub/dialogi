@@ -30,4 +30,5 @@ class ApiConstant {
   static const friendProfile = "$baseUrl/api/users/profile-details";
   static const chats = "$baseUrl/api/chats";
   static const messages = "$baseUrl/api/messages";
+  static const favourite = "$baseUrl/api/favourites";
 }

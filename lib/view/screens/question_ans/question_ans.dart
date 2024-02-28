@@ -111,8 +111,8 @@ class _QuestionAnsState extends State<QuestionAns> {
                               //==============================Specker Icon========================
                               Align(
                                   alignment: Alignment.bottomLeft,
-                                  child: GestureDetector(
-                                      onTap: () async {
+                                  child: IconButton(
+                                      onPressed: () async {
                                         print(
                                             "=================================================================> What does Friendship mean to you?");
                                         FlutterTts flutterTts = FlutterTts();
@@ -123,20 +123,33 @@ class _QuestionAnsState extends State<QuestionAns> {
                                             .questions![0]
                                             .question!);
                                       },
-                                      child: const CustomImage(
+                                      icon: const CustomImage(
                                           imageSrc: AppIcons.volumeup))),
-                              SizedBox(
-                                width: 20.w,
-                              ),
 
                               //==============================Share Icon========================
 
                               Align(
                                   alignment: Alignment.bottomLeft,
-                                  child: GestureDetector(
-                                      onTap: () {},
-                                      child: const CustomImage(
+                                  child: IconButton(
+                                      onPressed: () {},
+                                      icon: const CustomImage(
                                           imageSrc: AppIcons.share))),
+
+                              //==============================favorite Icon========================
+                              const Spacer(),
+                              Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: IconButton(
+                                      onPressed: () => controller.addFavouriteRepo(),
+                                      icon: controller
+                                              .questionAnsModel!
+                                              .data!
+                                              .attributes!
+                                              .questions![0]
+                                              .isFavourite!
+                                          ? const Icon(Icons.favorite)
+                                          : const Icon(
+                                              Icons.favorite_border_outlined))),
                             ],
                           ),
                         ],
@@ -211,15 +224,24 @@ class _QuestionAnsState extends State<QuestionAns> {
                     Homecontroller.accessStatusModel!.data!.type != "default"
                         ? const Expanded(child: CommentReply())
                         : Column(
-                      children: [
-                        const CustomText(text: AppStrings.wanttojointhediscussion),
-                        SizedBox(height: 8.h,),
-                        InkWell(
-                          onTap: ()  => Get.toNamed(AppRoutes.subscriptionsScreen),
-                          child: CustomText(text: AppStrings.upgradetoPremium,color: AppColors.blue_500, fontSize: 20.sp, fontWeight: FontWeight.w600,),
-                        )
-                      ],
-                    )
+                            children: [
+                              const CustomText(
+                                  text: AppStrings.wanttojointhediscussion),
+                              SizedBox(
+                                height: 8.h,
+                              ),
+                              InkWell(
+                                onTap: () =>
+                                    Get.toNamed(AppRoutes.subscriptionsScreen),
+                                child: CustomText(
+                                  text: AppStrings.upgradetoPremium,
+                                  color: AppColors.blue_500,
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              )
+                            ],
+                          )
                   ],
                 ),
               ),

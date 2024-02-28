@@ -2,6 +2,7 @@ import 'package:dialogi_app/controllers/question_ans_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
+import 'package:dialogi_app/utils/app_images.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
@@ -82,8 +83,9 @@ class CommentReply extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        CustomText(text: comment.user!.fullName!),
-                                         const SizedBox(height: 8),
+                                        CustomText(
+                                            text: comment.user!.fullName!),
+                                        const SizedBox(height: 8),
                                         CustomText(
                                           maxLines: 1,
                                           textAlign: TextAlign.left,
@@ -110,8 +112,17 @@ class CommentReply extends StatelessWidget {
                                           ? const CircularProgressIndicator()
                                           : Row(
                                               children: [
-                                                const CustomImage(
-                                                    imageSrc: AppIcons.like),
+                                                comment.isLiked
+                                                    ? CustomImage(
+                                                        imageSrc:
+                                                            AppImages.isLike,
+                                                        imageType:
+                                                            ImageType.png,
+                                                        size: 18.sp,
+                                                      )
+                                                    : const CustomImage(
+                                                        imageSrc: AppIcons.like,
+                                                      ),
                                                 SizedBox(width: 10.w),
                                                 CustomText(
                                                     text: comment.likes
@@ -129,8 +140,19 @@ class CommentReply extends StatelessWidget {
                                           ? const CircularProgressIndicator()
                                           : Row(
                                               children: [
-                                                const CustomImage(
-                                                    imageSrc: AppIcons.dislike),
+                                                comment.isDisliked
+                                                    ? CustomImage(
+                                                        imageSrc:
+                                                            AppImages.isDislike,
+                                                        size: 14.sp,
+                                                        imageType:
+                                                            ImageType.png,
+                                                        imageColor:
+                                                            AppColors.blue_500,
+                                                      )
+                                                    : const CustomImage(
+                                                        imageSrc:
+                                                            AppIcons.dislike),
                                                 SizedBox(width: 10.w),
                                                 CustomText(
                                                     text: comment.dislikes
