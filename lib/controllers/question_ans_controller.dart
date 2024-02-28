@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:dialogi_app/controllers/category/category_controller.dart';
 import 'package:dialogi_app/controllers/category/sub_category_controller.dart';
+import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/models/add_discussion_model.dart';
-import 'package:dialogi_app/models/question_ans_model.dart';
 import 'package:dialogi_app/models/question_ans_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,6 @@ import 'package:get/get.dart';
 import '../global/api_response_model.dart';
 import '../helper/prefs_helper.dart';
 import '../models/access_status_model.dart';
-import '../models/question_ans_model.dart';
 import '../models/reply_model.dart';
 import '../services/api_services.dart';
 import '../services/api_url.dart';
@@ -76,15 +75,12 @@ class QuestionAnsController extends GetxController {
       update();
     }
 
-    Map<String, String> header = {
-      'Authorization': "Bearer ${PrefsHelper.token}"
-    };
+    getContextStatus();
 
     print("${categoryController.categoryId}");
 
     var response = await ApiService.getApi(
-        "${ApiConstant.questions}/$subCategory/${categoryController.categoryId}?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage",
-        header: header);
+        "${ApiConstant.questions}/$subCategory/${categoryController.categoryId}?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage");
 
     print(
         "===========================================>${ApiConstant.questions}/$subCategory/${categoryController.categoryId}?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage");
@@ -204,6 +200,9 @@ class QuestionAnsController extends GetxController {
   }
 
   Future<void> addFavouriteRepo() async {
+    isLoadingDiscussion = false;
+    update();
+
     Map<String, String> body = {
       ///==================================> Discussion ID dite hobe<=====================================
       'question': "${questionAnsModel!.data!.attributes!.questions![0].sId}",
@@ -219,6 +218,9 @@ class QuestionAnsController extends GetxController {
     } else {
       Utils.snackBarMessage(response.statusCode.toString(), response.message);
     }
+
+    isLoadingDiscussion = false;
+    update();
   }
 
   Future<void> addReply(String id, int index) async {
@@ -314,29 +316,46 @@ class QuestionAnsController extends GetxController {
   }
 
   getContextStatus() async {
-    Homecontroller.status = Status.loading;
-    update();
+    if (Homecontroller.status == Status.completed) {
+      Future.delayed(
+        const Duration(seconds: 1),
+        () {
+          if (Homecontroller.accessStatusModel!.data!.questionAccessNumber ==
+              0) {
+            Get.toNamed(AppRoutes.subscriptionsScreen);
 
-    var body = {
-      "userId": PrefsHelper.clientId,
-      "type": "question",
-    };
+            status = Status.error;
+            update();
+          }
+        },
+      );
 
-    print("================================================> body $body");
+      Homecontroller.status = Status.loading;
+      update();
 
-    SocketServices.socket.emitWithAck("dialogi-content-access", body,
-        ack: (data) {
-      var check = data['status'];
+      var body = {
+        "userId": PrefsHelper.clientId,
+        "type": "question",
+      };
 
-      if (check == "Error") {
-        Homecontroller.status = Status.error;
-      } else {
-        Homecontroller.accessStatusModel = AccessStatusModel.fromJson(data);
-        Homecontroller.status = Status.completed;
-      }
+      print("================================================> body $body");
 
-      print(
-          "===============================================================> Received acknowledgment: $data");
-    });
+      SocketServices.socket.emitWithAck("dialogi-content-access", body,
+          ack: (data) {
+        var check = data['status'];
+
+        if (check == "Error") {
+          Homecontroller.status = Status.error;
+        } else {
+          Homecontroller.accessStatusModel = AccessStatusModel.fromJson(data);
+          Homecontroller.status = Status.completed;
+        }
+
+        print(
+            "===============================================================> Received acknowledgment: $data");
+      });
+    } else {
+      Homecontroller.getAccessStatus();
+    }
   }
 }

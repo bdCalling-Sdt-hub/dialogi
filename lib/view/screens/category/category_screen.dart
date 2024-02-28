@@ -81,21 +81,21 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   if (index < controller.categoryList.length) {
                     return GestureDetector(
                       onTap: () {
+
+
                         if (Homecontroller.status == Status.completed) {
                           controller.getContextStatus();
-                          if (Homecontroller.accessStatusModel!.data!
-                                  .categoryAccessNumber !=
-                              0) {
-                            controller.categoryId =
-                                controller.categoryList[index].sId;
-                            Get.toNamed(AppRoutes.categoryDetails,
-                                parameters: {"title": "Friends"});
+                          if (Homecontroller.accessStatusModel!.data!.categoryAccessNumber != 0) {
+                            controller.categoryId = controller.categoryList[index].sId;
+                            Get.toNamed(AppRoutes.categoryDetails, parameters: {"title": "Friends"});
                           } else {
                             SubscriptionPopup.showPopUpPremiumPackage();
                           }
                         } else {
                           Homecontroller.getAccessStatus();
                         }
+
+
                       },
                       child: CustomCard(
                           img:

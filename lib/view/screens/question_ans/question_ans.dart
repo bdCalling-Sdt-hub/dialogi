@@ -1,7 +1,6 @@
 import 'package:dialogi_app/controllers/question_ans_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/global/api_response_model.dart';
-import 'package:dialogi_app/helper/prefs_helper.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
@@ -13,7 +12,6 @@ import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
 import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
-import 'package:dialogi_app/view/widgets/subscription_popup/subcription_popup.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:dialogi_app/view/widgets/text_field/custom_text_field.dart';
 import 'package:flutter/material.dart';
