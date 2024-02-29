@@ -21,9 +21,9 @@ class SubscriptionController extends GetxController{
     ApiService.getApi(ApiConstant.subscriptions).then((apiResponseModel) {
 
 
-      // print("${apiResponseModel.statusCode}") ;
-      // print("${apiResponseModel.message}") ;
-      // print("${apiResponseModel.responseJson}") ;
+      print("${apiResponseModel.statusCode}") ;
+      print("${apiResponseModel.message}") ;
+      print("${apiResponseModel.responseJson}") ;
 
       if(apiResponseModel.statusCode == 200){
 
