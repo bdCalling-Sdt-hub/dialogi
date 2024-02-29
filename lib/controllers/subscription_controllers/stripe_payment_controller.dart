@@ -11,11 +11,16 @@ import 'package:http/http.dart' as http;
 class StripePaymentController{
 
   PaymentController paymentController = Get.find<PaymentController>();
+  bool isPaymentRepoCalled = false;
+
+  static String payerId = "";
 
 
   Map<String, dynamic>? paymentIntentData;
 
-  Future<void> makePayment({required String amount, required String currency}) async{
+  Future<void> makePayment({required String amount, required String currency, required String subscriptionName}) async{
+    isPaymentRepoCalled = true;
+
     try{
       paymentIntentData = await createPaymentIntent(amount, currency);
       if(paymentIntentData != null){
@@ -32,7 +37,8 @@ class StripePaymentController{
               paymentIntentClientSecret: paymentIntentData!["client_secret"],
               style: ThemeMode.light,
             )).then((value) {print('Is completed payment properly??????');});
-        displayPaymentSheet();
+        displayPaymentSheet(amount, currency, subscriptionName);
+        isPaymentRepoCalled = false;
       }
     } catch(e, s){
       Fluttertoast.showToast(msg: e.toString());
@@ -59,6 +65,15 @@ class StripePaymentController{
             'Content-Type' : 'application/x-www-form-urlencoded'
           }
       );
+      
+      if(response.statusCode == 200){
+        Map<String, dynamic> jsonMap = json.decode(response.body);
+        // Extract the value of "id"
+        payerId = jsonMap['id'];
+
+        // Print the result
+        print('Value of "id" from server: $payerId');
+      }
       print("----------------${response.statusCode}------------------");
       print("=============>>>${response.body}<<<==============");
       return jsonDecode(response.body);
@@ -68,14 +83,15 @@ class StripePaymentController{
   }
 
   calculateAmount(String amount) {
-    final a = (int.parse(amount)) * 100;
+    final a = (double.parse(amount) * 100).toInt();
     return a.toString();
   }
 
-  Future<void> displayPaymentSheet() async {
+  Future<void> displayPaymentSheet(String amount, String currency, String subscriptionName) async {
     try{
       await Stripe.instance.presentPaymentSheet();
       print('------------------Payment Successful------------------------');
+      paymentController.paymentRepo(payerId: payerId, amount: amount, currency: currency, subscriptionName: subscriptionName);
     } on Exception catch(e){
       if(e is StripeException){
         print("Error from Stripe: ${e.error.localizedMessage}");

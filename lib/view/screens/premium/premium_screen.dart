@@ -23,7 +23,7 @@ class PremiumScreen extends StatefulWidget {
 class _PremiumScreenState extends State<PremiumScreen> {
   SubscriptionController subscriptionController =
       Get.find<SubscriptionController>();
-  PaymentController paymentController = Get.find<PaymentController>();
+  // PaymentController paymentController = Get.find<PaymentController>();
 
   PageController pageController = PageController();
   int currentIndex = 0;
@@ -107,7 +107,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
                           CustomElevatedButton(
                               buttonWidth: MediaQuery.of(context).size.width,
                               onPressed: () {
-                                paymentController.makePaymentRepo();
+                                // paymentController.makePaymentRepo();
                                 Get.toNamed(AppRoutes.purchaseScreen,
                                     parameters: {
                                       "premium":

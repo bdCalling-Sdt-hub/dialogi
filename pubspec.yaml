@@ -59,6 +59,7 @@ dependencies:
   flutter_dotenv: ^5.1.0
   mime: ^1.0.4
   animated_item_picker: ^2.0.0
+  json_annotation: ^4.8.1
 
 
 

@@ -1,4 +1,5 @@
 import 'package:dialogi_app/controllers/subscription_controllers/stripe_payment_controller.dart';
+import 'package:dialogi_app/controllers/subscription_controllers/subscription_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
@@ -25,8 +26,10 @@ class PurchaseScreen extends StatefulWidget {
 
 class _PurchaseScreenState extends State<PurchaseScreen> {
   StripePaymentController stripePaymentController = Get.find<StripePaymentController>();
+  SubscriptionController subscriptionController = Get.find<SubscriptionController>();
 
   String? premium = Get.parameters["premium"];
+
   bool visaCardChecked = false;
   bool masterCardChecked = false;
   bool paypalCardChecked = false;
@@ -372,18 +375,26 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
         padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
         child: CustomElevatedButton(
             onPressed: () {
-              stripePaymentController.makePayment(amount: '5', currency: 'USD');
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialogs(
-                        successtext: AppStrings.successful,
-                        completeText: AppStrings.proceedToPayment,
-                        buttonText: AppStrings.gotoHome,
-                        onPressed: () {
-                          Get.toNamed(AppRoutes.homeScreen);
-                        });
-                  });
+              if(visaCardChecked || masterCardChecked){
+                if(!stripePaymentController.isPaymentRepoCalled){
+                  stripePaymentController.makePayment(amount: premium == "true"
+                      ? "${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].price}"
+                      : "${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].price}",
+                    subscriptionName: premium == "true"? "Premium" : "Premium Plus",
+                    currency: 'USD', );
+                }
+              }
+              // showDialog(
+              //     context: context,
+              //     builder: (BuildContext context) {
+              //       return AlertDialogs(
+              //           successtext: AppStrings.successful,
+              //           completeText: AppStrings.proceedToPayment,
+              //           buttonText: AppStrings.gotoHome,
+              //           onPressed: () {
+              //             Get.toNamed(AppRoutes.homeScreen);
+              //           });
+              //     });
             },
             titleText: AppStrings.proceedToPayment),
       ),
