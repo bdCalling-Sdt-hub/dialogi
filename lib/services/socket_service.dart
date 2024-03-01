@@ -1,11 +1,8 @@
 import 'package:dialogi_app/services/api_url.dart';
-import 'package:dialogi_app/utils/app_constants.dart';
 import 'package:flutter/foundation.dart';
-import 'package:get/get.dart';
-
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
-import '../core/app_routes.dart';
+
 
 class SocketServices {
   static late io.Socket socket;
