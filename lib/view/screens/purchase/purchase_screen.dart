@@ -25,7 +25,7 @@ class PurchaseScreen extends StatefulWidget {
 }
 
 class _PurchaseScreenState extends State<PurchaseScreen> {
-  StripePaymentController stripePaymentController = Get.find<StripePaymentController>();
+  // StripePaymentController stripePaymentController = Get.find<StripePaymentController>();
   SubscriptionController subscriptionController = Get.find<SubscriptionController>();
 
   String? premium = Get.parameters["premium"];
@@ -371,33 +371,35 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-        child: CustomElevatedButton(
-            onPressed: () {
-              if(visaCardChecked || masterCardChecked){
-                if(!stripePaymentController.isPaymentRepoCalled){
+      bottomNavigationBar: GetBuilder<StripePaymentController>(
+        builder: (stripePaymentController) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+          child: stripePaymentController.isPaymentRepoCalled? const Center(child: CircularProgressIndicator()) : CustomElevatedButton(
+              onPressed: () {
+                if(visaCardChecked || masterCardChecked){
                   stripePaymentController.makePayment(amount: premium == "true"
                       ? "${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].price}"
                       : "${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].price}",
                     subscriptionName: premium == "true"? "Premium" : "Premium Plus",
                     currency: 'USD', );
+
                 }
-              }
-              // showDialog(
-              //     context: context,
-              //     builder: (BuildContext context) {
-              //       return AlertDialogs(
-              //           successtext: AppStrings.successful,
-              //           completeText: AppStrings.proceedToPayment,
-              //           buttonText: AppStrings.gotoHome,
-              //           onPressed: () {
-              //             Get.toNamed(AppRoutes.homeScreen);
-              //           });
-              //     });
-            },
-            titleText: AppStrings.proceedToPayment),
-      ),
+                // showDialog(
+                //     context: context,
+                //     builder: (BuildContext context) {
+                //       return AlertDialogs(
+                //           successtext: AppStrings.successful,
+                //           completeText: AppStrings.proceedToPayment,
+                //           buttonText: AppStrings.gotoHome,
+                //           onPressed: () {
+                //             Get.toNamed(AppRoutes.homeScreen);
+                //           });
+                //     });
+              },
+              titleText: AppStrings.proceedToPayment),
+        );
+      },),
     );
   }
 }

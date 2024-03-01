@@ -8,7 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-class StripePaymentController{
+class StripePaymentController extends GetxController{
 
   PaymentController paymentController = Get.find<PaymentController>();
   bool isPaymentRepoCalled = false;
@@ -18,8 +18,11 @@ class StripePaymentController{
 
   Map<String, dynamic>? paymentIntentData;
 
+  ///<<<======================== Stripe make payment ==========================>>>
+
   Future<void> makePayment({required String amount, required String currency, required String subscriptionName}) async{
     isPaymentRepoCalled = true;
+    update();
 
     try{
       paymentIntentData = await createPaymentIntent(amount, currency);
@@ -27,10 +30,10 @@ class StripePaymentController{
         // Access the response data as needed
         await Stripe.instance.initPaymentSheet(
             paymentSheetParameters: SetupPaymentSheetParameters(
-              billingDetails: const BillingDetails(
-                  name: 'Siam Prodhan',
-                  email: 'siamjht@gmail.com',
-              ),
+              // billingDetails: const BillingDetails(
+              //     name: 'Siam Prodhan',
+              //     email: 'siamjht@gmail.com',
+              // ),
               // googlePay: const PaymentSheetGooglePay(merchantCountryCode: 'US'),
               merchantDisplayName: 'Prospects',
               // paymentIntentClientSecret: paymentController.paymentModel!.data!.attributes!.clientSecret,
@@ -38,12 +41,15 @@ class StripePaymentController{
               style: ThemeMode.light,
             )).then((value) {print('Is completed payment properly??????');});
         displayPaymentSheet(amount, currency, subscriptionName);
-        isPaymentRepoCalled = false;
       }
+      isPaymentRepoCalled = false;
+      update();
     } catch(e, s){
       Fluttertoast.showToast(msg: e.toString());
     }
   }
+
+  ///<<<======================== Stripe create payment ==========================>>>
 
   createPaymentIntent(String amount, String currency) async {
     try{
@@ -65,7 +71,6 @@ class StripePaymentController{
             'Content-Type' : 'application/x-www-form-urlencoded'
           }
       );
-      
       if(response.statusCode == 200){
         Map<String, dynamic> jsonMap = json.decode(response.body);
         // Extract the value of "id"
@@ -86,6 +91,8 @@ class StripePaymentController{
     final a = (double.parse(amount) * 100).toInt();
     return a.toString();
   }
+
+  ///<<<======================== Stripe display payment sheet ========================>>>
 
   Future<void> displayPaymentSheet(String amount, String currency, String subscriptionName) async {
     try{

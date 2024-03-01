@@ -21,20 +21,32 @@ Future<void> paymentRepo({required String payerId,required String amount, requir
   update();
 
 
+  // Map<String, dynamic> body = {
+  //   "paymentData" : {
+  //     "paymentId": StripePaymentController.payerId,
+  //     "payment_method": "stripe",
+  //     "amount": amount,
+  //     "item": {
+  //       "name": subscriptionName,
+  //       "sku": "subscription",
+  //       "price": amount,
+  //       "currency": currency,
+  //       "quantity": 1
+  //     }
+  //   },
+  //
+  //   "subscriptionId" : subscriptionName == "Premium" ? "65cde4e7294393c969cff435" : "65cde4e7294393c969cff436",
+  // };
   var body = {
-    "paymentData" : {
-      "paymentId": "${StripePaymentController.payerId}",
-      "payment_method": "stripe",
-      "amount": amount,
-      "item": {
-        "name": "$subscriptionName",
-        "sku": "subscription",
-        "price": "$amount",
-        "currency": "$currency",
-        "quantity": 1
-      }
-    },
-    "subscriptionId" : subscriptionName == "Premium" ? "65cde4e7294393c969cff435" : "65cde4e7294393c969cff436"
+    "amount" : amount,
+    "paymentId" : StripePaymentController.payerId,
+    "paymentMethod" : "stripe",
+    "name" : subscriptionName,
+    "sku" : "subscription",
+    "price": amount,
+    "currency": currency,
+    "quantity": 1.toString(),
+    "subscriptionId" : subscriptionName == "Premium" ? "65cde4e7294393c969cff435" : "65cde4e7294393c969cff436",
   };
 
   print("Stripe Body Data: $body");
@@ -44,7 +56,7 @@ Future<void> paymentRepo({required String payerId,required String amount, requir
     'Authorization': "Bearer ${PrefsHelper.token}"
   };
 
-  ApiService.postApi(ApiConstant.payments, body.toString(), header: mainHeader).then((apiResponseModel){
+  ApiService.postApi(ApiConstant.payments, body, header: mainHeader).then((apiResponseModel){
 
     print("============${apiResponseModel.message}, ${apiResponseModel.statusCode}============");
 
