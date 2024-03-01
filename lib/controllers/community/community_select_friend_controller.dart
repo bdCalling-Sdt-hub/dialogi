@@ -14,7 +14,7 @@ import '../../services/socket_service.dart';
 import '../../utils/app_utils.dart';
 import '../../utils/static_strings.dart';
 
-class SelectFriendsController extends GetxController {
+class CommunitySelectFriendsController extends GetxController {
   Status status = Status.completed;
   Status statusMore = Status.completed;
   List friendList = [];
@@ -91,9 +91,10 @@ class SelectFriendsController extends GetxController {
     selectedFriends[index] = value;
     update();
 
-    if (selectedParticipants.length > 2) {
+    if (selectedParticipants.length < 5) {
       isCreateGroup = true;
       update();
+      print("dkjfkljdshkfklds");
     } else {
       isCreateGroup = false;
       update();
@@ -105,7 +106,7 @@ class SelectFriendsController extends GetxController {
       "participants": selectedParticipants,
       "subscription": PrefsHelper.mySubscription,
       "groupName": nameController.text,
-      "type": AppStrings.group,
+      "type": AppStrings.community,
       "groupAdmin": PrefsHelper.clientId
     };
 
@@ -120,7 +121,7 @@ class SelectFriendsController extends GetxController {
       }
       Get.toNamed(AppRoutes.chatScreen, parameters: {
         "chatId": data['data']['chatId'],
-        "type": AppStrings.group,
+        "type": AppStrings.community,
         "name": nameController.text
       });
 

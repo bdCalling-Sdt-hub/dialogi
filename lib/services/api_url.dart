@@ -22,6 +22,7 @@ class ApiConstant {
   static const payment = "$baseUrl/api/payments";
   static const payments = "$baseUrl/api/payments";
   static const friends = "$baseUrl/api/friends";
+  static const getGroupFriends = "$baseUrl/api/friends/group";
   static const privacyPolicy = "$baseUrl/api/privacy-policies";
   static const aboutUs = "$baseUrl/api/about-us";
   static const supports = "$baseUrl/api/supports";

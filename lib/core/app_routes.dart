@@ -40,6 +40,7 @@ import 'package:dialogi_app/view/screens/settings/support/support_screen.dart';
 import 'package:dialogi_app/view/screens/splash/splash_screen.dart';
 import 'package:get/get.dart';
 
+import '../view/screens/community/community_select_friend.dart';
 import '../view/screens/discussion_details/discussion_details_screen.dart';
 
 class AppRoutes {
@@ -86,17 +87,17 @@ class AppRoutes {
   static String discussionDetails = "/discussion_details_screen.dart";
   static String noInternet = "/no_internet_screen.dart";
   static String favoriteList = "/favorite_list_screen.dart";
+  static String communitySelectFriends = "/community_select_friend.dart";
 
   static List<GetPage> routes = [
     GetPage(name: splashScreen, page: () => const SplashScreen()),
     GetPage(name: premiumScreen, page: () => const PremiumScreen()),
     GetPage(name: signInScreen, page: () => const SignInScreen()),
-    GetPage(
-        name: forgetPasswordScreen, page: () => ForgetPasswordScreen()),
+    GetPage(name: forgetPasswordScreen, page: () => ForgetPasswordScreen()),
     GetPage(name: otpScreen, page: () => OtpScreen()),
     GetPage(name: signupOtpScreen, page: () => SignUpOtpScreen()),
     GetPage(name: resetPasswordScreen, page: () => ResetPasswordScreen()),
-    GetPage(name: signUpScreen, page: () =>  SignUpScreen()),
+    GetPage(name: signUpScreen, page: () => SignUpScreen()),
     GetPage(name: setPasswordScreen, page: () => SetPasswordScreen()),
     GetPage(name: setPhotoScreen, page: () => const SetPhotoScreen()),
     GetPage(name: homeScreen, page: () => const HomeScreen()),
@@ -136,8 +137,12 @@ class AppRoutes {
     GetPage(name: selectFriends, page: () => const SelectFriendsGroupChat()),
     GetPage(name: groupChat, page: () => const GroupChat()),
     GetPage(name: groupMembers, page: () => const GroupMembers()),
-    GetPage(name: discussionDetails, page: () => const DiscussionDetailsScreen()),
+    GetPage(
+        name: discussionDetails, page: () => const DiscussionDetailsScreen()),
     GetPage(name: noInternet, page: () => const NoInternet()),
     GetPage(name: favoriteList, page: () => const FavoriteListScreen()),
+    GetPage(
+        name: communitySelectFriends,
+        page: () => const CommunitySelectFriends()),
   ];
 }

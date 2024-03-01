@@ -201,4 +201,6 @@ class AppStrings {
   static const String somethingWrong = "Something wrong!";
   static const String tryAgain = "Try Again";
   static const String favoriteList = "Favorite List";
+  static const String selectMember = "Select Member";
+  static const String pleaseSelectAtLeastTwoMembers = "Please, select at least two members";
 }
