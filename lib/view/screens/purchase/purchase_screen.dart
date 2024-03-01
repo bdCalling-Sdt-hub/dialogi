@@ -1,3 +1,4 @@
+import 'package:dialogi_app/controllers/subscription_controllers/paypal_payment_controller.dart';
 import 'package:dialogi_app/controllers/subscription_controllers/stripe_payment_controller.dart';
 import 'package:dialogi_app/controllers/subscription_controllers/subscription_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
@@ -27,6 +28,7 @@ class PurchaseScreen extends StatefulWidget {
 class _PurchaseScreenState extends State<PurchaseScreen> {
   // StripePaymentController stripePaymentController = Get.find<StripePaymentController>();
   SubscriptionController subscriptionController = Get.find<SubscriptionController>();
+  PaypalPaymentController paypalPaymentController = Get.find<PaypalPaymentController>();
 
   String? premium = Get.parameters["premium"];
 
@@ -384,8 +386,8 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                     subscriptionName: premium == "true"? "Premium" : "Premium Plus",
                     currency: 'USD', );
 
-                } else{
-
+                } else if(paypalCardChecked){
+                  paypalPaymentController.buildPaypalCheckout(context);
                 }
                 // showDialog(
                 //     context: context,
