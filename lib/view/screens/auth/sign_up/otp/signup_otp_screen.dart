@@ -132,7 +132,9 @@ class SignUpOtpScreen extends StatelessWidget {
         builder: (controller) {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-            child: CustomElevatedButton(
+            child: controller.signUpLoading
+                ? const Center(child: CircularProgressIndicator())
+                : CustomElevatedButton(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     controller.signUpUser();

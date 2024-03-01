@@ -1,4 +1,5 @@
 import 'package:dialogi_app/controllers/subscription_controllers/subscription_controller.dart';
+import 'package:dialogi_app/global/api_response_model.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/app_images.dart';
@@ -6,6 +7,7 @@ import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/screens/group_chat/select_friends/create_group_popup.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/container/custom_premium_card.dart';
+import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -59,144 +61,146 @@ class _SubscriptionsScreenState extends State<SubscriptionsScreen> {
       )),
       body: GetBuilder<SubscriptionController>(
         builder: (subscriptionController) {
-        return subscriptionController.isLoading?
-        const Center(child: CircularProgressIndicator())
-            : SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Expanded(
-              //   child: ListView.builder(
-              //     physics: NeverScrollableScrollPhysics(),
-              //     scrollDirection: Axis.horizontal,
-              //     itemCount: subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList!.length,
-              //     itemBuilder: (context, index) {
-              //       return CustomPremiumCard(
-              //         isPremium: false,
-              //         imageSrc: AppImages.premium,
-              //         premiumText: 'Premium Plus',
-              //         getDialogiText: 'Get Dialogi Premium \$${100}/month',
-              //         length: 7,
-              //         addText: 'All premium features',
-              //         addTextColor: Colors.white,
-              //         premiumTextColor: Colors.white,
-              //         getDialogiTextColor: Colors.white,
-              //       );
-              //     },),
-              // ),
+        return switch(subscriptionController.status){
+          Status.loading => const Center(child: CircularProgressIndicator()),
+          Status.error => ErrorScreen(onTap: (){}),
+          Status.completed => SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Expanded(
+                //   child: ListView.builder(
+                //     physics: NeverScrollableScrollPhysics(),
+                //     scrollDirection: Axis.horizontal,
+                //     itemCount: subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList!.length,
+                //     itemBuilder: (context, index) {
+                //       return CustomPremiumCard(
+                //         isPremium: false,
+                //         imageSrc: AppImages.premium,
+                //         premiumText: 'Premium Plus',
+                //         getDialogiText: 'Get Dialogi Premium \$${100}/month',
+                //         length: 7,
+                //         addText: 'All premium features',
+                //         addTextColor: Colors.white,
+                //         premiumTextColor: Colors.white,
+                //         getDialogiTextColor: Colors.white,
+                //       );
+                //     },),
+                // ),
 
-              ///<<<===================== premium package cards =======================>>>
+                ///<<<===================== premium package cards =======================>>>
 
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(children: [
-                  CustomPremiumCard(
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(children: [
+                    CustomPremiumCard(
+                        imageSrc: AppImages.premium,
+                        premiumText: subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[0].name.toString() ?? "Premium",
+                        getDialogiText: 'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[0].price ?? 00}/month',
+                        length: 3,
+                        addText: 'Ad-free experience'),
+                    CustomPremiumCard(
+                      isPremium: false,
                       imageSrc: AppImages.premium,
-                      premiumText: subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[0].name.toString() ?? "Premium",
-                      getDialogiText: 'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[0].price ?? 00}/month',
-                      length: 3,
-                      addText: 'Ad-free experience'),
-                  CustomPremiumCard(
-                    isPremium: false,
-                    imageSrc: AppImages.premium,
-                    premiumText: subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[1].name.toString() ?? "Premium Plus",
-                    getDialogiText: 'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[1].price ?? 00}/month',
-                    length: 7,
-                    addText: 'All premium features',
-                    addTextColor: Colors.white,
-                    premiumTextColor: Colors.white,
-                    getDialogiTextColor: Colors.white,
-                  )
-                ]),
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              CustomText(
-                text: AppStrings.currentPlan,
-                bottom: 24.h,
-              ),
+                      premiumText: subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[1].name.toString() ?? "Premium Plus",
+                      getDialogiText: 'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[1].price ?? 00}/month',
+                      length: 7,
+                      addText: 'All premium features',
+                      addTextColor: Colors.white,
+                      premiumTextColor: Colors.white,
+                      getDialogiTextColor: Colors.white,
+                    )
+                  ]),
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                CustomText(
+                  text: AppStrings.currentPlan,
+                  bottom: 24.h,
+                ),
 
-              ///cancel plan
-              Container(
-                padding: const EdgeInsets.only(bottom: 16, top: 16),
-                decoration: const BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(color: AppColors.black_50, width: 1))),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CustomText(
-                      text: AppStrings.premiumPlus,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16.h,
-                      color: AppColors.blue_500,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        //Get.toNamed(AppRoutes.homeScreen);
-                        permissionPopUp(
-                            title: AppStrings.cancelSubscription,
-                            context: context,
-                            ontapYes: () {
-                              navigator!.pop();
-                            },
-                            ontapNo: () {});
-                      },
-                      child: CustomText(
-                        text: AppStrings.cancelPlan,
+                ///cancel plan
+                Container(
+                  padding: const EdgeInsets.only(bottom: 16, top: 16),
+                  decoration: const BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(color: AppColors.black_50, width: 1))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CustomText(
+                        text: AppStrings.premiumPlus,
                         fontWeight: FontWeight.w500,
                         fontSize: 16.h,
-                        color: AppColors.red_500,
+                        color: AppColors.blue_500,
                       ),
-                    ),
-                  ],
+                      InkWell(
+                        onTap: () {
+                          //Get.toNamed(AppRoutes.homeScreen);
+                          permissionPopUp(
+                              title: AppStrings.cancelSubscription,
+                              context: context,
+                              ontapYes: () {
+                                navigator!.pop();
+                              },
+                              ontapNo: () {});
+                        },
+                        child: CustomText(
+                          text: AppStrings.cancelPlan,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16.h,
+                          color: AppColors.red_500,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.only(bottom: 16, top: 16),
-                decoration: const BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(color: AppColors.black_50, width: 1))),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CustomText(
-                      text: AppStrings.billedMonthly,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16.h,
-                    ),
-                    CustomText(
-                      text: '\$${50.00}',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16.h,
-                    ),
-                  ],
+                Container(
+                  padding: const EdgeInsets.only(bottom: 16, top: 16),
+                  decoration: const BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(color: AppColors.black_50, width: 1))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CustomText(
+                        text: AppStrings.billedMonthly,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.h,
+                      ),
+                      CustomText(
+                        text: '\$${50.00}',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.h,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.only(bottom: 16, top: 16),
-                decoration: const BoxDecoration(),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CustomText(
-                      text: AppStrings.billingDate,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16.h,
-                    ),
-                    CustomText(
-                      text: '12/13/24',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16.h,
-                    ),
-                  ],
+                Container(
+                  padding: const EdgeInsets.only(bottom: 16, top: 16),
+                  decoration: const BoxDecoration(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CustomText(
+                        text: AppStrings.billingDate,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.h,
+                      ),
+                      CustomText(
+                        text: '12/13/24',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.h,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        );
+        };
       },),
     );
   }

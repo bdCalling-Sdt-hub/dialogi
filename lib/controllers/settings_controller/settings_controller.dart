@@ -13,6 +13,7 @@ class SettingsController extends GetxController {
   FaqContentModel? faqContentModelData;
 
   RxBool isLoading = false.obs;
+  RxBool isGetData = false.obs;
 
   ApiService apiService = ApiService();
 
@@ -96,10 +97,12 @@ class SettingsController extends GetxController {
         faqContentModelData = FaqContentModel.fromJson(jsonData);
         print("=========>${faqContentModelData!.data!.attributes![0].question}<========");
         print("=========>${faqContentModelData!.data!.attributes![0].answer}<========");
+        isGetData.value = true;
 
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);
+        isGetData.value = false;
       }
       isLoading.value = false;
     });

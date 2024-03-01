@@ -6,6 +6,7 @@ import 'package:dialogi_app/controllers/subscription_controllers/subscription_co
 import 'package:dialogi_app/models/payment_model.dart';
 import 'package:dialogi_app/services/api_services.dart';
 import 'package:dialogi_app/services/api_url.dart';
+import 'package:dialogi_app/utils/app_constants.dart';
 import 'package:get/get.dart';
 
 import '../../helper/prefs_helper.dart';
@@ -63,7 +64,9 @@ Future<void> paymentRepo({required String payerId,required String amount, requir
     if(apiResponseModel.statusCode == 200){
 
       var jsonData = jsonDecode(apiResponseModel.responseJson);
-      print("Response Data after payment successful: $jsonData");
+      paymentModel = PaymentModel.fromJson(jsonData);
+      var token = paymentModel!.data!.accessToken;
+      PrefsHelper.setString(AppConstants.bearerToken, token);
 
     } else {
       Get.snackbar(apiResponseModel.statusCode.toString(), apiResponseModel.message);

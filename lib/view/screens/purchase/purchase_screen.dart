@@ -98,7 +98,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                       });
                     },
                     child: Container(
-                      decoration: visaCardChecked? BoxDecoration(
+                      decoration: visaCardChecked? const BoxDecoration(
                         boxShadow: [
                           BoxShadow(
                             blurRadius: 10,
@@ -126,7 +126,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                       });
                     },
                     child: Container(
-                      decoration: masterCardChecked? BoxDecoration(
+                      decoration: masterCardChecked? const BoxDecoration(
                           boxShadow: [
                             BoxShadow(
                                 blurRadius: 10,
@@ -154,7 +154,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                       });
                     },
                     child: Container(
-                      decoration: paypalCardChecked? BoxDecoration(
+                      decoration: paypalCardChecked? const BoxDecoration(
                           boxShadow: [
                             BoxShadow(
                                 blurRadius: 10,
@@ -383,6 +383,8 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                       : "${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].price}",
                     subscriptionName: premium == "true"? "Premium" : "Premium Plus",
                     currency: 'USD', );
+
+                } else{
 
                 }
                 // showDialog(
