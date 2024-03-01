@@ -5,14 +5,18 @@ import 'package:dialogi_app/utils/app_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import '../global/api_response_model.dart';
 import '../helper/prefs_helper.dart';
 import '../services/api_services.dart';
 import '../services/api_url.dart';
+import '../services/socket_service.dart';
 
 class DiscussionDetailsController extends GetxController {
-  bool isLoading = false;
+  Status status = Status.completed;
   bool isMoreLoading = false;
   bool isReplay = false;
+  bool isLike = false;
+  bool isDislike = false;
   bool isLoadingReplay = false;
   List repliesList = [];
   int page = 1;
@@ -20,7 +24,7 @@ class DiscussionDetailsController extends GetxController {
   DiscussionDetailsModel? discussionDetailsModel;
 
   final ScrollController scrollController = ScrollController();
-  TextEditingController replyController = TextEditingController() ;
+  TextEditingController replyController = TextEditingController();
 
   Future<void> scrollControllerCall(String discussionID) async {
     if (scrollController.position.pixels ==
@@ -37,7 +41,7 @@ class DiscussionDetailsController extends GetxController {
     print("=====================================> page $page");
 
     if (page == 1) {
-      isLoading = true;
+      status = Status.loading;
       update();
     }
 
@@ -56,15 +60,16 @@ class DiscussionDetailsController extends GetxController {
 
       print("=======================> ${repliesList.length}");
       page = page + 1;
+      status = Status.completed;
+      update();
+    } else {
+      Utils.snackBarMessage(response.statusCode.toString(), response.message);
+      status = Status.error;
+      update();
     }
-
-    isLoading = false;
-    update();
   }
 
-
   Future<void> addReplyRepo(String DiscussionID) async {
-
     isLoadingReplay = true;
     update();
 
@@ -78,19 +83,19 @@ class DiscussionDetailsController extends GetxController {
       'reply': replyController.text
     };
 
-    var response = await ApiService.postApi(ApiConstant.reply, body,header: header);
+    var response =
+        await ApiService.postApi(ApiConstant.reply, body, header: header);
 
     if (response.statusCode == 201) {
       print("========================================> fgfgjhjh");
-      replyController.clear() ;
-      isMoreLoading = false ;
+      replyController.clear();
+      isMoreLoading = false;
       update();
-      repliesList.clear() ;
-      page = 1 ;
-      await discussionDetailsRepo(DiscussionID) ;
-      isMoreLoading = true ;
+      repliesList.clear();
+      page = 1;
+      await discussionDetailsRepo(DiscussionID);
+      isMoreLoading = true;
       update();
-
     } else {
       Utils.snackBarMessage(response.statusCode.toString(), response.message);
     }
@@ -104,7 +109,144 @@ class DiscussionDetailsController extends GetxController {
   Future<void> addReply() async {
     isReplay = true;
     update();
-
   }
 
+  discussionLike(String discussionId) async {
+    var body = {
+      "type": "discussion", //it can be discussionn or reply
+      "discussion": discussionId, //if type === discussion
+      "user": PrefsHelper.clientId
+    };
+
+    print("================================================> body $body");
+
+    SocketServices.socket.emitWithAck("dialogi-like", body, ack: (data) {
+      isLike = true;
+      update();
+
+      var check = data['message'];
+
+      if (check == "Liked successfully") {
+        discussionDetailsModel!.data!.attributes!.discussion!.likes =
+            discussionDetailsModel!.data!.attributes!.discussion!.likes! + 1;
+      } else {
+        if (discussionDetailsModel!.data!.attributes!.discussion!.likes != 0) {
+          discussionDetailsModel!.data!.attributes!.discussion!.likes =
+              discussionDetailsModel!.data!.attributes!.discussion!.likes! - 1;
+        }
+      }
+
+      isLike = false;
+      update();
+
+      print(
+          "===============================================================> Received acknowledgment: $data");
+      print(
+          "===============================================================> discussionList[index].likes: ${discussionDetailsModel!.data!.attributes!.discussion!.likes}");
+    });
+  }
+
+  replyLike(String replyId, int index) async {
+    var body = {
+      "type": "reply", //it can be discussionn or reply
+      "reply": replyId, //if type === discussion
+      "user": PrefsHelper.clientId
+    };
+
+    print("================================================> body $body");
+
+    SocketServices.socket.emitWithAck("dialogi-like", body, ack: (data) {
+      isLike = true;
+      update();
+
+      var check = data['message'];
+
+      if (check == "Liked successfully") {
+        repliesList[index].likes = repliesList[index].likes + 1;
+      } else {
+        if (repliesList[index].likes != 0) {
+          repliesList[index].likes = repliesList[index].likes - 1;
+        }
+      }
+
+      isLike = false;
+      update();
+
+      print(
+          "===============================================================> Received acknowledgment: $data");
+      print(
+          "===============================================================> discussionList[index].likes: ${discussionDetailsModel!.data!.attributes!.discussion!.likes}");
+    });
+  }
+
+
+  replyDislike(String replyId, int index) async {
+    var body = {
+      "type": "reply", //it can be discussionn or reply
+      "reply": replyId, //if type === discussion
+      "user": PrefsHelper.clientId
+    };
+
+    print("================================================> body $body");
+
+    SocketServices.socket.emitWithAck("dialogi-dislike", body, ack: (data) {
+      isDislike = true;
+      update();
+
+      var check = data['message'];
+
+      if (check == "Disliked successfully") {
+        repliesList[index].dislikes = repliesList[index].dislikes + 1;
+      } else {
+        if (repliesList[index].dislikes != 0) {
+          repliesList[index].dislikes = repliesList[index].dislikes - 1;
+        }
+      }
+
+      isDislike = false;
+      update();
+
+      print(
+          "===============================================================> Received acknowledgment: $data");
+      print(
+          "===============================================================> discussionList[index].likes: ${discussionDetailsModel!.data!.attributes!.discussion!.likes}");
+    });
+  }
+
+  discussionDislike(String discussionId) async {
+    var body = {
+      "type": "discussion", //it can be discussionn or reply
+      "discussion": discussionId, //if type === discussion
+      "user": PrefsHelper.clientId
+    };
+
+    print("================================================> body $body");
+
+    SocketServices.socket.emitWithAck("dialogi-dislike", body, ack: (data) {
+      isDislike = true;
+      update();
+
+      var check = data['message'];
+
+      if (check == "Disliked successfully") {
+        discussionDetailsModel!.data!.attributes!.discussion!.dislikes =
+            discussionDetailsModel!.data!.attributes!.discussion!.dislikes! + 1;
+      } else {
+        if (discussionDetailsModel!.data!.attributes!.discussion!.dislikes !=
+            0) {
+          discussionDetailsModel!.data!.attributes!.discussion!.dislikes =
+              discussionDetailsModel!.data!.attributes!.discussion!.dislikes! -
+                  1;
+        }
+      }
+
+      isDislike = false;
+      update();
+
+      print(
+          "===============================================================> Received acknowledgment: $data");
+      print(
+          "===============================================================> discussionList[index].dislikes: ${discussionDetailsModel!.data!.attributes!.discussion!.likes}");
+    });
+  }
 }

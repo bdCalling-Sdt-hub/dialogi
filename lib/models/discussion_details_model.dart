@@ -5,7 +5,7 @@ class DiscussionDetailsModel {
   Data? data;
 
   DiscussionDetailsModel(
-      {this.status, this.statusCode, this.message, this.data, });
+      {this.status, this.statusCode, this.message, this.data,});
 
   DiscussionDetailsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -79,7 +79,7 @@ class Attributes {
 class Discussion {
   String? sId;
   String? discussion;
-  DiscussionUser? user;
+  User? user;
   int? likes;
   int? dislikes;
   List<Replies>? replies;
@@ -95,7 +95,7 @@ class Discussion {
   Discussion.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     discussion = json['discussion'];
-    user = json['user'] != null ? new DiscussionUser.fromJson(json['user']) : null;
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
     likes = json['likes'];
     dislikes = json['dislikes'];
     if (json['replies'] != null) {
@@ -122,14 +122,14 @@ class Discussion {
   }
 }
 
-class DiscussionUser {
+class User {
   String? sId;
   String? fullName;
   String? image;
 
-  DiscussionUser({this.sId, this.fullName, this.image});
+  User({this.sId, this.fullName, this.image});
 
-  DiscussionUser.fromJson(Map<String, dynamic> json) {
+  User.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     fullName = json['fullName'];
     image = json['image'];
@@ -170,25 +170,6 @@ class Replies {
     }
     data['likes'] = this.likes;
     data['dislikes'] = this.dislikes;
-    return data;
-  }
-}
-
-class User {
-  String? fullName;
-  String? image;
-
-  User({this.fullName, this.image});
-
-  User.fromJson(Map<String, dynamic> json) {
-    fullName = json['fullName'];
-    image = json['image'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['fullName'] = this.fullName;
-    data['image'] = this.image;
     return data;
   }
 }

@@ -58,10 +58,7 @@ dependencies:
   flutter_stripe: ^10.0.0
   flutter_dotenv: ^5.1.0
   mime: ^1.0.4
-  animated_item_picker: ^2.0.0
-  json_annotation: ^4.8.1
-
-
+  socket_io_client: ^2.0.3+1
 
 dev_dependencies:
   flutter_test:

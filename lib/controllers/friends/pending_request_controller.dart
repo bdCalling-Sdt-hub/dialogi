@@ -5,12 +5,12 @@ import 'package:dialogi_app/utils/app_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../helper/prefs_helper.dart';
+import '../../global/api_response_model.dart';
 import '../../services/api_services.dart';
 import '../../services/api_url.dart';
 
 class PendingRequestController extends GetxController {
-  bool isLoading = false;
+  Status status = Status.completed;
   bool isMoreLoading = false;
   bool actionIsLoading = false;
   List friendRequestList = [];
@@ -33,15 +33,14 @@ class PendingRequestController extends GetxController {
 
   Future<void> pendingRequestRepo() async {
     if (page == 1) {
-      isLoading = true;
+      status = Status.loading;
       update();
     }
 
     var response = await ApiService.getApi(
         "${ApiConstant.friends}?status=pending&page=$page");
 
-
-    print("====================> body ${response.responseJson}") ;
+    print("====================> body ${response.responseJson}");
 
     if (response.statusCode == 200) {
       print(response.responseJson);
@@ -49,22 +48,22 @@ class PendingRequestController extends GetxController {
           FriendModel.fromJson(jsonDecode(response.responseJson));
 
       for (var item in pendingRequestModel!.data!.attributes!.friendList!) {
-
-        if(item.participants!.length == 2){
-          friendRequestList.add(item);
-
-        }
+        friendRequestList.add(item);
       }
       page = page + 1;
-    }else {
-      Utils.snackBarMessage(response.statusCode.toString(), response.message) ;
+      status = Status.completed;
+      update();
+    } else {
+      Utils.snackBarMessage(response.statusCode.toString(), response.message);
+      status = Status.error;
+      update();
     }
 
-    isLoading = false;
-    update();
+
   }
 
-  Future<void> requestActionRepo(String userId, String status, int index) async {
+  Future<void> requestActionRepo(
+      String userId, String status, int index) async {
     actionIsLoading = true;
     update();
 
@@ -72,25 +71,43 @@ class PendingRequestController extends GetxController {
       "status": status,
     };
 
-
-    print("===========================>body $body") ;
-    print("===========================>body ${ApiConstant.friends}/$userId") ;
-    var response = await ApiService.putApi(
-        "${ApiConstant.friends}/$userId", body);
+    print("===========================>body $body");
+    print("===========================>body ${ApiConstant.friends}/$userId");
+    var response =
+        await ApiService.putApi("${ApiConstant.friends}/$userId", body);
 
     print(response.responseJson);
 
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       print(response.responseJson);
 
-
       friendRequestList.removeAt(index);
-
+      update();
     } else {
-      Utils.snackBarMessage(response.statusCode.toString(), response.message) ;
+      Utils.snackBarMessage(response.statusCode.toString(), response.message);
     }
 
     actionIsLoading = false;
     update();
+  }
+
+  String getFormattedDate(String dateString) {
+    // String dateString = "2024-02-01T04:39:03.524Z";
+    DateTime originalDateTime = DateTime.parse(dateString);
+    DateTime currentDateTime = DateTime.now();
+
+    Duration difference = currentDateTime.difference(originalDateTime);
+    if (difference.inDays == 0) {
+      if (difference.inHours == 0) {
+        return ("${difference.inMinutes} minutes ago");
+      } else {
+        return ("${difference.inHours} hours ago");
+      }
+    } else {
+      var createdAtTime = dateString.split(".")[0];
+      var date = createdAtTime.split("T")[0];
+      var time = createdAtTime.split("T")[1];
+      return "${date} at $time";
+    }
   }
 }

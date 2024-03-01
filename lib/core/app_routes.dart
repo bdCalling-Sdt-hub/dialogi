@@ -11,6 +11,7 @@ import 'package:dialogi_app/view/screens/category_details/category_details.dart'
 import 'package:dialogi_app/view/screens/chat/%20chat_premium/chat_premium_screen.dart';
 import 'package:dialogi_app/view/screens/chat/chat/chat_screen.dart';
 import 'package:dialogi_app/view/screens/chat/chat_list/chat_list_screen.dart';
+import 'package:dialogi_app/view/screens/favorite/favorite_list_screen.dart';
 import 'package:dialogi_app/view/screens/friends/friends/friends_screen.dart';
 import 'package:dialogi_app/view/screens/friends/friends_profile/friends_profile_screen.dart';
 import 'package:dialogi_app/view/screens/group_chat/group_chat/group_chat.dart';
@@ -84,6 +85,7 @@ class AppRoutes {
   static String groupMembers = "/group_members";
   static String discussionDetails = "/discussion_details_screen.dart";
   static String noInternet = "/no_internet_screen.dart";
+  static String favoriteList = "/favorite_list_screen.dart";
 
   static List<GetPage> routes = [
     GetPage(name: splashScreen, page: () => const SplashScreen()),
@@ -136,5 +138,6 @@ class AppRoutes {
     GetPage(name: groupMembers, page: () => const GroupMembers()),
     GetPage(name: discussionDetails, page: () => const DiscussionDetailsScreen()),
     GetPage(name: noInternet, page: () => const NoInternet()),
+    GetPage(name: favoriteList, page: () => const FavoriteListScreen()),
   ];
 }

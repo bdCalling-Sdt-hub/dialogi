@@ -49,8 +49,12 @@ class ProfileUserDetails extends StatelessWidget {
         children: [
           customRow(icon: AppIcons.person, title: name),
           customRow(icon: AppIcons.mail, title: email),
-          customRow(icon: AppIcons.dob, title: dob),
-          customRow(icon: AppIcons.location, title: address),
+          dob.isNotEmpty
+              ? customRow(icon: AppIcons.dob, title: dob)
+              : const SizedBox(),
+          address.isNotEmpty
+              ? customRow(icon: AppIcons.location, title: address)
+              : const SizedBox(),
         ],
       ),
     );

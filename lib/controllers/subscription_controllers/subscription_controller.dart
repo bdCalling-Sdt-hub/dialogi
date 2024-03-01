@@ -6,7 +6,6 @@ import 'package:dialogi_app/services/api_services.dart';
 import 'package:dialogi_app/services/api_url.dart';
 import 'package:get/get.dart';
 
-import '../../core/app_routes.dart';
 
 class SubscriptionController extends GetxController{
 
@@ -22,9 +21,9 @@ class SubscriptionController extends GetxController{
     ApiService.getApi(ApiConstant.subscriptions).then((apiResponseModel) {
 
 
-      // print("${apiResponseModel.statusCode}") ;
-      // print("${apiResponseModel.message}") ;
-      // print("${apiResponseModel.responseJson}") ;
+      print("${apiResponseModel.statusCode}") ;
+      print("${apiResponseModel.message}") ;
+      print("${apiResponseModel.responseJson}") ;
 
       if(apiResponseModel.statusCode == 200){
 

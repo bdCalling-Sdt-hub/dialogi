@@ -1,3 +1,4 @@
+import 'package:dialogi_app/controllers/group_chat/select_friends_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
@@ -12,6 +13,8 @@ void createGroupPopUp(
     {required BuildContext context,
     String title = AppStrings.setGroupName,
     String buttonText = AppStrings.create}) {
+  final SelectFriendsController selectFriendsController =
+      Get.put(SelectFriendsController());
   showDialog(
     context: context,
     builder: (context) {
@@ -28,7 +31,8 @@ void createGroupPopUp(
                 fontWeight: FontWeight.w500,
                 text: AppStrings.setName,
               ),
-              const CustomTextField(
+              CustomTextField(
+                textEditingController: selectFriendsController.nameController,
                 hintText: AppStrings.entertheName,
               ),
               SizedBox(
@@ -36,7 +40,8 @@ void createGroupPopUp(
                 child: CustomElevatedButton(
                     onPressed: () {
                       navigator!.pop();
-                      Get.toNamed(AppRoutes.groupChat);
+                      selectFriendsController.createNewGroup() ;
+
                     },
                     titleText: buttonText),
               )

@@ -1,5 +1,6 @@
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/global/dependncy.dart';
+import 'package:dialogi_app/services/socket_service.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -27,6 +28,7 @@ Future<void> main() async {
   dI.dependencies();
   configureTts();
   await PrefsHelper.getAllPrefData() ;
+  SocketServices.connectToSocket();
   runApp(const MyApp());
 
   /* runApp(

@@ -27,4 +27,6 @@ class ApiConstant {
   static const faqs = "$baseUrl/api/faqs";
   static const changePassword = "$baseUrl/api/users/change-password";
   static const friendProfile = "$baseUrl/api/users/profile-details";
+  static const chats = "$baseUrl/api/chats";
+  static const messages = "$baseUrl/api/messages";
 }

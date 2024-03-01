@@ -1,10 +1,12 @@
 import 'package:dialogi_app/controllers/friends/pending_request_controller.dart';
+import 'package:dialogi_app/global/api_response_model.dart';
 import 'package:dialogi_app/services/api_url.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/container/custom_pending_requests.dart';
+import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -59,24 +61,32 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
           ],
         )),
         body: GetBuilder<PendingRequestController>(builder: (controller) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-            child: ListView.builder(
-                itemCount: controller.friendRequestList.length,
-                itemBuilder: (BuildContext context, int index) {
-
-                  var item = controller.friendRequestList.isNotEmpty ? controller.friendRequestList[index].participants[0].sId == PrefsHelper.clientId ?
-                  controller.friendRequestList[index].participants[1] :
-                  controller.friendRequestList[index].participants[0] : null
-                  ;
-                  return CustomPendingRequests(
-                      pendingText: item.fullName,
-                      image: "${ApiConstant.baseUrl}/${item.image}",
-                      timeText: '1 hour ago',
-                      onTapReject: () => controller.requestActionRepo(item.sId, "rejected", index),
-                      onTapAccept: () => controller.requestActionRepo(item.sId, "accepted", index),);
-                }),
-          );
+          return switch (controller.status) {
+            Status.loading => const Center(child: CircularProgressIndicator()),
+            Status.error => ErrorScreen(onTap: () {
+                controller.page = 1;
+                controller.pendingRequestRepo();
+              }),
+            Status.completed => Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+                child: ListView.builder(
+                    itemCount: controller.friendRequestList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      var item = controller.friendRequestList[index];
+                      return CustomPendingRequests(
+                        pendingText: item.participants[0].fullName,
+                        image:
+                            "${ApiConstant.baseUrl}/${item.participants[0].image}",
+                        timeText: controller.getFormattedDate(item.createdAt),
+                        onTapReject: () => controller.requestActionRepo(
+                            item.sId, "rejected", index),
+                        onTapAccept: () => controller.requestActionRepo(
+                            item.sId, "accepted", index),
+                      );
+                    }),
+              ),
+          };
         }));
   }
 }

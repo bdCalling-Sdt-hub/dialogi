@@ -10,3 +10,6 @@ class ApiResponseModel {
   String get responseJson => _responseJson;
   int get statusCode => _statusCode;
 }
+
+
+enum Status { loading, error, completed }

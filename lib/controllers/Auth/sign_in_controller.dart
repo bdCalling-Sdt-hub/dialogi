@@ -11,15 +11,16 @@ import 'package:get/get.dart';
 
 import '../../core/app_routes.dart';
 import '../../services/api_url.dart';
+import '../../testScreen/success_login.dart';
 
 
 class SignInController extends GetxController {
   bool signInLoading = false;
 
   TextEditingController emailController =
-      TextEditingController(text: kDebugMode ? "siamjht@gmail.com" : "");
+      TextEditingController(text: kDebugMode ? "user.dialogi@gmail.com" : "");
   TextEditingController passwordController =
-      TextEditingController(text: kDebugMode ? "hello999" : "");
+      TextEditingController(text: kDebugMode ? "hello123" : "");
 
   var headers = {
     'Content-Type': 'application/json',
@@ -49,10 +50,14 @@ class SignInController extends GetxController {
 
       PrefsHelper.setString(AppConstants.bearerToken, data['data']["accessToken"]);
       PrefsHelper.setString("clientId", data['data']["attributes"]["_id"]);
+      PrefsHelper.setString("myImage", data['data']["attributes"]["image"]);
+      PrefsHelper.setString("myName", data['data']["attributes"]["fullName"]);
 
 
       PrefsHelper.token = data['data']["accessToken"];
       PrefsHelper.clientId = data['data']["attributes"]["_id"];
+      PrefsHelper.myImage = data['data']["attributes"]["image"];
+      PrefsHelper.myName = data['data']["attributes"]["fullName"];
 
 
       print("==========================================->clientId ${data['data']["attributes"]["_id"]}") ;
@@ -62,6 +67,9 @@ class SignInController extends GetxController {
       Get.toNamed(AppRoutes.homeScreen);
       emailController.clear();
       passwordController.clear();
+      signInLoading = false;
+      update();
+
     } else {
       Get.snackbar(response.statusCode.toString(), response.message);
     }
@@ -76,6 +84,7 @@ class SignInController extends GetxController {
 
       final user = await GoogleSignInService.login();
       await user?.authentication;
+
       // log(user!.displayName.toString());
       // log(user.email);
       // log(user.id);
@@ -125,6 +134,7 @@ class SignInController extends GetxController {
         //       ],
         //     )
         // );
+
       }
 
       signInLoading = false;
