@@ -88,24 +88,24 @@ class _ChatPremiumScreenState extends State<ChatPremiumScreen> {
               controller: pageController,
               scrollDirection: Axis.horizontal,
               child: const Row(children: [
-                CustomPremiumCard(
-                  isPremiumPlus: true,
-                    imageSrc: AppImages.premium,
-                    premiumText: 'Premium',
-                    getDialogiText: 'Get Dialogi Premium \$${50}/month',
-                    length: 3,
-                    addText: 'Ad-free experience'),
-                CustomPremiumCard(
-                  isPremiumPlus: false,
-                  imageSrc: AppImages.premium,
-                  premiumText: 'Premium Plus',
-                  getDialogiText: 'Get Dialogi Premium \$${100}/month',
-                  length: 7,
-                  addText: 'All premium features',
-                  addTextColor: Colors.white,
-                  premiumTextColor: Colors.white,
-                  getDialogiTextColor: Colors.white,
-                )
+                // CustomPremiumCard(
+                //   isPremiumPlus: true,
+                //     imageSrc: AppImages.premium,
+                //     premiumText: 'Premium',
+                //     getDialogiText: 'Get Dialogi Premium \$${50}/month',
+                //     length: 3,
+                //     addText: 'Ad-free experience'),
+                // CustomPremiumCard(
+                //   isPremiumPlus: false,
+                //   imageSrc: AppImages.premium,
+                //   premiumText: 'Premium Plus',
+                //   getDialogiText: 'Get Dialogi Premium \$${100}/month',
+                //   length: 7,
+                //   addText: 'All premium features',
+                //   addTextColor: Colors.white,
+                //   premiumTextColor: Colors.white,
+                //   getDialogiTextColor: Colors.white,
+                // )
               ]),
             ),
             Column(

@@ -96,21 +96,9 @@ class _SubscriptionsScreenState extends State<SubscriptionsScreen> {
                   child: Row(children: [
                     CustomPremiumCard(
                       isPremiumPlus: false,
-                        imageSrc: AppImages.premium,
-                        premiumText: subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[0].name.toString() ?? "Premium",
-                        getDialogiText: 'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[0].price ?? 00}/month',
-                        length: 3,
-                        addText: 'Ad-free experience'),
+                    ),
                     CustomPremiumCard(
                       isPremiumPlus: true,
-                      imageSrc: AppImages.premium,
-                      premiumText: subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[1].name.toString() ?? "Premium Plus",
-                      getDialogiText: 'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[1].price ?? 00}/month',
-                      length: 7,
-                      addText: 'All premium features',
-                      addTextColor: Colors.white,
-                      premiumTextColor: Colors.white,
-                      getDialogiTextColor: Colors.white,
                     )
                   ]),
                 ),

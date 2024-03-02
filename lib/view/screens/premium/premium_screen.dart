@@ -93,37 +93,10 @@ class _PremiumScreenState extends State<PremiumScreen> {
                       scrollDirection: Axis.horizontal,
                       child: Row(children: [
                         CustomPremiumCard(
-                            imageSrc: AppImages.premium,
-                            premiumText: subscriptionController
-                                .subscriptionsPlanModel!
-                                .data!
-                                .attributes!
-                                .subscriptionsList![0]
-                                .name
-                                .toString(),
-                            getDialogiText:
-                                'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].price}/month',
-                            length: 3,
-                            addText: 'Ad-free experience',
                           isPremiumPlus: false,
                         ),
                         CustomPremiumCard(
                           isPremiumPlus: true,
-                          imageSrc: AppImages.premium,
-                          premiumText: subscriptionController
-                              .subscriptionsPlanModel!
-                              .data!
-                              .attributes!
-                              .subscriptionsList![1]
-                              .name
-                              .toString(),
-                          getDialogiText:
-                              'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].price}/month',
-                          length: 7,
-                          addText: 'All premium features',
-                          addTextColor: Colors.white,
-                          premiumTextColor: Colors.white,
-                          getDialogiTextColor: Colors.white,
                         )
                       ]),
                     ),
