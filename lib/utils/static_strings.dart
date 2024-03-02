@@ -68,6 +68,8 @@ class AppStrings {
   static const String gotoSubscriptions = "Go to Subscriptions";
   static const String ques = "Ques";
   static const String pendingRequests = "Pending Requests";
+  static const String friendRequests = "Friend Requests";
+  static const String communityRequests = "Community Requests";
 
   //Chat
   static const String chat = "Chat";
@@ -203,4 +205,15 @@ class AppStrings {
   static const String favoriteList = "Favorite List";
   static const String selectMember = "Select Member";
   static const String pleaseSelectAtLeastTwoMembers = "Please, select at least two members";
+  static const String createNewCommunity = "Create New Community";
+  static const String communityMembers = "Community members";
+  static const String changeCommunityName = "Change Community Name";
+  static const String leaveCommunity = "Leave Community";
+  static const String doYouWantToLeaveThisCommunity =
+      "Do you want to leave this Community?";
+
+
+
+
+
 }

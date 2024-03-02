@@ -1,4 +1,4 @@
-import 'package:dialogi_app/controllers/group_chat/group_member_controller.dart';
+import 'package:dialogi_app/controllers/community/community_member_controller.dart';
 import 'package:dialogi_app/global/api_response_model.dart';
 import 'package:dialogi_app/services/api_url.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
@@ -10,31 +10,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class GroupMembers extends StatefulWidget {
-  GroupMembers({super.key});
+class CommunityMembers extends StatefulWidget {
+  const CommunityMembers({super.key});
 
   @override
-  State<GroupMembers> createState() => _GroupMembersState();
+  State<CommunityMembers> createState() => _CommunityMembersState();
 }
 
-class _GroupMembersState extends State<GroupMembers> {
-  String chatId = Get.parameters["chatId"] ?? "";
+class _CommunityMembersState extends State<CommunityMembers> {
+  String chatId = "65e2c2f1c40b89a8d280ac90";
 
-  final GroupMemberController groupMemberController =
-      Get.put(GroupMemberController());
+  CommunityMemberController communityMemberController = Get.put(CommunityMemberController()) ;
+
 
   @override
   void initState() {
-    groupMemberController.groupMemberRepo(chatId);
-    groupMemberController.scrollController.addListener(() {
-      groupMemberController.scrollControllerCall(chatId);
+    communityMemberController.communityMemberRepo(chatId) ;
+    communityMemberController.scrollController.addListener(() {
+      communityMemberController.scrollControllerCall(chatId) ;
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print("=====================chatId $chatId");
 
     return Scaffold(
         appBar: CustomAppBar(
@@ -53,26 +52,26 @@ class _GroupMembersState extends State<GroupMembers> {
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                   color: AppColors.blue_500,
-                  text: AppStrings.groupMembers,
+                  text: AppStrings.communityMembers,
                 ),
               ),
             )
           ],
         )),
-        body: GetBuilder<GroupMemberController>(
+        body: GetBuilder<CommunityMemberController>(
           builder: (controller) {
             return switch (controller.status) {
               Status.loading =>
                 const Center(child: CircularProgressIndicator()),
-              Status.error =>
-                ErrorScreen(onTap: () => controller.groupMemberRepo(chatId)),
+              Status.error => ErrorScreen(
+                  onTap: () => controller.communityMemberRepo(chatId)),
               Status.completed => Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
                   child: ListView.builder(
-                    itemCount: controller.memberList.length,
+                    itemCount: controller.communityList.length,
                     itemBuilder: (context, index) {
-                      var item = controller.memberList[index];
+                      var item = controller.communityList[index];
 
                       return Column(
                         children: [
@@ -85,8 +84,7 @@ class _GroupMembersState extends State<GroupMembers> {
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
                                         fit: BoxFit.cover,
-                                        image: NetworkImage(
-                                            "${ApiConstant.baseUrl}${item.image}"))),
+                                        image: NetworkImage("${ApiConstant.baseUrl}${item.image}"))),
                               ),
                               CustomText(
                                 left: 16,
@@ -96,7 +94,6 @@ class _GroupMembersState extends State<GroupMembers> {
                               ),
                             ],
                           ),
-                          const Divider()
                           // if (index != lastIndex)
                           //   Container(
                           //     height: 2.h,

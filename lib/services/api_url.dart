@@ -1,6 +1,6 @@
 class ApiConstant {
   ///<<<=================Base Url=========================>>>
-  static const baseUrl = "http://192.168.10.18:3000";
+  static const baseUrl = "http://103.145.138.78:3000";
   // static const baseUrl = "http://103.145.138.78:4000";
 
 
@@ -23,6 +23,7 @@ class ApiConstant {
   static const payments = "$baseUrl/api/payments";
   static const friends = "$baseUrl/api/friends";
   static const getGroupFriends = "$baseUrl/api/friends/group";
+  static const premiumPlus = "$baseUrl/api/users/premium-plus";
   static const privacyPolicy = "$baseUrl/api/privacy-policies";
   static const aboutUs = "$baseUrl/api/about-us";
   static const supports = "$baseUrl/api/supports";
@@ -32,4 +33,8 @@ class ApiConstant {
   static const chats = "$baseUrl/api/chats";
   static const messages = "$baseUrl/api/messages";
   static const favourite = "$baseUrl/api/favourites";
+  static const sameCommunity = "$baseUrl/api/chats/by-category";
+  static const communityChat = "$baseUrl/api/chats/community-chat";
+  static const leave = "$baseUrl/api/chats/leave-group";
+  static const joinCommunity = "$baseUrl/api/chats/join-community";
 }

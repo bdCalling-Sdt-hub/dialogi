@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 import 'package:dialogi_app/helper/prefs_helper.dart';
 import 'package:dialogi_app/services/api_services.dart';
@@ -28,8 +26,8 @@ class PasswordController extends GetxController {
 
   ///<<<============== Settings Reset Password Controllers ======================>>>
   TextEditingController settingsPasswordController = TextEditingController();
-  TextEditingController settingsConfirmPasswordController = TextEditingController();
-
+  TextEditingController settingsConfirmPasswordController =
+      TextEditingController();
 
   bool isLoading = false;
 
@@ -66,11 +64,10 @@ class PasswordController extends GetxController {
 
   ///<<<===================Verify Password Repo==============================>>>
 
-  Future<void> verifyOtpRepo() async{
+  Future<void> verifyOtpRepo() async {
     isLoading = true;
     update();
-    Map<String, String> body =
-    {
+    Map<String, String> body = {
       "email": emailController.text,
       "otp": otpController.text
     };
@@ -79,16 +76,15 @@ class PasswordController extends GetxController {
       body,
     );
 
-    if(response.statusCode == 200){
-      
+    if (response.statusCode == 200) {
       var responseData = jsonDecode(response.responseJson);
 
-      print("///////////////////////${responseData['data']["forgetPasswordToken"]}////////////////////");
+      print(
+          "///////////////////////${responseData['data']["forgetPasswordToken"]}////////////////////");
 
       PrefsHelper.setString(AppConstants.forgetPasswordToken,
           responseData['data']["forgetPasswordToken"]);
       Get.toNamed(AppRoutes.resetPasswordScreen);
-
     } else if (response.statusCode == 400) {
       Utils.toastMessage(response.message);
     } else {
@@ -104,23 +100,20 @@ class PasswordController extends GetxController {
   Future<void> resetPasswordRepo() async {
     isLoading = true;
     update();
-    Map<String, String> header =
-    {
-      "Forget-password" : "Forget-password ${PrefsHelper.forgetPasswordToken}",
+    Map<String, String> header = {
+      "Forget-password": "Forget-password ${PrefsHelper.forgetPasswordToken}",
     };
 
-    Map<String, String> body =
-    {
+    Map<String, String> body = {
       "email": emailController.text,
       "password": passwordController.text
     };
-    var response = await ApiService.postApi(ApiConstant.resetPassword, body, header: header);
+    var response = await ApiService.postApi(ApiConstant.resetPassword, body,
+        header: header);
 
     if (response.statusCode == 200) {
-
       Utils.toastMessage(response.message);
       Get.toNamed(AppRoutes.signInScreen);
-
     } else if (response.statusCode == 400) {
       Utils.toastMessage(response.message);
     } else {
@@ -145,8 +138,8 @@ class PasswordController extends GetxController {
       "oldPassword": currentPasswordController.text,
       "newPassword": newPasswordController.text
     };
-    var response =
-        await ApiService.patchApi(ApiConstant.changePassword, body, header);
+    var response = await ApiService.patchApi(ApiConstant.changePassword,
+        body: body, header: header);
 
     print('++++++++++++++++++++ ${response.responseJson} ++++++++++++++++++');
 
@@ -167,8 +160,6 @@ class PasswordController extends GetxController {
     update();
   }
 
-
-
   ///<<<================ Settings Forget Password Repo ======================>>>
 
   Future<void> settingsForgetPasswordRepo() async {
@@ -186,13 +177,12 @@ class PasswordController extends GetxController {
       body,
     );
 
-    print("--------------------Status Code: ${response.statusCode}--------------------");
+    print(
+        "--------------------Status Code: ${response.statusCode}--------------------");
 
     if (response.statusCode == 200) {
-
       Utils.toastMessage(AppConstants.otpSend);
       Get.toNamed(AppRoutes.settingsGetOtp);
-
     } else if (response.statusCode == 404) {
       Utils.toastMessage(AppConstants.userNotExist);
     } else {
@@ -217,8 +207,7 @@ class PasswordController extends GetxController {
       body,
     );
 
-    print(
-        "///////////////////////${response.message}////////////////////");
+    print("///////////////////////${response.message}////////////////////");
 
     if (response.statusCode == 200) {
       var responseData = jsonDecode(response.responseJson);
@@ -228,10 +217,10 @@ class PasswordController extends GetxController {
 
       PrefsHelper.setString(AppConstants.forgetPasswordToken,
           responseData['data']["forgetPasswordToken"]);
-      PrefsHelper.forgetPasswordToken = responseData['data']["forgetPasswordToken"];
+      PrefsHelper.forgetPasswordToken =
+          responseData['data']["forgetPasswordToken"];
 
       Get.toNamed(AppRoutes.settingsResetPasswordScreen);
-
     } else if (response.statusCode == 400) {
       Utils.toastMessage(response.message);
     } else {
@@ -241,7 +230,6 @@ class PasswordController extends GetxController {
     isLoading = false;
     update();
   }
-
 
   ///<<<================== Settings Reset Password Repo =============================>>>
 
@@ -260,10 +248,8 @@ class PasswordController extends GetxController {
         header: header);
 
     if (response.statusCode == 200) {
-
       Utils.toastMessage(response.message);
       Get.offNamed(AppRoutes.settingsScreen);
-
     } else if (response.statusCode == 400) {
       Utils.toastMessage(response.message);
     } else {

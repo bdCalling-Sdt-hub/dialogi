@@ -73,7 +73,7 @@ class _GroupChatState extends State<GroupChat> {
                     fontWeight: FontWeight.w500,
                     color: AppColors.blue_500,
                   ),
-                  const GroupChatPopUps()
+                  // const GroupChatPopUps()
                 ],
               )),
               body: ListView.builder(

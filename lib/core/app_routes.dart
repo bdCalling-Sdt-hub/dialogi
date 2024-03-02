@@ -11,6 +11,9 @@ import 'package:dialogi_app/view/screens/category_details/category_details.dart'
 import 'package:dialogi_app/view/screens/chat/%20chat_premium/chat_premium_screen.dart';
 import 'package:dialogi_app/view/screens/chat/chat/chat_screen.dart';
 import 'package:dialogi_app/view/screens/chat/chat_list/chat_list_screen.dart';
+import 'package:dialogi_app/view/screens/community/community.dart';
+import 'package:dialogi_app/view/screens/community/community_member.dart';
+import 'package:dialogi_app/view/screens/community/same_community.dart';
 import 'package:dialogi_app/view/screens/favorite/favorite_list_screen.dart';
 import 'package:dialogi_app/view/screens/friends/friends/friends_screen.dart';
 import 'package:dialogi_app/view/screens/friends/friends_profile/friends_profile_screen.dart';
@@ -84,10 +87,13 @@ class AppRoutes {
   static String selectFriends = "/select_friends";
   static String groupChat = "/group_chat";
   static String groupMembers = "/group_members";
+  static String communityMembers = "/community_member.dart";
   static String discussionDetails = "/discussion_details_screen.dart";
   static String noInternet = "/no_internet_screen.dart";
   static String favoriteList = "/favorite_list_screen.dart";
   static String communitySelectFriends = "/community_select_friend.dart";
+  static String sameCommunity = "/same_community.dart";
+  static String community = "/community.dart";
 
   static List<GetPage> routes = [
     GetPage(name: splashScreen, page: () => const SplashScreen()),
@@ -136,7 +142,7 @@ class AppRoutes {
     GetPage(name: purchaseScreen, page: () => const PurchaseScreen()),
     GetPage(name: selectFriends, page: () => const SelectFriendsGroupChat()),
     GetPage(name: groupChat, page: () => const GroupChat()),
-    GetPage(name: groupMembers, page: () => const GroupMembers()),
+    GetPage(name: groupMembers, page: () => GroupMembers()),
     GetPage(
         name: discussionDetails, page: () => const DiscussionDetailsScreen()),
     GetPage(name: noInternet, page: () => const NoInternet()),
@@ -144,5 +150,8 @@ class AppRoutes {
     GetPage(
         name: communitySelectFriends,
         page: () => const CommunitySelectFriends()),
+    GetPage(name: sameCommunity, page: () => const SameCommunity()),
+    GetPage(name: communityMembers, page: () => const CommunityMembers()),
+    GetPage(name: community, page: () => const Community()),
   ];
 }

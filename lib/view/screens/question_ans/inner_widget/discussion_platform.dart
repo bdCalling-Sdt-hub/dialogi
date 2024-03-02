@@ -59,7 +59,7 @@ void chooseDiscussPlatform({required BuildContext context}) {
                     onPressed: () {
                       navigator!.pop();
                       if(selectedPlatform == AppStrings.community) {
-                        Get.toNamed(AppRoutes.communitySelectFriends) ;
+                        Get.toNamed(AppRoutes.sameCommunity) ;
                       } else {
                         Get.toNamed(AppRoutes.selectFriends,
                             parameters: {"discussPlatform": selectedPlatform});

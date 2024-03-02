@@ -37,7 +37,6 @@ class _FriendsScreenState extends State<FriendsScreen> {
     return Scaffold(
         bottomNavigationBar: const NavBar(currentIndex: 2),
         appBar: const CustomAppBar(
-          appBarHeight: 40,
             appBarContent: Center(
           child: CustomText(
             text: AppStrings.allFriends,

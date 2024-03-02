@@ -1,4 +1,4 @@
-import 'package:dialogi_app/controllers/group_chat/group_member_controller.dart';
+import 'package:dialogi_app/controllers/community/community_member_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
@@ -14,12 +14,12 @@ enum SampleItem {
   itemfour,
 }
 
-class GroupChatPopUps extends StatelessWidget {
-  GroupChatPopUps({super.key, required this.chatId});
+class CommunityChatPopUps extends StatelessWidget {
+  CommunityChatPopUps({super.key, required this.chatId});
 
-  String chatId;
-  
-  final GroupMemberController groupMemberController = Get.put(GroupMemberController()) ;
+  String chatId ;
+
+  final CommunityMemberController communityMemberController = Get.put(CommunityMemberController()) ;
 
   @override
   Widget build(BuildContext context) {
@@ -37,13 +37,11 @@ class GroupChatPopUps extends StatelessWidget {
           child: GestureDetector(
               onTap: () {
                 navigator!.pop();
-                Get.toNamed(AppRoutes.groupMembers, parameters: {
-                  "chatId": chatId,
-                });
+                Get.toNamed(AppRoutes.communityMembers);
               },
               child: const CustomText(
                 fontSize: 14,
-                text: AppStrings.groupMembers,
+                text: AppStrings.communityMembers,
               )),
         ),
         //================================change Group Name=============================
@@ -55,12 +53,12 @@ class GroupChatPopUps extends StatelessWidget {
                 navigator!.pop();
                 createGroupPopUp(
                     context: context,
-                    title: AppStrings.changeGroupName,
+                    title: AppStrings.changeCommunityName,
                     buttonText: AppStrings.change);
               },
               child: const CustomText(
                 fontSize: 14,
-                text: AppStrings.changeGroupName,
+                text: AppStrings.changeCommunityName,
               )),
         ),
 
@@ -90,14 +88,14 @@ class GroupChatPopUps extends StatelessWidget {
 
                 permissionPopUp(
                     context: context,
-                    ontapYes: () => groupMemberController.leaveCommunityRepo(chatId),
+                    ontapYes: () => communityMemberController.leaveCommunityRepo(chatId),
                     ontapNo: () {},
                     title: AppStrings.doYouWantToLeaveThisGroup);
               },
               child: const CustomText(
                 fontSize: 14,
                 color: AppColors.red_400,
-                text: AppStrings.leaveGroup,
+                text: AppStrings.leaveCommunity,
               )),
         ),
       ],

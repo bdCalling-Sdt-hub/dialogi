@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:dialogi_app/helper/prefs_helper.dart';
-import 'package:dialogi_app/models/select_group_member_model.dart';
+import 'package:dialogi_app/models/premium_plus_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,10 +20,11 @@ class CommunitySelectFriendsController extends GetxController {
   List friendList = [];
   List<bool> selectedFriends = [];
   bool isCreateGroup = false;
+  bool isCreateCommunity = false;
 
   List<String> selectedParticipants = [PrefsHelper.clientId];
 
-  SelectGroupMemberModel? friendListModel;
+  PremiumPlusModel? premiumPlusModel;
 
   int page = 1;
   final ScrollController scrollController = ScrollController();
@@ -47,7 +48,7 @@ class CommunitySelectFriendsController extends GetxController {
     }
 
     var response = await ApiService.getApi(
-        "${ApiConstant.getGroupFriends}?status=accepted&page=$page");
+        "${ApiConstant.premiumPlus}?status=accepted&page=$page");
 
     if (kDebugMode) {
       print("====================> body ${response.responseJson}");
@@ -57,11 +58,11 @@ class CommunitySelectFriendsController extends GetxController {
       if (kDebugMode) {
         print(response.responseJson);
       }
-      friendListModel =
-          SelectGroupMemberModel.fromJson(jsonDecode(response.responseJson));
+      premiumPlusModel =
+          PremiumPlusModel.fromJson(jsonDecode(response.responseJson));
 
-      if (friendListModel?.data?.attributes?.friendList != null) {
-        friendList.addAll(friendListModel!.data!.attributes!.friendList!);
+      if (premiumPlusModel?.data?.attributes?.userList != null) {
+        friendList.addAll(premiumPlusModel!.data!.attributes!.userList!);
       }
 
       selectedFriends = List.generate(friendList.length, (index) => false);
@@ -77,12 +78,12 @@ class CommunitySelectFriendsController extends GetxController {
 
   selectParticipants(bool value, int index) {
     if (value == true) {
-      selectedParticipants.add(friendList[index].otherParticipant.sId);
+      selectedParticipants.add(friendList[index].sId);
       if (kDebugMode) {
         print("======================================> $selectedParticipants");
       }
     } else {
-      selectedParticipants.remove(friendList[index].otherParticipant.sId);
+      selectedParticipants.remove(friendList[index].sId);
       if (kDebugMode) {
         print("======================================> $selectedParticipants");
       }
@@ -91,7 +92,7 @@ class CommunitySelectFriendsController extends GetxController {
     selectedFriends[index] = value;
     update();
 
-    if (selectedParticipants.length < 5) {
+    if (selectedParticipants.length > 1 && selectedParticipants.length < 5) {
       isCreateGroup = true;
       update();
       print("dkjfkljdshkfklds");
@@ -101,31 +102,44 @@ class CommunitySelectFriendsController extends GetxController {
     }
   }
 
-  createNewGroup() async {
+  Future<void> createNewCommunityRepo() async {
+    isCreateCommunity = true;
+    update();
     var body = {
-      "participants": selectedParticipants,
-      "subscription": PrefsHelper.mySubscription,
+      "participants": jsonEncode(
+        selectedParticipants
+      ),
       "groupName": nameController.text,
-      "type": AppStrings.community,
+      "category": "65db196f785f1b8de02c647c",
       "groupAdmin": PrefsHelper.clientId
     };
 
-    if (kDebugMode) {
-      print("================================================> body $body");
-    }
+    print("===================================> body $body");
+    var response = await ApiService.postApi(
+      ApiConstant.communityChat,
+      body,
+    );
 
-    SocketServices.socket.emitWithAck("add-new-chat", body, ack: (data) {
-      if (kDebugMode) {
-        print(
-            "===============================================================> Received acknowledgment: $data");
-      }
+    print("===========${jsonDecode(response.responseJson)}===========");
+
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.responseJson);
+
+      print("=========================================> data $data");
+
       Get.toNamed(AppRoutes.chatScreen, parameters: {
-        "chatId": data['data']['chatId'],
+        "chatId": data['data']['attributes']['_id'],
         "type": AppStrings.community,
         "name": nameController.text
       });
 
-      nameController.clear();
-    });
+    } else {
+      Get.snackbar(response.statusCode.toString(), response.message);
+    }
+
+    isCreateCommunity = false;
+    update();
   }
+
 }

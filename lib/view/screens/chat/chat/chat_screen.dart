@@ -3,6 +3,7 @@ import 'package:dialogi_app/global/api_response_model.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
+import 'package:dialogi_app/view/screens/community/inner_widget/community_chat_popup.dart';
 import 'package:dialogi_app/view/widgets/chat_model/chat_bubble_message.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/error/error_screen.dart';
@@ -68,7 +69,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   fontWeight: FontWeight.w500,
                   color: AppColors.blue_500,
                 ),
-                type == "single" ? const SizedBox() : const GroupChatPopUps()
+                type == "single" ? const SizedBox() : type == AppStrings.community ? CommunityChatPopUps(chatId: chatId) : GroupChatPopUps(chatId: chatId,)
               ],
             )),
             body: controller.isMessage ? const Center(child: CircularProgressIndicator()) : ListView.builder(

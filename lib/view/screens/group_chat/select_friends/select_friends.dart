@@ -129,7 +129,8 @@ class _SelectFriendsGroupChatState extends State<SelectFriendsGroupChat> {
 
                       //=================================Create Group Button==============================
 
-                      SizedBox(
+                      Container(
+                        padding: EdgeInsets.only(bottom: 24.h),
                         width: double.maxFinite,
                         child: controller.isCreateGroup
                             ? CustomElevatedButton(
