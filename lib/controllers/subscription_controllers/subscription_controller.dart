@@ -6,14 +6,17 @@ import 'package:dialogi_app/services/api_services.dart';
 import 'package:dialogi_app/services/api_url.dart';
 import 'package:get/get.dart';
 
+import '../../global/api_response_model.dart';
+
 
 class SubscriptionController extends GetxController{
 
+  Status status = Status.completed;
   SubscriptionsPlanModel? subscriptionsPlanModel;
-  bool isLoading = false;
+
 
   Future<void> subscriptionRepo() async{
-    isLoading = true;
+    status = Status.loading;
     update();
 
     // Get.toNamed(AppRoutes.subscriptionsScreen);
@@ -21,9 +24,9 @@ class SubscriptionController extends GetxController{
     ApiService.getApi(ApiConstant.subscriptions).then((apiResponseModel) {
 
 
-      // print("${apiResponseModel.statusCode}") ;
-      // print("${apiResponseModel.message}") ;
-      // print("${apiResponseModel.responseJson}") ;
+      print("${apiResponseModel.statusCode}") ;
+      print("${apiResponseModel.message}") ;
+      print("${apiResponseModel.responseJson}") ;
 
       if(apiResponseModel.statusCode == 200){
 
@@ -31,13 +34,15 @@ class SubscriptionController extends GetxController{
         subscriptionsPlanModel = SubscriptionsPlanModel.fromJson(jsonData);
 
         print("=========> ${subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].name}<========");
+        status = Status.completed;
+        update();
 
       } else {
         Get.snackbar(apiResponseModel.statusCode.toString(), apiResponseModel.message);
+        status = Status.error;
+        update();
       }
 
-      isLoading = false;
-      update();
     });
 
   }

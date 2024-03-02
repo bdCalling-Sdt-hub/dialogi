@@ -1,4 +1,6 @@
+import 'package:dialogi_app/controllers/subscription_controllers/paypal_payment_controller.dart';
 import 'package:dialogi_app/controllers/subscription_controllers/stripe_payment_controller.dart';
+import 'package:dialogi_app/controllers/subscription_controllers/subscription_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
@@ -24,9 +26,12 @@ class PurchaseScreen extends StatefulWidget {
 }
 
 class _PurchaseScreenState extends State<PurchaseScreen> {
-  StripePaymentController stripePaymentController = Get.find<StripePaymentController>();
+  // StripePaymentController stripePaymentController = Get.find<StripePaymentController>();
+  SubscriptionController subscriptionController = Get.find<SubscriptionController>();
+  PaypalPaymentController paypalPaymentController = Get.find<PaypalPaymentController>();
 
   String? premium = Get.parameters["premium"];
+
   bool visaCardChecked = false;
   bool masterCardChecked = false;
   bool paypalCardChecked = false;
@@ -95,7 +100,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                       });
                     },
                     child: Container(
-                      decoration: visaCardChecked? BoxDecoration(
+                      decoration: visaCardChecked? const BoxDecoration(
                         boxShadow: [
                           BoxShadow(
                             blurRadius: 10,
@@ -123,7 +128,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                       });
                     },
                     child: Container(
-                      decoration: masterCardChecked? BoxDecoration(
+                      decoration: masterCardChecked? const BoxDecoration(
                           boxShadow: [
                             BoxShadow(
                                 blurRadius: 10,
@@ -151,7 +156,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                       });
                     },
                     child: Container(
-                      decoration: paypalCardChecked? BoxDecoration(
+                      decoration: paypalCardChecked? const BoxDecoration(
                           boxShadow: [
                             BoxShadow(
                                 blurRadius: 10,
@@ -368,25 +373,37 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-        child: CustomElevatedButton(
-            onPressed: () {
-              stripePaymentController.makePayment(amount: '5', currency: 'USD');
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialogs(
-                        successtext: AppStrings.successful,
-                        completeText: AppStrings.proceedToPayment,
-                        buttonText: AppStrings.gotoHome,
-                        onPressed: () {
-                          Get.toNamed(AppRoutes.homeScreen);
-                        });
-                  });
-            },
-            titleText: AppStrings.proceedToPayment),
-      ),
+      bottomNavigationBar: GetBuilder<StripePaymentController>(
+        builder: (stripePaymentController) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+          child: stripePaymentController.isPaymentRepoCalled? const Center(child: CircularProgressIndicator()) : CustomElevatedButton(
+              onPressed: () {
+                if(visaCardChecked || masterCardChecked){
+                  stripePaymentController.makePayment(amount: premium == "true"
+                      ? "${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].price}"
+                      : "${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].price}",
+                    subscriptionName: premium == "true"? "Premium" : "Premium Plus",
+                    currency: 'USD', );
+
+                } else if(paypalCardChecked){
+                  // paypalPaymentController.buildPaypalCheckout(context);
+                }
+                // showDialog(
+                //     context: context,
+                //     builder: (BuildContext context) {
+                //       return AlertDialogs(
+                //           successtext: AppStrings.successful,
+                //           completeText: AppStrings.proceedToPayment,
+                //           buttonText: AppStrings.gotoHome,
+                //           onPressed: () {
+                //             Get.toNamed(AppRoutes.homeScreen);
+                //           });
+                //     });
+              },
+              titleText: AppStrings.proceedToPayment),
+        );
+      },),
     );
   }
 }
