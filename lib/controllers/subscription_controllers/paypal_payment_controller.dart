@@ -1,9 +1,12 @@
 
+import 'package:dialogi_app/controllers/subscription_controllers/payment_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal_checkout/flutter_paypal_checkout.dart';
 import 'package:get/get.dart';
 
 class PaypalPaymentController extends GetxController{
+
+  PaymentController paymentController = Get.find<PaymentController>();
 
   PaypalCheckout buildPaypalCheckout(BuildContext context) {
     return PaypalCheckout(
@@ -54,6 +57,7 @@ class PaypalPaymentController extends GetxController{
       ],
       note: "Contact us for any questions on your order.",
       onSuccess: (Map params) async {
+        paymentController.paymentRepo(payerId: 'PAYID-MXOWHUY7XW63222N5003464J', amount: '1.50', currency: 'USD', subscriptionName: 'Premium', paymentMethod: 'paypal');
         print("onSuccess: $params");
       },
       onError: (error) {

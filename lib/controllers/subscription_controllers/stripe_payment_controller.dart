@@ -98,7 +98,7 @@ class StripePaymentController extends GetxController{
     try{
       await Stripe.instance.presentPaymentSheet();
       print('------------------Payment Successful------------------------');
-      paymentController.paymentRepo(payerId: payerId, amount: amount, currency: currency, subscriptionName: subscriptionName);
+      paymentController.paymentRepo(payerId: payerId, amount: amount, currency: currency, subscriptionName: subscriptionName, paymentMethod: 'stripe');
     } on Exception catch(e){
       if(e is StripeException){
         print("Error from Stripe: ${e.error.localizedMessage}");

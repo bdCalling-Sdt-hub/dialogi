@@ -17,9 +17,10 @@ class PaymentController extends GetxController{
   PaymentModel? paymentModel;
   bool isLoading = false;
 
-Future<void> paymentRepo({required String payerId,required String amount, required String currency, required String subscriptionName}) async{
+Future<void> paymentRepo({required String payerId,required String amount, required String currency, required String subscriptionName, required String paymentMethod}) async{
   isLoading = true;
   update();
+  var body = {};
 
 
   // Map<String, dynamic> body = {
@@ -38,17 +39,31 @@ Future<void> paymentRepo({required String payerId,required String amount, requir
   //
   //   "subscriptionId" : subscriptionName == "Premium" ? "65cde4e7294393c969cff435" : "65cde4e7294393c969cff436",
   // };
-  var body = {
-    "amount" : amount,
-    "paymentId" : StripePaymentController.payerId,
-    "paymentMethod" : "stripe",
-    "name" : subscriptionName,
-    "sku" : "subscription",
-    "price": amount,
-    "currency": currency,
-    "quantity": 1.toString(),
-    "subscriptionId" : subscriptionName == "Premium" ? "65cde4e7294393c969cff435" : "65cde4e7294393c969cff436",
-  };
+  if(paymentMethod == 'stripe'){
+     body = {
+      "amount" : amount,
+      "paymentId" : StripePaymentController.payerId,
+      "paymentMethod" : paymentMethod,
+      "name" : subscriptionName,
+      "sku" : "subscription",
+      "price": amount,
+      "currency": currency,
+      "quantity": 1.toString(),
+      "subscriptionId" : subscriptionName == "Premium" ? "65cde4e7294393c969cff435" : "65cde4e7294393c969cff436",
+    };
+  } else{
+    body = {
+      "amount" : amount,
+      "paymentId" : payerId,
+      "paymentMethod" : paymentMethod,
+      "name" : subscriptionName,
+      "sku" : "subscription",
+      "price": amount,
+      "currency": currency,
+      "quantity": 1.toString(),
+      "subscriptionId" : subscriptionName == "Premium" ? "65cde4e7294393c969cff435" : "65cde4e7294393c969cff436",
+    };
+  }
 
   print("Stripe Body Data: $body");
 

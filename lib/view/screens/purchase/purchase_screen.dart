@@ -387,7 +387,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                     currency: 'USD', );
 
                 } else if(paypalCardChecked){
-                  paypalPaymentController.buildPaypalCheckout(context);
+                  // paypalPaymentController.buildPaypalCheckout(context);
                 }
                 // showDialog(
                 //     context: context,
