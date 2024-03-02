@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dialogi_app/core/app_routes.dart';
@@ -9,7 +10,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../helper/prefs_helper.dart';
 import '../../utils/app_colors.dart';
+import '../../utils/app_constants.dart';
 
 class SignUpController extends GetxController {
   TextEditingController nameController = TextEditingController();
@@ -103,23 +106,41 @@ class SignUpController extends GetxController {
         await ApiService.signUpMultipartRequest (url: ApiConstant.signUp, imagePath: image, body: body, otp: otpController.text);
 
     print("=============${response.statusCode}::::${response.responseJson}===============");
+    var data = jsonDecode(response.responseJson);
     if (response.statusCode == 200) {
+
       if (otpController.text.isEmpty) {
+
         Fluttertoast.showToast(msg: "Otp send to you mail");
         Get.toNamed(
           AppRoutes.signupOtpScreen,
         );
+
       } else {
+
         Get.offAndToNamed(AppRoutes.signInScreen);
+        PrefsHelper.setString(AppConstants.bearerToken, data['data']["accessToken"]);
+        PrefsHelper.setString("clientId", data['data']["attributes"]["_id"]);
+        PrefsHelper.token = data['data']["accessToken"];
+        PrefsHelper.clientId = data['data']["attributes"]["_id"];
+
       }
     } else if (response.statusCode == 201) {
+
       if (otpController.text.isEmpty) {
         Fluttertoast.showToast(msg: "Otp send to you mail");
         Get.toNamed(
           AppRoutes.signupOtpScreen,
         );
+
       } else {
+
         Get.offAndToNamed(AppRoutes.homeScreen);
+        PrefsHelper.setString(AppConstants.bearerToken, data['data']["accessToken"]);
+        PrefsHelper.setString("clientId", data['data']["attributes"]["_id"]);
+        PrefsHelper.token = data['data']["accessToken"];
+        PrefsHelper.clientId = data['data']["attributes"]["_id"];
+
       }
     }else {
       // ApiChecker.checkApi(response);

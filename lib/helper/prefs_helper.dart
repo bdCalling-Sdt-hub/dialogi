@@ -22,9 +22,7 @@ class PrefsHelper {
 
 
 
-    forgetPasswordToken =
-        preferences.getString(AppConstants.forgetPasswordToken) ??
-            "";
+    forgetPasswordToken = preferences.getString(AppConstants.forgetPasswordToken) ?? "";
 
     print("..................$token............................");
 
@@ -77,5 +75,7 @@ class PrefsHelper {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.remove(AppConstants.bearerToken);
     preferences.remove(AppConstants.forgetPasswordToken);
+    preferences.remove("clientId");
+    print("::::$token, $forgetPasswordToken, $clientId");
   }
 }
