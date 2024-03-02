@@ -48,7 +48,7 @@ Future<void> paymentRepo({required String payerId,required String amount, requir
       "sku" : "subscription",
       "price": amount,
       "currency": currency,
-      "quantity": 1,
+      "quantity": 1.toString(),
       "subscriptionId" : subscriptionName == "Premium" ? "65cde4e7294393c969cff435" : "65cde4e7294393c969cff436",
     };
   } else{
@@ -60,7 +60,7 @@ Future<void> paymentRepo({required String payerId,required String amount, requir
       "sku" : "subscription",
       "price": amount,
       "currency": currency,
-      "quantity": 1,
+      "quantity": 1.toString(),
       "subscriptionId" : subscriptionName == "Premium" ? "65cde4e7294393c969cff435" : "65cde4e7294393c969cff436",
     };
   }
@@ -82,6 +82,7 @@ Future<void> paymentRepo({required String payerId,required String amount, requir
       paymentModel = PaymentModel.fromJson(jsonData);
       var token = paymentModel!.data!.accessToken;
       PrefsHelper.setString(AppConstants.bearerToken, token);
+      print("Token: -----$token");
 
     } else {
       Get.snackbar(apiResponseModel.statusCode.toString(), apiResponseModel.message);
