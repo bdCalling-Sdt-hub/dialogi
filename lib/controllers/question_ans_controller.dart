@@ -159,6 +159,8 @@ class QuestionAnsController extends GetxController {
       'discussion': discussionController.text
     };
 
+    print(header);
+
     var response =
         await ApiService.postApi(ApiConstant.discussions, body, header: header);
 

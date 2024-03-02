@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:dialogi_app/controllers/subscription_controllers/stripe_payment_controller.dart';
 import 'package:dialogi_app/controllers/subscription_controllers/subscription_controller.dart';
+import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/models/payment_model.dart';
 import 'package:dialogi_app/services/api_services.dart';
 import 'package:dialogi_app/services/api_url.dart';
@@ -83,6 +84,8 @@ Future<void> paymentRepo({required String payerId,required String amount, requir
       var token = paymentModel!.data!.accessToken;
       PrefsHelper.setString(AppConstants.bearerToken, token);
       print("Token: -----$token");
+      Get.offAndToNamed(AppRoutes.homeScreen);
+      Get.snackbar(AppConstants.paymentStatus, AppConstants.paymentSuccessful);
 
     } else {
       Get.snackbar(apiResponseModel.statusCode.toString(), apiResponseModel.message);
