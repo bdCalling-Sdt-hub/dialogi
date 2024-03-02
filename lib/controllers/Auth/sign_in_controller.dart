@@ -7,6 +7,7 @@ import 'package:dialogi_app/utils/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../../core/app_routes.dart';
@@ -98,7 +99,7 @@ class SignInController extends GetxController {
           "email": user.email
         };
 
-        var response = await ApiService.postApi(ApiConstant.googleSignIn, body,);
+        var response = await ApiService.postApi(ApiConstant.googleSignIn, body,).timeout(const Duration(seconds: 30));
 
         print("===========${jsonDecode(response.responseJson)}===========");
         signInLoading = false;
@@ -111,8 +112,12 @@ class SignInController extends GetxController {
 
           PrefsHelper.setString(AppConstants.bearerToken, data['data']["accessToken"]);
           PrefsHelper.setString("clientId", data['data']["attributes"]["_id"]);
+          PrefsHelper.setString("myImage", data['data']["attributes"]["image"]);
+          PrefsHelper.setString("myName", data['data']["attributes"]["fullName"]);
           PrefsHelper.token = data['data']["accessToken"];
           PrefsHelper.clientId = data['data']["attributes"]["_id"];
+          PrefsHelper.myImage = data['data']["attributes"]["image"];
+          PrefsHelper.myName = data['data']["attributes"]["fullName"];
 
 
           print("=====================->clientId ${data['data']["attributes"]["_id"]}") ;
@@ -141,6 +146,7 @@ class SignInController extends GetxController {
       update();
 
     } catch (exception){
+      Fluttertoast.showToast(msg: AppConstants.connectionTimedOUt);
       log(exception.toString());
     }
   }

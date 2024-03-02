@@ -26,41 +26,8 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  //
-  // Future googleSignIn() async {
-  //   try {
-  //     final user = await GoogleSignInService.login();
-  //
-  //     await user?.authentication;
-  //     log(user!.displayName.toString());
-  //     log(user.email);
-  //     log(user.id);
-  //     log(user.photoUrl.toString());
-  //     print(context.mounted);
-  //     if (context.mounted) {
-  //       Navigator.push(
-  //           context,
-  //           MaterialPageRoute(
-  //               builder: (context) => SuccessLogin(
-  //                   name: user.displayName!, email: user.email)));
-  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //           content: Column(
-  //             children: [
-  //               Text(
-  //                   "Name: ${user.displayName}\nEmail: ${user.email}\nId: ${user.id}\nPhotoUrl: ${user.photoUrl}"),
-  //               Image.network(user.photoUrl.toString()),
-  //             ],
-  //           )));
-  //     }
-  //   } catch (exception) {
-  //     log(exception.toString());
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
-
-
     print(PrefsHelper.token);
 
     return Scaffold(

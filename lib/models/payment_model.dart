@@ -129,7 +129,7 @@ class PaymentInfo {
 
 class PaymentData {
   String? paymentId;
-  double? amount;
+  num? amount;
   Item? item;
 
   PaymentData({this.paymentId, this.amount, this.item});

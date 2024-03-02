@@ -1,4 +1,5 @@
 import 'package:dialogi_app/controllers/Auth/password_controller.dart';
+import 'package:dialogi_app/controllers/Auth/sign_up_controller.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
@@ -14,6 +15,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OtpScreen extends StatelessWidget {
   OtpScreen({super.key});
+
 
   final formKey = GlobalKey<FormState>();
 
@@ -112,7 +114,9 @@ class OtpScreen extends StatelessWidget {
                         color: AppColors.blue_500,
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+
+                        },
                         child: const CustomText(
                           text: AppStrings.resend,
                           fontWeight: FontWeight.w500,

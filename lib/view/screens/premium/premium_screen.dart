@@ -104,9 +104,11 @@ class _PremiumScreenState extends State<PremiumScreen> {
                             getDialogiText:
                                 'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].price}/month',
                             length: 3,
-                            addText: 'Ad-free experience'),
+                            addText: 'Ad-free experience',
+                          isPremiumPlus: false,
+                        ),
                         CustomPremiumCard(
-                          isPremium: false,
+                          isPremiumPlus: true,
                           imageSrc: AppImages.premium,
                           premiumText: subscriptionController
                               .subscriptionsPlanModel!

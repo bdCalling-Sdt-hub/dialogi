@@ -13,5 +13,6 @@ class AppConstants{
   static String otpSend = "OTP send to your email";
   static String paymentStatus = "Payment Status";
   static String paymentSuccessful = "Payment successfully completed";
+  static String connectionTimedOUt = "Connection timed out";
 
 }

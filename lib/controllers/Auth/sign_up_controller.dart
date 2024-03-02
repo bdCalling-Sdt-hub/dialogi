@@ -90,62 +90,69 @@ class SignUpController extends GetxController {
     //   'Cookie': 'i18next=en'
     // };
 
+    try{
 
-    Map<String, String> body = {
-      'fullName': nameController.text,
-      'email': emailController.text,
-      'dateOfBirth': birthDayController.text,
-      'address': addressController.text,
-      'password': passWordController.text,
-    };
+      Map<String, String> body = {
+        'fullName': nameController.text,
+        'email': emailController.text,
+        'dateOfBirth': birthDayController.text,
+        'address': addressController.text,
+        'password': passWordController.text,
+      };
 
-    print("+++++++++ Body: $body ++++++++");
-    print("+++++++++ image: $image ++++++++");
+      print("+++++++++ Body: $body ++++++++");
+      print("+++++++++ image: $image ++++++++");
 
-    var response =
-        await ApiService.signUpMultipartRequest (url: ApiConstant.signUp, imagePath: image, body: body, otp: otpController.text);
+      var response =
+      await ApiService.signUpMultipartRequest (url: ApiConstant.signUp, imagePath: image, body: body, otp: otpController.text)
+          .timeout(const Duration(seconds: 30));
 
-    print("=============${response.statusCode}::::${response.responseJson}===============");
-    var data = jsonDecode(response.responseJson);
-    if (response.statusCode == 200) {
+      print("=============${response.statusCode}::::${response.responseJson}===============");
+      var data = jsonDecode(response.responseJson);
+      if (response.statusCode == 200) {
 
-      if (otpController.text.isEmpty) {
+        if (otpController.text.isEmpty) {
 
-        Fluttertoast.showToast(msg: "Otp send to you mail");
-        Get.toNamed(
-          AppRoutes.signupOtpScreen,
-        );
+          Fluttertoast.showToast(msg: "Otp send to you mail");
+          Get.toNamed(
+            AppRoutes.signupOtpScreen,
+          );
 
-      } else {
+        } else {
 
-        Get.offAndToNamed(AppRoutes.signInScreen);
-        PrefsHelper.setString(AppConstants.bearerToken, data['data']["accessToken"]);
-        PrefsHelper.setString("clientId", data['data']["attributes"]["_id"]);
-        PrefsHelper.token = data['data']["accessToken"];
-        PrefsHelper.clientId = data['data']["attributes"]["_id"];
+          Get.offAndToNamed(AppRoutes.signInScreen);
+          PrefsHelper.setString(AppConstants.bearerToken, data['data']["accessToken"]);
+          PrefsHelper.setString("clientId", data['data']["attributes"]["_id"]);
+          PrefsHelper.token = data['data']["accessToken"];
+          PrefsHelper.clientId = data['data']["attributes"]["_id"];
 
+        }
+      } else if (response.statusCode == 201) {
+
+        if (otpController.text.isEmpty) {
+          Fluttertoast.showToast(msg: "Otp send to you mail");
+          Get.toNamed(
+            AppRoutes.signupOtpScreen,
+          );
+
+        } else {
+
+          Get.offAndToNamed(AppRoutes.homeScreen);
+          PrefsHelper.setString(AppConstants.bearerToken, data['data']["accessToken"]);
+          PrefsHelper.setString("clientId", data['data']["attributes"]["_id"]);
+          PrefsHelper.token = data['data']["accessToken"];
+          PrefsHelper.clientId = data['data']["attributes"]["_id"];
+
+        }
+      }else {
+        // ApiChecker.checkApi(response);
+        // }
       }
-    } else if (response.statusCode == 201) {
-
-      if (otpController.text.isEmpty) {
-        Fluttertoast.showToast(msg: "Otp send to you mail");
-        Get.toNamed(
-          AppRoutes.signupOtpScreen,
-        );
-
-      } else {
-
-        Get.offAndToNamed(AppRoutes.homeScreen);
-        PrefsHelper.setString(AppConstants.bearerToken, data['data']["accessToken"]);
-        PrefsHelper.setString("clientId", data['data']["attributes"]["_id"]);
-        PrefsHelper.token = data['data']["accessToken"];
-        PrefsHelper.clientId = data['data']["attributes"]["_id"];
-
-      }
-    }else {
-      // ApiChecker.checkApi(response);
+      signUpLoading = false;
+      update();
+    } catch (e){
+      print("Timeout occurred: $e");
+      Fluttertoast.showToast(msg: AppConstants.connectionTimedOUt);
     }
-    signUpLoading = false;
-    update();
   }
 }
