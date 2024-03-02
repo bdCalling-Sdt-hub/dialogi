@@ -69,7 +69,6 @@ class _FriendsScreenState extends State<FriendsScreen> {
                                   item.participants[0].fullName)
                               // onTap: () => controller.addNewChat(),
                               ),
-                          SizedBox(height: 16,)
                         ],
                       );
                     }))

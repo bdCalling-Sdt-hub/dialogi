@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:dialogi_app/controllers/category/category_controller.dart';
 import 'package:dialogi_app/controllers/category/sub_category_controller.dart';
+import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/models/add_discussion_model.dart';
-import 'package:dialogi_app/models/question_ans_model.dart';
 import 'package:dialogi_app/models/question_ans_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,12 +12,13 @@ import 'package:get/get.dart';
 
 import '../global/api_response_model.dart';
 import '../helper/prefs_helper.dart';
-import '../models/question_ans_model.dart';
+import '../models/access_status_model.dart';
 import '../models/reply_model.dart';
 import '../services/api_services.dart';
 import '../services/api_url.dart';
 import '../services/socket_service.dart';
 import '../utils/app_utils.dart';
+import '../view/screens/home/home_controller/home_controller.dart';
 
 class QuestionAnsController extends GetxController {
   Status status = Status.completed;
@@ -74,13 +75,15 @@ class QuestionAnsController extends GetxController {
       update();
     }
 
-    Map<String, String> header = {
-      'Authorization': "Bearer ${PrefsHelper.token}"
-    };
+    getContextStatus();
+
+    print("${categoryController.categoryId}");
 
     var response = await ApiService.getApi(
-        "${ApiConstant.questions}/$subCategory/${categoryController.categoryId}?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage",
-        header: header);
+        "${ApiConstant.questions}/$subCategory/${categoryController.categoryId}?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage");
+
+    print(
+        "===========================================>${ApiConstant.questions}/$subCategory/${categoryController.categoryId}?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage");
 
     if (response.statusCode == 200) {
       print(response.responseJson);
@@ -196,6 +199,30 @@ class QuestionAnsController extends GetxController {
     update();
   }
 
+  Future<void> addFavouriteRepo() async {
+    isLoadingDiscussion = false;
+    update();
+
+    Map<String, String> body = {
+      ///==================================> Discussion ID dite hobe<=====================================
+      'question': "${questionAnsModel!.data!.attributes!.questions![0].sId}",
+    };
+
+    print("==========================================> body $body");
+
+    var response = await ApiService.postApi(ApiConstant.favourite, body);
+
+    if (response.statusCode == 201) {
+      print(
+          "===========================================> respose ${response.responseJson}");
+    } else {
+      Utils.snackBarMessage(response.statusCode.toString(), response.message);
+    }
+
+    isLoadingDiscussion = false;
+    update();
+  }
+
   Future<void> addReply(String id, int index) async {
     replyDiscussionID = id;
     indexNumber = index;
@@ -206,6 +233,16 @@ class QuestionAnsController extends GetxController {
   }
 
   discussionLike(String discussionId, int index) async {
+    if (discussionList[index].isLiked == true) {
+      discussionList[index].isLiked = false;
+    } else {
+      discussionList[index].isLiked = true;
+    }
+
+    update();
+
+    print(
+        "=========isLike ===================== ${discussionList[index].isLiked}");
     var body = {
       "type": "discussion", //it can be discussionn or reply
       "discussion": discussionId, //if type === discussion
@@ -239,6 +276,13 @@ class QuestionAnsController extends GetxController {
   }
 
   discussionDislike(String discussionId, int index) async {
+    if (discussionList[index].isDisliked == true) {
+      discussionList[index].isDisliked = false;
+    } else {
+      discussionList[index].isDisliked = true;
+    }
+
+    update();
     var body = {
       "type": "discussion", //it can be discussionn or reply
       "discussion": discussionId, //if type === discussion
@@ -269,5 +313,49 @@ class QuestionAnsController extends GetxController {
       print(
           "===============================================================> discussionList[index].dislikes: ${discussionList[index].likes}");
     });
+  }
+
+  getContextStatus() async {
+    if (Homecontroller.status == Status.completed) {
+      Future.delayed(
+        const Duration(seconds: 1),
+        () {
+          if (Homecontroller.accessStatusModel!.data!.questionAccessNumber ==
+              0) {
+            Get.toNamed(AppRoutes.subscriptionsScreen);
+
+            status = Status.error;
+            update();
+          }
+        },
+      );
+
+      Homecontroller.status = Status.loading;
+      update();
+
+      var body = {
+        "userId": PrefsHelper.clientId,
+        "type": "question",
+      };
+
+      print("================================================> body $body");
+
+      SocketServices.socket.emitWithAck("dialogi-content-access", body,
+          ack: (data) {
+        var check = data['status'];
+
+        if (check == "Error") {
+          Homecontroller.status = Status.error;
+        } else {
+          Homecontroller.accessStatusModel = AccessStatusModel.fromJson(data);
+          Homecontroller.status = Status.completed;
+        }
+
+        print(
+            "===============================================================> Received acknowledgment: $data");
+      });
+    } else {
+      Homecontroller.getAccessStatus();
+    }
   }
 }

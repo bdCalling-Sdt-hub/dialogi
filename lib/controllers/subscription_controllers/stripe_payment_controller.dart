@@ -8,36 +8,48 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-class StripePaymentController{
+class StripePaymentController extends GetxController{
 
   PaymentController paymentController = Get.find<PaymentController>();
+  bool isPaymentRepoCalled = false;
+
+  static String payerId = "";
 
 
   Map<String, dynamic>? paymentIntentData;
 
-  Future<void> makePayment({required String amount, required String currency}) async{
+  ///<<<======================== Stripe make payment ==========================>>>
+
+  Future<void> makePayment({required String amount, required String currency, required String subscriptionName}) async{
+    isPaymentRepoCalled = true;
+    update();
+
     try{
       paymentIntentData = await createPaymentIntent(amount, currency);
       if(paymentIntentData != null){
         // Access the response data as needed
         await Stripe.instance.initPaymentSheet(
             paymentSheetParameters: SetupPaymentSheetParameters(
-              billingDetails: const BillingDetails(
-                  name: 'Siam Prodhan',
-                  email: 'siamjht@gmail.com',
-              ),
+              // billingDetails: const BillingDetails(
+              //     name: 'Siam Prodhan',
+              //     email: 'siamjht@gmail.com',
+              // ),
               // googlePay: const PaymentSheetGooglePay(merchantCountryCode: 'US'),
               merchantDisplayName: 'Prospects',
               // paymentIntentClientSecret: paymentController.paymentModel!.data!.attributes!.clientSecret,
               paymentIntentClientSecret: paymentIntentData!["client_secret"],
               style: ThemeMode.light,
             )).then((value) {print('Is completed payment properly??????');});
-        displayPaymentSheet();
+        displayPaymentSheet(amount, currency, subscriptionName);
       }
+      isPaymentRepoCalled = false;
+      update();
     } catch(e, s){
       Fluttertoast.showToast(msg: e.toString());
     }
   }
+
+  ///<<<======================== Stripe create payment ==========================>>>
 
   createPaymentIntent(String amount, String currency) async {
     try{
@@ -59,6 +71,14 @@ class StripePaymentController{
             'Content-Type' : 'application/x-www-form-urlencoded'
           }
       );
+      if(response.statusCode == 200){
+        Map<String, dynamic> jsonMap = json.decode(response.body);
+        // Extract the value of "id"
+        payerId = jsonMap['id'];
+
+        // Print the result
+        print('Value of "id" from server: $payerId');
+      }
       print("----------------${response.statusCode}------------------");
       print("=============>>>${response.body}<<<==============");
       return jsonDecode(response.body);
@@ -68,14 +88,17 @@ class StripePaymentController{
   }
 
   calculateAmount(String amount) {
-    final a = (int.parse(amount)) * 100;
+    final a = (double.parse(amount) * 100).toInt();
     return a.toString();
   }
 
-  Future<void> displayPaymentSheet() async {
+  ///<<<======================== Stripe display payment sheet ========================>>>
+
+  Future<void> displayPaymentSheet(String amount, String currency, String subscriptionName) async {
     try{
       await Stripe.instance.presentPaymentSheet();
       print('------------------Payment Successful------------------------');
+      paymentController.paymentRepo(payerId: payerId, amount: amount, currency: currency, subscriptionName: subscriptionName, paymentMethod: 'stripe');
     } on Exception catch(e){
       if(e is StripeException){
         print("Error from Stripe: ${e.error.localizedMessage}");

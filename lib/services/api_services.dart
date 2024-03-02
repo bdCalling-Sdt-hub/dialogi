@@ -26,6 +26,10 @@ class GoogleSignInService {
   static Future logout() => _googleSignIn.signOut();
 }
 
+
+
+
+
 class ApiService {
 
 
@@ -48,6 +52,7 @@ class ApiService {
           .post(Uri.parse(url), body: body, headers: header ?? mainHeader)
           .timeout(const Duration(seconds: timeOut));
       responseJson = handleResponse(response);
+      print(response.body);
 
       // if (isHeader) {
       //

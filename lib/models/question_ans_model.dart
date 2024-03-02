@@ -88,8 +88,14 @@ class Questions {
   String? question;
   String? subCategory;
   List<Discussions>? discussions;
+  bool? isFavourite;
 
-  Questions({this.sId, this.question, this.subCategory, this.discussions});
+  Questions(
+      {this.sId,
+        this.question,
+        this.subCategory,
+        this.discussions,
+        this.isFavourite});
 
   Questions.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -101,6 +107,7 @@ class Questions {
         discussions!.add(new Discussions.fromJson(v));
       });
     }
+    isFavourite = json['isFavourite'];
   }
 
   Map<String, dynamic> toJson() {
@@ -111,6 +118,7 @@ class Questions {
     if (this.discussions != null) {
       data['discussions'] = this.discussions!.map((v) => v.toJson()).toList();
     }
+    data['isFavourite'] = this.isFavourite;
     return data;
   }
 }
@@ -121,7 +129,10 @@ class Discussions {
   User? user;
   int? likes;
   int? dislikes;
+  String? createdAt;
   int? totalReplies;
+  bool? isLiked;
+  bool? isDisliked;
 
   Discussions(
       {this.sId,
@@ -129,7 +140,10 @@ class Discussions {
         this.user,
         this.likes,
         this.dislikes,
-        this.totalReplies});
+        this.createdAt,
+        this.totalReplies,
+        this.isLiked,
+        this.isDisliked});
 
   Discussions.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -137,7 +151,10 @@ class Discussions {
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
     likes = json['likes'];
     dislikes = json['dislikes'];
+    createdAt = json['createdAt'];
     totalReplies = json['totalReplies'];
+    isLiked = json['isLiked'];
+    isDisliked = json['isDisliked'];
   }
 
   Map<String, dynamic> toJson() {
@@ -149,7 +166,10 @@ class Discussions {
     }
     data['likes'] = this.likes;
     data['dislikes'] = this.dislikes;
+    data['createdAt'] = this.createdAt;
     data['totalReplies'] = this.totalReplies;
+    data['isLiked'] = this.isLiked;
+    data['isDisliked'] = this.isDisliked;
     return data;
   }
 }

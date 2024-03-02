@@ -7,9 +7,11 @@ import 'package:get/get.dart';
 
 import '../global/api_response_model.dart';
 import '../helper/prefs_helper.dart';
+import '../models/access_status_model.dart';
 import '../services/api_services.dart';
 import '../services/api_url.dart';
 import '../services/socket_service.dart';
+import '../view/screens/home/home_controller/home_controller.dart';
 
 class DiscussionDetailsController extends GetxController {
   Status status = Status.completed;
@@ -49,6 +51,9 @@ class DiscussionDetailsController extends GetxController {
       "${ApiConstant.discussions}/$discussionID?page=$page",
     );
 
+    print("====================================> ${response.responseJson}");
+    print(
+        "====================================> ${ApiConstant.discussions}/$discussionID?page=$page}");
     if (response.statusCode == 200) {
       discussionDetailsModel =
           DiscussionDetailsModel.fromJson(jsonDecode(response.responseJson));
@@ -112,6 +117,14 @@ class DiscussionDetailsController extends GetxController {
   }
 
   discussionLike(String discussionId) async {
+    if (discussionDetailsModel!.data!.attributes!.discussion!.isLiked == true) {
+      discussionDetailsModel!.data!.attributes!.discussion!.isLiked = false;
+    } else {
+      discussionDetailsModel!.data!.attributes!.discussion!.isLiked = true;
+    }
+
+    update();
+
     var body = {
       "type": "discussion", //it can be discussionn or reply
       "discussion": discussionId, //if type === discussion
@@ -147,6 +160,12 @@ class DiscussionDetailsController extends GetxController {
   }
 
   replyLike(String replyId, int index) async {
+    if (repliesList[index].isLiked == true) {
+      repliesList[index].isLiked = false;
+    } else {
+      repliesList[index].isLiked = true;
+    }
+    update();
     var body = {
       "type": "reply", //it can be discussionn or reply
       "reply": replyId, //if type === discussion
@@ -179,8 +198,13 @@ class DiscussionDetailsController extends GetxController {
     });
   }
 
-
   replyDislike(String replyId, int index) async {
+    if (repliesList[index].isDisliked == true) {
+      repliesList[index].isDisliked = false;
+    } else {
+      repliesList[index].isDisliked = true;
+    }
+    update();
     var body = {
       "type": "reply", //it can be discussionn or reply
       "reply": replyId, //if type === discussion
@@ -214,6 +238,14 @@ class DiscussionDetailsController extends GetxController {
   }
 
   discussionDislike(String discussionId) async {
+    if (discussionDetailsModel!.data!.attributes!.discussion!.isDisliked ==
+        true) {
+      discussionDetailsModel!.data!.attributes!.discussion!.isDisliked = false;
+    } else {
+      discussionDetailsModel!.data!.attributes!.discussion!.isDisliked = true;
+    }
+
+    update();
     var body = {
       "type": "discussion", //it can be discussionn or reply
       "discussion": discussionId, //if type === discussion

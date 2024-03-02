@@ -22,6 +22,7 @@ class CustomAllFriends extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        padding: EdgeInsets.symmetric(vertical: 12.h),
         decoration: const BoxDecoration(
             border: Border(
                 bottom: BorderSide(width: 1, color: AppColors.black_50))),

@@ -80,7 +80,7 @@ class Homecontroller extends GetxController with GetxServiceMixin {
                       buttonHeight: 40,
                       titleSize: 14,
                       onPressed: () {
-                        Get.toNamed(AppRoutes.subscriptionsScreen);
+                        Get.toNamed(AppRoutes.premiumScreen);
                       },
                       titleText: AppStrings.gotoSubscriptions),
                 ],

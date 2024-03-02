@@ -1,6 +1,7 @@
 class ApiConstant {
   ///<<<=================Base Url=========================>>>
   static const baseUrl = "http://192.168.10.18:3000";
+  // static const baseUrl = "http://103.145.138.78:4000";
 
 
   static const signUp = "$baseUrl/api/users/sign-up";
@@ -19,9 +20,9 @@ class ApiConstant {
   static const discussions = "$baseUrl/api/discussions";
   static const discussionsSpecific = "$baseUrl/api/discussions/specific";
   static const subscriptions = "$baseUrl/api/subscriptions";
-  static const payment = "$baseUrl/api/payments";
   static const payments = "$baseUrl/api/payments";
   static const friends = "$baseUrl/api/friends";
+  static const getGroupFriends = "$baseUrl/api/friends/group";
   static const privacyPolicy = "$baseUrl/api/privacy-policies";
   static const aboutUs = "$baseUrl/api/about-us";
   static const supports = "$baseUrl/api/supports";
@@ -30,4 +31,5 @@ class ApiConstant {
   static const friendProfile = "$baseUrl/api/users/profile-details";
   static const chats = "$baseUrl/api/chats";
   static const messages = "$baseUrl/api/messages";
+  static const favourite = "$baseUrl/api/favourites";
 }
