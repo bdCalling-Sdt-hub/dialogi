@@ -9,7 +9,9 @@ import 'package:get/get.dart';
 import '../../../controllers/discussion_details_controller.dart';
 import '../../../core/app_routes.dart';
 import '../../../services/api_url.dart';
+import '../../../utils/app_colors.dart';
 import '../../../utils/app_icons.dart';
+import '../../../utils/app_images.dart';
 import '../../../utils/static_strings.dart';
 import '../../widgets/image/custom_image.dart';
 import '../../widgets/text/custom_text.dart';
@@ -128,8 +130,15 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                                 ? const CircularProgressIndicator()
                                 : Row(
                                     children: [
-                                      const CustomImage(
-                                          imageSrc: AppIcons.like),
+                                      controller.discussionDetailsModel!.data!
+                                              .attributes!.discussion!.isLiked!
+                                          ? CustomImage(
+                                              imageSrc: AppImages.isLike,
+                                              imageType: ImageType.png,
+                                              size: 18.sp,
+                                            )
+                                          : const CustomImage(
+                                              imageSrc: AppIcons.like),
                                       SizedBox(width: 10.w),
                                       CustomText(
                                           text: controller
@@ -154,7 +163,16 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                                 .sId!),
                             child: Row(
                               children: [
-                                const CustomImage(imageSrc: AppIcons.dislike),
+                                controller.discussionDetailsModel!.data!
+                                        .attributes!.discussion!.isDisliked!
+                                    ? CustomImage(
+                                        imageSrc: AppImages.isDislike,
+                                        size: 14.sp,
+                                        imageType: ImageType.png,
+                                        imageColor: AppColors.blue_500,
+                                      )
+                                    : const CustomImage(
+                                        imageSrc: AppIcons.dislike),
                                 SizedBox(width: 10.w),
                                 CustomText(
                                     text: controller.discussionDetailsModel!
@@ -240,7 +258,8 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          CustomText(text: item.user!.fullName!),
+                                          CustomText(
+                                              text: item.user!.fullName!),
                                           const SizedBox(height: 8),
                                           CustomText(
                                             maxLines: 100,
@@ -269,8 +288,17 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                                             ? const CircularProgressIndicator()
                                             : Row(
                                                 children: [
-                                                  const CustomImage(
-                                                      imageSrc: AppIcons.like),
+                                                  item.isLiked
+                                                      ? CustomImage(
+                                                          imageSrc:
+                                                              AppImages.isLike,
+                                                          imageType:
+                                                              ImageType.png,
+                                                          size: 18.sp,
+                                                        )
+                                                      : const CustomImage(
+                                                          imageSrc:
+                                                              AppIcons.like),
                                                   SizedBox(width: 10.w),
                                                   CustomText(
                                                       text: item.likes
@@ -282,14 +310,25 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
 
                                       // Dislike
                                       GestureDetector(
-                                        onTap: () => controller.replyDislike(item.sId, index),
+                                        onTap: () => controller.replyDislike(
+                                            item.sId, index),
                                         child: controller.isDislike
                                             ? const CircularProgressIndicator()
                                             : Row(
                                                 children: [
-                                                  const CustomImage(
-                                                      imageSrc:
-                                                          AppIcons.dislike),
+                                                  item.isDisliked
+                                                      ? CustomImage(
+                                                          imageSrc: AppImages
+                                                              .isDislike,
+                                                          size: 14.sp,
+                                                          imageType:
+                                                              ImageType.png,
+                                                          imageColor: AppColors
+                                                              .blue_500,
+                                                        )
+                                                      : const CustomImage(
+                                                          imageSrc:
+                                                              AppIcons.dislike),
                                                   SizedBox(width: 10.w),
                                                   CustomText(
                                                       text: item.dislikes

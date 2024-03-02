@@ -22,6 +22,7 @@ class ApiConstant {
   static const subscriptions = "$baseUrl/api/subscriptions";
   static const payments = "$baseUrl/api/payments";
   static const friends = "$baseUrl/api/friends";
+  static const getGroupFriends = "$baseUrl/api/friends/group";
   static const privacyPolicy = "$baseUrl/api/privacy-policies";
   static const aboutUs = "$baseUrl/api/about-us";
   static const supports = "$baseUrl/api/supports";
@@ -30,4 +31,5 @@ class ApiConstant {
   static const friendProfile = "$baseUrl/api/users/profile-details";
   static const chats = "$baseUrl/api/chats";
   static const messages = "$baseUrl/api/messages";
+  static const favourite = "$baseUrl/api/favourites";
 }

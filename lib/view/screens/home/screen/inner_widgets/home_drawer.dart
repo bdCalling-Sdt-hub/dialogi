@@ -4,6 +4,7 @@ import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_constants.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
+import 'package:dialogi_app/view/screens/Testing/testing_screen.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -103,7 +104,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
               height: 32,
             ),
 
-            ///<<<====================== Logout =============================>>>
+            ///<<<====================== favorite List =============================>>>
 
             GestureDetector(
               onTap: () {
@@ -119,6 +120,33 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     ),
                     CustomText(
                       text: AppStrings.favoriteList,
+                      left: 16.w,
+                    )
+                  ],
+                ),
+              ),
+            ),
+
+            const SizedBox(
+              height: 32,
+            ),
+
+            ///<<<====================== Test Mobile Ad =============================>>>
+
+            GestureDetector(
+              onTap: () {
+                Get.to(AdmobAd()) ;
+              },
+              child: Container(
+                decoration: const BoxDecoration(),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.monetization_on,
+                      color: AppColors.blue_500,
+                    ),
+                    CustomText(
+                      text: "Test Mobile Ad",
                       left: 16.w,
                     )
                   ],

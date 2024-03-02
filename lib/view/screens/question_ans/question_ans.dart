@@ -1,7 +1,6 @@
 import 'package:dialogi_app/controllers/question_ans_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/global/api_response_model.dart';
-import 'package:dialogi_app/helper/prefs_helper.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
@@ -13,7 +12,6 @@ import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
 import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
-import 'package:dialogi_app/view/widgets/subscription_popup/subcription_popup.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:dialogi_app/view/widgets/text_field/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -111,8 +109,8 @@ class _QuestionAnsState extends State<QuestionAns> {
                               //==============================Specker Icon========================
                               Align(
                                   alignment: Alignment.bottomLeft,
-                                  child: GestureDetector(
-                                      onTap: () async {
+                                  child: IconButton(
+                                      onPressed: () async {
                                         print(
                                             "=================================================================> What does Friendship mean to you?");
                                         FlutterTts flutterTts = FlutterTts();
@@ -123,20 +121,33 @@ class _QuestionAnsState extends State<QuestionAns> {
                                             .questions![0]
                                             .question!);
                                       },
-                                      child: const CustomImage(
+                                      icon: const CustomImage(
                                           imageSrc: AppIcons.volumeup))),
-                              SizedBox(
-                                width: 20.w,
-                              ),
 
                               //==============================Share Icon========================
 
                               Align(
                                   alignment: Alignment.bottomLeft,
-                                  child: GestureDetector(
-                                      onTap: () {},
-                                      child: const CustomImage(
+                                  child: IconButton(
+                                      onPressed: () {},
+                                      icon: const CustomImage(
                                           imageSrc: AppIcons.share))),
+
+                              //==============================favorite Icon========================
+                              const Spacer(),
+                              Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: IconButton(
+                                      onPressed: () => controller.addFavouriteRepo(),
+                                      icon: controller
+                                              .questionAnsModel!
+                                              .data!
+                                              .attributes!
+                                              .questions![0]
+                                              .isFavourite!
+                                          ? const Icon(Icons.favorite)
+                                          : const Icon(
+                                              Icons.favorite_border_outlined))),
                             ],
                           ),
                         ],
@@ -211,15 +222,24 @@ class _QuestionAnsState extends State<QuestionAns> {
                     Homecontroller.accessStatusModel!.data!.type != "default"
                         ? const Expanded(child: CommentReply())
                         : Column(
-                      children: [
-                        const CustomText(text: AppStrings.wanttojointhediscussion),
-                        SizedBox(height: 8.h,),
-                        InkWell(
-                          onTap: ()  => Get.toNamed(AppRoutes.subscriptionsScreen),
-                          child: CustomText(text: AppStrings.upgradetoPremium,color: AppColors.blue_500, fontSize: 20.sp, fontWeight: FontWeight.w600,),
-                        )
-                      ],
-                    )
+                            children: [
+                              const CustomText(
+                                  text: AppStrings.wanttojointhediscussion),
+                              SizedBox(
+                                height: 8.h,
+                              ),
+                              InkWell(
+                                onTap: () =>
+                                    Get.toNamed(AppRoutes.subscriptionsScreen),
+                                child: CustomText(
+                                  text: AppStrings.upgradetoPremium,
+                                  color: AppColors.blue_500,
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              )
+                            ],
+                          )
                   ],
                 ),
               ),

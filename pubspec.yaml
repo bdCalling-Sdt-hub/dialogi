@@ -37,7 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.6
   flutter_svg: ^2.0.8
-#  google_fonts: ^6.1.0
+  #  google_fonts: ^6.1.0
   google_fonts: ^4.0.4
   flutter_screenutil: ^5.9.0
   image_picker: ^1.0.7
@@ -62,9 +62,6 @@ dependencies:
   socket_io_client: ^2.0.3+1
   flutter_paypal_checkout: ^1.0.1
   flutter_inappwebview: ^5.7.2+3
-
-
-
 
 
 dev_dependencies:

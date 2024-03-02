@@ -21,6 +21,8 @@ static const String visa = "$baseUrl/visa.png" ;
 static const String splashLogo = "$baseUrl/splash_logo.png" ;
 static const String premium = "$baseUrl/premium.png";
 static const String crown = "$baseUrl/crown.png";
+static const String isLike = "$baseUrl/isLike.png";
+static const String isDislike = "$baseUrl/isDislike.png";
 
 
 

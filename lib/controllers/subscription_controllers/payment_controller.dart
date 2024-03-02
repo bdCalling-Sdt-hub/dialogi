@@ -48,7 +48,7 @@ Future<void> paymentRepo({required String payerId,required String amount, requir
       "sku" : "subscription",
       "price": amount,
       "currency": currency,
-      "quantity": 1.toString(),
+      "quantity": 1,
       "subscriptionId" : subscriptionName == "Premium" ? "65cde4e7294393c969cff435" : "65cde4e7294393c969cff436",
     };
   } else{
@@ -60,7 +60,7 @@ Future<void> paymentRepo({required String payerId,required String amount, requir
       "sku" : "subscription",
       "price": amount,
       "currency": currency,
-      "quantity": 1.toString(),
+      "quantity": 1,
       "subscriptionId" : subscriptionName == "Premium" ? "65cde4e7294393c969cff435" : "65cde4e7294393c969cff436",
     };
   }

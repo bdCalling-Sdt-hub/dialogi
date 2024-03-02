@@ -14,24 +14,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class SelectFriendsGroupChat extends StatefulWidget {
-  const SelectFriendsGroupChat({super.key});
+import '../../../controllers/community/community_select_friend_controller.dart';
+
+class CommunitySelectFriends extends StatefulWidget {
+  const CommunitySelectFriends({super.key});
 
   @override
-  State<SelectFriendsGroupChat> createState() => _SelectFriendsGroupChatState();
+  State<CommunitySelectFriends> createState() => _CommunitySelectFriendsState();
 }
 
-class _SelectFriendsGroupChatState extends State<SelectFriendsGroupChat> {
-  final SelectFriendsController selectFriendsController =
-      Get.put(SelectFriendsController());
+class _CommunitySelectFriendsState extends State<CommunitySelectFriends> {
 
-  // final String discussPlatform = Get.parameters["discussPlatform"] ?? "";
+
+  CommunitySelectFriendsController communitySelectFriendsController = Get.put(CommunitySelectFriendsController()) ;
 
   @override
   void initState() {
-    selectFriendsController.friendListRepo();
-    selectFriendsController.scrollController.addListener(() {
-      selectFriendsController.scrollControllerCall();
+    communitySelectFriendsController.friendListRepo();
+    communitySelectFriendsController.scrollController.addListener(() {
+      communitySelectFriendsController.scrollControllerCall();
     });
     // TODO: implement initState
     super.initState();
@@ -63,7 +64,7 @@ class _SelectFriendsGroupChatState extends State<SelectFriendsGroupChat> {
             )
           ],
         )),
-        body: GetBuilder<SelectFriendsController>(
+        body: GetBuilder<CommunitySelectFriendsController>(
           builder: (controller) {
             return switch (controller.status) {
               Status.loading =>
@@ -79,7 +80,7 @@ class _SelectFriendsGroupChatState extends State<SelectFriendsGroupChat> {
                           alignment: Alignment.centerRight,
                           child: CustomText(
                               text:
-                                  "2/${controller.selectedParticipants.length - 1}")),
+                                  "${controller.selectedParticipants.length - 1}/5")),
                       Expanded(
                         child: ListView.builder(
                           itemCount: controller.friendList.length,
@@ -138,14 +139,14 @@ class _SelectFriendsGroupChatState extends State<SelectFriendsGroupChat> {
                                     context: context,
                                   );
                                 },
-                                titleText: AppStrings.createGroup)
+                                titleText: AppStrings.createCommunity)
                             : CustomElevatedButton(
                                 buttonColor: AppColors.gray_900,
                                 onPressed: () {
                                   Utils.snackBarMessage(AppStrings.selectMember,
                                       AppStrings.pleaseSelectAtLeastTwoMembers);
                                 },
-                                titleText: AppStrings.createGroup),
+                                titleText: AppStrings.createCommunity),
                       )
                     ],
                   ),
