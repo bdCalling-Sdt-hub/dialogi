@@ -37,7 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.6
   flutter_svg: ^2.0.8
-  google_fonts: ^6.1.0
+  #  google_fonts: ^6.1.0
+  google_fonts: ^4.0.4
   flutter_screenutil: ^5.9.0
   image_picker: ^1.0.7
   shared_preferences: ^2.2.2
@@ -52,13 +53,15 @@ dependencies:
   device_preview: ^1.1.0
   flutter_tts: ^3.8.5
   flutter_slidable: ^3.0.1
-  http: ^1.2.0
+  http:
   flutter_html: ^3.0.0-beta.2
   google_sign_in: ^6.2.1
   flutter_stripe: ^10.0.0
   flutter_dotenv: ^5.1.0
   mime: ^1.0.4
   socket_io_client: ^2.0.3+1
+  flutter_paypal_checkout: ^1.0.1
+  flutter_inappwebview: ^5.7.2+3
   google_mobile_ads: ^4.0.0
 
 dev_dependencies:
