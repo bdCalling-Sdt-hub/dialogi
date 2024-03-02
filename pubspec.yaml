@@ -62,7 +62,7 @@ dependencies:
   socket_io_client: ^2.0.3+1
   flutter_paypal_checkout: ^1.0.1
   flutter_inappwebview: ^5.7.2+3
-  google_mobile_ads: ^4.0.0
+
 
 
 
