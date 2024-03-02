@@ -387,7 +387,14 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                     currency: 'USD', );
 
                 } else if(paypalCardChecked){
-                  // paypalPaymentController.buildPaypalCheckout(context);
+                  print("object");
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => paypalPaymentController.buildPaypalCheckout(context: context, amount: premium == "true"
+                        ? "${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].price}"
+                        : "${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].price}",
+                      subscriptionName: premium == "true"? "Premium" : "Premium Plus",
+                      currency: 'USD',),
+                  ));
                 }
                 // showDialog(
                 //     context: context,

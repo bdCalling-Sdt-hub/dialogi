@@ -163,9 +163,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
             customRow(
                 icon: AppIcons.logout,
                 text: AppStrings.logout,
-                ontap: () {
-                  PrefsHelper.removeAllPrefData();
-                  Get.offAllNamed(AppRoutes.signInScreen);
+                ontap: () async {
+                  await PrefsHelper.removeAllPrefData()
+                      .then((value) => Get.offAllNamed(AppRoutes.signInScreen));
                 }),
           ],
         ));

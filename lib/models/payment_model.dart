@@ -1,5 +1,3 @@
-
-
 class PaymentModel {
   String? status;
   String? statusCode;
@@ -131,15 +129,13 @@ class PaymentInfo {
 
 class PaymentData {
   String? paymentId;
-  String? paymentMethod;
-  double? amount;
+  num? amount;
   Item? item;
 
-  PaymentData({this.paymentId, this.paymentMethod, this.amount, this.item});
+  PaymentData({this.paymentId, this.amount, this.item});
 
   PaymentData.fromJson(Map<String, dynamic> json) {
     paymentId = json['paymentId'];
-    paymentMethod = json['payment_method'];
     amount = json['amount'];
     item = json['item'] != null ? new Item.fromJson(json['item']) : null;
   }
@@ -147,7 +143,6 @@ class PaymentData {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['paymentId'] = this.paymentId;
-    data['payment_method'] = this.paymentMethod;
     data['amount'] = this.amount;
     if (this.item != null) {
       data['item'] = this.item!.toJson();
@@ -161,7 +156,7 @@ class Item {
   String? sku;
   String? price;
   String? currency;
-  int? quantity;
+  String? quantity;
 
   Item({this.name, this.sku, this.price, this.currency, this.quantity});
 

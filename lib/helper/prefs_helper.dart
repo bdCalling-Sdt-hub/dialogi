@@ -1,8 +1,9 @@
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/app_constants.dart';
 
-class PrefsHelper {
+class PrefsHelper extends GetxController{
   static String token = "";
   static String clientId = "";
   static String forgetPasswordToken = "";
@@ -22,9 +23,7 @@ class PrefsHelper {
 
 
 
-    forgetPasswordToken =
-        preferences.getString(AppConstants.forgetPasswordToken) ??
-            "";
+    forgetPasswordToken = preferences.getString(AppConstants.forgetPasswordToken) ?? "";
 
     print("..................$token............................");
 
@@ -75,7 +74,13 @@ class PrefsHelper {
  ///<<<======================== Get All Data Form Shared Preference ============>
   static Future<void> removeAllPrefData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.remove(AppConstants.bearerToken);
-    preferences.remove(AppConstants.forgetPasswordToken);
+    await preferences.clear();
+    preferences.setString(AppConstants.bearerToken, "");
+    preferences.setString(AppConstants.forgetPasswordToken, "");
+    preferences.setString("clientId", "");
+    // preferences.remove(AppConstants.bearerToken);
+    // preferences.remove(AppConstants.forgetPasswordToken);
+    // preferences.remove("clientId");
+    print("::::$token, $forgetPasswordToken, $clientId");
   }
 }

@@ -11,5 +11,8 @@ class AppConstants{
   static String userNotExist = "User does not exist";
   static String forgetPasswordToken = "ForgetPasswordToken";
   static String otpSend = "OTP send to your email";
+  static String paymentStatus = "Payment Status";
+  static String paymentSuccessful = "Payment successfully completed";
+  static String connectionTimedOUt = "Connection timed out";
 
 }

@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:dialogi_app/controllers/subscription_controllers/stripe_payment_controller.dart';
 import 'package:dialogi_app/controllers/subscription_controllers/subscription_controller.dart';
+import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/models/payment_model.dart';
 import 'package:dialogi_app/services/api_services.dart';
 import 'package:dialogi_app/services/api_url.dart';
@@ -43,29 +44,29 @@ Future<void> paymentRepo({required String payerId,required String amount, requir
      body = {
       "amount" : amount,
       "paymentId" : StripePaymentController.payerId,
-      "paymentMethod" : paymentMethod,
+      "payment_method" : paymentMethod,
       "name" : subscriptionName,
       "sku" : "subscription",
       "price": amount,
       "currency": currency,
-      "quantity": 1,
+      "quantity": 1.toString(),
       "subscriptionId" : subscriptionName == "Premium" ? "65cde4e7294393c969cff435" : "65cde4e7294393c969cff436",
     };
-  } else{
+  } else if(paymentMethod == 'paypal'){
     body = {
       "amount" : amount,
       "paymentId" : payerId,
-      "paymentMethod" : paymentMethod,
+      "payment_method" : paymentMethod,
       "name" : subscriptionName,
       "sku" : "subscription",
       "price": amount,
       "currency": currency,
-      "quantity": 1,
+      "quantity": 1.toString(),
       "subscriptionId" : subscriptionName == "Premium" ? "65cde4e7294393c969cff435" : "65cde4e7294393c969cff436",
     };
   }
 
-  print("Stripe Body Data: $body");
+  print("Body Data: $body");
 
 
    Map<String, String> mainHeader = {
@@ -82,6 +83,9 @@ Future<void> paymentRepo({required String payerId,required String amount, requir
       paymentModel = PaymentModel.fromJson(jsonData);
       var token = paymentModel!.data!.accessToken;
       PrefsHelper.setString(AppConstants.bearerToken, token);
+      print("Token: -----$token");
+      Get.offAllNamed(AppRoutes.homeScreen);
+      Get.snackbar(AppConstants.paymentStatus, AppConstants.paymentSuccessful);
 
     } else {
       Get.snackbar(apiResponseModel.statusCode.toString(), apiResponseModel.message);

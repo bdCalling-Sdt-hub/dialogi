@@ -89,13 +89,14 @@ class _ChatPremiumScreenState extends State<ChatPremiumScreen> {
               scrollDirection: Axis.horizontal,
               child: const Row(children: [
                 CustomPremiumCard(
+                  isPremiumPlus: true,
                     imageSrc: AppImages.premium,
                     premiumText: 'Premium',
                     getDialogiText: 'Get Dialogi Premium \$${50}/month',
                     length: 3,
                     addText: 'Ad-free experience'),
                 CustomPremiumCard(
-                  isPremium: false,
+                  isPremiumPlus: false,
                   imageSrc: AppImages.premium,
                   premiumText: 'Premium Plus',
                   getDialogiText: 'Get Dialogi Premium \$${100}/month',
