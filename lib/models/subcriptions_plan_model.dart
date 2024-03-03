@@ -1,5 +1,4 @@
 
-
 class SubscriptionsPlanModel {
   String? status;
   String? statusCode;
@@ -95,10 +94,12 @@ class SubscriptionsList {
   bool? isCommunityDiscussionAvailable;
   bool? isEarlyAccessAvailable;
   bool? updateProfileAccess;
-  num? price;
+  int? price;
+  int? expiryTime;
   int? iV;
   String? createdAt;
   String? updatedAt;
+  int? addFrequency;
 
   SubscriptionsList(
       {this.sId,
@@ -115,9 +116,11 @@ class SubscriptionsList {
         this.isEarlyAccessAvailable,
         this.updateProfileAccess,
         this.price,
+        this.expiryTime,
         this.iV,
         this.createdAt,
-        this.updatedAt});
+        this.updatedAt,
+        this.addFrequency});
 
   SubscriptionsList.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -134,9 +137,11 @@ class SubscriptionsList {
     isEarlyAccessAvailable = json['isEarlyAccessAvailable'];
     updateProfileAccess = json['updateProfileAccess'];
     price = json['price'];
+    expiryTime = json['expiryTime'];
     iV = json['__v'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    addFrequency = json['addFrequency'];
   }
 
   Map<String, dynamic> toJson() {
@@ -156,9 +161,11 @@ class SubscriptionsList {
     data['isEarlyAccessAvailable'] = this.isEarlyAccessAvailable;
     data['updateProfileAccess'] = this.updateProfileAccess;
     data['price'] = this.price;
+    data['expiryTime'] = this.expiryTime;
     data['__v'] = this.iV;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
+    data['addFrequency'] = this.addFrequency;
     return data;
   }
 }

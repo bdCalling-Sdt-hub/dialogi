@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+// import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'helper/prefs_helper.dart';
 
@@ -29,7 +29,7 @@ Future<void> main() async {
   dI.dependencies();
   configureTts();
   await PrefsHelper.getAllPrefData() ;
-  await MobileAds.instance.initialize() ;
+  // await MobileAds.instance.initialize() ;
   SocketServices.connectToSocket();
   runApp(const MyApp());
 

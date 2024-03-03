@@ -1,13 +1,21 @@
+import 'dart:convert';
+import 'dart:ui';
+
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/global/api_response_model.dart';
 import 'package:dialogi_app/models/access_status_model.dart';
+import 'package:dialogi_app/models/home_categories_model.dart';
+import 'package:dialogi_app/services/api_services.dart';
+import 'package:dialogi_app/services/api_url.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -18,6 +26,26 @@ class Homecontroller extends GetxController with GetxServiceMixin {
   static Status status = Status.loading;
 
   static AccessStatusModel? accessStatusModel;
+  HomeCategoriesModel? homeCategoriesModel;
+
+
+  ///<<<=================== Category Access Repo ==============================>>>
+
+  Future<void> categoryAccessRepo(int limitCount, int pageCount) async{
+
+    status = Status.loading;
+    update();
+    
+    var response = await ApiService.getApi("${ApiConstant.categoryType}?limit=$limitCount&pageEr=$pageCount");
+    print("Response json : ${response.responseJson}");
+    if (response.statusCode == 200){
+      homeCategoriesModel = HomeCategoriesModel.fromJson(jsonDecode(response.responseJson));
+      status = Status.completed;
+      update();
+    } else{
+      status = Status.error;
+    }
+  }
 
   static getAccessStatus({bool isPopUp = false}) async {
     status = Status.loading;

@@ -3,8 +3,11 @@ class AppStrings {
   static const String unlockPremiumAccess =
       "Unlock premium access for unlimited Dialoginess!";
 
+  static const String noSubscriptionFound = "No subscription purchased, Choose your convenient one ";
   static const String getPremium = "Get Premium";
   static const String getPremiumPlus = "Get Premium Plus";
+  static const String premiumPlus = "Premium Plus";
+  static const String premium = "Premium";
 
   static const String skipForNow = "Skip for now";
   static const String welcomeToThe = "Welcome to the";
@@ -133,6 +136,7 @@ class AppStrings {
   //Settings
   static const String changePassword = "Change Password";
   static const String subscriptions = "Subscriptions";
+  static const String mySubscription = "My Subscription";
   static const String privacyPolicy = "Privacy Policy";
   static const String aboutUs = "About Us";
   static const String support = "Support";
@@ -150,7 +154,6 @@ class AppStrings {
   static const String english = "English";
   static const String german = "German";
   static const String currentPlan = "Current Plan";
-  static const String premiumPlus = "Premium Plus";
   static const String cancelPlan = "Cancel Plan";
   static const String billedMonthly = "Billed Monthly";
   static const String billingDate = "Billing Date";

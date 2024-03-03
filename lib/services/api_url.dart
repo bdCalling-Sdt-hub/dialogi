@@ -14,6 +14,7 @@ class ApiConstant {
   static const notifications = "$baseUrl/api/notifications";
   static const users = "$baseUrl/api/users";
   static const categories = "$baseUrl/api/categories";
+  static const categoryType = "$baseUrl/api/categories/acess-type";
   static const reply = "$baseUrl/api/discussions/reply";
   static const questions = "$baseUrl/api/questions";
   static const subCategory = "$baseUrl/api/questions/sub-category";

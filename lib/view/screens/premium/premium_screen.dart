@@ -91,7 +91,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
                     SingleChildScrollView(
                       controller: pageController,
                       scrollDirection: Axis.horizontal,
-                      child: Row(children: [
+                      child: const Row(children: [
                         CustomPremiumCard(
                           isPremiumPlus: false,
                         ),

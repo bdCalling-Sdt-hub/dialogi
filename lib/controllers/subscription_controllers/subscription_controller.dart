@@ -26,12 +26,10 @@ class SubscriptionController extends GetxController{
 
       print("${apiResponseModel.statusCode}") ;
       print("${apiResponseModel.message}") ;
-      print("${apiResponseModel.responseJson}") ;
 
       if(apiResponseModel.statusCode == 200){
 
         var jsonData = jsonDecode(apiResponseModel.responseJson);
-        print(jsonData);
         subscriptionsPlanModel = SubscriptionsPlanModel.fromJson(jsonData);
 
         print("=========> ${subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].name}<========");

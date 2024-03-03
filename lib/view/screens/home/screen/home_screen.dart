@@ -28,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     Homecontroller.getAccessStatus();
+    homecontroller.categoryAccessRepo(1, 1);
     // TODO: implement initState
     super.initState();
   }
@@ -58,10 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () {
                 scaffoldKey.currentState!.openDrawer();
               },
-              child: CustomImage(
-                imageSrc: AppIcons.drawer,
-                size: 32.r,
-              )),
+              child: const Icon(Icons.menu, size: 36,)),
           const Spacer(),
           GestureDetector(
             onTap: (){
@@ -96,29 +94,48 @@ class _HomeScreenState extends State<HomeScreen> {
               )),
         ],
       )),
-      body: GetBuilder<Homecontroller>(builder: (controller) {
-        return GridView.builder(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          itemCount: 4,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisExtent: 250.h,
-              crossAxisSpacing: 8.w,
-              mainAxisSpacing: 8.h),
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                Get.toNamed(AppRoutes.categoryDetails,
-                    parameters: {"title": "Friends"});
-              },
-              child: const CustomCard(
-                  img:
-                      "https://images.unsplash.com/photo-1522098635833-216c03d81fbe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnJpZW5kfGVufDB8fDB8fHww",
-                  title: "Friends",
-                  queNum: "40"),
+      body: GetBuilder<Homecontroller>(
+          builder: (controller) {
+            return Column(
+              children: [
+                SizedBox(
+                  height: Get.height * 0.25,
+                  width: Get.width,
+                  child: ListView.builder(
+                    itemCount: 5,
+                      itemBuilder: (BuildContext context, int index){
+                      return Container();
+                      },
+                  ),
+                ),
+                SizedBox(
+                  height: Get.height * 0.49,
+                  width: Get.width,
+                  child: GridView.builder(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    itemCount: 4,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisExtent: 250.h,
+                        crossAxisSpacing: 8.w,
+                        mainAxisSpacing: 8.h),
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          Get.toNamed(AppRoutes.categoryDetails,
+                              parameters: {"title": "Friends"});
+                        },
+                        child: const CustomCard(
+                            img:
+                            "https://images.unsplash.com/photo-1522098635833-216c03d81fbe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnJpZW5kfGVufDB8fDB8fHww",
+                            title: "Friends",
+                            queNum: "40"),
+                      );
+                    },
+                  ),
+                )
+              ],
             );
-          },
-        );
       }),
     );
   }

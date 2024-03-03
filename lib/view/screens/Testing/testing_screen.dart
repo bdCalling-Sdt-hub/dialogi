@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+// import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdmobAd extends StatefulWidget {
   @override
@@ -8,64 +8,64 @@ class AdmobAd extends StatefulWidget {
 }
 
 class _AdmobAdState extends State<AdmobAd> {
-  late BannerAd bannerAd;
-  bool isBannerAdReady = false;
-  bool isInterstitialAdReady = false;
-  late InterstitialAd interstitialAd;
+  // late BannerAd bannerAd;
+  // bool isBannerAdReady = false;
+  // bool isInterstitialAdReady = false;
+  // late InterstitialAd interstitialAd;
 
   @override
   void initState() {
     super.initState();
-    loadBannerAd();
-    loadInterstitialAd();
+    // loadBannerAd();
+    // loadInterstitialAd();
   }
 
-  void loadBannerAd() {
-    bannerAd = BannerAd(
-      adUnitId: 'ca-app-pub-3940256099942544/6300978111',
-      size: AdSize.banner,
-      request: AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (_) {
-          setState(() {
-            isBannerAdReady = true;
-            print("isBannerAdReady");
-          });
-        },
-        onAdFailedToLoad: (ad, error) {
-          ad.dispose();
-        },
-      ),
-    );
-
-    bannerAd.load();
-  }
-
-  void loadInterstitialAd() async {
-    InterstitialAd.load(
-        adUnitId: "ca-app-pub-3940256099942544/1033173712",
-        request: AdRequest(),
-        adLoadCallback: InterstitialAdLoadCallback(
-          onAdLoaded: (ad) {
-            interstitialAd = ad;
-            setState(() {
-              isInterstitialAdReady = true;
-              print("InterstitialAdReady");
-            });
-          },
-          onAdFailedToLoad: (error) {
-            print("InterstitialAdError");
-            interstitialAd.dispose();
-
-            isInterstitialAdReady = false;
-          },
-        ));
-  }
+  // void loadBannerAd() {
+  //   bannerAd = BannerAd(
+  //     adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+  //     size: AdSize.banner,
+  //     request: AdRequest(),
+  //     listener: BannerAdListener(
+  //       onAdLoaded: (_) {
+  //         setState(() {
+  //           isBannerAdReady = true;
+  //           print("isBannerAdReady");
+  //         });
+  //       },
+  //       onAdFailedToLoad: (ad, error) {
+  //         ad.dispose();
+  //       },
+  //     ),
+  //   );
+  //
+  //   bannerAd.load();
+  // }
+  //
+  // void loadInterstitialAd() async {
+  //   InterstitialAd.load(
+  //       adUnitId: "ca-app-pub-3940256099942544/1033173712",
+  //       request: AdRequest(),
+  //       adLoadCallback: InterstitialAdLoadCallback(
+  //         onAdLoaded: (ad) {
+  //           interstitialAd = ad;
+  //           setState(() {
+  //             isInterstitialAdReady = true;
+  //             print("InterstitialAdReady");
+  //           });
+  //         },
+  //         onAdFailedToLoad: (error) {
+  //           print("InterstitialAdError");
+  //           interstitialAd.dispose();
+  //
+  //           isInterstitialAdReady = false;
+  //         },
+  //       ));
+  // }
 
   @override
   void dispose() {
-    bannerAd.dispose();
-    interstitialAd.dispose();
+    // bannerAd.dispose();
+    // interstitialAd.dispose();
     super.dispose();
   }
 
@@ -87,17 +87,17 @@ class _AdmobAdState extends State<AdmobAd> {
             Center(
               child: ElevatedButton(
                   onPressed: () {
-                    interstitialAd.show();
+                    // interstitialAd.show();
                   },
                   child: const Text("show Interstitial")),
             ),
             Spacer(),
-            isBannerAdReady
-                ? Container(
-                height: AdSize.banner.height.toDouble(),
-                width: AdSize.banner.width.toDouble(),
-                child: AdWidget(ad: bannerAd))
-                : const SizedBox(),
+            // isBannerAdReady
+            //     ? Container(
+            //     height: AdSize.banner.height.toDouble(),
+            //     width: AdSize.banner.width.toDouble(),
+            //     child: AdWidget(ad: bannerAd))
+            //     : const SizedBox(),
           ],
         ),
       ),
