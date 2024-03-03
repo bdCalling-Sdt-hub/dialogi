@@ -1,8 +1,11 @@
+import 'package:dialogi_app/controllers/notification_controller.dart';
+import 'package:dialogi_app/global/api_response_model.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/container/custom_notification.dart';
+import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +19,18 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
+  final NotificationsController notificationsController =
+      Get.put(NotificationsController());
+
+  @override
+  void initState() {
+    notificationsController.notificationsRepo();
+    notificationsController.scrollController.addListener(() {
+      notificationsController.scrollControllerCall();
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,15 +55,29 @@ class _NotificationScreenState extends State<NotificationScreen> {
             const SizedBox(),
           ],
         )),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-          child: ListView.builder(
-              itemCount: 6,
-              itemBuilder: (BuildContext context, int index) {
-                return const CustomNotification(
-                    notificationText: 'You payment was successful.',
-                    timeText: '1 hour ago');
-              }),
+        body: GetBuilder<NotificationsController>(
+          builder: (controller) {
+            return switch (controller.status) {
+              Status.loading =>
+                const Center(child: CircularProgressIndicator()),
+              Status.error =>
+                ErrorScreen(onTap: () => controller.notificationsRepo()),
+              Status.completed => Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+                  child: ListView.builder(
+                      controller: controller.scrollController,
+                      itemCount: controller.notificationsList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        var item = controller.notificationsList[index];
+                        return CustomNotification(
+                            notificationText: item.message,
+                            timeText:
+                                controller.getFormattedDate(item.createdAt));
+                      }),
+                ),
+            };
+          },
         ));
   }
 }

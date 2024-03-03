@@ -1,8 +1,8 @@
+import 'package:dialogi_app/helper/prefs_helper.dart';
 import 'package:dialogi_app/services/api_url.dart';
+import 'package:dialogi_app/services/notification_services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
-
-
 
 class SocketServices {
   static late io.Socket socket;
@@ -46,5 +46,14 @@ class SocketServices {
     //   }
     //   // notificationService.showNotification(data);
     // });
+  }
+
+  static void notifications() {
+    NotificationService notificationService = NotificationService();
+
+    socket.on('user-notification::${PrefsHelper.clientId}', (data) {
+      print("================> get Data on socket: $data");
+      notificationService.showNotification(data);
+    });
   }
 }

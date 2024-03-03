@@ -133,6 +133,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           onTap: () {
                             if (controller.messageController.text != "") {
                               controller.addNewMessage(chatId);
+
                             }
                           },
                           child: const CustomImage(

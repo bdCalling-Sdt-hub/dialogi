@@ -1,5 +1,6 @@
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/global/dependncy.dart';
+import 'package:dialogi_app/services/notification_services.dart';
 import 'package:dialogi_app/services/socket_service.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,6 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'helper/prefs_helper.dart';
 
-
 Future<void> configureTts() async {
   FlutterTts flutterTts = FlutterTts();
   await flutterTts.setLanguage('en-US');
@@ -22,15 +22,21 @@ Future<void> configureTts() async {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Stripe.publishableKey = 'pk_test_51NsL1qAGQlA3WKiIICnGloioSLGGq9pH7mBRb57na8QHzGKDycj9Fy08rkT6AEg8PwyBOzJZLFImpYV9KOAczU1p00THCcecwL';
+  Stripe.publishableKey =
+      'pk_test_51NsL1qAGQlA3WKiIICnGloioSLGGq9pH7mBRb57na8QHzGKDycj9Fy08rkT6AEg8PwyBOzJZLFImpYV9KOAczU1p00THCcecwL';
   await dotenv.load(fileName: "assets/.env");
 
   DependencyInjection dI = DependencyInjection();
   dI.dependencies();
   configureTts();
-  await PrefsHelper.getAllPrefData() ;
-  await MobileAds.instance.initialize() ;
+  await PrefsHelper.getAllPrefData();
+  await MobileAds.instance.initialize();
+  NotificationService notificationService = NotificationService();
+  notificationService.initLocalNotification();
   SocketServices.connectToSocket();
+  PrefsHelper.token.isNotEmpty
+      ? SocketServices.notifications()
+      : const SizedBox();
   runApp(const MyApp());
 
   /* runApp(

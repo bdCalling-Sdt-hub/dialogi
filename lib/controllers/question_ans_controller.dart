@@ -80,7 +80,7 @@ class QuestionAnsController extends GetxController {
     print("${categoryController.categoryId}");
 
     var response = await ApiService.getApi(
-        "${ApiConstant.questions}/$subCategory/${categoryController.categoryId}?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage");
+        "${ApiConstant.questions}/$subCategory/${categoryController.categoryId}?page=$page&limit=1&discussionLimit=5&discussionPage=$discussionPage");
 
     print(
         "===========================================>${ApiConstant.questions}/$subCategory/${categoryController.categoryId}?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage");
@@ -215,6 +215,15 @@ class QuestionAnsController extends GetxController {
     var response = await ApiService.postApi(ApiConstant.favourite, body);
 
     if (response.statusCode == 201) {
+      if (questionAnsModel!.data!.attributes!.questions![0].isFavourite! ==
+          true) {
+        questionAnsModel!.data!.attributes!.questions![0].isFavourite = false;
+        update();
+      } else {
+        questionAnsModel!.data!.attributes!.questions![0].isFavourite = true;
+        update();
+      }
+
       print(
           "===========================================> respose ${response.responseJson}");
     } else {

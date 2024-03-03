@@ -1,6 +1,3 @@
-
-
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -13,9 +10,6 @@ import '../../services/api_url.dart';
 import '../../utils/app_utils.dart';
 
 class ChatListController extends GetxController {
-
-
-
   Status status = Status.completed;
 
   Status statusMore = Status.completed;
@@ -68,8 +62,4 @@ class ChatListController extends GetxController {
       update();
     }
   }
-
-
-
-
 }

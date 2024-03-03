@@ -132,13 +132,11 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                                     children: [
                                       controller.discussionDetailsModel!.data!
                                               .attributes!.discussion!.isLiked!
-                                          ? CustomImage(
-                                              imageSrc: AppImages.isLike,
-                                              imageType: ImageType.png,
-                                              size: 18.sp,
-                                            )
+                                          ? const Icon(Icons.thumb_up_rounded, color: AppColors.blue_500,)
                                           : const CustomImage(
-                                              imageSrc: AppIcons.like),
+                                              imageSrc: AppIcons.like,
+                                        size: 24,
+                                      ),
                                       SizedBox(width: 10.w),
                                       CustomText(
                                           text: controller
@@ -165,14 +163,9 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                               children: [
                                 controller.discussionDetailsModel!.data!
                                         .attributes!.discussion!.isDisliked!
-                                    ? CustomImage(
-                                        imageSrc: AppImages.isDislike,
-                                        size: 14.sp,
-                                        imageType: ImageType.png,
-                                        imageColor: AppColors.blue_500,
-                                      )
+                                    ? const Icon(Icons.thumb_down_rounded, color: AppColors.blue_500,)
                                     : const CustomImage(
-                                        imageSrc: AppIcons.dislike),
+                                        imageSrc: AppIcons.dislike, size: 24,),
                                 SizedBox(width: 10.w),
                                 CustomText(
                                     text: controller.discussionDetailsModel!
@@ -289,16 +282,11 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                                             : Row(
                                                 children: [
                                                   item.isLiked
-                                                      ? CustomImage(
-                                                          imageSrc:
-                                                              AppImages.isLike,
-                                                          imageType:
-                                                              ImageType.png,
-                                                          size: 18.sp,
-                                                        )
+                                                      ? const Icon(Icons.thumb_up_rounded, color: AppColors.blue_500,)
                                                       : const CustomImage(
                                                           imageSrc:
-                                                              AppIcons.like),
+                                                              AppIcons.like,size: 24,
+                                                  ),
                                                   SizedBox(width: 10.w),
                                                   CustomText(
                                                       text: item.likes
@@ -317,18 +305,10 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                                             : Row(
                                                 children: [
                                                   item.isDisliked
-                                                      ? CustomImage(
-                                                          imageSrc: AppImages
-                                                              .isDislike,
-                                                          size: 14.sp,
-                                                          imageType:
-                                                              ImageType.png,
-                                                          imageColor: AppColors
-                                                              .blue_500,
-                                                        )
+                                                      ? const Icon(Icons.thumb_down_rounded, color: AppColors.blue_500,)
                                                       : const CustomImage(
                                                           imageSrc:
-                                                              AppIcons.dislike),
+                                                              AppIcons.dislike, size: 24,),
                                                   SizedBox(width: 10.w),
                                                   CustomText(
                                                       text: item.dislikes

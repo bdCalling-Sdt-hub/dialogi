@@ -76,14 +76,25 @@ class _ChatListScreenState extends State<ChatListScreen> {
                           ],
                         ),
                         child: CustomChatList(
-                            onTap: () =>
-                                Get.toNamed(AppRoutes.chatScreen, parameters: {
-                                  "chatId": controller.chatList[index].sId,
-                                  "type": item.type,
-                                  "name": item.type == "single"
-                                      ? item.participants[0].fullName
-                                      : item.groupName
-                                }),
+                            onTap: () async {
+                              var data = "";
+                              var result = await Get.toNamed(
+                                  AppRoutes.chatScreen,
+                                  arguments: data,
+                                  parameters: {
+                                    "chatId": controller.chatList[index].sId,
+                                    "type": item.type,
+                                    "name": item.type == "single"
+                                        ? item.participants[0].fullName
+                                        : item.groupName
+                                  });
+
+                              print(
+                                  "return data ====================================================>$result");
+                              controller.chatList.clear();
+                              controller.page =1 ;
+                              controller.chatRepo();
+                            },
                             image:
                                 "${ApiConstant.baseUrl}/${item.type == "single" ? item.participants[0].image : item.image}",
                             text: item.type == "single"

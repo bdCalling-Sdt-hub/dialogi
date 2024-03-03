@@ -26,6 +26,7 @@ class PendingRequestController extends GetxController {
   int page = 1;
   int communityPage = 1;
   final ScrollController scrollController = ScrollController();
+  final ScrollController communityScrollController = ScrollController();
 
   Future<void> scrollControllerCall() async {
     if (scrollController.position.pixels ==
@@ -39,8 +40,9 @@ class PendingRequestController extends GetxController {
   }
 
   Future<void> pendingRequestRepo() async {
-    isCommunityRequest = false;
+
     if (page == 1) {
+      isCommunityRequest = false;
       status = Status.loading;
       update();
     }
@@ -69,8 +71,8 @@ class PendingRequestController extends GetxController {
   }
 
   Future<void> communityScrollControllerCall() async {
-    if (scrollController.position.pixels ==
-        scrollController.position.maxScrollExtent) {
+    if (communityScrollController.position.pixels ==
+        communityScrollController.position.maxScrollExtent) {
       isMoreLoading = true;
       update();
       await communityRequestRepo();
@@ -80,8 +82,9 @@ class PendingRequestController extends GetxController {
   }
 
   Future<void> communityRequestRepo() async {
-    isCommunityRequest = true;
+
     if (communityPage == 1) {
+      isCommunityRequest = true;
       status = Status.loading;
       update();
     }

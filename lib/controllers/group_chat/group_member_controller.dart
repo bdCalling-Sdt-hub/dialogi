@@ -1,7 +1,3 @@
-
-
-
-
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
@@ -16,7 +12,6 @@ import '../../services/api_url.dart';
 import '../../utils/app_utils.dart';
 
 class GroupMemberController extends GetxController {
-
   Status status = Status.completed;
   Status statusMore = Status.completed;
   List memberList = [];
@@ -25,7 +20,6 @@ class GroupMemberController extends GetxController {
 
   GroupMemberModel? groupMemberModel;
   final ScrollController scrollController = ScrollController();
-
 
   int page = 1;
 
@@ -46,8 +40,8 @@ class GroupMemberController extends GetxController {
       update();
     }
 
-    var response = await ApiService.getApi(
-        "${ApiConstant.chats}/$chatId?page=$page");
+    var response =
+        await ApiService.getApi("${ApiConstant.chats}/$chatId?page=$page");
 
     if (kDebugMode) {
       print("====================> body ${response.responseJson}");
@@ -83,7 +77,7 @@ class GroupMemberController extends GetxController {
     };
 
     var response =
-    await ApiService.patchApi("${ApiConstant.leave}/$chatId", body: body);
+        await ApiService.patchApi("${ApiConstant.leave}/$chatId", body: body);
 
     if (kDebugMode) {
       print("====================> body ${response.responseJson}");
@@ -92,7 +86,7 @@ class GroupMemberController extends GetxController {
     if (response.statusCode == 200) {
       isLeave = false;
       update();
-      Get.offNamed(AppRoutes.chatListScreen);
+      Get.back(result: chatId);
     } else {
       Utils.snackBarMessage(response.statusCode.toString(), response.message);
     }

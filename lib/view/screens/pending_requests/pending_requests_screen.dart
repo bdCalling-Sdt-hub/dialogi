@@ -35,7 +35,9 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
       pendingRequestController.scrollControllerCall();
     });
 
-    pendingRequestController.communityScrollControllerCall();
+    pendingRequestController.communityScrollController.addListener(() {
+      pendingRequestController.communityScrollControllerCall();
+    });
 
     // TODO: implement initState
     super.initState();
@@ -116,23 +118,21 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                                   controller.communityPage = 1;
                                   controller.communityRequestRepo();
                                 },
-                                child: Expanded(
-                                  child: Column(
-                                    children: [
-                                      const CustomText(
-                                        text: AppStrings.communityRequests,
-                                        fontSize: 14,
-                                        color: AppColors.blue_500,
-                                      ),
-                                      controller.isCommunityRequest
-                                          ? Container(
-                                              color: Colors.red,
-                                            )
-                                          : Container(
-                                              color: Colors.blue,
-                                            )
-                                    ],
-                                  ),
+                                child: Column(
+                                  children: [
+                                    const CustomText(
+                                      text: AppStrings.communityRequests,
+                                      fontSize: 14,
+                                      color: AppColors.blue_500,
+                                    ),
+                                    controller.isCommunityRequest
+                                        ? Container(
+                                            color: Colors.red,
+                                          )
+                                        : Container(
+                                            color: Colors.blue,
+                                          )
+                                  ],
                                 ),
                               ),
                               SizedBox(
@@ -158,6 +158,7 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                         child: controller.isCommunityRequest
                             ? ListView.builder(
                                 itemCount: controller.communityRequest.length,
+                                controller: controller.scrollController,
                                 itemBuilder: (BuildContext context, int index) {
                                   var item = controller.communityRequest[index];
                                   return CustomPendingRequests(
@@ -175,7 +176,8 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                                   );
                                 })
                             : ListView.builder(
-                                controller: controller.scrollController,
+                                controller:
+                                    controller.communityScrollController,
                                 itemCount: controller.friendRequestList.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   var item =
