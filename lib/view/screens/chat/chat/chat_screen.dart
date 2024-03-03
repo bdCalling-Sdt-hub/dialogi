@@ -46,7 +46,8 @@ class _ChatScreenState extends State<ChatScreen> {
     print("==============================================> chatId $chatId");
     return GetBuilder<MessageController>(builder: (controller) {
       return switch (controller.status) {
-        Status.loading => const Center(child: CircularProgressIndicator()),
+        Status.loading =>
+          const Scaffold(body: Center(child: CircularProgressIndicator())),
         Status.error =>
           ErrorScreen(onTap: () => controller.getMessageRepo(chatId)),
         Status.completed => Scaffold(
@@ -69,32 +70,37 @@ class _ChatScreenState extends State<ChatScreen> {
                   fontWeight: FontWeight.w500,
                   color: AppColors.blue_500,
                 ),
-                type == "single" ? const SizedBox() : type == AppStrings.community ? CommunityChatPopUps(chatId: chatId) : GroupChatPopUps(chatId: chatId,)
+                type == "single"
+                    ? const SizedBox()
+                    : type == AppStrings.community
+                        ? CommunityChatPopUps(chatId: chatId)
+                        : GroupChatPopUps(
+                            chatId: chatId,
+                          )
               ],
             )),
-            body: controller.isMessage ? const Center(child: CircularProgressIndicator()) : ListView.builder(
-                reverse: true,
-                controller: controller.scrollController,
-                itemCount: controller.messages.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final message = controller.messages[index];
+            body: controller.isMessage
+                ? const Center(child: CircularProgressIndicator())
+                : ListView.builder(
+                    reverse: true,
+                    controller: controller.scrollController,
+                    itemCount: controller.messages.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final message = controller.messages[index];
 
-                  return ChatBubbleMessage(
-                    index: index,
-                    image: message.image,
-                    messageIndex: controller.currentIndex,
-                    isEmoji: controller.isInputField,
-                    onpress: () {
-                      setState(() {
-                        controller.currentIndex = index;
-                        controller.isInputField = controller.isInputField;
-                      });
-                    },
-                    time: message.time,
-                    text: message.text,
-                    isMe: message.isMe,
-                  );
-                }),
+                      return ChatBubbleMessage(
+                        index: index,
+                        image: message.image,
+                        messageIndex: controller.currentIndex,
+                        isEmoji: controller.isInputField,
+                        onpress: () => controller.isEmoji(index),
+                        isQuestion: message.isQuestion,
+                        isNotice: message.isNotice,
+                        time: message.time,
+                        text: message.text,
+                        isMe: message.isMe,
+                      );
+                    }),
             bottomNavigationBar: AnimatedPadding(
               padding: MediaQuery.of(context).viewInsets,
               duration: const Duration(milliseconds: 100),
@@ -133,7 +139,6 @@ class _ChatScreenState extends State<ChatScreen> {
                           onTap: () {
                             if (controller.messageController.text != "") {
                               controller.addNewMessage(chatId);
-
                             }
                           },
                           child: const CustomImage(

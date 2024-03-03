@@ -158,7 +158,7 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                         child: controller.isCommunityRequest
                             ? ListView.builder(
                                 itemCount: controller.communityRequest.length,
-                                controller: controller.scrollController,
+                                controller: controller.communityScrollController,
                                 itemBuilder: (BuildContext context, int index) {
                                   var item = controller.communityRequest[index];
                                   return CustomPendingRequests(
@@ -177,7 +177,7 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                                 })
                             : ListView.builder(
                                 controller:
-                                    controller.communityScrollController,
+                                    controller.scrollController,
                                 itemCount: controller.friendRequestList.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   var item =

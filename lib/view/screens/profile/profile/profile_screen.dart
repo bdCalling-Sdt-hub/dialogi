@@ -67,7 +67,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         body: GetBuilder<ProfileController>(
           builder: (controller) {
             return switch (controller.status) {
-              Status.loading => const CircularProgressIndicator(),
+              Status.loading => const Center(child: CircularProgressIndicator()),
               Status.error =>
                 ErrorScreen(onTap: () => controller.profileRepo()),
               Status.completed => SingleChildScrollView(

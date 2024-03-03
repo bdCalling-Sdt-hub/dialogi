@@ -27,6 +27,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
 
   @override
   void initState() {
+    chatListController.listenMessage() ;
     chatListController.chatRepo();
     chatListController.scrollController.addListener(() {
       chatListController.scrollControllerCall();
@@ -58,10 +59,12 @@ class _ChatListScreenState extends State<ChatListScreen> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
                 child: ListView.builder(
+                  controller: controller.scrollController,
                     scrollDirection: Axis.vertical,
                     itemCount: controller.chatList.length,
                     itemBuilder: (BuildContext context, int index) {
                       var item = controller.chatList[index];
+
                       return Slidable(
                         endActionPane: ActionPane(
                           motion: const ScrollMotion(),
@@ -95,12 +98,11 @@ class _ChatListScreenState extends State<ChatListScreen> {
                               controller.page =1 ;
                               controller.chatRepo();
                             },
-                            image:
-                                "${ApiConstant.baseUrl}/${item.type == "single" ? item.participants[0].image : item.image}",
+                            image: "${ApiConstant.baseUrl}/${item.type == "single" ? item.participants[0].image : item.image}",
                             text: item.type == "single"
                                 ? item.participants[0].fullName
                                 : item.groupName,
-                            description: 'Lorem ipsum dolor sit amet...'),
+                            description: item.latestMessage != null ? item.latestMessage.message : ""),
                       );
                     }),
               ),
