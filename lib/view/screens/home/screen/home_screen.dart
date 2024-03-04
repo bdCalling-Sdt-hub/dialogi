@@ -9,6 +9,7 @@ import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/nav_bar/nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -109,21 +110,24 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: Get.width,
                   child: ListView.builder(
                     controller: controller.scrollController,
-                    itemCount: controller.homeCategoriesModel?.data?.attributes?.categoryList?.length,
+                    itemCount: controller.homeCategoriesModel?.data?.attributes?.earlyAccessList?.length,
                       itemBuilder: (BuildContext context, int index){
-                      return Container();
+                      return Column(
+                        children: [
+                          
+                        ],
+                      );
                       },
                   ),
                 ),
 
                 ///<<<======================== Early Access List Items ===============>>>
 
-                SizedBox(
-                  height: Get.height * 0.49,
-                  width: Get.width,
+                Expanded(
                   child: GridView.builder(
+                    controller: controller.scrollController,
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    itemCount: 4,
+                    itemCount: controller.homeCategoriesModel?.data?.attributes?.categoryList?.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         mainAxisExtent: 250.h,
