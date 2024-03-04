@@ -1,5 +1,6 @@
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/global/dependncy.dart';
+import 'package:dialogi_app/services/admob_ad_services.dart';
 import 'package:dialogi_app/services/notification_services.dart';
 import 'package:dialogi_app/services/socket_service.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
@@ -34,6 +35,7 @@ Future<void> main() async {
   NotificationService notificationService = NotificationService();
   notificationService.initLocalNotification();
   SocketServices.connectToSocket();
+  AdmobAdServices.loadInterstitialAd();
   PrefsHelper.token.isNotEmpty
       ? SocketServices.notifications()
       : const SizedBox();

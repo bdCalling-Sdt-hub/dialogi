@@ -7,7 +7,7 @@ import 'package:dialogi_app/controllers/chat/message_controller.dart';
 import 'package:dialogi_app/controllers/friends/friend_controller.dart';
 import 'package:dialogi_app/controllers/friends/pending_request_controller.dart';
 import 'package:dialogi_app/controllers/subscription_controllers/payment_controller.dart';
-import 'package:dialogi_app/controllers/question_ans_controller.dart';
+import 'package:dialogi_app/controllers/question/question_ans_controller.dart';
 import 'package:dialogi_app/controllers/subscription_controllers/paypal_payment_controller.dart';
 import 'package:dialogi_app/view/screens/home/home_controller/home_controller.dart';
 import 'package:get/get.dart';

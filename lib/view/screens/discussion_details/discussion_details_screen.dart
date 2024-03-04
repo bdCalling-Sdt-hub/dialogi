@@ -1,4 +1,4 @@
-import 'package:dialogi_app/controllers/question_ans_controller.dart';
+import 'package:dialogi_app/controllers/question/question_ans_controller.dart';
 import 'package:dialogi_app/global/api_response_model.dart';
 import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:flutter/cupertino.dart';

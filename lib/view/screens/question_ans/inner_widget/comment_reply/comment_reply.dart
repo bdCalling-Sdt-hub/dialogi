@@ -1,4 +1,4 @@
-import 'package:dialogi_app/controllers/question_ans_controller.dart';
+import 'package:dialogi_app/controllers/question/question_ans_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';

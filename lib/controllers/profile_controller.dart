@@ -4,8 +4,10 @@ import 'dart:io';
 import 'package:dialogi_app/global/api_response_model.dart';
 import 'package:dialogi_app/helper/prefs_helper.dart';
 import 'package:dialogi_app/models/profile_model.dart';
+import 'package:dialogi_app/view/screens/home/home_controller/home_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../core/app_routes.dart';
@@ -17,6 +19,8 @@ class ProfileController extends GetxController {
   Status status = Status.completed;
 
   String? image;
+
+  RxBool updateProfileAccess = false.obs;
 
   ProfileModel profileModel = ProfileModel();
 
@@ -36,6 +40,8 @@ class ProfileController extends GetxController {
     if (response.statusCode == 200) {
       print(response.responseJson);
       profileModel = ProfileModel.fromJson(jsonDecode(response.responseJson));
+
+      editProfile();
 
       status = Status.completed;
       update();
@@ -86,6 +92,14 @@ class ProfileController extends GetxController {
       print("=============================================> Update Successful");
     } else {
       print("=============================================> Update Successful");
+    }
+  }
+
+  editProfile() {
+    if (Homecontroller.status == Status.completed) {
+      if (Homecontroller.accessStatusModel!.data!.updateProfileAccess == true) {
+        updateProfileAccess.value = true;
+      }
     }
   }
 }

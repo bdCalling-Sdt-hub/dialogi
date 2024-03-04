@@ -1,4 +1,6 @@
+import 'package:dialogi_app/controllers/profile_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
+import 'package:dialogi_app/global/api_response_model.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/view/screens/home/home_controller/home_controller.dart';
@@ -23,10 +25,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Homecontroller homecontroller = Get.put(Homecontroller());
+  final ProfileController profileController = Get.put(ProfileController()) ;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
+    profileController.profileRepo();
     Homecontroller.getAccessStatus();
     // TODO: implement initState
     super.initState();
@@ -64,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
               )),
           const Spacer(),
           GestureDetector(
-            onTap: (){
+            onTap: () {
               homecontroller.showPopUpPremiumPackage();
             },
             child: const CustomImage(
@@ -88,7 +92,16 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           GestureDetector(
               onTap: () {
-                Get.toNamed(AppRoutes.chatListScreen);
+                if (Homecontroller.status == Status.completed) {
+                  if (Homecontroller.accessStatusModel!.data!.type !=
+                      "default") {
+                    Get.toNamed(AppRoutes.chatListScreen);
+                  } else {
+                    Get.toNamed(AppRoutes.premiumScreen);
+                  }
+                } else {
+                  Homecontroller.getAccessStatus();
+                }
               },
               child: const CustomImage(
                 imageSrc: AppIcons.chat,

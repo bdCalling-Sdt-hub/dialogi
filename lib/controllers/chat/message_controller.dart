@@ -131,6 +131,8 @@ class MessageController extends GetxController {
   }
 
   listenMessage(String chatId) async {
+
+
     SocketServices.socket.on('new-message::$chatId', (data) {
       status = Status.loading;
       update();

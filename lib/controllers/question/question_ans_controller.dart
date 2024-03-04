@@ -5,20 +5,21 @@ import 'package:dialogi_app/controllers/category/sub_category_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/models/add_discussion_model.dart';
 import 'package:dialogi_app/models/question_ans_model.dart';
+import 'package:dialogi_app/services/admob_ad_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-import '../global/api_response_model.dart';
-import '../helper/prefs_helper.dart';
-import '../models/access_status_model.dart';
-import '../models/reply_model.dart';
-import '../services/api_services.dart';
-import '../services/api_url.dart';
-import '../services/socket_service.dart';
-import '../utils/app_utils.dart';
-import '../view/screens/home/home_controller/home_controller.dart';
+import '../../global/api_response_model.dart';
+import '../../helper/prefs_helper.dart';
+import '../../models/access_status_model.dart';
+import '../../models/reply_model.dart';
+import '../../services/api_services.dart';
+import '../../services/api_url.dart';
+import '../../services/socket_service.dart';
+import '../../utils/app_utils.dart';
+import '../../view/screens/home/home_controller/home_controller.dart';
 
 class QuestionAnsController extends GetxController {
   Status status = Status.completed;
@@ -44,6 +45,10 @@ class QuestionAnsController extends GetxController {
   int discussionPage = 1;
   int totalPages = 0;
 
+  bool isDiscuss = false;
+  bool isGroup = false;
+  bool isCommunity = false;
+
   TextEditingController replyController = TextEditingController();
   TextEditingController discussionController = TextEditingController();
 
@@ -68,6 +73,45 @@ class QuestionAnsController extends GetxController {
           "======================================================> sdfdsjfdsklfjdslkfjsfjlksdjlkf");
     }
   }
+
+  nextQuestion() {
+    AdmobAdServices.interstitialAd.show();
+
+    if (Homecontroller.status == Status.completed) {
+      bool isAds = Homecontroller.accessStatusModel!.data!.questionAccessed! %
+              Homecontroller.accessStatusModel!.data!.addFrequency! ==
+          0;
+
+      print("==============================> isAds $isAds");
+      if (Homecontroller.accessStatusModel!.data!.isAddAvailable!) {
+        if (isAds) {
+          if (AdmobAdServices.isInterstitialAdReady.value) {
+            try {
+              AdmobAdServices.interstitialAd.show();
+            } catch (e) {
+              print(e.toString());
+            }
+          }
+          AdmobAdServices.loadInterstitialAd();
+        }
+      }
+    } else {
+      Homecontroller.getAccessStatus();
+    }
+  }
+
+  checkDiscuss() {
+    if (Homecontroller.status == Status.completed) {
+      if (Homecontroller.accessStatusModel!.data!.isGroupChatAvailable ==
+              false &&
+          Homecontroller
+                  .accessStatusModel!.data!.isCommunityDiscussionAvailable ==
+              false) {
+        isDiscuss = true;
+      }
+    }
+  }
+
 
   Future<void> questionsRepo(String subCategory) async {
     if (discussionPage == 1) {
@@ -180,6 +224,8 @@ class QuestionAnsController extends GetxController {
           discussion: item.discussion,
           dislikes: item.dislikes,
           likes: item.likes,
+          isLiked: false,
+          isDisliked: false,
           totalReplies: 0,
           user: User(
               sId: PrefsHelper.clientId,

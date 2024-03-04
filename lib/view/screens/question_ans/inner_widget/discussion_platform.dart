@@ -1,3 +1,4 @@
+import 'package:dialogi_app/controllers/question/discussion_platform.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
@@ -7,12 +8,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 void chooseDiscussPlatform({required BuildContext context}) {
-  String selectedPlatform = AppStrings.community;
+  final DiscussionPlatformController discussionPlatformController =
+      Get.put(DiscussionPlatformController());
 
-  List<String> discussPlatform = [AppStrings.community, AppStrings.group];
   showDialog(
     context: context,
     builder: (context) {
+      discussionPlatformController.checkDiscussion() ;
       return Dialog(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -33,20 +35,24 @@ void chooseDiscussPlatform({required BuildContext context}) {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: List.generate(
-                    discussPlatform.length,
+                    discussionPlatformController.discussPlatform.length,
                     (index) => Row(
                       children: [
                         Radio<String>(
-                          value: discussPlatform[index],
-                          groupValue: selectedPlatform,
+                          value: discussionPlatformController
+                              .discussPlatform[index],
+                          groupValue:
+                              discussionPlatformController.selectedPlatform,
                           onChanged: (value) {
                             setState(() {
-                              selectedPlatform = value!;
+                              discussionPlatformController.selectedPlatform =
+                                  value!;
                             });
                           },
                         ),
                         CustomText(
-                          text: discussPlatform[index],
+                          text: discussionPlatformController
+                              .discussPlatform[index],
                         ),
                       ],
                     ),
@@ -58,13 +64,15 @@ void chooseDiscussPlatform({required BuildContext context}) {
                     buttonWidth: double.maxFinite,
                     onPressed: () {
                       navigator!.pop();
-                      if(selectedPlatform == AppStrings.community) {
-                        Get.toNamed(AppRoutes.sameCommunity) ;
+                      if (discussionPlatformController.selectedPlatform ==
+                          AppStrings.community) {
+                        Get.toNamed(AppRoutes.sameCommunity);
                       } else {
-                        Get.toNamed(AppRoutes.selectFriends,
-                            parameters: {"discussPlatform": selectedPlatform});
+                        Get.toNamed(AppRoutes.selectFriends, parameters: {
+                          "discussPlatform":
+                              discussionPlatformController.selectedPlatform
+                        });
                       }
-
                     },
                     titleText: AppStrings.confirm)
               ],
