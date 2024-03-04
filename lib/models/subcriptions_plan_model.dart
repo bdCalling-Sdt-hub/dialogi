@@ -85,21 +85,21 @@ class SubscriptionsList {
   String? name;
   String? type;
   bool? isAddAvailable;
-  int? categoryAccessNumber;
+  num? categoryAccessNumber;
   bool? isCategoryAccessUnlimited;
-  int? questionAccessNumber;
+  num? questionAccessNumber;
   bool? isQuestionAccessUnlimited;
   bool? isChatAvailable;
   bool? isGroupChatAvailable;
   bool? isCommunityDiscussionAvailable;
   bool? isEarlyAccessAvailable;
   bool? updateProfileAccess;
-  int? price;
-  int? expiryTime;
-  int? iV;
+  num? price;
+  num? expiryTime;
+  num? iV;
   String? createdAt;
   String? updatedAt;
-  int? addFrequency;
+  num? addFrequency;
 
   SubscriptionsList(
       {this.sId,

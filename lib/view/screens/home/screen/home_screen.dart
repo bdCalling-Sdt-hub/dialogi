@@ -28,7 +28,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     Homecontroller.getAccessStatus();
-    homecontroller.categoryAccessRepo(1, 1);
+    homecontroller.categoryAccessRepo();
+    homecontroller.scrollController.addListener(() {
+      homecontroller.scrollControllerCall();
+    });
     // TODO: implement initState
     super.initState();
   }
@@ -98,16 +101,23 @@ class _HomeScreenState extends State<HomeScreen> {
           builder: (controller) {
             return Column(
               children: [
+
+                ///<<<======================== Category List Items ===============>>>
+
                 SizedBox(
                   height: Get.height * 0.25,
                   width: Get.width,
                   child: ListView.builder(
-                    itemCount: 5,
+                    controller: controller.scrollController,
+                    itemCount: controller.homeCategoriesModel?.data?.attributes?.categoryList?.length,
                       itemBuilder: (BuildContext context, int index){
                       return Container();
                       },
                   ),
                 ),
+
+                ///<<<======================== Early Access List Items ===============>>>
+
                 SizedBox(
                   height: Get.height * 0.49,
                   width: Get.width,

@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:ui';
+import 'package:http/http.dart' as http;
 
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/global/api_response_model.dart';
@@ -17,33 +19,56 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../../../../helper/prefs_helper.dart';
 import '../../../../services/socket_service.dart';
+import '../../../../utils/app_constants.dart';
 
 class Homecontroller extends GetxController with GetxServiceMixin {
   static Status status = Status.loading;
 
   static AccessStatusModel? accessStatusModel;
   HomeCategoriesModel? homeCategoriesModel;
+  final ScrollController scrollController = ScrollController();
+  int pageCount = 1;
+  int limitCount = 10;
+
+
+  ///<<<==================== Page Scroll Method ==================================>>>
+  Future<void> scrollControllerCall() async {
+    if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
+      status = Status.loading;
+      update();
+      await categoryAccessRepo();
+      status = Status.completed;
+      update();
+    }
+  }
 
 
   ///<<<=================== Category Access Repo ==============================>>>
 
-  Future<void> categoryAccessRepo(int limitCount, int pageCount) async{
+  Future<void> categoryAccessRepo() async{
 
     status = Status.loading;
     update();
     
-    var response = await ApiService.getApi("${ApiConstant.categoryType}?limit=$limitCount&pageEr=$pageCount");
-    print("Response json : ${response.responseJson}");
-    if (response.statusCode == 200){
-      homeCategoriesModel = HomeCategoriesModel.fromJson(jsonDecode(response.responseJson));
-      status = Status.completed;
-      update();
-    } else{
-      status = Status.error;
+    try{
+      var response = await ApiService.getApi("${ApiConstant.categoryType}?limit=$limitCount &pageEr=$pageCount").timeout(const Duration(seconds: 30));
+      print("Response json : ${response.responseJson}");
+      if (response.statusCode == 200){
+        homeCategoriesModel = HomeCategoriesModel.fromJson(jsonDecode(response.responseJson));
+        status = Status.completed;
+        update();
+        pageCount++;
+      } else{
+        status = Status.error;
+      }
+    } catch (exception){
+      Fluttertoast.showToast(msg: AppConstants.connectionTimedOUt);
+      log(exception.toString());
     }
   }
 
@@ -132,5 +157,118 @@ class Homecontroller extends GetxController with GetxServiceMixin {
     );
 
     super.onReady();
+  }
+}
+
+
+
+
+
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: MyScrollableScreen(),
+    );
+  }
+}
+
+class MyScrollableScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Scrollable Screen with Pagination'),
+      ),
+      body: MyApiDataList(),
+    );
+  }
+}
+
+class MyApiDataList extends StatelessWidget {
+  final MyApiController controller = Get.put(MyApiController());
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<MyApiController>(
+      builder: (controller) {
+        return ListView.builder(
+          itemCount: controller.apiData.length + 1, // +1 for loading indicator at the end
+          itemBuilder: (context, index) {
+            if (index < controller.apiData.length) {
+              return ListTile(
+                title: Text(controller.apiData[index]),
+                // Add more widgets or customize based on your API data
+              );
+            } else {
+              // Loading indicator
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: controller.isLoading
+                      ? CircularProgressIndicator()
+                      : SizedBox.shrink(),
+                ),
+              );
+            }
+          },
+          controller: ScrollController()..addListener(() => _scrollListener(controller)),
+        );
+      },
+    );
+  }
+
+  void _scrollListener(MyApiController controller) {
+    if (controller.isLoading) return;
+
+    if (controller.apiData.isNotEmpty &&
+        controller.apiData.length % 10 == 0 && // Adjust based on your desired condition
+        controller.apiData.length == controller.currentPage * 10) {
+      controller.fetchData();
+    }
+  }
+}
+
+class MyApiController extends GetxController {
+  List<String> apiData = [];
+  int currentPage = 1;
+  bool isLoading = false;
+
+  Future<void> fetchData() async {
+    try {
+      isLoading = true;
+      update();
+
+      List<String> newData = await fetchApiData(currentPage);
+
+      apiData.addAll(newData);
+      currentPage++;
+    } finally {
+      isLoading = false;
+      update();
+    }
+  }
+
+  Future<List<String>> fetchApiData(int page) async {
+    final String apiUrl = 'YOUR_API_ENDPOINT_HERE?page=$page&limit=10'; // Replace with your actual API endpoint
+
+    try {
+      final response = await http.get(Uri.parse(apiUrl));
+
+      if (response.statusCode == 200) {
+        // Assuming your API returns a list of strings
+        List<String> data = List<String>.from(json.decode(response.body));
+        return data;
+      } else {
+        throw Exception('Failed to load data');
+      }
+    } catch (e) {
+      throw Exception('Error: $e');
+    }
   }
 }

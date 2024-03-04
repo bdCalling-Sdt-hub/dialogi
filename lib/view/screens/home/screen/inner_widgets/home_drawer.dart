@@ -164,8 +164,11 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 icon: AppIcons.logout,
                 text: AppStrings.logout,
                 ontap: () async {
-                  await PrefsHelper.removeAllPrefData()
-                      .then((value) => Get.offAllNamed(AppRoutes.signInScreen));
+                  await PrefsHelper.removeAllPrefData();
+                  PrefsHelper.setString(AppConstants.bearerToken, "");
+                  PrefsHelper.setString(AppConstants.forgetPasswordToken, "");
+                  PrefsHelper.setString("clientId", "");
+                  Get.offAllNamed(AppRoutes.signInScreen);
                 }),
           ],
         ));
