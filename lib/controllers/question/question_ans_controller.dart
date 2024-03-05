@@ -113,8 +113,6 @@ class QuestionAnsController extends GetxController {
     }
   }
 
-
-  Future<void> questionsRepo(String subCategory) async {
   Future<void> questionsRepo(String subCategory, String categoryId) async {
     if (discussionPage == 1) {
       status = Status.loading;
@@ -125,11 +123,9 @@ class QuestionAnsController extends GetxController {
 
     print(categoryId);
 
-    var response = await ApiService.getApi(
-        "${ApiConstant.questions}/$subCategory/$categoryId?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage");
+    var response = await ApiService.getApi("${ApiConstant.questions}/$subCategory/$categoryId?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage");
 
-    print(
-        "===========================================>${ApiConstant.questions}/$subCategory/$categoryId?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage");
+    print("===========================================>${ApiConstant.questions}/$subCategory/$categoryId?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage");
 
     if (response.statusCode == 200) {
       print(response.responseJson);

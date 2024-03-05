@@ -23,7 +23,8 @@ class SubCategoryController extends GetxController {
   int page = 1;
   final ScrollController scrollController = ScrollController();
 
-  Future<void> scrollControllerCall(String categoryId,bool accessStatus) async {
+  Future<void> scrollControllerCall(
+      String categoryId, bool accessStatus) async {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
       isMoreLoading = true;
@@ -35,6 +36,8 @@ class SubCategoryController extends GetxController {
   }
 
   Future<void> subCategoryRepo(String categoryId, bool accessStatus) async {
+    print(
+        "==========================================> accessStatus $accessStatus");
     if (page == 1) {
       status = Status.loading;
       update();

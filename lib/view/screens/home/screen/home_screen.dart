@@ -182,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     height: Get.height * 0.25,
                                     width: Get.height * 0.2,
                                     decoration: BoxDecoration(
-                                        boxShadow: [
+                                        boxShadow: const [
                                           BoxShadow(
                                               color: AppColors.black_100,
                                               blurRadius: 3,
