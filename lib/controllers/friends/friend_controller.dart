@@ -17,7 +17,7 @@ import '../../utils/app_utils.dart';
 class FriendController extends GetxController {
   Status status = Status.completed;
 
-  Status statusMore = Status.completed;
+  bool isMoreLoading = false ;
 
   int page = 1;
 
@@ -30,10 +30,10 @@ class FriendController extends GetxController {
   Future<void> scrollControllerCall() async {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
-      statusMore = Status.loading;
+      isMoreLoading = false ;
       update();
       await friendListRepo();
-      statusMore = Status.completed;
+      isMoreLoading = false ;
       update();
     }
   }

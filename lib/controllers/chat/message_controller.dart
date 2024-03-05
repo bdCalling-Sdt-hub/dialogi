@@ -14,8 +14,8 @@ import '../../view/widgets/chat_model/chat_message_model.dart';
 
 class MessageController extends GetxController {
   Status status = Status.completed;
-  bool isMessage = false ;
-  Status statusMore = Status.completed;
+  bool isMessage = false;
+  bool isMoreLoading = false;
 
   final ScrollController scrollController = ScrollController();
 
@@ -32,10 +32,10 @@ class MessageController extends GetxController {
   Future<void> scrollControllerCall(String chatId) async {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
-      statusMore = Status.loading;
+      isMoreLoading = true;
       update();
       await getMessageRepo(chatId);
-      statusMore = Status.completed;
+      isMoreLoading = false;
       update();
     }
   }
@@ -55,14 +55,18 @@ class MessageController extends GetxController {
     if (response.statusCode == 200) {
       messageModel = MessageModel.fromJson(jsonDecode(response.responseJson));
 
+      print("==========================> respone ${response.responseJson}");
+
       for (var item in messageModel.data!.attributes!.messageList!) {
         // messages.add(ChatMessageModel(localTime(item.createdAt!), item.message!,
         //     PrefsHelper.clientId == item.sender!.sId ? true : false));
 
         messages.add(ChatMessageModel(
             time: localTime(item.createdAt!),
+            isQuestion: item.messageType == "question" ? true : false,
             text: item.message!,
             image: item.sender!.image!,
+            isNotice: item.messageType == "notice" ? true : false,
             isMe: PrefsHelper.clientId == item.sender!.sId ? true : false));
       }
 
@@ -88,7 +92,7 @@ class MessageController extends GetxController {
   addNewMessage(String chatId) async {
     TimeOfDay currentTime = TimeOfDay.now();
 
-    isMessage = true ;
+    isMessage = true;
     update();
 
     messages.insert(
@@ -105,7 +109,7 @@ class MessageController extends GetxController {
         //     true),
         );
 
-    isMessage = false ;
+    isMessage = false;
     update();
 
     print("====================================> image ${PrefsHelper.myImage}");
@@ -136,6 +140,8 @@ class MessageController extends GetxController {
       messages.insert(
           0,
           ChatMessageModel(
+              isQuestion: data['messageType'] == "question" ? true : false,
+              isNotice: data['messageType'] == "notice" ? true : false,
               time: time,
               text: data['message'],
               image: data['sender']['image'],
@@ -146,6 +152,7 @@ class MessageController extends GetxController {
 
       print(
           "============================================>messages ${messages.length}");
+      print("============================================>data $data");
     });
   }
 
@@ -156,5 +163,11 @@ class MessageController extends GetxController {
     var minute = time.split(":")[1].split(":")[0];
 
     return "$hour:$minute";
+  }
+
+  void isEmoji(int index) {
+    currentIndex = index;
+    isInputField = isInputField;
+    update();
   }
 }

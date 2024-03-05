@@ -23,12 +23,14 @@ class _CategoryDetailsState extends State<CategoryDetails> {
   String title = Get.parameters["title"] ?? " ";
   String categoryId = Get.parameters["categoryId"] ?? " ";
 
+  bool accessStatus = Get.parameters["accessStatus"] == "true" ? true : false;
+
   @override
   void initState() {
     subCategoryController.page = 1;
-    subCategoryController.subCategoryRepo(categoryId);
+    subCategoryController.subCategoryRepo(categoryId, accessStatus);
     subCategoryController.scrollController.addListener(() {
-      subCategoryController.scrollControllerCall(categoryId);
+      subCategoryController.scrollControllerCall(categoryId, accessStatus);
     });
     // TODO: implement initState
     super.initState();
@@ -36,7 +38,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
 
   @override
   Widget build(BuildContext context) {
-
+    String title = Get.parameters["title"] ?? " ";
     return Scaffold(
         //App Bar
 
@@ -85,7 +87,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                   const Center(child: CircularProgressIndicator()),
                 Status.error => ErrorScreen(onTap: () {
                     controller.page = 1;
-                    controller.subCategoryRepo(categoryId);
+                    controller.subCategoryRepo(categoryId, accessStatus);
                   }),
                 Status.completed => ListView.builder(
                     controller: controller.scrollController,
@@ -99,7 +101,8 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                           onTap: () {
                             Get.toNamed(AppRoutes.questionAns, parameters: {
                               "title":
-                                  "${controller.subCategoryList[index].subCategory}"
+                                  "${controller.subCategoryList[index].subCategory}",
+                              "categoryId": categoryId
                             });
                           },
                           child: Container(

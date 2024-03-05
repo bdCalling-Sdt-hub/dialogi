@@ -11,10 +11,12 @@ import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/community/community_select_friend_controller.dart';
+import 'inner_widget/create_community_popup.dart';
 
 class CommunitySelectFriends extends StatefulWidget {
   const CommunitySelectFriends({super.key});
@@ -24,9 +26,8 @@ class CommunitySelectFriends extends StatefulWidget {
 }
 
 class _CommunitySelectFriendsState extends State<CommunitySelectFriends> {
-
-
-  CommunitySelectFriendsController communitySelectFriendsController = Get.put(CommunitySelectFriendsController()) ;
+  CommunitySelectFriendsController communitySelectFriendsController =
+      Get.put(CommunitySelectFriendsController());
 
   @override
   void initState() {
@@ -72,8 +73,9 @@ class _CommunitySelectFriendsState extends State<CommunitySelectFriends> {
               Status.error =>
                 ErrorScreen(onTap: () => controller.friendListRepo()),
               Status.completed => Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20.w,
+                  ),
                   child: Column(
                     children: [
                       Align(
@@ -83,59 +85,68 @@ class _CommunitySelectFriendsState extends State<CommunitySelectFriends> {
                                   "${controller.selectedParticipants.length - 1}/5")),
                       Expanded(
                         child: ListView.builder(
-                          itemCount: controller.friendList.length,
+                          controller: controller.scrollController,
+                          itemCount: controller.isMoreLoading
+                              ? controller.friendList.length + 1
+                              : controller.friendList.length,
                           itemBuilder: (context, index) {
-                            return Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Checkbox(
-                                      value: controller.selectedFriends[index],
-                                      activeColor: AppColors.blue_300,
-                                      onChanged: (value) => controller
-                                          .selectParticipants(value!, index),
-                                    ),
-                                    Container(
-                                      height: 50.w,
-                                      width: 50.w,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: NetworkImage(
-                                                  "${ApiConstant.baseUrl}${controller.friendList[index].otherParticipant.image}"))),
-                                    ),
-                                    CustomText(
-                                      left: 16,
-                                      fontSize: 16.w,
-                                      fontWeight: FontWeight.w500,
-                                      text: controller.friendList[index]
-                                          .otherParticipant!.fullName!,
-                                    ),
-                                  ],
-                                ),
-                                Container(
-                                  height: 2.h,
-                                  width: double.maxFinite,
-                                  margin: EdgeInsets.symmetric(
-                                    vertical: 14.h,
+                            if (index < controller.friendList.length) {
+                              return Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Checkbox(
+                                        value:
+                                            controller.selectedFriends[index],
+                                        activeColor: AppColors.blue_300,
+                                        onChanged: (value) => controller
+                                            .selectParticipants(value!, index),
+                                      ),
+                                      Container(
+                                        height: 50.w,
+                                        width: 50.w,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: NetworkImage(
+                                                    "${ApiConstant.baseUrl}${controller.friendList[index].image}"))),
+                                      ),
+                                      CustomText(
+                                        left: 16,
+                                        fontSize: 16.w,
+                                        fontWeight: FontWeight.w500,
+                                        text: controller
+                                            .friendList[index]!.fullName!,
+                                      ),
+                                    ],
                                   ),
-                                  color: AppColors.gray_600,
-                                )
-                              ],
-                            );
+                                  Container(
+                                    height: 2.h,
+                                    width: double.maxFinite,
+                                    margin: EdgeInsets.symmetric(
+                                      vertical: 14.h,
+                                    ),
+                                    color: AppColors.gray_600,
+                                  )
+                                ],
+                              );
+                            } else {
+                              return const Center(child: CircularProgressIndicator());
+                            }
                           },
                         ),
                       ),
 
                       //=================================Create Group Button==============================
 
-                      SizedBox(
-                        width: double.maxFinite,
+                      Container(
+                        padding: EdgeInsets.only(bottom: 24.h),
+                        width: double.infinity,
                         child: controller.isCreateGroup
                             ? CustomElevatedButton(
                                 onPressed: () {
-                                  createGroupPopUp(
+                                  createCommunityPopUp(
                                     context: context,
                                   );
                                 },
@@ -147,7 +158,7 @@ class _CommunitySelectFriendsState extends State<CommunitySelectFriends> {
                                       AppStrings.pleaseSelectAtLeastTwoMembers);
                                 },
                                 titleText: AppStrings.createCommunity),
-                      )
+                      ),
                     ],
                   ),
                 ),

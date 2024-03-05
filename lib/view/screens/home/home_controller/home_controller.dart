@@ -38,15 +38,18 @@ class Homecontroller extends GetxController with GetxServiceMixin {
   int pageCount = 1;
   int limitCount = 10;
 
+  List earlyAccessList = [];
+  List pageCountList = [];
+
 
   ///<<<==================== Page Scroll Method ==================================>>>
   Future<void> scrollControllerCall() async {
     if(categoryScrollController.position.pixels == categoryScrollController.position.maxScrollExtent){
-      await categoryAccessRepo().then((value) => pageCount++);
+      await categoryAccessRepo();
       
     }
     if(earlyAccessScrollController.position.pixels == earlyAccessScrollController.position.maxScrollExtent){
-      await categoryAccessRepo().then((value) =>  pageErCount++);
+      await categoryAccessRepo();
     }
   }
 
@@ -59,7 +62,7 @@ class Homecontroller extends GetxController with GetxServiceMixin {
     update();
     
     try{
-      var response = await ApiService.getApi("${ApiConstant.categoryType}?pageEr=$pageErCount&limitEr=$limitCount&page=$pageCount&limit=$limitCount").timeout(const Duration(seconds: 30));
+      var response = await ApiService.getApi("${ApiConstant.categoryType}?pageEr=$pageErCount&page=$pageCount").timeout(const Duration(seconds: 30));
       print("Response json : ${response.responseJson}");
       if (response.statusCode == 200){
         homeCategoriesModel = HomeCategoriesModel.fromJson(jsonDecode(response.responseJson));
@@ -67,6 +70,8 @@ class Homecontroller extends GetxController with GetxServiceMixin {
 
         homeStatus = Status.completed;
         update();
+        pageCount++;
+        pageErCount++;
       } else{
         homeStatus = Status.error;
       }

@@ -1,3 +1,4 @@
+import 'package:dialogi_app/controllers/group_chat/group_member_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
@@ -14,7 +15,11 @@ enum SampleItem {
 }
 
 class GroupChatPopUps extends StatelessWidget {
-  const GroupChatPopUps({super.key});
+  GroupChatPopUps({super.key, required this.chatId});
+
+  String chatId;
+  
+  final GroupMemberController groupMemberController = Get.put(GroupMemberController()) ;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +37,9 @@ class GroupChatPopUps extends StatelessWidget {
           child: GestureDetector(
               onTap: () {
                 navigator!.pop();
-                Get.toNamed(AppRoutes.groupMembers);
+                Get.toNamed(AppRoutes.groupMembers, parameters: {
+                  "chatId": chatId,
+                });
               },
               child: const CustomText(
                 fontSize: 14,
@@ -83,7 +90,7 @@ class GroupChatPopUps extends StatelessWidget {
 
                 permissionPopUp(
                     context: context,
-                    ontapYes: () {},
+                    ontapYes: () => groupMemberController.leaveCommunityRepo(chatId),
                     ontapNo: () {},
                     title: AppStrings.doYouWantToLeaveThisGroup);
               },

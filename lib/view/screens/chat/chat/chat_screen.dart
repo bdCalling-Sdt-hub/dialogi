@@ -3,6 +3,7 @@ import 'package:dialogi_app/global/api_response_model.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
+import 'package:dialogi_app/view/screens/community/inner_widget/community_chat_popup.dart';
 import 'package:dialogi_app/view/widgets/chat_model/chat_bubble_message.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/error/error_screen.dart';
@@ -45,7 +46,8 @@ class _ChatScreenState extends State<ChatScreen> {
     print("==============================================> chatId $chatId");
     return GetBuilder<MessageController>(builder: (controller) {
       return switch (controller.status) {
-        Status.loading => const Center(child: CircularProgressIndicator()),
+        Status.loading =>
+          const Scaffold(body: Center(child: CircularProgressIndicator())),
         Status.error =>
           ErrorScreen(onTap: () => controller.getMessageRepo(chatId)),
         Status.completed => Scaffold(
@@ -68,32 +70,43 @@ class _ChatScreenState extends State<ChatScreen> {
                   fontWeight: FontWeight.w500,
                   color: AppColors.blue_500,
                 ),
-                type == "single" ? const SizedBox() : const GroupChatPopUps()
+                type == "single"
+                    ? const SizedBox()
+                    : type == AppStrings.community
+                        ? CommunityChatPopUps(chatId: chatId)
+                        : GroupChatPopUps(
+                            chatId: chatId,
+                          )
               ],
             )),
-            body: controller.isMessage ? const Center(child: CircularProgressIndicator()) : ListView.builder(
-                reverse: true,
-                controller: controller.scrollController,
-                itemCount: controller.messages.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final message = controller.messages[index];
+            body: controller.isMessage
+                ? const Center(child: CircularProgressIndicator())
+                : ListView.builder(
+                    reverse: true,
+                    controller: controller.scrollController,
+                    itemCount: controller.isMoreLoading
+                        ? controller.messages.length + 1
+                        : controller.messages.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final message = controller.messages[index];
 
-                  return ChatBubbleMessage(
-                    index: index,
-                    image: message.image,
-                    messageIndex: controller.currentIndex,
-                    isEmoji: controller.isInputField,
-                    onpress: () {
-                      setState(() {
-                        controller.currentIndex = index;
-                        controller.isInputField = controller.isInputField;
-                      });
-                    },
-                    time: message.time,
-                    text: message.text,
-                    isMe: message.isMe,
-                  );
-                }),
+                      if (index < controller.messages.length) {
+                        return ChatBubbleMessage(
+                          index: index,
+                          image: message.image,
+                          messageIndex: controller.currentIndex,
+                          isEmoji: controller.isInputField,
+                          onpress: () => controller.isEmoji(index),
+                          isQuestion: message.isQuestion,
+                          isNotice: message.isNotice,
+                          time: message.time,
+                          text: message.text,
+                          isMe: message.isMe,
+                        );
+                      } else {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                    }),
             bottomNavigationBar: AnimatedPadding(
               padding: MediaQuery.of(context).viewInsets,
               duration: const Duration(milliseconds: 100),

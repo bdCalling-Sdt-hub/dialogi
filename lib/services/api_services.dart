@@ -11,28 +11,22 @@ import '../core/app_routes.dart';
 import '../helper/prefs_helper.dart';
 import 'package:http_parser/http_parser.dart';
 
-
-
 ///<<<======================= Google Sign In Service ========================>>>
 
 class GoogleSignInService {
   ///>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Static instance of GoogleSignIn>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>///
   static final _googleSignIn = GoogleSignIn();
+
   ///>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Login method>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>///
 
   static Future<GoogleSignInAccount?> login() => _googleSignIn.signIn();
+
   ///>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Logout method:>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>///
 
   static Future logout() => _googleSignIn.signOut();
 }
 
-
-
-
-
 class ApiService {
-
-
   ///<<<======================== Main Header ==============================>>>
 
   static const int timeOut = 30;
@@ -156,19 +150,25 @@ class ApiService {
   ///<<<======================== Patch Api ==============================>>>
 
   static Future<ApiResponseModel> patchApi(
-      String url, Map<String, String> body, Map<String, String> header,
-      {isBody = true}) async {
+    String url, {
+    Map<String, String>? body,
+    Map<String, String>? header,
+  }) async {
     dynamic responseJson;
 
+    Map<String, String> mainHeader = {
+      'Authorization': "Bearer ${PrefsHelper.token}"
+    };
+
     try {
-      if (isBody) {
+      if (body != null) {
         final response = await http
-            .patch(Uri.parse(url), body: body, headers: header)
+            .patch(Uri.parse(url), body: body, headers: header ?? mainHeader)
             .timeout(const Duration(seconds: timeOut));
         responseJson = handleResponse(response);
       } else {
         final response = await http
-            .patch(Uri.parse(url), headers: header)
+            .patch(Uri.parse(url), headers: header ?? mainHeader)
             .timeout(const Duration(seconds: timeOut));
         responseJson = handleResponse(response);
       }
@@ -220,41 +220,42 @@ class ApiService {
 
   static Future<ApiResponseModel> signUpMultipartRequest(
       {required String url,
-        String? imagePath,
-        required Map<String,String> body,
-        required String otp}) async {
-
-    try{
+      String? imagePath,
+      required Map<String, String> body,
+      required String otp}) async {
+    try {
       var request = http.MultipartRequest('POST', Uri.parse(url));
       body.forEach((key, value) {
         request.fields[key] = value;
       });
 
-      if(imagePath != null){
+      if (imagePath != null) {
         var mimeType = lookupMimeType(imagePath);
-        var img = await http.MultipartFile.fromPath('image', imagePath, contentType: MediaType.parse(mimeType!));
+        var img = await http.MultipartFile.fromPath('image', imagePath,
+            contentType: MediaType.parse(mimeType!));
         request.files.add(img);
       }
 
-      request.headers["Otp"] = "OTP $otp" ;
+      request.headers["Otp"] = "OTP $otp";
 
       var response = await request.send();
 
-      if(response.statusCode == 200){
-        return ApiResponseModel(200, "Success", await response.stream.bytesToString());
+      if (response.statusCode == 200) {
+        return ApiResponseModel(
+            200, "Success", await response.stream.bytesToString());
       } else {
-        return ApiResponseModel(response.statusCode, "Error", await response.stream.bytesToString());
+        return ApiResponseModel(response.statusCode, "Error",
+            await response.stream.bytesToString());
       }
-    } on SocketException{
+    } on SocketException {
       Get.toNamed(AppRoutes.noInternet);
       return ApiResponseModel(503, "No internet connection", '');
-    } on FormatException{
+    } on FormatException {
       return ApiResponseModel(400, "Bad Response Request", '');
-    } on TimeoutException{
+    } on TimeoutException {
       return ApiResponseModel(408, "Request Time Out", "");
     }
   }
-
 
   ///<<<================== Api Response Status Code Handle ====================>>>
 

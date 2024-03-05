@@ -38,9 +38,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("=============================> ${PrefsHelper.clientId}");
-    print(
-        "=============================>Homecontroller.accessStatusModel!.status ${Homecontroller.accessStatusModel!.status}");
     return Scaffold(
         bottomNavigationBar: const NavBar(currentIndex: 4),
         appBar: CustomAppBar(
@@ -54,20 +51,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
               fontWeight: FontWeight.w500,
               color: AppColors.blue_500,
             ),
-            GestureDetector(
-                onTap: () {
-                  Get.toNamed(AppRoutes.editProfileScreen);
-                },
-                child: const CustomImage(
-                  imageSrc: AppIcons.edit,
-                  size: 24,
-                )),
+            Obx(() => profileController.updateProfileAccess.value
+                ? GestureDetector(
+                    onTap: () {
+                      Get.toNamed(AppRoutes.editProfileScreen);
+                    },
+                    child: const CustomImage(
+                      imageSrc: AppIcons.edit,
+                      size: 24,
+                    ))
+                : const SizedBox()),
           ],
         )),
         body: GetBuilder<ProfileController>(
           builder: (controller) {
             return switch (controller.status) {
-              Status.loading => const CircularProgressIndicator(),
+              Status.loading => const Center(child: CircularProgressIndicator()),
               Status.error =>
                 ErrorScreen(onTap: () => controller.profileRepo()),
               Status.completed => SingleChildScrollView(

@@ -23,9 +23,11 @@ class AccessStatusModel {
 }
 
 class Data {
+  String? sId;
   String? user;
   String? type;
   bool? isAddAvailable;
+  int? addFrequency;
   int? categoryAccessNumber;
   bool? isCategoryAccessUnlimited;
   int? questionAccessNumber;
@@ -36,34 +38,38 @@ class Data {
   bool? isEarlyAccessAvailable;
   bool? updateProfileAccess;
   int? expiryTime;
-  String? sId;
+  int? questionAccessed;
   String? createdAt;
   String? updatedAt;
   int? iV;
 
   Data(
-      {this.user,
-      this.type,
-      this.isAddAvailable,
-      this.categoryAccessNumber,
-      this.isCategoryAccessUnlimited,
-      this.questionAccessNumber,
-      this.isQuestionAccessUnlimited,
-      this.isChatAvailable,
-      this.isGroupChatAvailable,
-      this.isCommunityDiscussionAvailable,
-      this.isEarlyAccessAvailable,
-      this.updateProfileAccess,
-      this.expiryTime,
-      this.sId,
-      this.createdAt,
-      this.updatedAt,
-      this.iV});
+      {this.sId,
+        this.user,
+        this.type,
+        this.isAddAvailable,
+        this.addFrequency,
+        this.categoryAccessNumber,
+        this.isCategoryAccessUnlimited,
+        this.questionAccessNumber,
+        this.isQuestionAccessUnlimited,
+        this.isChatAvailable,
+        this.isGroupChatAvailable,
+        this.isCommunityDiscussionAvailable,
+        this.isEarlyAccessAvailable,
+        this.updateProfileAccess,
+        this.expiryTime,
+        this.questionAccessed,
+        this.createdAt,
+        this.updatedAt,
+        this.iV});
 
   Data.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
     user = json['user'];
     type = json['type'];
     isAddAvailable = json['isAddAvailable'];
+    addFrequency = json['addFrequency'];
     categoryAccessNumber = json['categoryAccessNumber'];
     isCategoryAccessUnlimited = json['isCategoryAccessUnlimited'];
     questionAccessNumber = json['questionAccessNumber'];
@@ -74,7 +80,7 @@ class Data {
     isEarlyAccessAvailable = json['isEarlyAccessAvailable'];
     updateProfileAccess = json['updateProfileAccess'];
     expiryTime = json['expiryTime'];
-    sId = json['_id'];
+    questionAccessed = json['questionAccessed'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
@@ -82,9 +88,11 @@ class Data {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
     data['user'] = this.user;
     data['type'] = this.type;
     data['isAddAvailable'] = this.isAddAvailable;
+    data['addFrequency'] = this.addFrequency;
     data['categoryAccessNumber'] = this.categoryAccessNumber;
     data['isCategoryAccessUnlimited'] = this.isCategoryAccessUnlimited;
     data['questionAccessNumber'] = this.questionAccessNumber;
@@ -96,7 +104,7 @@ class Data {
     data['isEarlyAccessAvailable'] = this.isEarlyAccessAvailable;
     data['updateProfileAccess'] = this.updateProfileAccess;
     data['expiryTime'] = this.expiryTime;
-    data['_id'] = this.sId;
+    data['questionAccessed'] = this.questionAccessed;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     data['__v'] = this.iV;

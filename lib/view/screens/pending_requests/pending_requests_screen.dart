@@ -9,7 +9,10 @@ import 'package:dialogi_app/view/widgets/container/custom_pending_requests.dart'
 import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../helper/prefs_helper.dart';
@@ -30,6 +33,10 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
     pendingRequestController.pendingRequestRepo();
     pendingRequestController.scrollController.addListener(() {
       pendingRequestController.scrollControllerCall();
+    });
+
+    pendingRequestController.communityScrollController.addListener(() {
+      pendingRequestController.communityScrollControllerCall();
     });
 
     // TODO: implement initState
@@ -70,21 +77,145 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
             Status.completed => Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-                child: ListView.builder(
-                    itemCount: controller.friendRequestList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      var item = controller.friendRequestList[index];
-                      return CustomPendingRequests(
-                        pendingText: item.participants[0].fullName,
-                        image:
-                            "${ApiConstant.baseUrl}/${item.participants[0].image}",
-                        timeText: controller.getFormattedDate(item.createdAt),
-                        onTapReject: () => controller.requestActionRepo(
-                            item.sId, "rejected", index),
-                        onTapAccept: () => controller.requestActionRepo(
-                            item.sId, "accepted", index),
-                      );
-                    }),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  controller.page = 1;
+                                  controller.pendingRequestRepo();
+                                },
+                                child: CustomText(
+                                  text: AppStrings.friendRequests,
+                                  fontSize: 14,
+                                  color: AppColors.blue_500,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 4.h,
+                              ),
+                              controller.isCommunityRequest
+                                  ? const SizedBox()
+                                  : Container(
+                                      height: 2,
+                                      color: Colors.blue,
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: 30.w),
+                                    )
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  controller.communityPage = 1;
+                                  controller.communityRequestRepo();
+                                },
+                                child: Column(
+                                  children: [
+                                    const CustomText(
+                                      text: AppStrings.communityRequests,
+                                      fontSize: 14,
+                                      color: AppColors.blue_500,
+                                    ),
+                                    controller.isCommunityRequest
+                                        ? Container(
+                                            color: Colors.red,
+                                          )
+                                        : Container(
+                                            color: Colors.blue,
+                                          )
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 4.h,
+                              ),
+                              controller.isCommunityRequest
+                                  ? Container(
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: 30.w),
+                                      height: 2,
+                                      color: Colors.blue,
+                                    )
+                                  : const SizedBox()
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 16.h,
+                    ),
+                    Expanded(
+                        child: controller.isCommunityRequest
+                            ? ListView.builder(
+                                itemCount: controller.isMoreLoadingCommunity
+                                    ? controller.communityRequest.length + 1
+                                    : controller.communityRequest.length,
+                                controller:
+                                    controller.communityScrollController,
+                                itemBuilder: (BuildContext context, int index) {
+                                  var item = controller.communityRequest[index];
+                                  if (index <
+                                      controller.communityRequest.length) {
+                                    return CustomPendingRequests(
+                                      pendingText: item.chat.groupName,
+                                      image:
+                                          "${ApiConstant.baseUrl}/${item.chat.image}",
+                                      timeText: controller
+                                          .getFormattedDate(item.createdAt),
+                                      onTapReject: () =>
+                                          controller.communityRequestActionRepo(
+                                              item.sId, "rejected", index),
+                                      onTapAccept: () =>
+                                          controller.communityRequestActionRepo(
+                                              item.sId, "accepted", index),
+                                    );
+                                  } else {
+                                    return const Center(
+                                        child: CircularProgressIndicator());
+                                  }
+                                })
+                            : ListView.builder(
+                                controller: controller.scrollController,
+                                itemCount: controller.isMoreLoading
+                                    ? controller.friendRequestList.length + 1
+                                    : controller.friendRequestList.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  var item =
+                                      controller.friendRequestList[index];
+
+                                  if (index <
+                                      controller.friendRequestList.length) {
+                                    return CustomPendingRequests(
+                                      pendingText:
+                                          item.participants[0].fullName,
+                                      image:
+                                          "${ApiConstant.baseUrl}/${item.participants[0].image}",
+                                      timeText: controller
+                                          .getFormattedDate(item.createdAt),
+                                      onTapReject: () =>
+                                          controller.requestActionRepo(
+                                              item.sId, "rejected", index),
+                                      onTapAccept: () =>
+                                          controller.requestActionRepo(
+                                              item.sId, "accepted", index),
+                                    );
+                                  } else {
+                                    return const Center(
+                                        child: CircularProgressIndicator());
+                                  }
+                                })),
+                  ],
+                ),
               ),
           };
         }));

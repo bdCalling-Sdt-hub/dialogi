@@ -1,5 +1,7 @@
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/global/dependncy.dart';
+import 'package:dialogi_app/services/admob_ad_services.dart';
+import 'package:dialogi_app/services/notification_services.dart';
 import 'package:dialogi_app/services/socket_service.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +10,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
-// import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'helper/prefs_helper.dart';
-
 
 Future<void> configureTts() async {
   FlutterTts flutterTts = FlutterTts();
@@ -28,9 +29,15 @@ Future<void> main() async {
   DependencyInjection dI = DependencyInjection();
   dI.dependencies();
   configureTts();
-  await PrefsHelper.getAllPrefData() ;
-  // await MobileAds.instance.initialize() ;
+  await PrefsHelper.getAllPrefData();
+  await MobileAds.instance.initialize();
+  NotificationService notificationService = NotificationService();
+  notificationService.initLocalNotification();
   SocketServices.connectToSocket();
+  AdmobAdServices.loadInterstitialAd();
+  PrefsHelper.token.isNotEmpty
+      ? SocketServices.notifications()
+      : const SizedBox();
   runApp(const MyApp());
 
   /* runApp(

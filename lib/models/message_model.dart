@@ -5,7 +5,7 @@ class MessageModel {
   Data? data;
 
   MessageModel(
-      {this.status, this.statusCode, this.message, this.data,});
+      {this.status, this.statusCode, this.message, this.data});
 
   MessageModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -81,6 +81,7 @@ class MessageList {
   String? chat;
   String? message;
   Sender? sender;
+  String? messageType;
   String? createdAt;
   String? updatedAt;
   int? iV;
@@ -90,6 +91,7 @@ class MessageList {
         this.chat,
         this.message,
         this.sender,
+        this.messageType,
         this.createdAt,
         this.updatedAt,
         this.iV});
@@ -100,6 +102,7 @@ class MessageList {
     message = json['message'];
     sender =
     json['sender'] != null ? new Sender.fromJson(json['sender']) : null;
+    messageType = json['messageType'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
@@ -113,6 +116,7 @@ class MessageList {
     if (this.sender != null) {
       data['sender'] = this.sender!.toJson();
     }
+    data['messageType'] = this.messageType;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     data['__v'] = this.iV;

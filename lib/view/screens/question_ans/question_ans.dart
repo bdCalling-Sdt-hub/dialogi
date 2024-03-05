@@ -1,7 +1,8 @@
-import 'package:dialogi_app/controllers/question_ans_controller.dart';
-import 'package:dialogi_app/controllers/question_ans_controller.dart';
+import 'package:dialogi_app/controllers/question/question_ans_controller.dart';
+import 'package:dialogi_app/controllers/question/question_ans_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/global/api_response_model.dart';
+import 'package:dialogi_app/services/admob_ad_services.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
@@ -38,6 +39,8 @@ class _QuestionAnsState extends State<QuestionAns> {
   void initState() {
     // TODO: implement initState
 
+    questionAnsController.checkDiscuss();
+    AdmobAdServices.loadInterstitialAd();
     questionAnsController.discussionPage = 1;
     questionAnsController.questionsRepo(title, categoryId);
     questionAnsController.discussionScrollController.addListener(() {
@@ -49,6 +52,9 @@ class _QuestionAnsState extends State<QuestionAns> {
 
   @override
   Widget build(BuildContext context) {
+
+
+    print("====================================> categoryId $categoryId") ;
     return Scaffold(
       //AppBar
 
@@ -78,8 +84,8 @@ class _QuestionAnsState extends State<QuestionAns> {
         builder: (controller) {
           return switch (controller.status) {
             Status.loading => const Center(child: CircularProgressIndicator()),
-            Status.error =>
-              ErrorScreen(onTap: () => controller.questionsRepo(title, categoryId)),
+            Status.error => ErrorScreen(
+                onTap: () => controller.questionsRepo(title, categoryId)),
             Status.completed => Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
@@ -140,7 +146,8 @@ class _QuestionAnsState extends State<QuestionAns> {
                               Align(
                                   alignment: Alignment.bottomLeft,
                                   child: IconButton(
-                                      onPressed: () => controller.addFavouriteRepo(),
+                                      onPressed: () =>
+                                          controller.addFavouriteRepo(),
                                       icon: controller
                                               .questionAnsModel!
                                               .data!
@@ -175,12 +182,13 @@ class _QuestionAnsState extends State<QuestionAns> {
                         Expanded(
                           child: CustomElevatedButton(
                               onPressed: () {
+                                controller.nextQuestion();
                                 if (controller.page != controller.totalPages) {
                                   controller.page = controller.page + 1;
                                   controller.discussionPage = 1;
                                   controller.discussionList = [];
                                   controller.discussionController.clear();
-                                  controller.questionsRepo(title,categoryId);
+                                  controller.questionsRepo(title, categoryId);
                                 } else {
                                   showDialog(
                                       context: context,
@@ -258,17 +266,19 @@ class _QuestionAnsState extends State<QuestionAns> {
 
                 Expanded(
                   flex: 2,
-                  child: CustomElevatedButton(
-                      buttonColor: AppColors.whiteColor,
-                      borderColor: AppColors.black_600,
-                      titleColor: AppColors.black_400,
-                      titleSize: 14.w,
-                      buttonHeight: 36,
-                      onPressed: () {
-                        //   Get.toNamed(AppRoutes.selectFriends);
-                        chooseDiscussPlatform(context: context);
-                      },
-                      titleText: AppStrings.discusswithFriends),
+                  child: controller.isDiscuss
+                      ? const SizedBox()
+                      : CustomElevatedButton(
+                          buttonColor: AppColors.whiteColor,
+                          borderColor: AppColors.black_600,
+                          titleColor: AppColors.black_400,
+                          titleSize: 14.w,
+                          buttonHeight: 36,
+                          onPressed: () {
+                            //   Get.toNamed(AppRoutes.selectFriends);
+                            chooseDiscussPlatform(context: context);
+                          },
+                          titleText: AppStrings.discusswithFriends),
                 ),
                 SizedBox(
                   width: 10.w,
@@ -281,11 +291,14 @@ class _QuestionAnsState extends State<QuestionAns> {
                       titleSize: 14.w,
                       buttonHeight: 36,
                       onPressed: () {
+                        controller.nextQuestion();
                         if (controller.page != controller.totalPages) {
                           controller.page = controller.page + 1;
                           controller.discussionPage = 1;
                           controller.discussionList = [];
                           controller.questionsRepo(title, categoryId);
+                          controller.questionsRepo(title, categoryId);
+                          controller.nextQuestion();
                         } else {
                           showDialog(
                               context: context,
@@ -295,7 +308,7 @@ class _QuestionAnsState extends State<QuestionAns> {
                                     completeText: AppStrings.youHaveCompleted,
                                     buttonText: AppStrings.gotocategories,
                                     onPressed: () {
-                                      Get.toNamed(AppRoutes.categoryScreen);
+                                      Get.offAllNamed(AppRoutes.categoryScreen);
                                     });
                               });
                         }

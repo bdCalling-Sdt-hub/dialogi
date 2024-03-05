@@ -169,12 +169,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(4.0),
                                   child: Stack(
+                                    clipBehavior: Clip.none,
                                     children: [
                                       Container(
                                         height: Get.height * 0.25,
                                         width: Get.height * 0.2,
                                         decoration: BoxDecoration(
-                                            boxShadow: [
+                                            boxShadow: const [
                                               BoxShadow(
                                                   color: AppColors.black_100,
                                                   blurRadius: 3,
@@ -203,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 8,
                                             ),
                                             CustomText(
@@ -218,18 +219,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                       Positioned(
-                                          top: 4,
-                                          left: 4,
+                                          top: -10,
+                                          left: -10,
                                           child: Transform.rotate(
                                             angle: math.pi / -6,
-                                            child: const SizedBox(
-                                                height: 50,
-                                                width: 50,
-                                                child: Image(
-                                                  image: AssetImage(
-                                                      "assets/images/earlyAccessBadge.png"),
-                                                  fit: BoxFit.fill,
-                                                )),
+                                            child: const Opacity(
+                                              opacity: 0.5,
+                                              child: SizedBox(
+                                                  height: 80,
+                                                  width: 80,
+                                                  child: Image(
+                                                    image: AssetImage(
+                                                        "assets/images/earlyAccessBadge.png"),
+                                                    fit: BoxFit.fill,
+                                                  )),
+                                            ),
                                           ))
                                     ],
                                   ),
@@ -258,7 +262,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const CustomText(
                     left: 4,
-                    text: "${AppStrings.categoryList}",
+                    text: AppStrings.categoryList,
                     color: AppColors.black_500,
                     fontSize: 20,
                     fontWeight: FontWeight.w500,

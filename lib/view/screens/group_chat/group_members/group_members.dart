@@ -1,49 +1,41 @@
+import 'package:dialogi_app/controllers/group_chat/group_member_controller.dart';
+import 'package:dialogi_app/global/api_response_model.dart';
+import 'package:dialogi_app/services/api_url.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
+import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class GroupMembers extends StatefulWidget {
-  const GroupMembers({super.key});
+  GroupMembers({super.key});
 
   @override
   State<GroupMembers> createState() => _GroupMembersState();
 }
 
 class _GroupMembersState extends State<GroupMembers> {
+  String chatId = Get.parameters["chatId"] ?? "";
+
+  final GroupMemberController groupMemberController =
+      Get.put(GroupMemberController());
+
+  @override
+  void initState() {
+    groupMemberController.groupMemberRepo(chatId);
+    groupMemberController.scrollController.addListener(() {
+      groupMemberController.scrollControllerCall(chatId);
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final List<Map> user = [
-      {
-        "image":
-            "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
-        "name": "Rafsan"
-      },
-      {
-        "image":
-            "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
-        "name": "Humayun"
-      },
-      {
-        "image":
-            "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
-        "name": "Shanto"
-      },
-      {
-        "image":
-            "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
-        "name": "Nadim"
-      },
-      {
-        "image":
-            "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
-        "name": "Polash"
-      }
-    ];
- 
+    print("=====================chatId $chatId");
+
     return Scaffold(
         appBar: CustomAppBar(
             appBarContent: Row(
@@ -67,47 +59,66 @@ class _GroupMembersState extends State<GroupMembers> {
             )
           ],
         )),
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-          child: ListView.builder(
-            itemCount: user.length,
-            itemBuilder: (context, index) {
-              var lastIndex = user.length - 1;
+        body: GetBuilder<GroupMemberController>(
+          builder: (controller) {
+            return switch (controller.status) {
+              Status.loading =>
+                const Center(child: CircularProgressIndicator()),
+              Status.error =>
+                ErrorScreen(onTap: () => controller.groupMemberRepo(chatId)),
+              Status.completed => Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+                  child: ListView.builder(
+                    itemCount: controller.isMoreLoading
+                        ? controller.memberList.length + 1
+                        : controller.memberList.length,
+                    itemBuilder: (context, index) {
+                      var item = controller.memberList[index];
 
-              return Column(
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        height: 50.w,
-                        width: 50.w,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(user[index]["image"]))),
-                      ),
-                      CustomText(
-                        left: 16,
-                        fontSize: 16.w,
-                        fontWeight: FontWeight.w500,
-                        text: user[index]["name"],
-                      ),
-                    ],
+                      if (index < controller.memberList.length) {
+                        return Column(
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  height: 50.w,
+                                  width: 50.w,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: NetworkImage(
+                                              "${ApiConstant.baseUrl}${item.image}"))),
+                                ),
+                                CustomText(
+                                  left: 16,
+                                  fontSize: 16.w,
+                                  fontWeight: FontWeight.w500,
+                                  text: item.fullName,
+                                ),
+                              ],
+                            ),
+                            const Divider()
+                            // if (index != lastIndex)
+                            //   Container(
+                            //     height: 2.h,
+                            //     width: double.maxFinite,
+                            //     margin: EdgeInsets.symmetric(
+                            //       vertical: 14.h,
+                            //     ),
+                            //     color: AppColors.gray_600,
+                            //   )
+                          ],
+                        );
+                      } else {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                    },
                   ),
-                  if (index != lastIndex)
-                    Container(
-                      height: 2.h,
-                      width: double.maxFinite,
-                      margin: EdgeInsets.symmetric(
-                        vertical: 14.h,
-                      ),
-                      color: AppColors.gray_600,
-                    )
-                ],
-              );
-            },
-          ),
+                ),
+            };
+          },
         ));
   }
 }
