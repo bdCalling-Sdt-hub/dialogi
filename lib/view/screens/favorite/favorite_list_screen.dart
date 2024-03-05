@@ -24,6 +24,9 @@ class _FavoriteListScreenState extends State<FavoriteListScreen> {
   @override
   void initState() {
     favouriteController.getFavouriteRepo();
+    favouriteController.scrollController.addListener(() {
+      favouriteController.scrollControllerCall() ;
+    }) ;
     super.initState();
   }
 
@@ -45,33 +48,41 @@ class _FavoriteListScreenState extends State<FavoriteListScreen> {
                 controller.getFavouriteRepo();
               }),
             Status.completed => ListView.builder(
-                itemCount: controller.favouriteList.length,
+                controller: controller.scrollController,
+                itemCount: controller.isMoreLoading
+                    ? controller.favouriteList.length + 1
+                    : controller.favouriteList.length,
                 itemBuilder: (context, index) {
                   var item = controller.favouriteList[index].question;
-                  return Column(
-                    children: [
-                      ListTile(
-                        leading: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            border: Border.all(
-                              color: AppColors.black_500, // Border color
-                              width: 2, // Border width
+
+                  if (index < controller.favouriteList.length) {
+                    return Column(
+                      children: [
+                        ListTile(
+                          leading: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              border: Border.all(
+                                color: AppColors.black_500, // Border color
+                                width: 2, // Border width
+                              ),
                             ),
+                            child: Center(
+                                child: CustomText(
+                              text: "?",
+                              fontSize: 20.sp,
+                            )),
                           ),
-                          child: Center(
-                              child: CustomText(
-                            text: "?",
-                            fontSize: 20.sp,
-                          )),
+                          title: Text(item.question),
                         ),
-                        title: Text(item.question),
-                      ),
-                      const Divider()
-                    ],
-                  );
+                        const Divider()
+                      ],
+                    );
+                  } else {
+                    return const Center(child: CircularProgressIndicator());
+                  }
                 },
               ),
           };

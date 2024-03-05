@@ -137,7 +137,7 @@ class SignUpController extends GetxController {
 
         } else {
 
-          Get.offAndToNamed(AppRoutes.homeScreen);
+          Get.offAllNamed(AppRoutes.homeScreen);
           PrefsHelper.setString(AppConstants.bearerToken, data['data']["accessToken"]);
           PrefsHelper.setString("clientId", data['data']["attributes"]["_id"]);
           PrefsHelper.token = data['data']["accessToken"];

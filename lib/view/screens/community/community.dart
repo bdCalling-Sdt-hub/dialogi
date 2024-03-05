@@ -8,7 +8,6 @@ import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:dialogi_app/view/widgets/nav_bar/nav_bar.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -54,59 +53,70 @@ class _CommunityState extends State<Community> {
               ErrorScreen(onTap: () => controller.communityRepo()),
             Status.completed => ListView.builder(
                 controller: controller.scrollController,
-                itemCount: controller.communityList.length,
+                itemCount: controller.isMoreLoading
+                    ? controller.communityList.length + 1
+                    : controller.communityList.length,
                 itemBuilder: (context, index) {
                   var item = controller.communityList[index];
-                  return GestureDetector(
-                    onTap: () {
-                      Get.toNamed(AppRoutes.chatScreen, parameters: {
-                        "chatId": item.sId,
-                        "type": AppStrings.community,
-                        "name": item.groupName
-                      });
-                    },
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
-                      height: 110.h,
-                      width: double.infinity,
 
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8.r),
-                          color: AppColors.whiteColor),
-                      child: Row(children: [
-                        Expanded(
-                            child: Container(
-                          margin: EdgeInsets.all(16.w),
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                      "${ApiConstant.baseUrl}${item.image}"))),
-                        )),
-                        Expanded(
-                          flex: 2,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CustomText(
-                                text: item.groupName,
-                                fontSize: 18.w,
-                                fontWeight: FontWeight.w400,
-                              ),
-                              CustomText(
-                                text: item.latestMessage != null
-                                    ? item.latestMessage.message
-                                    : "",
-                                fontSize: 14.w,
-                                fontWeight: FontWeight.w200,
-                              ),
-                            ],
-                          ),
-                        )
-                      ]),
-                    ),
-                  );
+                  if (index < controller.communityList.length) {
+                    return GestureDetector(
+                      onTap: () {
+                        Get.toNamed(AppRoutes.chatScreen, parameters: {
+                          "chatId": item.sId,
+                          "type": AppStrings.community,
+                          "name": item.groupName
+                        });
+                      },
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
+                        height: 110.h,
+                        width: double.infinity,
+
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.r),
+                            color: AppColors.whiteColor),
+                        child: Row(children: [
+                          Expanded(
+                              child: Container(
+                                margin: EdgeInsets.all(16.w),
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage(
+                                            "${ApiConstant.baseUrl}${item.image}"))),
+                              )),
+                          Expanded(
+                            flex: 2,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CustomText(
+                                  text: item.groupName,
+                                  fontSize: 18.w,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                                CustomText(
+                                  text: item.latestMessage != null
+                                      ? item.latestMessage.message
+                                      : "",
+                                  fontSize: 14.w,
+                                  fontWeight: FontWeight.w200,
+                                ),
+                              ],
+                            ),
+                          )
+                        ]),
+                      ),
+                    );
+
+
+                  } else {
+                   return  const Center(child: CircularProgressIndicator()) ;
+                  }
+
+
                 },
               ),
           };

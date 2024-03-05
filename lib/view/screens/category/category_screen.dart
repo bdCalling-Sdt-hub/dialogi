@@ -42,73 +42,79 @@ class _CategoryScreenState extends State<CategoryScreen> {
     return Scaffold(
         appBar: const CustomAppBar(
             appBarContent: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CustomText(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-              color: AppColors.blue_500,
-              text: AppStrings.category,
-            ),
-          ],
-        )),
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CustomText(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.blue_500,
+                  text: AppStrings.category,
+                ),
+              ],
+            )),
         //
         bottomNavigationBar: const NavBar(currentIndex: 1),
         body: GetBuilder<CategoryController>(builder: (controller) {
           return switch (controller.status) {
             Status.loading => const Center(child: CircularProgressIndicator()),
-            Status.error => ErrorScreen(onTap: () {
-                controller.page = 1;
-                controller.categoryRepo();
-              }),
-            Status.completed => GridView.builder(
-                controller: controller.scrollController,
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                // itemCount: controller.categoryList.length,
-                itemCount: controller.isMoreLoading
-                    ? controller.categoryList.length + 1
-                    : controller.categoryList.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisExtent: 250.h,
-                    crossAxisSpacing: 8.w,
-                    mainAxisSpacing: 8.h),
+            Status.error =>
+                ErrorScreen(onTap: () {
+                  controller.page = 1;
+                  controller.categoryRepo();
+                }),
+            Status.completed =>
+                GridView.builder(
+                  controller: controller.scrollController,
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  itemCount: controller.isMoreLoading
+                      ? controller.categoryList.length + 1
+                      : controller.categoryList.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisExtent: 250.h,
+                      crossAxisSpacing: 8.w,
+                      mainAxisSpacing: 8.h),
 
-                itemBuilder: (context, index) {
-                  print(
-                      "=============================> controller ${controller.categoryList.length}");
+                  itemBuilder: (context, index) {
+                    print(
+                        "=============================> controller ${controller
+                            .categoryList.length}");
 
-                  if (index < controller.categoryList.length) {
-                    return GestureDetector(
-                      onTap: () {
-
-
-                        if (Homecontroller.status == Status.completed) {
-                          controller.getContextStatus();
-                          if (Homecontroller.accessStatusModel!.data!.categoryAccessNumber != 0) {
-                            controller.categoryId = controller.categoryList[index].sId;
-                            Get.toNamed(AppRoutes.categoryDetails, parameters: {"title": "Friends"});
+                    if (index < controller.categoryList.length) {
+                      return GestureDetector(
+                        onTap: () {
+                          if (Homecontroller.status == Status.completed) {
+                            controller.getContextStatus();
+                            if (Homecontroller.accessStatusModel!.data!
+                                .categoryAccessNumber != 0) {
+                              controller.categoryId = controller
+                                  .categoryList[index].sId;
+                              Get.toNamed(AppRoutes.categoryDetails,
+                                  parameters: {
+                                    "title": "Friends",
+                                    "accessStatus": "false"
+                                  });
+                            } else {
+                              SubscriptionPopup.showPopUpPremiumPackage();
+                            }
                           } else {
-                            SubscriptionPopup.showPopUpPremiumPackage();
+                            Homecontroller.getAccessStatus();
                           }
-                        } else {
-                          Homecontroller.getAccessStatus();
-                        }
-
-
-                      },
-                      child: CustomCard(
-                          img:
-                              "${ApiConstant.baseUrl}${controller.categoryList[index].image}",
-                          title: controller.categoryList[index].name.toString(),
-                          queNum: controller.categoryList[index].questionCount
-                              .toString()),
-                    );
-                  } else {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                },
-              ),
+                        },
+                        child: CustomCard(
+                            img:
+                            "${ApiConstant.baseUrl}${controller
+                                .categoryList[index].image}",
+                            title: controller.categoryList[index].name
+                                .toString(),
+                            queNum: controller.categoryList[index].questionCount
+                                .toString()),
+                      );
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  },
+                ),
           };
         }));
   }

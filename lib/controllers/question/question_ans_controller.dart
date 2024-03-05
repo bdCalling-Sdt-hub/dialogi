@@ -121,7 +121,7 @@ class QuestionAnsController extends GetxController {
 
     getContextStatus();
 
-    print("${categoryController.categoryId}");
+    print(categoryController.categoryId);
 
     var response = await ApiService.getApi(
         "${ApiConstant.questions}/$subCategory/${categoryController.categoryId}?page=$page&limit=1&discussionLimit=5&discussionPage=$discussionPage");

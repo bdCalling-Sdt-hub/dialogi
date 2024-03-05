@@ -15,8 +15,7 @@ import '../../view/widgets/chat_model/chat_message_model.dart';
 class MessageController extends GetxController {
   Status status = Status.completed;
   bool isMessage = false;
-
-  Status statusMore = Status.completed;
+  bool isMoreLoading = false;
 
   final ScrollController scrollController = ScrollController();
 
@@ -33,10 +32,10 @@ class MessageController extends GetxController {
   Future<void> scrollControllerCall(String chatId) async {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
-      statusMore = Status.loading;
+      isMoreLoading = true;
       update();
       await getMessageRepo(chatId);
-      statusMore = Status.completed;
+      isMoreLoading = false;
       update();
     }
   }
@@ -131,8 +130,6 @@ class MessageController extends GetxController {
   }
 
   listenMessage(String chatId) async {
-
-
     SocketServices.socket.on('new-message::$chatId', (data) {
       status = Status.loading;
       update();

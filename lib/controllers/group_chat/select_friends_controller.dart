@@ -16,7 +16,8 @@ import '../../utils/static_strings.dart';
 
 class SelectFriendsController extends GetxController {
   Status status = Status.completed;
-  Status statusMore = Status.completed;
+  bool isMoreLoading = false;
+
   List friendList = [];
   List<bool> selectedFriends = [];
   bool isCreateGroup = false;
@@ -32,10 +33,10 @@ class SelectFriendsController extends GetxController {
   Future<void> scrollControllerCall() async {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
-      statusMore = Status.loading;
+      isMoreLoading = false;
       update();
       await friendListRepo();
-      statusMore = Status.completed;
+      isMoreLoading = false;
       update();
     }
   }

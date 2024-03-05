@@ -82,47 +82,55 @@ class _SelectFriendsGroupChatState extends State<SelectFriendsGroupChat> {
                                   "2/${controller.selectedParticipants.length - 1}")),
                       Expanded(
                         child: ListView.builder(
-                          itemCount: controller.friendList.length,
+                          itemCount: controller.isMoreLoading
+                              ? controller.friendList.length + 1
+                              : controller.friendList.length,
                           itemBuilder: (context, index) {
-                            return Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Checkbox(
-                                      value: controller.selectedFriends[index],
-                                      activeColor: AppColors.blue_300,
-                                      onChanged: (value) => controller
-                                          .selectParticipants(value!, index),
-                                    ),
-                                    Container(
-                                      height: 50.w,
-                                      width: 50.w,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: NetworkImage(
-                                                  "${ApiConstant.baseUrl}${controller.friendList[index].otherParticipant.image}"))),
-                                    ),
-                                    CustomText(
-                                      left: 16,
-                                      fontSize: 16.w,
-                                      fontWeight: FontWeight.w500,
-                                      text: controller.friendList[index]
-                                          .otherParticipant!.fullName!,
-                                    ),
-                                  ],
-                                ),
-                                Container(
-                                  height: 2.h,
-                                  width: double.maxFinite,
-                                  margin: EdgeInsets.symmetric(
-                                    vertical: 14.h,
+                            if (index < controller.friendList.length) {
+                              return Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Checkbox(
+                                        value:
+                                            controller.selectedFriends[index],
+                                        activeColor: AppColors.blue_300,
+                                        onChanged: (value) => controller
+                                            .selectParticipants(value!, index),
+                                      ),
+                                      Container(
+                                        height: 50.w,
+                                        width: 50.w,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: NetworkImage(
+                                                    "${ApiConstant.baseUrl}${controller.friendList[index].otherParticipant.image}"))),
+                                      ),
+                                      CustomText(
+                                        left: 16,
+                                        fontSize: 16.w,
+                                        fontWeight: FontWeight.w500,
+                                        text: controller.friendList[index]
+                                            .otherParticipant!.fullName!,
+                                      ),
+                                    ],
                                   ),
-                                  color: AppColors.gray_600,
-                                )
-                              ],
-                            );
+                                  Container(
+                                    height: 2.h,
+                                    width: double.maxFinite,
+                                    margin: EdgeInsets.symmetric(
+                                      vertical: 14.h,
+                                    ),
+                                    color: AppColors.gray_600,
+                                  )
+                                ],
+                              );
+                            } else {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            }
                           },
                         ),
                       ),

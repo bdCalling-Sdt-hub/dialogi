@@ -157,44 +157,62 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                     Expanded(
                         child: controller.isCommunityRequest
                             ? ListView.builder(
-                                itemCount: controller.communityRequest.length,
-                                controller: controller.communityScrollController,
+                                itemCount: controller.isMoreLoadingCommunity
+                                    ? controller.communityRequest.length + 1
+                                    : controller.communityRequest.length,
+                                controller:
+                                    controller.communityScrollController,
                                 itemBuilder: (BuildContext context, int index) {
                                   var item = controller.communityRequest[index];
-                                  return CustomPendingRequests(
-                                    pendingText: item.chat.groupName,
-                                    image:
-                                        "${ApiConstant.baseUrl}/${item.chat.image}",
-                                    timeText: controller
-                                        .getFormattedDate(item.createdAt),
-                                    onTapReject: () =>
-                                        controller.communityRequestActionRepo(
-                                            item.sId, "rejected", index),
-                                    onTapAccept: () =>
-                                        controller.communityRequestActionRepo(
-                                            item.sId, "accepted", index),
-                                  );
+                                  if (index <
+                                      controller.communityRequest.length) {
+                                    return CustomPendingRequests(
+                                      pendingText: item.chat.groupName,
+                                      image:
+                                          "${ApiConstant.baseUrl}/${item.chat.image}",
+                                      timeText: controller
+                                          .getFormattedDate(item.createdAt),
+                                      onTapReject: () =>
+                                          controller.communityRequestActionRepo(
+                                              item.sId, "rejected", index),
+                                      onTapAccept: () =>
+                                          controller.communityRequestActionRepo(
+                                              item.sId, "accepted", index),
+                                    );
+                                  } else {
+                                    return const Center(
+                                        child: CircularProgressIndicator());
+                                  }
                                 })
                             : ListView.builder(
-                                controller:
-                                    controller.scrollController,
-                                itemCount: controller.friendRequestList.length,
+                                controller: controller.scrollController,
+                                itemCount: controller.isMoreLoading
+                                    ? controller.friendRequestList.length + 1
+                                    : controller.friendRequestList.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   var item =
                                       controller.friendRequestList[index];
-                                  return CustomPendingRequests(
-                                    pendingText: item.participants[0].fullName,
-                                    image:
-                                        "${ApiConstant.baseUrl}/${item.participants[0].image}",
-                                    timeText: controller
-                                        .getFormattedDate(item.createdAt),
-                                    onTapReject: () =>
-                                        controller.requestActionRepo(
-                                            item.sId, "rejected", index),
-                                    onTapAccept: () =>
-                                        controller.requestActionRepo(
-                                            item.sId, "accepted", index),
-                                  );
+
+                                  if (index <
+                                      controller.friendRequestList.length) {
+                                    return CustomPendingRequests(
+                                      pendingText:
+                                          item.participants[0].fullName,
+                                      image:
+                                          "${ApiConstant.baseUrl}/${item.participants[0].image}",
+                                      timeText: controller
+                                          .getFormattedDate(item.createdAt),
+                                      onTapReject: () =>
+                                          controller.requestActionRepo(
+                                              item.sId, "rejected", index),
+                                      onTapAccept: () =>
+                                          controller.requestActionRepo(
+                                              item.sId, "accepted", index),
+                                    );
+                                  } else {
+                                    return const Center(
+                                        child: CircularProgressIndicator());
+                                  }
                                 })),
                   ],
                 ),

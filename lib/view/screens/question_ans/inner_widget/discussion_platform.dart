@@ -18,10 +18,11 @@ void chooseDiscussPlatform({required BuildContext context}) {
       return Dialog(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
-          height: 300.h,
+          margin: EdgeInsets.symmetric(vertical: 40.h),
           width: double.maxFinite,
           child: StatefulBuilder(builder: (context, StateSetter setState) {
             return Column(
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -53,11 +54,13 @@ void chooseDiscussPlatform({required BuildContext context}) {
                         CustomText(
                           text: discussionPlatformController
                               .discussPlatform[index],
+                          fontSize: 18.sp,
                         ),
                       ],
                     ),
                   ),
                 ),
+                SizedBox(height: 16.h,),
 
                 //========================Confirm Button==========================
                 CustomElevatedButton(

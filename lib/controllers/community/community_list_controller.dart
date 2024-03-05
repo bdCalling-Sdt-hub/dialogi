@@ -12,7 +12,7 @@ import '../../utils/app_utils.dart';
 class CommunityListController extends GetxController {
   Status status = Status.completed;
 
-  Status statusMore = Status.completed;
+  bool isMoreLoading = false;
 
   int page = 1;
 
@@ -25,10 +25,10 @@ class CommunityListController extends GetxController {
   Future<void> scrollControllerCall() async {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
-      statusMore = Status.loading;
+      isMoreLoading = true;
       update();
       await communityRepo();
-      statusMore = Status.completed;
+      isMoreLoading = false;
       update();
     } else {
       print(

@@ -14,6 +14,7 @@ class PendingRequestController extends GetxController {
   Status status = Status.completed;
   Status communityStatus = Status.completed;
   bool isMoreLoading = false;
+  bool isMoreLoadingCommunity = false;
   bool actionIsLoading = false;
   List friendRequestList = [];
   List communityRequest = [];
@@ -74,10 +75,10 @@ class PendingRequestController extends GetxController {
     print("dhfkdjshfkj");
     if (communityScrollController.position.pixels ==
         communityScrollController.position.maxScrollExtent) {
-      isMoreLoading = true;
+      isMoreLoadingCommunity = true;
       update();
       await communityRequestRepo();
-      isMoreLoading = false;
+      isMoreLoadingCommunity = false;
       update();
 
 

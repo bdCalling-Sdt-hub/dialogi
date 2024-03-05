@@ -301,7 +301,7 @@ class _QuestionAnsState extends State<QuestionAns> {
                                     completeText: AppStrings.youHaveCompleted,
                                     buttonText: AppStrings.gotocategories,
                                     onPressed: () {
-                                      Get.toNamed(AppRoutes.categoryScreen);
+                                      Get.offAllNamed(AppRoutes.categoryScreen);
                                     });
                               });
                         }

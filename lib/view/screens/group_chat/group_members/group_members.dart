@@ -70,44 +70,50 @@ class _GroupMembersState extends State<GroupMembers> {
                   padding:
                       EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
                   child: ListView.builder(
-                    itemCount: controller.memberList.length,
+                    itemCount: controller.isMoreLoading
+                        ? controller.memberList.length + 1
+                        : controller.memberList.length,
                     itemBuilder: (context, index) {
                       var item = controller.memberList[index];
 
-                      return Column(
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                height: 50.w,
-                                width: 50.w,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(
-                                            "${ApiConstant.baseUrl}${item.image}"))),
-                              ),
-                              CustomText(
-                                left: 16,
-                                fontSize: 16.w,
-                                fontWeight: FontWeight.w500,
-                                text: item.fullName,
-                              ),
-                            ],
-                          ),
-                          const Divider()
-                          // if (index != lastIndex)
-                          //   Container(
-                          //     height: 2.h,
-                          //     width: double.maxFinite,
-                          //     margin: EdgeInsets.symmetric(
-                          //       vertical: 14.h,
-                          //     ),
-                          //     color: AppColors.gray_600,
-                          //   )
-                        ],
-                      );
+                      if (index < controller.memberList.length) {
+                        return Column(
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  height: 50.w,
+                                  width: 50.w,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: NetworkImage(
+                                              "${ApiConstant.baseUrl}${item.image}"))),
+                                ),
+                                CustomText(
+                                  left: 16,
+                                  fontSize: 16.w,
+                                  fontWeight: FontWeight.w500,
+                                  text: item.fullName,
+                                ),
+                              ],
+                            ),
+                            const Divider()
+                            // if (index != lastIndex)
+                            //   Container(
+                            //     height: 2.h,
+                            //     width: double.maxFinite,
+                            //     margin: EdgeInsets.symmetric(
+                            //       vertical: 14.h,
+                            //     ),
+                            //     color: AppColors.gray_600,
+                            //   )
+                          ],
+                        );
+                      } else {
+                        return Center(child: CircularProgressIndicator());
+                      }
                     },
                   ),
                 ),

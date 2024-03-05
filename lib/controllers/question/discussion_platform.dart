@@ -13,6 +13,7 @@ class DiscussionPlatformController extends GetxController {
 
 
   checkDiscussion() {
+    discussPlatform.clear() ;
     if(Homecontroller.accessStatusModel!.data!.isCommunityDiscussionAvailable == true) {
       discussPlatform.add(AppStrings.community) ;
     }
@@ -21,6 +22,12 @@ class DiscussionPlatformController extends GetxController {
     if(Homecontroller.accessStatusModel!.data!.isGroupChatAvailable == true) {
       discussPlatform.add(AppStrings.group) ;
     }
+
+    if(discussPlatform.isNotEmpty) {
+      selectedPlatform = discussPlatform[0] ;
+    }
+
+
 
   }
 

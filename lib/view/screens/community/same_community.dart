@@ -73,7 +73,10 @@ class _SameCommunityState extends State<SameCommunity> {
             Status.completed => Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
                 child: ListView.builder(
-                  itemCount: controller.chatList.length,
+                  controller: controller.scrollController,
+                  itemCount: controller.isMoreLoading
+                      ? controller.chatList.length + 1
+                      : controller.chatList.length,
                   itemBuilder: (context, index) {
                     var item = controller.chatList[index];
                     return GestureDetector(

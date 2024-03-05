@@ -67,13 +67,21 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
                   child: ListView.builder(
                       controller: controller.scrollController,
-                      itemCount: controller.notificationsList.length,
+                      itemCount: controller.isMoreLoading
+                          ? controller.notificationsList.length + 1
+                          : controller.notificationsList.length,
                       itemBuilder: (BuildContext context, int index) {
                         var item = controller.notificationsList[index];
-                        return CustomNotification(
-                            notificationText: item.message,
-                            timeText:
-                                controller.getFormattedDate(item.createdAt));
+
+                        if (index < controller.notificationsList.length) {
+                          return CustomNotification(
+                              notificationText: item.message,
+                              timeText:
+                                  controller.getFormattedDate(item.createdAt));
+                        } else {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
                       }),
                 ),
             };

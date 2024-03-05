@@ -13,7 +13,7 @@ import '../../utils/app_utils.dart';
 
 class GroupMemberController extends GetxController {
   Status status = Status.completed;
-  Status statusMore = Status.completed;
+  bool isMoreLoading = false ;
   List memberList = [];
 
   bool isLeave = false;
@@ -26,10 +26,10 @@ class GroupMemberController extends GetxController {
   Future<void> scrollControllerCall(String chatId) async {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
-      statusMore = Status.loading;
+      isMoreLoading = false ;
       update();
       await groupMemberRepo(chatId);
-      statusMore = Status.completed;
+      isMoreLoading = false ;
       update();
     }
   }

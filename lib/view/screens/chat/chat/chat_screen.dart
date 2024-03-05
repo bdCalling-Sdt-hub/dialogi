@@ -84,22 +84,28 @@ class _ChatScreenState extends State<ChatScreen> {
                 : ListView.builder(
                     reverse: true,
                     controller: controller.scrollController,
-                    itemCount: controller.messages.length,
+                    itemCount: controller.isMoreLoading
+                        ? controller.messages.length + 1
+                        : controller.messages.length,
                     itemBuilder: (BuildContext context, int index) {
                       final message = controller.messages[index];
 
-                      return ChatBubbleMessage(
-                        index: index,
-                        image: message.image,
-                        messageIndex: controller.currentIndex,
-                        isEmoji: controller.isInputField,
-                        onpress: () => controller.isEmoji(index),
-                        isQuestion: message.isQuestion,
-                        isNotice: message.isNotice,
-                        time: message.time,
-                        text: message.text,
-                        isMe: message.isMe,
-                      );
+                      if (index < controller.messages.length) {
+                        return ChatBubbleMessage(
+                          index: index,
+                          image: message.image,
+                          messageIndex: controller.currentIndex,
+                          isEmoji: controller.isInputField,
+                          onpress: () => controller.isEmoji(index),
+                          isQuestion: message.isQuestion,
+                          isNotice: message.isNotice,
+                          time: message.time,
+                          text: message.text,
+                          isMe: message.isMe,
+                        );
+                      } else {
+                        return const Center(child: CircularProgressIndicator());
+                      }
                     }),
             bottomNavigationBar: AnimatedPadding(
               padding: MediaQuery.of(context).viewInsets,

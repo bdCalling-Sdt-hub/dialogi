@@ -132,11 +132,14 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                                     children: [
                                       controller.discussionDetailsModel!.data!
                                               .attributes!.discussion!.isLiked!
-                                          ? const Icon(Icons.thumb_up_rounded, color: AppColors.blue_500,)
+                                          ? const Icon(
+                                              Icons.thumb_up_rounded,
+                                              color: AppColors.blue_500,
+                                            )
                                           : const CustomImage(
                                               imageSrc: AppIcons.like,
-                                        size: 24,
-                                      ),
+                                              size: 24,
+                                            ),
                                       SizedBox(width: 10.w),
                                       CustomText(
                                           text: controller
@@ -163,9 +166,14 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                               children: [
                                 controller.discussionDetailsModel!.data!
                                         .attributes!.discussion!.isDisliked!
-                                    ? const Icon(Icons.thumb_down_rounded, color: AppColors.blue_500,)
+                                    ? const Icon(
+                                        Icons.thumb_down_rounded,
+                                        color: AppColors.blue_500,
+                                      )
                                     : const CustomImage(
-                                        imageSrc: AppIcons.dislike, size: 24,),
+                                        imageSrc: AppIcons.dislike,
+                                        size: 24,
+                                      ),
                                 SizedBox(width: 10.w),
                                 CustomText(
                                     text: controller.discussionDetailsModel!
@@ -199,139 +207,160 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                         padding: EdgeInsets.only(left: 35.w),
                         child: ListView.builder(
                           controller: controller.scrollController,
-                          itemCount: controller.repliesList.length,
+                          itemCount: controller.isMoreLoading
+                              ? controller.repliesList.length + 1
+                              : controller.repliesList.length,
                           itemBuilder: (context, index) {
                             var item = controller.repliesList[index];
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Container(
-                                    //   width: 26.w,
-                                    //   height: 26.w,
-                                    //   decoration: BoxDecoration(
-                                    //     shape: BoxShape.circle,
-                                    //     image: DecorationImage(
-                                    //       image: NetworkImage(
-                                    //           "${ApiConstant.baseUrl}/${item.user!.image!}"),
-                                    //       fit: BoxFit.fill,
-                                    //     ),
-                                    //   ),
-                                    // ),
-                                    // const SizedBox(width: 8),
+                            if (index < controller.repliesList.length) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      // Container(
+                                      //   width: 26.w,
+                                      //   height: 26.w,
+                                      //   decoration: BoxDecoration(
+                                      //     shape: BoxShape.circle,
+                                      //     image: DecorationImage(
+                                      //       image: NetworkImage(
+                                      //           "${ApiConstant.baseUrl}/${item.user!.image!}"),
+                                      //       fit: BoxFit.fill,
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                      // const SizedBox(width: 8),
 
-                                    GestureDetector(
-                                      onTap: () {
-                                        Get.toNamed(
-                                            AppRoutes.friendsProfileScreen,
-                                            parameters: {
-                                              "userID": "${item.user!.sId}"
-                                            });
-                                      },
-                                      child: Container(
-                                        width: 26.w,
-                                        height: 26.w,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          image: DecorationImage(
-                                            image: NetworkImage(
-                                                "${ApiConstant.baseUrl}/${item.user!.image}"),
-                                            fit: BoxFit.fill,
+                                      GestureDetector(
+                                        onTap: () {
+                                          Get.toNamed(
+                                              AppRoutes.friendsProfileScreen,
+                                              parameters: {
+                                                "userID": "${item.user!.sId}"
+                                              });
+                                        },
+                                        child: Container(
+                                          width: 26.w,
+                                          height: 26.w,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                  "${ApiConstant.baseUrl}/${item.user!.image}"),
+                                              fit: BoxFit.fill,
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(width: 8),
+                                      const SizedBox(width: 8),
 
-                                    // Name and comment of the Reply person
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          CustomText(
-                                              text: item.user!.fullName!),
-                                          const SizedBox(height: 8),
-                                          CustomText(
-                                            maxLines: 100,
-                                            textAlign: TextAlign.left,
-                                            text: item.reply!,
-                                          ),
-                                        ],
+                                      // Name and comment of the Reply person
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            CustomText(
+                                                text: item.user!.fullName!),
+                                            const SizedBox(height: 8),
+                                            CustomText(
+                                              maxLines: 100,
+                                              textAlign: TextAlign.left,
+                                              text: item.reply!,
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-
-                                // Like Dislike reply
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    left: 35.w,
-                                    top: 5.h,
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      // Like
-                                      GestureDetector(
-                                        onTap: () => controller.replyLike(
-                                            item.sId, index),
-                                        child: controller.isLike
-                                            ? const CircularProgressIndicator()
-                                            : Row(
-                                                children: [
-                                                  item.isLiked
-                                                      ? const Icon(Icons.thumb_up_rounded, color: AppColors.blue_500,)
-                                                      : const CustomImage(
-                                                          imageSrc:
-                                                              AppIcons.like,size: 24,
-                                                  ),
-                                                  SizedBox(width: 10.w),
-                                                  CustomText(
-                                                      text: item.likes
-                                                          .toString()),
-                                                ],
-                                              ),
-                                      ),
-                                      SizedBox(width: 10.w),
-
-                                      // Dislike
-                                      GestureDetector(
-                                        onTap: () => controller.replyDislike(
-                                            item.sId, index),
-                                        child: controller.isDislike
-                                            ? const CircularProgressIndicator()
-                                            : Row(
-                                                children: [
-                                                  item.isDisliked
-                                                      ? const Icon(Icons.thumb_down_rounded, color: AppColors.blue_500,)
-                                                      : const CustomImage(
-                                                          imageSrc:
-                                                              AppIcons.dislike, size: 24,),
-                                                  SizedBox(width: 10.w),
-                                                  CustomText(
-                                                      text: item.dislikes
-                                                          .toString()),
-                                                ],
-                                              ),
-                                      ),
-
-                                      // Reply
-                                      // TextButton(
-                                      //   onPressed: () => controller.addReply(),
-                                      //   child: const CustomText(
-                                      //       text: AppStrings.reply),
-                                      // ),
                                     ],
                                   ),
-                                ),
 
-                                SizedBox(
-                                  height: 12.h,
-                                )
-                              ],
-                            );
+                                  // Like Dislike reply
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 35.w,
+                                      top: 5.h,
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        // Like
+                                        GestureDetector(
+                                          onTap: () => controller.replyLike(
+                                              item.sId, index),
+                                          child: controller.isLike
+                                              ? const CircularProgressIndicator()
+                                              : Row(
+                                                  children: [
+                                                    item.isLiked
+                                                        ? const Icon(
+                                                            Icons
+                                                                .thumb_up_rounded,
+                                                            color: AppColors
+                                                                .blue_500,
+                                                          )
+                                                        : const CustomImage(
+                                                            imageSrc:
+                                                                AppIcons.like,
+                                                            size: 24,
+                                                          ),
+                                                    SizedBox(width: 10.w),
+                                                    CustomText(
+                                                        text: item.likes
+                                                            .toString()),
+                                                  ],
+                                                ),
+                                        ),
+                                        SizedBox(width: 10.w),
+
+                                        // Dislike
+                                        GestureDetector(
+                                          onTap: () => controller.replyDislike(
+                                              item.sId, index),
+                                          child: controller.isDislike
+                                              ? const CircularProgressIndicator()
+                                              : Row(
+                                                  children: [
+                                                    item.isDisliked
+                                                        ? const Icon(
+                                                            Icons
+                                                                .thumb_down_rounded,
+                                                            color: AppColors
+                                                                .blue_500,
+                                                          )
+                                                        : const CustomImage(
+                                                            imageSrc: AppIcons
+                                                                .dislike,
+                                                            size: 24,
+                                                          ),
+                                                    SizedBox(width: 10.w),
+                                                    CustomText(
+                                                        text: item.dislikes
+                                                            .toString()),
+                                                  ],
+                                                ),
+                                        ),
+
+                                        // Reply
+                                        // TextButton(
+                                        //   onPressed: () => controller.addReply(),
+                                        //   child: const CustomText(
+                                        //       text: AppStrings.reply),
+                                        // ),
+                                      ],
+                                    ),
+                                  ),
+
+                                  SizedBox(
+                                    height: 12.h,
+                                  )
+                                ],
+                              );
+                            } else {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            }
                           },
                         ),
                       ),

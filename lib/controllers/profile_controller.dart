@@ -7,7 +7,6 @@ import 'package:dialogi_app/models/profile_model.dart';
 import 'package:dialogi_app/view/screens/home/home_controller/home_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../core/app_routes.dart';

@@ -21,12 +21,15 @@ class _CategoryDetailsState extends State<CategoryDetails> {
   SubCategoryController subCategoryController =
       Get.put(SubCategoryController());
 
+  String title = Get.parameters["title"] ?? " ";
+  bool accessStatus = Get.parameters["accessStatus"] == "true" ? true : false;
+
   @override
   void initState() {
     subCategoryController.page = 1;
-    subCategoryController.subCategoryRepo();
+    subCategoryController.subCategoryRepo(accessStatus);
     subCategoryController.scrollController.addListener(() {
-      subCategoryController.scrollControllerCall();
+      subCategoryController.scrollControllerCall(accessStatus);
     });
     // TODO: implement initState
     super.initState();
@@ -34,7 +37,8 @@ class _CategoryDetailsState extends State<CategoryDetails> {
 
   @override
   Widget build(BuildContext context) {
-    String title = Get.parameters["title"] ?? " ";
+    print(
+        "===================================================> accessStatus $accessStatus");
     return Scaffold(
         //App Bar
 
@@ -83,7 +87,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                   const Center(child: CircularProgressIndicator()),
                 Status.error => ErrorScreen(onTap: () {
                     controller.page = 1;
-                    controller.subCategoryRepo();
+                    controller.subCategoryRepo(accessStatus);
                   }),
                 Status.completed => ListView.builder(
                     controller: controller.scrollController,
