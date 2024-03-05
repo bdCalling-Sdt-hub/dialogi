@@ -117,25 +117,28 @@ class _HomeScreenState extends State<HomeScreen> {
               controller.pageCount = 1;
               controller.categoryAccessRepo();
             }),
-          Status.completed => Column(
-              children: [
-                CustomText(
-                  text: "${AppStrings.earlyAccessList}",
-                  color: AppColors.blue_500,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                ),
-                ///<<<======================== EarlyAccess List Items ===============>>>
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: SizedBox(
+          Status.completed => Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomText(
+                    left: 4,
+                    text: "${AppStrings.getEarlyAccess}",
+                    color: AppColors.black_500,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  ),
+
+                  ///<<<======================== EarlyAccess List Items ===============>>>
+                  SizedBox(
                     height: Get.height * 0.25,
                     width: Get.width,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       controller: controller.earlyAccessScrollController,
-                      itemCount: controller.homeCategoriesModel?.data?.attributes
-                          ?.earlyAccessList?.length,
+                      itemCount: controller.homeCategoriesModel?.data
+                          ?.attributes?.earlyAccessList?.length,
                       itemBuilder: (BuildContext context, int index) {
                         if (index <
                             controller.homeCategoriesModel!.data!.attributes!
@@ -144,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             onTap: () {
                               Get.toNamed(AppRoutes.categoryDetails,
                                   parameters: {
-                                    "accessStatus" : "true",
+                                    "accessStatus": "true",
                                     "title": controller
                                         .homeCategoriesModel!
                                         .data!
@@ -167,13 +170,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     height: Get.height * 0.25,
                                     width: Get.height * 0.2,
                                     decoration: BoxDecoration(
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: AppColors.black_100,
-                                          blurRadius: 2,
-                                          offset: Offset(1, 0)
-                                        )
-                                      ],
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: AppColors.black_100,
+                                              blurRadius: 3,
+                                              offset: Offset(0, 0))
+                                        ],
                                         color: AppColors.whiteColor,
                                         borderRadius: BorderRadius.circular(8)),
                                     child: Column(
@@ -185,13 +187,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                             height: Get.height * 0.15,
                                             width: Get.height * 0.15,
                                             child: Image(
-                                                image: NetworkImage(
-                                                    "${ApiConstant.baseUrl}${controller.homeCategoriesModel?.data?.attributes?.earlyAccessList?[index].image}"),
+                                              image: NetworkImage(
+                                                  "${ApiConstant.baseUrl}${controller.homeCategoriesModel?.data?.attributes?.earlyAccessList?[index].image}"),
                                               fit: BoxFit.fill,
                                             ),
                                           ),
                                         ),
-                                        SizedBox(height: 8,),
+                                        SizedBox(
+                                          height: 8,
+                                        ),
                                         CustomText(
                                           right: 8.w,
                                           text:
@@ -202,10 +206,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ),
                                   Positioned(
-                                    top: 4,
+                                      top: 4,
                                       left: 4,
                                       child: Transform.rotate(
-                                        angle: math.pi/ -6,
+                                        angle: math.pi / -6,
                                         child: const SizedBox(
                                             height: 50,
                                             width: 50,
@@ -220,135 +224,144 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           );
                         } else {
-                          return const Center(child: CircularProgressIndicator());
+                          return const Center(
+                              child: CircularProgressIndicator());
                         }
                       },
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Divider(),
-                ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Divider(),
+                  ),
 
-                ///<<<======================== Category List Items ===============>>>
-                SizedBox(
-                  height: 8,
-                ),
-                // const CustomText(
-                //   text: "${AppStrings.categoryList}",
-                //   color: AppColors.blue_500,
-                //   fontSize: 20,
-                //   fontWeight: FontWeight.w500,
-                // ),
-                SizedBox(
-                  height: 8,
-                ),
-                Expanded(
-                  child: GridView.builder(
-                    controller: controller.categoryScrollController,
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    itemCount: controller.homeCategoriesModel?.data?.attributes
-                        ?.categoryList?.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisExtent: Get.height * 0.30,
-                        crossAxisSpacing: 8.w,
-                        mainAxisSpacing: 8.h),
-                    itemBuilder: (context, index) {
-                      if (index <
-                          controller.homeCategoriesModel!.data!.attributes!
-                              .categoryList!.length) {
-                        return GestureDetector(
-                            onTap: () {
-                              Get.toNamed(AppRoutes.categoryDetails,
-                                  parameters: {
-                                "accessStatus" : "false",
-                                    "title": controller
-                                        .homeCategoriesModel!
-                                        .data!
-                                        .attributes!
-                                        .categoryList![index]
-                                        .name!,
-                                    "categoryId": controller
-                                        .homeCategoriesModel!
-                                        .data!
-                                        .attributes!
-                                        .categoryList![index]
-                                        .sId!
-                                  });
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: AppColors.black_100,
-                                        blurRadius: 2,
-                                        offset: Offset(1, 0)
+                  ///<<<======================== Category List Items ===============>>>
+                  SizedBox(
+                    height: 8,
+                  ),
+                  CustomText(
+                    left: 4,
+                    text: "${AppStrings.categoryList}",
+                    color: AppColors.black_500,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Expanded(
+                    child: GridView.builder(
+                      controller: controller.categoryScrollController,
+                      itemCount: controller.homeCategoriesModel?.data
+                          ?.attributes?.categoryList?.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisExtent: Get.height * 0.30,
+                          crossAxisSpacing: 8.w,
+                          mainAxisSpacing: 8.h),
+                      itemBuilder: (context, index) {
+                        if (index <
+                            controller.homeCategoriesModel!.data!.attributes!
+                                .categoryList!.length) {
+                          return GestureDetector(
+                              onTap: () {
+                                Get.toNamed(AppRoutes.categoryDetails,
+                                    parameters: {
+                                      "accessStatus": "false",
+                                      "title": controller
+                                          .homeCategoriesModel!
+                                          .data!
+                                          .attributes!
+                                          .categoryList![index]
+                                          .name!,
+                                      "categoryId": controller
+                                          .homeCategoriesModel!
+                                          .data!
+                                          .attributes!
+                                          .categoryList![index]
+                                          .sId!
+                                    });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: AppColors.black_50,
+                                          blurRadius: 3,
+                                          offset: Offset(0, 0))
+                                    ],
+                                    color: AppColors.whiteColor,
+                                    borderRadius: BorderRadius.circular(8)),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Container(
+                                      height: 150,
+                                      width: 150,
+                                      decoration: ShapeDecoration(
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                            "${ApiConstant.baseUrl}${controller.homeCategoriesModel?.data?.attributes?.categoryList?[index].image}",
+                                          ),
+                                          fit: BoxFit.fill,
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(4)),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    CustomText(
+                                      fontSize: 18,
+                                      right: 8.w,
+                                      text:
+                                          "${controller.homeCategoriesModel?.data?.attributes?.categoryList?[index].name}",
+                                      color: AppColors.blue_500,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        CustomText(
+                                          fontSize: 14,
+                                          right: 8.w,
+                                          text: "${AppStrings.ques}.",
+                                          color: AppColors.black_500,
+                                        ),
+                                        CustomText(
+                                          fontSize: 18,
+                                          right: 8.w,
+                                          text:
+                                              "${controller.homeCategoriesModel?.data?.attributes?.categoryList?[index].questionCount}",
+                                          color: AppColors.black_500,
+                                        ),
+                                      ],
                                     )
                                   ],
-                                  color: AppColors.whiteColor,
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: 8,
-                                  ),
-                                  SizedBox(
-                                    height: 150,
-                                    width: 150,
-                                    child: Image(
-                                      image: NetworkImage(
-                                        "${ApiConstant.baseUrl}${controller.homeCategoriesModel?.data?.attributes?.categoryList?[index].image}",
-                                      ),
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 8,
-                                  ),
-                                  CustomText(
-                                    fontSize: 18,
-                                    right: 8.w,
-                                    text:
-                                        "${controller.homeCategoriesModel?.data?.attributes?.categoryList?[index].name}",
-                                    color: AppColors.blue_500,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      CustomText(
-                                        fontSize: 14,
-                                        right: 8.w,
-                                        text: AppStrings.ques,
-                                        color: AppColors.black_500,
-                                      ),
-                                      CustomText(
-                                        fontSize: 18,
-                                        right: 8.w,
-                                        text:
-                                        "${controller.homeCategoriesModel?.data?.attributes?.categoryList?[index].questionCount}",
-                                        color: AppColors.black_500,
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ));
-                      } else {
-                        if(controller.pageErCount == controller.homeCategoriesModel!.data!.attributes!.pagination!.totalPages){
-                          return null;
-                        }else{
-                          return const Center(child: CircularProgressIndicator());
+                                ),
+                              ));
+                        } else {
+                          if (controller.pageErCount ==
+                              controller.homeCategoriesModel!.data!.attributes!
+                                  .pagination!.totalPages) {
+                            return null;
+                          } else {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
                         }
-                      }
-                    },
-                  ),
-                )
-              ],
+                      },
+                    ),
+                  )
+                ],
+              ),
             )
         };
       }),

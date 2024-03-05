@@ -71,8 +71,8 @@ class AppStrings {
   static const String gotoSubscriptions = "Go to Subscriptions";
   static const String ques = "Ques";
   static const String pendingRequests = "Pending Requests";
-  static const String earlyAccessList = "Early Access List";
-  static const String categoryList = "Category List";
+  static const String getEarlyAccess = "Get Early Access";
+  static const String categoryList = "Get Category";
 
   //Chat
   static const String chat = "Chat";
