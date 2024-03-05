@@ -1,8 +1,8 @@
-
-
-
 import 'dart:convert';
 
+import 'package:dialogi_app/helper/local_time.dart';
+import 'package:dialogi_app/helper/prefs_helper.dart';
+import 'package:dialogi_app/models/chat_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,15 +10,13 @@ import '../../global/api_response_model.dart';
 import '../../models/chat_model.dart';
 import '../../services/api_services.dart';
 import '../../services/api_url.dart';
+import '../../services/socket_service.dart';
 import '../../utils/app_utils.dart';
 
 class ChatListController extends GetxController {
-
-
-
   Status status = Status.completed;
 
-  Status statusMore = Status.completed;
+  bool isMoreLoading = false;
 
   int page = 1;
 
@@ -31,10 +29,10 @@ class ChatListController extends GetxController {
   Future<void> scrollControllerCall() async {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
-      statusMore = Status.loading;
+      isMoreLoading = true;
       update();
       await chatRepo();
-      statusMore = Status.completed;
+      isMoreLoading = false;
       update();
     } else {
       print(
@@ -69,7 +67,24 @@ class ChatListController extends GetxController {
     }
   }
 
+  listenMessage() async {
+    SocketServices.socket.on("update-chatlist::${PrefsHelper.clientId}",
+        (data) {
+      status = Status.loading;
+      update();
 
+      page = 1;
+      ChatListModel chatListModel;
+      chatListModel = ChatListModel.fromJson(data);
+      if (chatListModel.chatList != null) {
+        chatList.clear();
+        chatList.addAll(chatListModel.chatList!);
 
+        print("============================================>${data}");
+      }
 
+      status = Status.completed;
+      update();
+    });
+  }
 }

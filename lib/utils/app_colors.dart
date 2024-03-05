@@ -1,7 +1,10 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 class AppColors {
   static const Color background = Color(0xffF5F5F7);
+  static const Color transparent = Colors.transparent;
   static const Color whiteColor = Color.fromARGB(255, 255, 255, 255);
 
   ///black

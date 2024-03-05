@@ -37,7 +37,6 @@ class _FriendsScreenState extends State<FriendsScreen> {
     return Scaffold(
         bottomNavigationBar: const NavBar(currentIndex: 2),
         appBar: const CustomAppBar(
-          appBarHeight: 40,
             appBarContent: Center(
           child: CustomText(
             text: AppStrings.allFriends,
@@ -54,23 +53,31 @@ class _FriendsScreenState extends State<FriendsScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ListView.builder(
                     controller: controller.scrollController,
-                    itemCount: controller.friendList.length,
+                    itemCount: controller.isMoreLoading
+                        ? controller.friendList.length + 1
+                        : controller.friendList.length,
                     itemBuilder: (BuildContext context, int index) {
                       var item = controller.friendList[index];
-                      return Column(
-                        children: [
-                          CustomAllFriends(
-                              imageSrc:
-                                  "${ApiConstant.baseUrl}/${item.participants[0].image}",
-                              text: item.participants[0].fullName,
-                              icon: AppIcons.chat,
-                              onTap: () => controller.createChatRoom(
-                                  item.participants[0].sId,
-                                  item.participants[0].fullName)
+
+                      if (index < controller.friendList.length) {
+                        return Column(
+                          children: [
+                            CustomAllFriends(
+                                imageSrc:
+                                "${ApiConstant.baseUrl}/${item.participants[0].image}",
+                                text: item.participants[0].fullName,
+                                icon: AppIcons.chat,
+                                onTap: () => controller.createChatRoom(
+                                    item.participants[0].sId,
+                                    item.participants[0].fullName)
                               // onTap: () => controller.addNewChat(),
-                              ),
-                        ],
-                      );
+                            ),
+                          ],
+                        );
+                      } else {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+
                     }))
           };
         }));

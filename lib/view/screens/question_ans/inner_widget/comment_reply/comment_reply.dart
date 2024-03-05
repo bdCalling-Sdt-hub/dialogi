@@ -1,4 +1,4 @@
-import 'package:dialogi_app/controllers/question_ans_controller.dart';
+import 'package:dialogi_app/controllers/question/question_ans_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
@@ -113,15 +113,10 @@ class CommentReply extends StatelessWidget {
                                           : Row(
                                               children: [
                                                 comment.isLiked
-                                                    ? CustomImage(
-                                                        imageSrc:
-                                                            AppImages.isLike,
-                                                        imageType:
-                                                            ImageType.png,
-                                                        size: 18.sp,
-                                                      )
-                                                    : const CustomImage(
+                                                    ? Icon(Icons.thumb_up_alt_rounded, color: AppColors.blue_500,)
+                                                    : CustomImage(
                                                         imageSrc: AppIcons.like,
+                                                        size: 24.sp,
                                                       ),
                                                 SizedBox(width: 10.w),
                                                 CustomText(
@@ -144,15 +139,18 @@ class CommentReply extends StatelessWidget {
                                                     ? CustomImage(
                                                         imageSrc:
                                                             AppImages.isDislike,
-                                                        size: 14.sp,
+                                                        size: 20.sp,
                                                         imageType:
                                                             ImageType.png,
                                                         imageColor:
                                                             AppColors.blue_500,
                                                       )
-                                                    : const CustomImage(
+                                                    : CustomImage(
                                                         imageSrc:
-                                                            AppIcons.dislike),
+                                                            AppIcons.dislike,
+                                                  size: 24.sp,
+
+                                                ),
                                                 SizedBox(width: 10.w),
                                                 CustomText(
                                                     text: comment.dislikes

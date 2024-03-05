@@ -44,7 +44,7 @@ Future<void> paymentRepo({required String payerId,required String amount, requir
      body = {
       "amount" : amount,
       "paymentId" : StripePaymentController.payerId,
-      "paymentMethod" : paymentMethod,
+      "payment_method" : paymentMethod,
       "name" : subscriptionName,
       "sku" : "subscription",
       "price": amount,
@@ -52,11 +52,11 @@ Future<void> paymentRepo({required String payerId,required String amount, requir
       "quantity": 1.toString(),
       "subscriptionId" : subscriptionName == "Premium" ? "65cde4e7294393c969cff435" : "65cde4e7294393c969cff436",
     };
-  } else{
+  } else if(paymentMethod == 'paypal'){
     body = {
       "amount" : amount,
       "paymentId" : payerId,
-      "paymentMethod" : paymentMethod,
+      "payment_method" : paymentMethod,
       "name" : subscriptionName,
       "sku" : "subscription",
       "price": amount,
@@ -66,7 +66,7 @@ Future<void> paymentRepo({required String payerId,required String amount, requir
     };
   }
 
-  print("Stripe Body Data: $body");
+  print("Body Data: $body");
 
 
    Map<String, String> mainHeader = {
@@ -84,7 +84,7 @@ Future<void> paymentRepo({required String payerId,required String amount, requir
       var token = paymentModel!.data!.accessToken;
       PrefsHelper.setString(AppConstants.bearerToken, token);
       print("Token: -----$token");
-      Get.offAndToNamed(AppRoutes.homeScreen);
+      Get.offAllNamed(AppRoutes.homeScreen);
       Get.snackbar(AppConstants.paymentStatus, AppConstants.paymentSuccessful);
 
     } else {

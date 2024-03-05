@@ -27,6 +27,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
 
   @override
   void initState() {
+    chatListController.listenMessage();
     chatListController.chatRepo();
     chatListController.scrollController.addListener(() {
       chatListController.scrollControllerCall();
@@ -37,16 +38,25 @@ class _ChatListScreenState extends State<ChatListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
+      appBar: CustomAppBar(
           appBarContent: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          CustomText(
+          GestureDetector(
+              onTap: () {
+                Get.back();
+              },
+              child: const CustomImage(
+                imageSrc: AppIcons.chevronLeft,
+                size: 24,
+              )),
+          const CustomText(
             text: AppStrings.chatList,
             fontSize: 18,
             fontWeight: FontWeight.w500,
             color: AppColors.blue_500,
           ),
+          const SizedBox()
         ],
       )),
       body: GetBuilder<ChatListController>(
@@ -58,39 +68,60 @@ class _ChatListScreenState extends State<ChatListScreen> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
                 child: ListView.builder(
+                    controller: controller.scrollController,
                     scrollDirection: Axis.vertical,
-                    itemCount: controller.chatList.length,
+                    itemCount: controller.isMoreLoading
+                        ? controller.chatList.length + 1
+                        : controller.chatList.length,
                     itemBuilder: (BuildContext context, int index) {
                       var item = controller.chatList[index];
-                      return Slidable(
-                        endActionPane: ActionPane(
-                          motion: const ScrollMotion(),
-                          children: [
-                            SlidableAction(
-                                borderRadius: const BorderRadius.only(
-                                    bottomRight: Radius.circular(8),
-                                    topRight: Radius.circular(8)),
-                                onPressed: (v) {},
-                                backgroundColor: AppColors.red_500,
-                                icon: Icons.delete),
-                          ],
-                        ),
-                        child: CustomChatList(
-                            onTap: () =>
-                                Get.toNamed(AppRoutes.chatScreen, parameters: {
-                                  "chatId": controller.chatList[index].sId,
-                                  "type": item.type,
-                                  "name": item.type == "single"
-                                      ? item.participants[0].fullName
-                                      : item.groupName
-                                }),
-                            image:
-                                "${ApiConstant.baseUrl}/${item.type == "single" ? item.participants[0].image : item.image}",
-                            text: item.type == "single"
-                                ? item.participants[0].fullName
-                                : item.groupName,
-                            description: 'Lorem ipsum dolor sit amet...'),
-                      );
+
+                      if (index < controller.chatList.length) {
+                        return Slidable(
+                          endActionPane: ActionPane(
+                            motion: const ScrollMotion(),
+                            children: [
+                              SlidableAction(
+                                  borderRadius: const BorderRadius.only(
+                                      bottomRight: Radius.circular(8),
+                                      topRight: Radius.circular(8)),
+                                  onPressed: (v) {},
+                                  backgroundColor: AppColors.red_500,
+                                  icon: Icons.delete),
+                            ],
+                          ),
+                          child: CustomChatList(
+                              onTap: () async {
+                                var data = "";
+                                var result = await Get.toNamed(
+                                    AppRoutes.chatScreen,
+                                    arguments: data,
+                                    parameters: {
+                                      "chatId": controller.chatList[index].sId,
+                                      "type": item.type,
+                                      "name": item.type == "single"
+                                          ? item.participants[0].fullName
+                                          : item.groupName
+                                    });
+
+                                print(
+                                    "return data ====================================================>$result");
+                                controller.chatList.clear();
+                                controller.page = 1;
+                                controller.chatRepo();
+                              },
+                              image:
+                                  "${ApiConstant.baseUrl}/${item.type == "single" ? item.participants[0].image : item.image}",
+                              text: item.type == "single"
+                                  ? item.participants[0].fullName
+                                  : item.groupName,
+                              description: item.latestMessage != null
+                                  ? item.latestMessage.message
+                                  : ""),
+                        );
+                      } else {
+                        return const Center(child: CircularProgressIndicator());
+                      }
                     }),
               ),
           };

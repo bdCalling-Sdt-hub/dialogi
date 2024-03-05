@@ -95,7 +95,7 @@ class SubscriptionsList {
   bool? isCommunityDiscussionAvailable;
   bool? isEarlyAccessAvailable;
   bool? updateProfileAccess;
-  double? price;
+  num? price;
   int? iV;
   String? createdAt;
   String? updatedAt;

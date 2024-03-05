@@ -1,7 +1,6 @@
 class AppStrings {
   // Sign in
-  static const String unlockPremiumAccess =
-      "Unlock premium access for unlimited Dialoginess!";
+  static const String unlockPremiumAccess = "Unlock premium access for unlimited Dialoginess!";
 
   static const String getPremium = "Get Premium";
   static const String getPremiumPlus = "Get Premium Plus";
@@ -68,6 +67,8 @@ class AppStrings {
   static const String gotoSubscriptions = "Go to Subscriptions";
   static const String ques = "Ques";
   static const String pendingRequests = "Pending Requests";
+  static const String friendRequests = "Friend Requests";
+  static const String communityRequests = "Community Requests";
 
   //Chat
   static const String chat = "Chat";
@@ -187,7 +188,7 @@ class AppStrings {
   static const String enterLocation = "enter location";
 
   ///Notification
-  static const String notification = "Notification";
+  static const String notification = "Notifications";
   static const String reject = "Reject";
   static const String accept = "Accept";
 
@@ -203,4 +204,15 @@ class AppStrings {
   static const String favoriteList = "Favorite List";
   static const String selectMember = "Select Member";
   static const String pleaseSelectAtLeastTwoMembers = "Please, select at least two members";
+  static const String createNewCommunity = "Create New Community";
+  static const String communityMembers = "Community members";
+  static const String changeCommunityName = "Change Community Name";
+  static const String leaveCommunity = "Leave Community";
+  static const String doYouWantToLeaveThisCommunity =
+      "Do you want to leave this Community?";
+
+
+
+
+
 }

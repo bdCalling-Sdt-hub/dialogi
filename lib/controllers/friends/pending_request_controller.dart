@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dialogi_app/models/community_request_model.dart';
 import 'package:dialogi_app/models/friend_model.dart';
 import 'package:dialogi_app/utils/app_utils.dart';
 import 'package:flutter/material.dart';
@@ -11,14 +12,22 @@ import '../../services/api_url.dart';
 
 class PendingRequestController extends GetxController {
   Status status = Status.completed;
+  Status communityStatus = Status.completed;
   bool isMoreLoading = false;
+  bool isMoreLoadingCommunity = false;
   bool actionIsLoading = false;
   List friendRequestList = [];
+  List communityRequest = [];
+
+  bool isCommunityRequest = false;
 
   FriendModel? pendingRequestModel;
+  CommunityRequestModel? communityRequestModel;
 
   int page = 1;
+  int communityPage = 1;
   final ScrollController scrollController = ScrollController();
+  final ScrollController communityScrollController = ScrollController();
 
   Future<void> scrollControllerCall() async {
     if (scrollController.position.pixels ==
@@ -32,7 +41,9 @@ class PendingRequestController extends GetxController {
   }
 
   Future<void> pendingRequestRepo() async {
+
     if (page == 1) {
+      isCommunityRequest = false;
       status = Status.loading;
       update();
     }
@@ -58,12 +69,57 @@ class PendingRequestController extends GetxController {
       status = Status.error;
       update();
     }
-
-
   }
 
-  Future<void> requestActionRepo(
-      String userId, String status, int index) async {
+  Future<void> communityScrollControllerCall() async {
+    print("dhfkdjshfkj");
+    if (communityScrollController.position.pixels ==
+        communityScrollController.position.maxScrollExtent) {
+      isMoreLoadingCommunity = true;
+      update();
+      await communityRequestRepo();
+      isMoreLoadingCommunity = false;
+      update();
+
+
+
+    }
+  }
+
+  Future<void> communityRequestRepo() async {
+
+    if (communityPage == 1) {
+      isCommunityRequest = true;
+      status = Status.loading;
+      update();
+    }
+
+    var response = await ApiService.getApi(
+        "${ApiConstant.communityChat}?page=$communityPage");
+
+    print("====================> body ${response.responseJson}");
+
+    if (response.statusCode == 200) {
+      print(response.responseJson);
+      communityRequestModel =
+          CommunityRequestModel.fromJson(jsonDecode(response.responseJson));
+
+      if (communityRequestModel?.data?.attributes?.communityRequestList !=
+          null) {
+        communityRequest.addAll(
+            communityRequestModel!.data!.attributes!.communityRequestList!);
+      }
+      communityPage = communityPage + 1;
+      status = Status.completed;
+      update();
+    } else {
+      Utils.snackBarMessage(response.statusCode.toString(), response.message);
+      status = Status.error;
+      update();
+    }
+  }
+
+  Future<void> requestActionRepo(String userId, String status, int index) async {
     actionIsLoading = true;
     update();
 
@@ -90,6 +146,37 @@ class PendingRequestController extends GetxController {
     actionIsLoading = false;
     update();
   }
+
+
+  Future<void> communityRequestActionRepo(String requestId, String status, int index) async {
+
+
+    Map<String, String> body = {
+      "status": status,
+    };
+
+    print("===========================>body $body");
+    print("===========================>body ${ApiConstant.communityChat}/$requestId");
+    var response =
+        await ApiService.patchApi("${ApiConstant.communityChat}/$requestId", body: body);
+
+    print(response.responseJson);
+
+    if (response.statusCode == 200) {
+      print(response.responseJson);
+
+      communityRequest.removeAt(index);
+      update();
+    } else {
+      Utils.snackBarMessage(response.statusCode.toString(), response.message);
+    }
+
+
+  }
+
+
+
+
 
   String getFormattedDate(String dateString) {
     // String dateString = "2024-02-01T04:39:03.524Z";

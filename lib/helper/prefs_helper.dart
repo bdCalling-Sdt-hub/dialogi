@@ -1,15 +1,15 @@
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/app_constants.dart';
 
-class PrefsHelper {
+class PrefsHelper extends GetxController {
   static String token = "";
   static String clientId = "";
   static String forgetPasswordToken = "";
   static String myImage = "";
   static String myName = "";
   static String mySubscription = "premium-plus";
-
 
   ///<<<======================== Get All Data Form Shared Preference ==============>
 
@@ -20,9 +20,8 @@ class PrefsHelper {
     myImage = preferences.getString("myImage") ?? "";
     myName = preferences.getString("myName") ?? "";
 
-
-
-    forgetPasswordToken = preferences.getString(AppConstants.forgetPasswordToken) ?? "";
+    forgetPasswordToken =
+        preferences.getString(AppConstants.forgetPasswordToken) ?? "";
 
     print("..................$token............................");
 
@@ -70,12 +69,19 @@ class PrefsHelper {
     return preferences.remove(key);
   }
 
- ///<<<======================== Get All Data Form Shared Preference ============>
+  ///<<<======================== Get All Data Form Shared Preference ============>
   static Future<void> removeAllPrefData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.remove(AppConstants.bearerToken);
-    preferences.remove(AppConstants.forgetPasswordToken);
-    preferences.remove("clientId");
+    await preferences.clear();
+    preferences.setString(AppConstants.bearerToken, "");
+    preferences.setString(AppConstants.forgetPasswordToken, "");
+    preferences.setString("clientId", "");
+    token = "";
+    forgetPasswordToken = "";
+    clientId = "";
+    // preferences.remove(AppConstants.bearerToken);
+    // preferences.remove(AppConstants.forgetPasswordToken);
+    // preferences.remove("clientId");
     print("::::$token, $forgetPasswordToken, $clientId");
   }
 }

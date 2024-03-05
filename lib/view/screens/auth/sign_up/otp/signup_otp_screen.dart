@@ -111,8 +111,12 @@ class SignUpOtpScreen extends StatelessWidget {
                         fontSize: 16,
                         color: AppColors.blue_500,
                       ),
-                      GestureDetector(
-                        onTap: () {},
+                      controller.signUpLoading
+                          ? const Center(child: CircularProgressIndicator())
+                          : GestureDetector(
+                        onTap: () {
+                          controller.signUpUser();
+                        },
                         child: const CustomText(
                           text: AppStrings.resend,
                           fontWeight: FontWeight.w500,
