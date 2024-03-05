@@ -29,6 +29,7 @@ class QuestionAns extends StatefulWidget {
 
 class _QuestionAnsState extends State<QuestionAns> {
   String title = Get.parameters["title"] ?? "";
+  String categoryId = Get.parameters["categoryId"] ?? "";
 
   QuestionAnsController questionAnsController =
       Get.put(QuestionAnsController());
@@ -38,9 +39,9 @@ class _QuestionAnsState extends State<QuestionAns> {
     // TODO: implement initState
 
     questionAnsController.discussionPage = 1;
-    questionAnsController.questionsRepo(title);
+    questionAnsController.questionsRepo(title, categoryId);
     questionAnsController.discussionScrollController.addListener(() {
-      questionAnsController.scrollControllerCall(title);
+      questionAnsController.scrollControllerCall(title, categoryId);
     });
 
     super.initState();
@@ -78,7 +79,7 @@ class _QuestionAnsState extends State<QuestionAns> {
           return switch (controller.status) {
             Status.loading => const Center(child: CircularProgressIndicator()),
             Status.error =>
-              ErrorScreen(onTap: () => controller.questionsRepo(title)),
+              ErrorScreen(onTap: () => controller.questionsRepo(title, categoryId)),
             Status.completed => Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
@@ -179,7 +180,7 @@ class _QuestionAnsState extends State<QuestionAns> {
                                   controller.discussionPage = 1;
                                   controller.discussionList = [];
                                   controller.discussionController.clear();
-                                  controller.questionsRepo(title);
+                                  controller.questionsRepo(title,categoryId);
                                 } else {
                                   showDialog(
                                       context: context,
@@ -284,7 +285,7 @@ class _QuestionAnsState extends State<QuestionAns> {
                           controller.page = controller.page + 1;
                           controller.discussionPage = 1;
                           controller.discussionList = [];
-                          controller.questionsRepo(title);
+                          controller.questionsRepo(title, categoryId);
                         } else {
                           showDialog(
                               context: context,

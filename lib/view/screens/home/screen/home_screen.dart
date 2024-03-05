@@ -1,6 +1,8 @@
 import 'package:dialogi_app/core/app_routes.dart';
+import 'package:dialogi_app/global/api_response_model.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
+import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/screens/home/home_controller/home_controller.dart';
 import 'package:dialogi_app/view/screens/home/screen/inner_widgets/home_drawer.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
@@ -12,8 +14,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'dart:math' as math;
 
 import '../../../../helper/prefs_helper.dart';
+import '../../../../services/api_url.dart';
+import '../../../widgets/error/error_screen.dart';
+import '../../../widgets/text/custom_text.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -30,7 +36,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     Homecontroller.getAccessStatus();
     homecontroller.categoryAccessRepo();
-    homecontroller.scrollController.addListener(() {
+    homecontroller.categoryScrollController.addListener(() {
+      homecontroller.scrollControllerCall();
+    });
+    homecontroller.earlyAccessScrollController.addListener(() {
       homecontroller.scrollControllerCall();
     });
     // TODO: implement initState
@@ -63,10 +72,13 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () {
                 scaffoldKey.currentState!.openDrawer();
               },
-              child: const Icon(Icons.menu, size: 36,)),
+              child: const Icon(
+                Icons.menu,
+                size: 36,
+              )),
           const Spacer(),
           GestureDetector(
-            onTap: (){
+            onTap: () {
               homecontroller.showPopUpPremiumPackage();
             },
             child: const CustomImage(
@@ -98,58 +110,247 @@ class _HomeScreenState extends State<HomeScreen> {
               )),
         ],
       )),
-      body: GetBuilder<Homecontroller>(
-          builder: (controller) {
-            return Column(
+      body: GetBuilder<Homecontroller>(builder: (controller) {
+        return switch (controller.homeStatus) {
+          Status.loading => const Center(child: CircularProgressIndicator()),
+          Status.error => ErrorScreen(onTap: () {
+              controller.pageCount = 1;
+              controller.categoryAccessRepo();
+            }),
+          Status.completed => Column(
               children: [
-
-                ///<<<======================== Category List Items ===============>>>
-
-                SizedBox(
-                  height: Get.height * 0.25,
-                  width: Get.width,
-                  child: ListView.builder(
-                    controller: controller.scrollController,
-                    itemCount: controller.homeCategoriesModel?.data?.attributes?.earlyAccessList?.length,
-                      itemBuilder: (BuildContext context, int index){
-                      return Column(
-                        children: [
-                          
-                        ],
-                      );
+                CustomText(
+                  text: "${AppStrings.earlyAccessList}",
+                  color: AppColors.blue_500,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                ),
+                ///<<<======================== EarlyAccess List Items ===============>>>
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: SizedBox(
+                    height: Get.height * 0.25,
+                    width: Get.width,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      controller: controller.earlyAccessScrollController,
+                      itemCount: controller.homeCategoriesModel?.data?.attributes
+                          ?.earlyAccessList?.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        if (index <
+                            controller.homeCategoriesModel!.data!.attributes!
+                                .earlyAccessList!.length) {
+                          return GestureDetector(
+                            onTap: () {
+                              Get.toNamed(AppRoutes.categoryDetails,
+                                  parameters: {
+                                    "accessStatus" : "true",
+                                    "title": controller
+                                        .homeCategoriesModel!
+                                        .data!
+                                        .attributes!
+                                        .earlyAccessList![index]
+                                        .name!,
+                                    "categoryId": controller
+                                        .homeCategoriesModel!
+                                        .data!
+                                        .attributes!
+                                        .earlyAccessList![index]
+                                        .sId!
+                                  });
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    height: Get.height * 0.25,
+                                    width: Get.height * 0.2,
+                                    decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: AppColors.black_100,
+                                          blurRadius: 2,
+                                          offset: Offset(1, 0)
+                                        )
+                                      ],
+                                        color: AppColors.whiteColor,
+                                        borderRadius: BorderRadius.circular(8)),
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 24.0, right: 8.0, left: 8.0),
+                                          child: SizedBox(
+                                            height: Get.height * 0.15,
+                                            width: Get.height * 0.15,
+                                            child: Image(
+                                                image: NetworkImage(
+                                                    "${ApiConstant.baseUrl}${controller.homeCategoriesModel?.data?.attributes?.earlyAccessList?[index].image}"),
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(height: 8,),
+                                        CustomText(
+                                          right: 8.w,
+                                          text:
+                                              "${controller.homeCategoriesModel?.data?.attributes?.earlyAccessList?[index].name}",
+                                          color: AppColors.black_300,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 4,
+                                      left: 4,
+                                      child: Transform.rotate(
+                                        angle: math.pi/ -6,
+                                        child: const SizedBox(
+                                            height: 50,
+                                            width: 50,
+                                            child: Image(
+                                              image: AssetImage(
+                                                  "assets/images/earlyAccessBadge.png"),
+                                              fit: BoxFit.fill,
+                                            )),
+                                      ))
+                                ],
+                              ),
+                            ),
+                          );
+                        } else {
+                          return const Center(child: CircularProgressIndicator());
+                        }
                       },
+                    ),
                   ),
                 ),
+                SizedBox(
+                  height: 8,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Divider(),
+                ),
 
-                ///<<<======================== Early Access List Items ===============>>>
-
+                ///<<<======================== Category List Items ===============>>>
+                SizedBox(
+                  height: 8,
+                ),
+                // const CustomText(
+                //   text: "${AppStrings.categoryList}",
+                //   color: AppColors.blue_500,
+                //   fontSize: 20,
+                //   fontWeight: FontWeight.w500,
+                // ),
+                SizedBox(
+                  height: 8,
+                ),
                 Expanded(
                   child: GridView.builder(
-                    controller: controller.scrollController,
+                    controller: controller.categoryScrollController,
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    itemCount: controller.homeCategoriesModel?.data?.attributes?.categoryList?.length,
+                    itemCount: controller.homeCategoriesModel?.data?.attributes
+                        ?.categoryList?.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        mainAxisExtent: 250.h,
+                        mainAxisExtent: Get.height * 0.30,
                         crossAxisSpacing: 8.w,
                         mainAxisSpacing: 8.h),
                     itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Get.toNamed(AppRoutes.categoryDetails,
-                              parameters: {"title": "Friends"});
-                        },
-                        child: const CustomCard(
-                            img:
-                            "https://images.unsplash.com/photo-1522098635833-216c03d81fbe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnJpZW5kfGVufDB8fDB8fHww",
-                            title: "Friends",
-                            queNum: "40"),
-                      );
+                      if (index <
+                          controller.homeCategoriesModel!.data!.attributes!
+                              .categoryList!.length) {
+                        return GestureDetector(
+                            onTap: () {
+                              Get.toNamed(AppRoutes.categoryDetails,
+                                  parameters: {
+                                "accessStatus" : "false",
+                                    "title": controller
+                                        .homeCategoriesModel!
+                                        .data!
+                                        .attributes!
+                                        .categoryList![index]
+                                        .name!,
+                                    "categoryId": controller
+                                        .homeCategoriesModel!
+                                        .data!
+                                        .attributes!
+                                        .categoryList![index]
+                                        .sId!
+                                  });
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: AppColors.black_100,
+                                        blurRadius: 2,
+                                        offset: Offset(1, 0)
+                                    )
+                                  ],
+                                  color: AppColors.whiteColor,
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  SizedBox(
+                                    height: 150,
+                                    width: 150,
+                                    child: Image(
+                                      image: NetworkImage(
+                                        "${ApiConstant.baseUrl}${controller.homeCategoriesModel?.data?.attributes?.categoryList?[index].image}",
+                                      ),
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  CustomText(
+                                    fontSize: 18,
+                                    right: 8.w,
+                                    text:
+                                        "${controller.homeCategoriesModel?.data?.attributes?.categoryList?[index].name}",
+                                    color: AppColors.blue_500,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      CustomText(
+                                        fontSize: 14,
+                                        right: 8.w,
+                                        text: AppStrings.ques,
+                                        color: AppColors.black_500,
+                                      ),
+                                      CustomText(
+                                        fontSize: 18,
+                                        right: 8.w,
+                                        text:
+                                        "${controller.homeCategoriesModel?.data?.attributes?.categoryList?[index].questionCount}",
+                                        color: AppColors.black_500,
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ));
+                      } else {
+                        if(controller.pageErCount == controller.homeCategoriesModel!.data!.attributes!.pagination!.totalPages){
+                          return null;
+                        }else{
+                          return const Center(child: CircularProgressIndicator());
+                        }
+                      }
                     },
                   ),
                 )
               ],
-            );
+            )
+        };
       }),
     );
   }

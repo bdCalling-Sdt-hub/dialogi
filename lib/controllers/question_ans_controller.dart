@@ -47,20 +47,19 @@ class QuestionAnsController extends GetxController {
   TextEditingController replyController = TextEditingController();
   TextEditingController discussionController = TextEditingController();
 
-  CategoryController categoryController = Get.put(CategoryController());
-
   ScrollController discussionScrollController = ScrollController();
 
   SubCategoryController subCategoryController =
       Get.put(SubCategoryController());
 
-  Future<void> scrollControllerCall(String subCategory) async {
+  Future<void> scrollControllerCall(
+      String subCategory, String categoryId) async {
     if (discussionScrollController.position.pixels ==
         discussionScrollController.position.maxScrollExtent) {
       isLoadingMoreDiscussion = true;
 
       update();
-      await questionsRepo(subCategory);
+      await questionsRepo(subCategory, categoryId);
       isLoadingMoreDiscussion = false;
       update();
     } else {
@@ -69,7 +68,7 @@ class QuestionAnsController extends GetxController {
     }
   }
 
-  Future<void> questionsRepo(String subCategory) async {
+  Future<void> questionsRepo(String subCategory, String categoryId) async {
     if (discussionPage == 1) {
       status = Status.loading;
       update();
@@ -77,13 +76,13 @@ class QuestionAnsController extends GetxController {
 
     getContextStatus();
 
-    print("${categoryController.categoryId}");
+    print(categoryId);
 
     var response = await ApiService.getApi(
-        "${ApiConstant.questions}/$subCategory/${categoryController.categoryId}?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage");
+        "${ApiConstant.questions}/$subCategory/$categoryId?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage");
 
     print(
-        "===========================================>${ApiConstant.questions}/$subCategory/${categoryController.categoryId}?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage");
+        "===========================================>${ApiConstant.questions}/$subCategory/$categoryId?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage");
 
     if (response.statusCode == 200) {
       print(response.responseJson);

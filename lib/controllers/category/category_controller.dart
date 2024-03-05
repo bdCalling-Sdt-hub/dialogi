@@ -24,7 +24,7 @@ class CategoryController extends GetxController {
   int page = 1;
   final ScrollController scrollController = ScrollController();
 
-  var categoryId = "";
+
 
   Future<void> scrollControllerCall() async {
     if (scrollController.position.pixels ==

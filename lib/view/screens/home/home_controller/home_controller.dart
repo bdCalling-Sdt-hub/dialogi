@@ -28,22 +28,24 @@ import '../../../../utils/app_constants.dart';
 
 class Homecontroller extends GetxController with GetxServiceMixin {
   static Status status = Status.loading;
+  Status homeStatus = Status.loading;
 
   static AccessStatusModel? accessStatusModel;
   HomeCategoriesModel? homeCategoriesModel;
-  final ScrollController scrollController = ScrollController();
+  final ScrollController categoryScrollController = ScrollController();
+  final ScrollController earlyAccessScrollController = ScrollController();
+  int pageErCount = 1;
   int pageCount = 1;
   int limitCount = 10;
 
 
   ///<<<==================== Page Scroll Method ==================================>>>
   Future<void> scrollControllerCall() async {
-    if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
-      status = Status.loading;
-      update();
+    if(categoryScrollController.position.pixels == categoryScrollController.position.maxScrollExtent){
       await categoryAccessRepo();
-      status = Status.completed;
-      update();
+    }
+    if(earlyAccessScrollController.position.pixels == earlyAccessScrollController.position.maxScrollExtent){
+      await categoryAccessRepo();
     }
   }
 
@@ -52,25 +54,29 @@ class Homecontroller extends GetxController with GetxServiceMixin {
 
   Future<void> categoryAccessRepo() async{
 
-    status = Status.loading;
+    homeStatus = Status.loading;
     update();
     
     try{
-      var response = await ApiService.getApi("${ApiConstant.categoryType}?limit=$limitCount &pageEr=$pageCount").timeout(const Duration(seconds: 30));
+      var response = await ApiService.getApi("${ApiConstant.categoryType}?pageEr=$pageErCount&limitEr=$limitCount&page=$pageCount&limit=$limitCount").timeout(const Duration(seconds: 30));
       print("Response json : ${response.responseJson}");
       if (response.statusCode == 200){
         homeCategoriesModel = HomeCategoriesModel.fromJson(jsonDecode(response.responseJson));
-        status = Status.completed;
+        print("${response.message}");
+
+        homeStatus = Status.completed;
         update();
         pageCount++;
+        pageErCount++;
       } else{
-        status = Status.error;
+        homeStatus = Status.error;
       }
     } catch (exception){
       Fluttertoast.showToast(msg: AppConstants.connectionTimedOUt);
       log(exception.toString());
     }
   }
+
 
   static getAccessStatus({bool isPopUp = false}) async {
     status = Status.loading;

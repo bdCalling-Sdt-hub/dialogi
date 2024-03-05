@@ -23,18 +23,18 @@ class SubCategoryController extends GetxController {
   int page = 1;
   final ScrollController scrollController = ScrollController();
 
-  Future<void> scrollControllerCall() async {
+  Future<void> scrollControllerCall(String categoryId) async {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
       isMoreLoading = true;
       update();
-      await subCategoryRepo();
+      await subCategoryRepo(categoryId);
       isMoreLoading = false;
       update();
     }
   }
 
-  Future<void> subCategoryRepo() async {
+  Future<void> subCategoryRepo(String categoryId) async {
     if (page == 1) {
       status = Status.loading;
       update();
@@ -45,7 +45,7 @@ class SubCategoryController extends GetxController {
     };
 
     var response = await ApiService.getApi(
-        "${ApiConstant.subCategory}/${categoryController.categoryId}?page=$page&limit=15",
+        "${ApiConstant.subCategory}/$categoryId?page=$page&limit=15",
         header: header);
 
     if (response.statusCode == 200) {

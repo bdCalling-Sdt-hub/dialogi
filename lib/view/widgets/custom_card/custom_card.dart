@@ -24,8 +24,6 @@ class CustomCard extends StatelessWidget {
       padding: EdgeInsets.all(8.r),
       child: Column(
         children: [
-          //Image
-
           Expanded(
             flex: 2,
             child: Container(
