@@ -73,7 +73,7 @@ class SettingsScreen extends StatelessWidget {
                   Get.toNamed(AppRoutes.subscriptionsScreen);
                 },
                 imageSrc: AppIcons.subscriptions,
-                text: AppStrings.subscriptions,
+                text: AppStrings.mySubscription,
                 icon: AppIcons.chevronRight),
 
             ///<<<================== Privacy Policy =========================>>>

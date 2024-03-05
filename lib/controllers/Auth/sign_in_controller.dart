@@ -32,47 +32,52 @@ class SignInController extends GetxController {
   Future<void> signInUser() async {
     signInLoading = true;
     update();
-    Map<String, String> body = {
-      "email": emailController.text,
-      "password": passwordController.text
-    };
+    try{
+      Map<String, String> body = {
+        "email": emailController.text,
+        "password": passwordController.text
+      };
 
-    var response = await ApiService.postApi(ApiConstant.signIn, body,);
+      var response = await ApiService.postApi(ApiConstant.signIn, body,).timeout(const Duration(seconds: 30));
 
-    print("===========${jsonDecode(response.responseJson)}===========");
-    signInLoading = false;
-    update();
-
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.responseJson);
-
-
-      print("=========================================> data $data") ;
-
-      PrefsHelper.setString(AppConstants.bearerToken, data['data']["accessToken"]);
-      PrefsHelper.setString("clientId", data['data']["attributes"]["_id"]);
-      PrefsHelper.setString("myImage", data['data']["attributes"]["image"]);
-      PrefsHelper.setString("myName", data['data']["attributes"]["fullName"]);
-
-
-      PrefsHelper.token = data['data']["accessToken"];
-      PrefsHelper.clientId = data['data']["attributes"]["_id"];
-      PrefsHelper.myImage = data['data']["attributes"]["image"];
-      PrefsHelper.myName = data['data']["attributes"]["fullName"];
-
-
-      print("==========================================->clientId ${data['data']["attributes"]["_id"]}") ;
-
-      print(
-          "=============================> token ${data['data']["accessToken"]}");
-      Get.toNamed(AppRoutes.homeScreen);
-      emailController.clear();
-      passwordController.clear();
+      print("===========${jsonDecode(response.responseJson)}===========");
       signInLoading = false;
       update();
 
-    } else {
-      Get.snackbar(response.statusCode.toString(), response.message);
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.responseJson);
+
+
+        print("=========================================> data $data") ;
+
+        PrefsHelper.setString(AppConstants.bearerToken, data['data']["accessToken"]);
+        PrefsHelper.setString("clientId", data['data']["attributes"]["_id"]);
+        PrefsHelper.setString("myImage", data['data']["attributes"]["image"]);
+        PrefsHelper.setString("myName", data['data']["attributes"]["fullName"]);
+
+
+        PrefsHelper.token = data['data']["accessToken"];
+        PrefsHelper.clientId = data['data']["attributes"]["_id"];
+        PrefsHelper.myImage = data['data']["attributes"]["image"];
+        PrefsHelper.myName = data['data']["attributes"]["fullName"];
+
+
+        print("==========================================->clientId ${data['data']["attributes"]["_id"]}") ;
+
+        print(
+            "=============================> token ${data['data']["accessToken"]}");
+        Get.toNamed(AppRoutes.homeScreen);
+        emailController.clear();
+        passwordController.clear();
+        signInLoading = false;
+        update();
+
+      } else {
+        Get.snackbar(response.statusCode.toString(), response.message);
+      }
+    } catch (exception){
+      Fluttertoast.showToast(msg: AppConstants.connectionTimedOUt);
+      log(exception.toString());
     }
   }
 

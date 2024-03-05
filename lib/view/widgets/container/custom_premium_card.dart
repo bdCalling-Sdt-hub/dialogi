@@ -3,46 +3,54 @@ import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/subscription_controllers/subscription_controller.dart';
 import '../../../global/api_response_model.dart';
+import '../../../utils/app_images.dart';
 import '../error/error_screen.dart';
 
 class CustomPremiumCard extends StatelessWidget {
 
   const CustomPremiumCard(
       {super.key,
-      required this.imageSrc,
-      required this.premiumText,
-      required this.getDialogiText,
-      required this.isPremiumPlus,
-      required this.length,
-      required this.addText,
-      this.addTextColor = AppColors.black_500,
-      this.getDialogiTextColor = AppColors.black_500,
-      this.premiumTextColor = AppColors.black_500});
-
-  final String imageSrc;
-  final String premiumText;
-  final String getDialogiText;
+      required this.isPremiumPlus,});
   final bool isPremiumPlus;
-  final int length;
-  final String addText;
-  final Color addTextColor;
-  final Color getDialogiTextColor;
-  final Color premiumTextColor;
+
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SubscriptionController>(builder: (controller) {
-      return switch(controller.status){
+    return GetBuilder<SubscriptionController>(builder: (subscriptionController) {
+
+      var premiumSubscriptionData = subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[0];
+      var premiumPlusSubscriptionData = subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[1];
+
+      List premiumFeaturesList = [
+        premiumSubscriptionData?.isAddAvailable == true? "Ad. after ${premiumSubscriptionData?.addFrequency} videos" : "Ad-free experience",
+        premiumSubscriptionData?.isEarlyAccessAvailable == true? "Early access is available" : "Early access isn't available",
+        premiumSubscriptionData?.isQuestionAccessUnlimited == true? "Access to all available questions" : "Access to ${premiumSubscriptionData?.questionAccessNumber} questions",
+        premiumSubscriptionData?.isCategoryAccessUnlimited == true? "Access to the additional categories" : "Get access ${premiumSubscriptionData?.categoryAccessNumber} categories",
+        "Access to the Messaging feature",
+        premiumSubscriptionData?.isGroupChatAvailable == true? "Access to the Group chat feature" : "Group chat feature not available",
+        "Access to the Community Discussion"
+      ];
+
+      List premiumPlusFeaturesList = [
+        premiumPlusSubscriptionData?.isAddAvailable == true? "Ad. after ${premiumPlusSubscriptionData?.addFrequency} videos" : "Ad-free experience",
+        premiumPlusSubscriptionData?.isEarlyAccessAvailable == true? "Early access is available" : "Early access isn't available",
+        premiumPlusSubscriptionData?.isQuestionAccessUnlimited == true? "Access to all available questions" : "Access to ${premiumPlusSubscriptionData?.questionAccessNumber} questions",
+        premiumPlusSubscriptionData?.isCategoryAccessUnlimited == true? "Access to the additional categories" : "Get access ${premiumPlusSubscriptionData?.categoryAccessNumber} categories",
+        "Access to the Messaging feature",
+        premiumPlusSubscriptionData?.isGroupChatAvailable == true? "Access to the Group chat feature" : "Group chat feature not available",
+        "Access to the Community Discussion"
+      ];
+      return switch(subscriptionController.status){
         Status.loading => const Center(child: CircularProgressIndicator()),
         Status.error => ErrorScreen(onTap: () {
-          controller.subscriptionRepo();
+          subscriptionController.subscriptionRepo();
         }),
         Status.completed => Container(
-          height: 380.h,
           margin: const EdgeInsets.only(right: 16),
           width: MediaQuery.of(context).size.width - 90.w,
           padding: const EdgeInsets.all(24),
@@ -55,17 +63,17 @@ class CustomPremiumCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  CustomImage(
-                    imageSrc: imageSrc,
+                  const CustomImage(
+                    imageSrc: AppImages.premium,
                     imageType: ImageType.png,
                     size: 46,
                   ),
                   CustomText(
-                    text: premiumText,
+                    text: isPremiumPlus? 'Premium Plus' : 'Premium',
                     fontSize: 24.h,
                     fontWeight: FontWeight.w500,
                     left: 8,
-                    color: premiumTextColor,
+                    color: isPremiumPlus? Colors.white : AppColors.black_500,
                   ),
                 ],
               ),
@@ -75,42 +83,40 @@ class CustomPremiumCard extends StatelessWidget {
               CustomText(
                 textAlign: TextAlign.start,
                 maxLines: 2,
-                text: getDialogiText,
+                text: isPremiumPlus
+                    ? 'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].price}/month'
+                    : 'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].price}/month',
                 fontSize: 16.h,
                 fontWeight: FontWeight.w500,
-                color: getDialogiTextColor,
+                color: isPremiumPlus? Colors.white : AppColors.black_500,
               ),
               SizedBox(
                 height: 16.h,
               ),
-              if (!isPremiumPlus)
-                SizedBox(
-                  height: 90.h,
-                ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: List.generate(
-                      length,
-                          (index) => Container(
-                        margin: const EdgeInsets.only(bottom: 16),
-                        child: Row(
-                          children: [
-                            const CustomImage(
-                              imageSrc: AppIcons.checkCircle,
-                              imageType: ImageType.svg,
-                              size: 16,
-                            ),
-                            CustomText(
-                              textAlign: TextAlign.start,
-                              maxLines: 2,
-                              text: addText,
-                              left: 8,
-                              color: addTextColor,
-                            ),
-                          ],
+
+              Column(
+                children: List.generate(
+                  premiumPlusFeaturesList.length,
+                      (index) => Container(
+                    margin: const EdgeInsets.only(bottom: 16),
+                    child: Row(
+                      children: [
+                        const CustomImage(
+                          imageSrc: AppIcons.checkCircle,
+                          imageType: ImageType.svg,
+                          size: 16,
                         ),
-                      ),
+                        Flexible(
+                          child: CustomText(
+                            textAlign: TextAlign.start,
+                            maxLines: 1,
+                            fontSize: 12,
+                            text: isPremiumPlus? premiumPlusFeaturesList[index] : premiumFeaturesList[index],
+                            left: 8,
+                            color: isPremiumPlus? Colors.white : AppColors.black_500,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

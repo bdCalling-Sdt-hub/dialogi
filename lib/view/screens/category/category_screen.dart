@@ -80,6 +80,37 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         "=============================> controller ${controller
                             .categoryList.length}");
 
+                  if (index < controller.categoryList.length) {
+                    return GestureDetector(
+                      onTap: () {
+                        if (Homecontroller.status == Status.completed) {
+                          controller.getContextStatus();
+                          if (Homecontroller.accessStatusModel!.data!
+                                  .categoryAccessNumber !=
+                              0) {
+                            Get.toNamed(AppRoutes.categoryDetails, parameters: {
+                              "title": controller.categoryList[index].name,
+                              "categoryId": controller.categoryList[index].sId
+                            });
+                          } else {
+                            SubscriptionPopup.showPopUpPremiumPackage();
+                          }
+                        } else {
+                          Homecontroller.getAccessStatus();
+                        }
+                      },
+                      child: CustomCard(
+                          img:
+                              "${ApiConstant.baseUrl}${controller.categoryList[index].image}",
+                          title: controller.categoryList[index].name.toString(),
+                          queNum: controller.categoryList[index].questionCount
+                              .toString()),
+                    );
+                  } else {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                },
+              ),
                     if (index < controller.categoryList.length) {
                       return GestureDetector(
                         onTap: () {

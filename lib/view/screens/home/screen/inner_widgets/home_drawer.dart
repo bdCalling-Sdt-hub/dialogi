@@ -105,7 +105,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   height: 44.h,
                 ),
 
-                ///<<<==================== Pending Request ======================>>>
+            ///<<<==================== Pending Request ======================>>>
 
                 customRow(
                     icon: AppIcons.pendingReq,
@@ -183,18 +183,19 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   height: 32,
                 ),
 
-                ///<<<====================== Logout =============================>>>
+            ///<<<====================== Logout =============================>>>
 
-                customRow(
-                    icon: AppIcons.logout,
-                    text: AppStrings.logout,
-                    ontap: () async {
-                      await PrefsHelper.removeAllPrefData().then(
-                          (value) => Get.offAllNamed(AppRoutes.signInScreen));
-                    }),
-              ],
-            ));
-      },
-    );
+            customRow(
+                icon: AppIcons.logout,
+                text: AppStrings.logout,
+                ontap: () async {
+                  await PrefsHelper.removeAllPrefData();
+                  PrefsHelper.setString(AppConstants.bearerToken, "");
+                  PrefsHelper.setString(AppConstants.forgetPasswordToken, "");
+                  PrefsHelper.setString("clientId", "");
+                  Get.offAllNamed(AppRoutes.signInScreen);
+                }),
+          ],
+        ));
   }
 }

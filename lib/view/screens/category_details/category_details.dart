@@ -20,16 +20,17 @@ class CategoryDetails extends StatefulWidget {
 class _CategoryDetailsState extends State<CategoryDetails> {
   SubCategoryController subCategoryController =
       Get.put(SubCategoryController());
-
   String title = Get.parameters["title"] ?? " ";
+  String categoryId = Get.parameters["categoryId"] ?? " ";
+
   bool accessStatus = Get.parameters["accessStatus"] == "true" ? true : false;
 
   @override
   void initState() {
     subCategoryController.page = 1;
-    subCategoryController.subCategoryRepo(accessStatus);
+    subCategoryController.subCategoryRepo(categoryId, accessStatus);
     subCategoryController.scrollController.addListener(() {
-      subCategoryController.scrollControllerCall(accessStatus);
+      subCategoryController.scrollControllerCall(categoryId, accessStatus);
     });
     // TODO: implement initState
     super.initState();
@@ -37,8 +38,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
 
   @override
   Widget build(BuildContext context) {
-    print(
-        "===================================================> accessStatus $accessStatus");
+    String title = Get.parameters["title"] ?? " ";
     return Scaffold(
         //App Bar
 
@@ -87,7 +87,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                   const Center(child: CircularProgressIndicator()),
                 Status.error => ErrorScreen(onTap: () {
                     controller.page = 1;
-                    controller.subCategoryRepo(accessStatus);
+                    controller.subCategoryRepo(categoryId, accessStatus);
                   }),
                 Status.completed => ListView.builder(
                     controller: controller.scrollController,

@@ -1,5 +1,4 @@
 
-
 class SubscriptionsPlanModel {
   String? status;
   String? statusCode;
@@ -86,9 +85,9 @@ class SubscriptionsList {
   String? name;
   String? type;
   bool? isAddAvailable;
-  int? categoryAccessNumber;
+  num? categoryAccessNumber;
   bool? isCategoryAccessUnlimited;
-  int? questionAccessNumber;
+  num? questionAccessNumber;
   bool? isQuestionAccessUnlimited;
   bool? isChatAvailable;
   bool? isGroupChatAvailable;
@@ -96,9 +95,11 @@ class SubscriptionsList {
   bool? isEarlyAccessAvailable;
   bool? updateProfileAccess;
   num? price;
-  int? iV;
+  num? expiryTime;
+  num? iV;
   String? createdAt;
   String? updatedAt;
+  num? addFrequency;
 
   SubscriptionsList(
       {this.sId,
@@ -115,9 +116,11 @@ class SubscriptionsList {
         this.isEarlyAccessAvailable,
         this.updateProfileAccess,
         this.price,
+        this.expiryTime,
         this.iV,
         this.createdAt,
-        this.updatedAt});
+        this.updatedAt,
+        this.addFrequency});
 
   SubscriptionsList.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -134,9 +137,11 @@ class SubscriptionsList {
     isEarlyAccessAvailable = json['isEarlyAccessAvailable'];
     updateProfileAccess = json['updateProfileAccess'];
     price = json['price'];
+    expiryTime = json['expiryTime'];
     iV = json['__v'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    addFrequency = json['addFrequency'];
   }
 
   Map<String, dynamic> toJson() {
@@ -156,9 +161,11 @@ class SubscriptionsList {
     data['isEarlyAccessAvailable'] = this.isEarlyAccessAvailable;
     data['updateProfileAccess'] = this.updateProfileAccess;
     data['price'] = this.price;
+    data['expiryTime'] = this.expiryTime;
     data['__v'] = this.iV;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
+    data['addFrequency'] = this.addFrequency;
     return data;
   }
 }

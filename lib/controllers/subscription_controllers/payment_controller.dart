@@ -81,7 +81,9 @@ Future<void> paymentRepo({required String payerId,required String amount, requir
 
       var jsonData = jsonDecode(apiResponseModel.responseJson);
       paymentModel = PaymentModel.fromJson(jsonData);
-      var token = paymentModel!.data!.accessToken;
+
+      var token = paymentModel?.data?.accessToken;
+
       PrefsHelper.setString(AppConstants.bearerToken, token);
       print("Token: -----$token");
       Get.offAllNamed(AppRoutes.homeScreen);
