@@ -42,10 +42,11 @@ class Homecontroller extends GetxController with GetxServiceMixin {
   ///<<<==================== Page Scroll Method ==================================>>>
   Future<void> scrollControllerCall() async {
     if(categoryScrollController.position.pixels == categoryScrollController.position.maxScrollExtent){
-      await categoryAccessRepo();
+      await categoryAccessRepo().then((value) => pageCount++);
+      
     }
     if(earlyAccessScrollController.position.pixels == earlyAccessScrollController.position.maxScrollExtent){
-      await categoryAccessRepo();
+      await categoryAccessRepo().then((value) =>  pageErCount++);
     }
   }
 
@@ -66,8 +67,6 @@ class Homecontroller extends GetxController with GetxServiceMixin {
 
         homeStatus = Status.completed;
         update();
-        pageCount++;
-        pageErCount++;
       } else{
         homeStatus = Status.error;
       }
