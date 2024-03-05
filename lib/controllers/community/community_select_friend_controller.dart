@@ -16,13 +16,14 @@ import '../../utils/static_strings.dart';
 
 class CommunitySelectFriendsController extends GetxController {
   Status status = Status.completed;
-  bool isMoreLoading = false ;
+  bool isMoreLoading = false;
+
   List friendList = [];
   List<bool> selectedFriends = [];
   bool isCreateGroup = false;
   bool isCreateCommunity = false;
 
-  List<String> selectedParticipants = [PrefsHelper.clientId];
+  List<String> selectedParticipants = [];
 
   PremiumPlusModel? premiumPlusModel;
 
@@ -33,10 +34,10 @@ class CommunitySelectFriendsController extends GetxController {
   Future<void> scrollControllerCall() async {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
-      isMoreLoading = true ;
+      isMoreLoading = true;
       update();
       await friendListRepo();
-      isMoreLoading = false ;
+      isMoreLoading = false;
       update();
     }
   }
@@ -102,16 +103,16 @@ class CommunitySelectFriendsController extends GetxController {
     }
   }
 
-  Future<void> createNewCommunityRepo() async {
+  Future<void> createNewCommunityRepo(
+      String questionId, String categoryId) async {
     isCreateCommunity = true;
     update();
     var body = {
-      "participants": jsonEncode(
-        selectedParticipants
-      ),
+      "participants": jsonEncode(selectedParticipants),
       "groupName": nameController.text,
-      "category": "65db196f785f1b8de02c647c",
-      "groupAdmin": PrefsHelper.clientId
+      "category": categoryId,
+      "groupAdmin": PrefsHelper.clientId,
+      "question": questionId
     };
 
     print("===================================> body $body");
@@ -121,7 +122,6 @@ class CommunitySelectFriendsController extends GetxController {
     );
 
     print("===========${jsonDecode(response.responseJson)}===========");
-
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.responseJson);
@@ -133,7 +133,6 @@ class CommunitySelectFriendsController extends GetxController {
         "type": AppStrings.community,
         "name": nameController.text
       });
-
     } else {
       Get.snackbar(response.statusCode.toString(), response.message);
     }
@@ -141,5 +140,4 @@ class CommunitySelectFriendsController extends GetxController {
     isCreateCommunity = false;
     update();
   }
-
 }

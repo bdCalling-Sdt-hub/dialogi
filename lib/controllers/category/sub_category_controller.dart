@@ -43,6 +43,7 @@ class SubCategoryController extends GetxController {
       update();
     }
 
+
     Map<String, String> header = {
       'Authorization': "Bearer ${PrefsHelper.token}"
     };

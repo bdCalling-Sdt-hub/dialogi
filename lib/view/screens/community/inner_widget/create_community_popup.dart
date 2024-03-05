@@ -1,6 +1,4 @@
 import 'package:dialogi_app/controllers/community/community_select_friend_controller.dart';
-import 'package:dialogi_app/controllers/group_chat/select_friends_controller.dart';
-import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
@@ -10,13 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-void createCommunityPopUp(
-    {required BuildContext context,
-      String title = AppStrings.setGroupName,
-      String buttonText = AppStrings.create}) {
-
-
-  final CommunitySelectFriendsController communitySelectFriendsController = Get.put(CommunitySelectFriendsController()) ;
+void createCommunityPopUp({
+  required BuildContext context,
+  required String questionId,
+  required String categoryId,
+  String title = AppStrings.setGroupName,
+  String buttonText = AppStrings.create,
+}) {
+  final CommunitySelectFriendsController communitySelectFriendsController =
+      Get.put(CommunitySelectFriendsController());
   showDialog(
     context: context,
     builder: (context) {
@@ -34,16 +34,20 @@ void createCommunityPopUp(
                 text: AppStrings.setName,
               ),
               CustomTextField(
-                textEditingController: communitySelectFriendsController.nameController,
+                textEditingController:
+                    communitySelectFriendsController.nameController,
                 hintText: AppStrings.entertheName,
               ),
               SizedBox(
                 width: double.maxFinite,
                 child: CustomElevatedButton(
                     onPressed: () {
-                      navigator!.pop();
-                      communitySelectFriendsController.createNewCommunityRepo() ;
 
+                      print("===============================> questionId $questionId") ;
+
+                      navigator!.pop();
+                      communitySelectFriendsController
+                          .createNewCommunityRepo(questionId, categoryId);
                     },
                     titleText: buttonText),
               )

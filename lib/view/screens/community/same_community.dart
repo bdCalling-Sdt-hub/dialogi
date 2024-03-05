@@ -25,7 +25,9 @@ class _SameCommunityState extends State<SameCommunity> {
   final SameCommunityController sameCommunityController =
       Get.put(SameCommunityController());
 
-  String categoryId = "65db196f785f1b8de02c647c";
+  String discussPlatform = Get.parameters["discussPlatform"] ?? "";
+  String questionId = Get.parameters["questionId"] ?? "";
+  String categoryId = Get.parameters["categoryId"] ?? "";
 
   @override
   void initState() {
@@ -80,7 +82,7 @@ class _SameCommunityState extends State<SameCommunity> {
                   itemBuilder: (context, index) {
                     var item = controller.chatList[index];
                     return GestureDetector(
-                      onTap: () => controller.joinCommunityRepo(item.sId),
+                      onTap: () => controller.joinCommunityRepo(item.sId, item.groupName),
                       child: Column(
                         children: [
                           Row(
@@ -123,7 +125,10 @@ class _SameCommunityState extends State<SameCommunity> {
         padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 20.w),
         child: CustomElevatedButton(
             onPressed: () {
-              Get.toNamed(AppRoutes.communitySelectFriends);
+              Get.toNamed(AppRoutes.communitySelectFriends, parameters: {
+                "questionId": questionId,
+                "categoryId": categoryId,
+              });
             },
             titleText: AppStrings.createNewCommunity),
       ),

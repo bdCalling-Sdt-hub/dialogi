@@ -167,7 +167,7 @@ class _FriendsProfileScreenState extends State<FriendsProfileScreen> {
                   child: userID == PrefsHelper.clientId
                       ? const SizedBox()
                       : controller.sendIsLoading
-                          ? const CircularProgressIndicator()
+                          ? const Center(child: CircularProgressIndicator())
                           : controller.friendProfileModel!.data!.attributes!
                                       .friendRequestStatus ==
                                   "accepted"

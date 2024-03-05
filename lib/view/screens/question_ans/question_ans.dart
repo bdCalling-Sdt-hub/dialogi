@@ -52,9 +52,7 @@ class _QuestionAnsState extends State<QuestionAns> {
 
   @override
   Widget build(BuildContext context) {
-
-
-    print("====================================> categoryId $categoryId") ;
+    print("====================================> categoryId $categoryId");
     return Scaffold(
       //AppBar
 
@@ -276,7 +274,12 @@ class _QuestionAnsState extends State<QuestionAns> {
                           buttonHeight: 36,
                           onPressed: () {
                             //   Get.toNamed(AppRoutes.selectFriends);
-                            chooseDiscussPlatform(context: context);
+                            chooseDiscussPlatform(
+                              context: context,
+                              categoryId: categoryId,
+                              questionId: controller.questionAnsModel!.data!
+                                  .attributes!.questions![0].sId!,
+                            );
                           },
                           titleText: AppStrings.discusswithFriends),
                 ),
