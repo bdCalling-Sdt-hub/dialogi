@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import '../../../services/admob_ad_services.dart';
+
 class AdmobAd extends StatefulWidget {
   @override
   _AdmobAdState createState() => _AdmobAdState();

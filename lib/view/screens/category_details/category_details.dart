@@ -101,7 +101,8 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                           onTap: () {
                             Get.toNamed(AppRoutes.questionAns, parameters: {
                               "title":
-                                  "${controller.subCategoryList[index].subCategory}"
+                                  "${controller.subCategoryList[index].subCategory}",
+                              "categoryId": categoryId
                             });
                           },
                           child: Container(

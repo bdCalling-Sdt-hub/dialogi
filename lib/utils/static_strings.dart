@@ -70,6 +70,8 @@ class AppStrings {
   static const String gotoSubscriptions = "Go to Subscriptions";
   static const String ques = "Ques";
   static const String pendingRequests = "Pending Requests";
+  static const String getEarlyAccess = "Get Early Access";
+  static const String categoryList = "Get Category";
 
   //Chat
   static const String chat = "Chat";
@@ -209,6 +211,8 @@ class AppStrings {
   static const String communityMembers = "Community members";
   static const String changeCommunityName = "Change Community Name";
   static const String leaveCommunity = "Leave Community";
+  static const String communityRequests = "Community Requests";
+  static const String friendRequests = "Friend Requests";
   static const String doYouWantToLeaveThisCommunity =
       "Do you want to leave this Community?";
 

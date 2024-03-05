@@ -52,6 +52,9 @@ class _QuestionAnsState extends State<QuestionAns> {
 
   @override
   Widget build(BuildContext context) {
+
+
+    print("====================================> categoryId $categoryId") ;
     return Scaffold(
       //AppBar
 
@@ -81,8 +84,8 @@ class _QuestionAnsState extends State<QuestionAns> {
         builder: (controller) {
           return switch (controller.status) {
             Status.loading => const Center(child: CircularProgressIndicator()),
-            Status.error =>
-              ErrorScreen(onTap: () => controller.questionsRepo(title, categoryId)),
+            Status.error => ErrorScreen(
+                onTap: () => controller.questionsRepo(title, categoryId)),
             Status.completed => Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
@@ -185,7 +188,7 @@ class _QuestionAnsState extends State<QuestionAns> {
                                   controller.discussionPage = 1;
                                   controller.discussionList = [];
                                   controller.discussionController.clear();
-                                  controller.questionsRepo(title,categoryId);
+                                  controller.questionsRepo(title, categoryId);
                                 } else {
                                   showDialog(
                                       context: context,
@@ -263,17 +266,19 @@ class _QuestionAnsState extends State<QuestionAns> {
 
                 Expanded(
                   flex: 2,
-                  child: controller.isDiscuss ? const SizedBox() : CustomElevatedButton(
-                      buttonColor: AppColors.whiteColor,
-                      borderColor: AppColors.black_600,
-                      titleColor: AppColors.black_400,
-                      titleSize: 14.w,
-                      buttonHeight: 36,
-                      onPressed: () {
-                        //   Get.toNamed(AppRoutes.selectFriends);
-                        chooseDiscussPlatform(context: context);
-                      },
-                      titleText: AppStrings.discusswithFriends),
+                  child: controller.isDiscuss
+                      ? const SizedBox()
+                      : CustomElevatedButton(
+                          buttonColor: AppColors.whiteColor,
+                          borderColor: AppColors.black_600,
+                          titleColor: AppColors.black_400,
+                          titleSize: 14.w,
+                          buttonHeight: 36,
+                          onPressed: () {
+                            //   Get.toNamed(AppRoutes.selectFriends);
+                            chooseDiscussPlatform(context: context);
+                          },
+                          titleText: AppStrings.discusswithFriends),
                 ),
                 SizedBox(
                   width: 10.w,
@@ -292,7 +297,7 @@ class _QuestionAnsState extends State<QuestionAns> {
                           controller.discussionPage = 1;
                           controller.discussionList = [];
                           controller.questionsRepo(title, categoryId);
-                          controller.questionsRepo(title);
+                          controller.questionsRepo(title, categoryId);
                           controller.nextQuestion();
                         } else {
                           showDialog(
