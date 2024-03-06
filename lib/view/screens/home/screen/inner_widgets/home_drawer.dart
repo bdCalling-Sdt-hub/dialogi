@@ -8,6 +8,7 @@ import 'package:dialogi_app/utils/app_constants.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/screens/Testing/testing_screen.dart';
+import 'package:dialogi_app/view/screens/home/screen/inner_widgets/logout.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,9 +31,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
       required String text,
       required VoidCallback ontap}) {
     return GestureDetector(
-      onTap: () {
-        ontap();
-      },
+      onTap: ontap,
       child: Container(
         decoration: const BoxDecoration(),
         child: Row(
@@ -183,16 +182,10 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
               ///<<<====================== Logout =============================>>>
 
-              customRow(
-                  icon: AppIcons.logout,
-                  text: AppStrings.logout,
-                  ontap: () async {
-                    await PrefsHelper.removeAllPrefData();
-                    PrefsHelper.setString(AppConstants.bearerToken, "");
-                    PrefsHelper.setString(AppConstants.forgetPasswordToken, "");
-                    PrefsHelper.setString("clientId", "");
-                    Get.offAllNamed(AppRoutes.signInScreen);
-                  }),
+              LogOut.customRow(
+                icon: AppIcons.logout,
+                text: AppStrings.logout,
+              ),
             ],
           ));
     });

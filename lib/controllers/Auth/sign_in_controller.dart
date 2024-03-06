@@ -153,6 +153,8 @@ class SignInController extends GetxController {
     } catch (exception){
       Fluttertoast.showToast(msg: AppConstants.connectionTimedOUt);
       log(exception.toString());
+      signInLoading = false;
+      update();
     }
   }
 }

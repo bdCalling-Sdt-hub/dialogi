@@ -30,14 +30,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Homecontroller homecontroller = Get.put(Homecontroller());
-  ProfileController profileController = Get.put(ProfileController()) ;
+  ProfileController profileController = Get.put(ProfileController());
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     Homecontroller.getAccessStatus();
-    profileController.profileRepo() ;
-
+    profileController.profileRepo();
     homecontroller.categoryAccessRepo();
     homecontroller.categoryScrollController.addListener(() {
       homecontroller.scrollControllerCall();
@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
       )),
       body: GetBuilder<Homecontroller>(builder: (controller) {
         return switch (controller.homeStatus) {
-          Status.loading => Center(child: CircularProgressIndicator()),
+          Status.loading => const Center(child: CircularProgressIndicator()),
           Status.error => ErrorScreen(
               onTap: () => controller.categoryAccessRepo(),
             ),
@@ -264,14 +264,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      padding: const EdgeInsets.only(
+                          left: 8.0, right: 8, bottom: 12),
                       child: GridView.builder(
                           controller: controller.categoryScrollController,
                           itemCount: controller.categoryList.length,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
-                                  mainAxisExtent: 220,
+                                  mainAxisExtent: 230,
                                   crossAxisSpacing: 8.w,
                                   mainAxisSpacing: 8.h),
                           itemBuilder: (context, index) {
@@ -282,10 +283,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Get.toNamed(AppRoutes.categoryDetails,
                                         parameters: {
                                           "accessStatus": "false",
-                                          "title": item
-                                              .name!,
-                                          "categoryId": item
-                                              .sId!
+                                          "title": item.name!,
+                                          "categoryId": item.sId!
                                         });
                                   },
                                   child: Container(
@@ -302,7 +301,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.only(
-                                              top: 8.0, right: 8.0, left: 8.0),
+                                              top: 8.0,
+                                              right: 8.0,
+                                              left: 8.0,
+                                              bottom: 8),
                                           child: Container(
                                             height: 150,
                                             width: 150,
@@ -330,7 +332,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           fontWeight: FontWeight.w500,
                                         ),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: [
                                             CustomText(
                                               fontSize: 14,
