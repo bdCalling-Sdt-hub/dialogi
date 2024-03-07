@@ -41,6 +41,9 @@ class ApiService {
       'Authorization': "Bearer ${PrefsHelper.token}"
     };
 
+    print("==================================================> url $url");
+    print("==================================================> url $mainHeader");
+
     try {
       final response = await http
           .post(Uri.parse(url), body: body, headers: header ?? mainHeader)
@@ -84,6 +87,8 @@ class ApiService {
     Map<String, String> mainHeader = {
       'Authorization': "Bearer ${PrefsHelper.token}"
     };
+
+    print("==================================================> url $url");
 
     try {
       final response = await http

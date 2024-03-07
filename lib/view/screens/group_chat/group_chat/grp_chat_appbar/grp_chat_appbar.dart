@@ -53,10 +53,10 @@ class GroupChatPopUps extends StatelessWidget {
           child: GestureDetector(
               onTap: () {
                 navigator!.pop();
-                createGroupPopUp(
-                    context: context,
-                    title: AppStrings.changeGroupName,
-                    buttonText: AppStrings.change);
+                // createGroupPopUp(
+                //     context: context,
+                //     title: AppStrings.changeGroupName,
+                //     buttonText: AppStrings.change);
               },
               child: const CustomText(
                 fontSize: 14,

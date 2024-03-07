@@ -7,14 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-void chooseDiscussPlatform({required BuildContext context}) {
+void chooseDiscussPlatform(
+    {required BuildContext context,
+    required String questionId,
+    required String categoryId}) {
   final DiscussionPlatformController discussionPlatformController =
       Get.put(DiscussionPlatformController());
+
+  print("================================>questionId $questionId");
 
   showDialog(
     context: context,
     builder: (context) {
-      discussionPlatformController.checkDiscussion() ;
+      discussionPlatformController.checkDiscussion();
       return Dialog(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -60,7 +65,9 @@ void chooseDiscussPlatform({required BuildContext context}) {
                     ),
                   ),
                 ),
-                SizedBox(height: 16.h,),
+                SizedBox(
+                  height: 16.h,
+                ),
 
                 //========================Confirm Button==========================
                 CustomElevatedButton(
@@ -69,11 +76,16 @@ void chooseDiscussPlatform({required BuildContext context}) {
                       navigator!.pop();
                       if (discussionPlatformController.selectedPlatform ==
                           AppStrings.community) {
-                        Get.toNamed(AppRoutes.sameCommunity);
+                        Get.toNamed(AppRoutes.sameCommunity, parameters: {
+                          "discussPlatform":
+                              discussionPlatformController.selectedPlatform,
+                          "questionId": questionId,
+                          "categoryId": categoryId,
+                        });
                       } else {
                         Get.toNamed(AppRoutes.selectFriends, parameters: {
-                          "discussPlatform":
-                              discussionPlatformController.selectedPlatform
+                          "discussPlatform": discussionPlatformController.selectedPlatform,
+                          "questionId": questionId,
                         });
                       }
                     },

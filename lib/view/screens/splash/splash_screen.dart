@@ -19,7 +19,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
     DeviceUtils.allScreenUtils();
@@ -30,19 +29,16 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> getLoggedIn() async {
-
-    print("====================================================>token ${PrefsHelper.token}");
-
+    print(
+        "====================================================>token ${PrefsHelper.token}");
 
     try {
-
       // Get.toNamed(AppRoutes.premiumScreen);
       if (PrefsHelper.token.isNotEmpty) {
         Get.offAllNamed(AppRoutes.homeScreen);
       } else {
         Get.offAllNamed(AppRoutes.signInScreen);
       }
-
     } catch (e) {
       print(e.toString());
     }

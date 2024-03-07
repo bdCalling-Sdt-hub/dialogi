@@ -114,13 +114,11 @@ class _SubscriptionsScreenState extends State<SubscriptionsScreen> {
                 //     },),
                 // ),
                 ///<<<===================== premium package cards =======================>>>
-                Center(
-                  child: Container(
-                    child: Column(
-                      children: [
+                const Center(
+                  child: Column(
+                    children: [
 
-                      ],
-                    ),
+                    ],
                   )
                 ),
                 const SizedBox(

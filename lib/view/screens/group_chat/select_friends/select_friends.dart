@@ -25,7 +25,7 @@ class _SelectFriendsGroupChatState extends State<SelectFriendsGroupChat> {
   final SelectFriendsController selectFriendsController =
       Get.put(SelectFriendsController());
 
-  // final String discussPlatform = Get.parameters["discussPlatform"] ?? "";
+  final String questionId = Get.parameters["questionId"] ?? "";
 
   @override
   void initState() {
@@ -145,6 +145,7 @@ class _SelectFriendsGroupChatState extends State<SelectFriendsGroupChat> {
                                 onPressed: () {
                                   createGroupPopUp(
                                     context: context,
+                                    questionId: questionId
                                   );
                                 },
                                 titleText: AppStrings.createGroup)

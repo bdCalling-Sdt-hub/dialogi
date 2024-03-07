@@ -163,9 +163,10 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                                 controller:
                                     controller.communityScrollController,
                                 itemBuilder: (BuildContext context, int index) {
-                                  var item = controller.communityRequest[index];
                                   if (index <
                                       controller.communityRequest.length) {
+                                    var item =
+                                        controller.communityRequest[index];
                                     return CustomPendingRequests(
                                       pendingText: item.chat.groupName,
                                       image:

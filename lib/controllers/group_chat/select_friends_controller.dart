@@ -22,7 +22,7 @@ class SelectFriendsController extends GetxController {
   List<bool> selectedFriends = [];
   bool isCreateGroup = false;
 
-  List<String> selectedParticipants = [PrefsHelper.clientId];
+  List<String> selectedParticipants = [];
 
   SelectGroupMemberModel? friendListModel;
 
@@ -92,7 +92,7 @@ class SelectFriendsController extends GetxController {
     selectedFriends[index] = value;
     update();
 
-    if (selectedParticipants.length > 2) {
+    if (selectedParticipants.length > 1) {
       isCreateGroup = true;
       update();
     } else {
@@ -101,13 +101,14 @@ class SelectFriendsController extends GetxController {
     }
   }
 
-  createNewGroup() async {
+  createNewGroup(String questionId) async {
     var body = {
       "participants": selectedParticipants,
       "subscription": PrefsHelper.mySubscription,
       "groupName": nameController.text,
       "type": AppStrings.group,
-      "groupAdmin": PrefsHelper.clientId
+      "groupAdmin": PrefsHelper.clientId,
+      "question": questionId
     };
 
     if (kDebugMode) {

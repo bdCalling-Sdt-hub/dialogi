@@ -25,6 +25,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
 
   bool accessStatus = Get.parameters["accessStatus"] == "true" ? true : false;
 
+
   @override
   void initState() {
     subCategoryController.page = 1;
@@ -38,7 +39,8 @@ class _CategoryDetailsState extends State<CategoryDetails> {
 
   @override
   Widget build(BuildContext context) {
-    String title = Get.parameters["title"] ?? " ";
+    
+    print("=====================================> categoryId $categoryId") ;
     return Scaffold(
         //App Bar
 

@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/models/same_community_model.dart';
+import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -65,11 +67,15 @@ class SameCommunityController extends GetxController {
     }
   }
 
-  Future<void> joinCommunityRepo(String chatId) async {
+  Future<void> joinCommunityRepo(String chatId, String name) async {
     isJoin = true;
     update();
 
     var body = {"chatId": chatId};
+
+    if (kDebugMode) {
+      print("====================> chatId ${chatId}");
+    }
 
     var response = await ApiService.postApi(ApiConstant.joinCommunity, body);
 
@@ -81,7 +87,13 @@ class SameCommunityController extends GetxController {
     }
 
     if (response.statusCode == 200) {
-      print("djkfhdskjfhdjs");
+
+      Get.toNamed(AppRoutes.chatScreen, parameters: {
+        "chatId": chatId,
+        "type": AppStrings.community,
+        "name": name
+      });
+
     } else {
       Utils.snackBarMessage(response.statusCode.toString(), response.message);
     }

@@ -29,6 +29,9 @@ class _CommunitySelectFriendsState extends State<CommunitySelectFriends> {
   CommunitySelectFriendsController communitySelectFriendsController =
       Get.put(CommunitySelectFriendsController());
 
+  String questionId = Get.parameters["questionId"] ?? "";
+  String categoryId = Get.parameters["categoryId"] ?? "";
+
   @override
   void initState() {
     communitySelectFriendsController.friendListRepo();
@@ -41,6 +44,8 @@ class _CommunitySelectFriendsState extends State<CommunitySelectFriends> {
 
   @override
   Widget build(BuildContext context) {
+
+    print("===============================> questionId $questionId") ;
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: CustomAppBar(
@@ -148,6 +153,8 @@ class _CommunitySelectFriendsState extends State<CommunitySelectFriends> {
                                 onPressed: () {
                                   createCommunityPopUp(
                                     context: context,
+                                    questionId: questionId,
+                                    categoryId: categoryId
                                   );
                                 },
                                 titleText: AppStrings.createCommunity)

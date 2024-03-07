@@ -17,9 +17,10 @@ enum SampleItem {
 class CommunityChatPopUps extends StatelessWidget {
   CommunityChatPopUps({super.key, required this.chatId});
 
-  String chatId ;
+  String chatId;
 
-  final CommunityMemberController communityMemberController = Get.put(CommunityMemberController()) ;
+  final CommunityMemberController communityMemberController =
+      Get.put(CommunityMemberController());
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +52,10 @@ class CommunityChatPopUps extends StatelessWidget {
           child: GestureDetector(
               onTap: () {
                 navigator!.pop();
-                createGroupPopUp(
-                    context: context,
-                    title: AppStrings.changeCommunityName,
-                    buttonText: AppStrings.change);
+                // createGroupPopUp(
+                //     context: context,
+                //     title: AppStrings.changeCommunityName,
+                //     buttonText: AppStrings.change);
               },
               child: const CustomText(
                 fontSize: 14,
@@ -88,7 +89,8 @@ class CommunityChatPopUps extends StatelessWidget {
 
                 permissionPopUp(
                     context: context,
-                    ontapYes: () => communityMemberController.leaveCommunityRepo(chatId),
+                    ontapYes: () =>
+                        communityMemberController.leaveCommunityRepo(chatId),
                     ontapNo: () {},
                     title: AppStrings.doYouWantToLeaveThisGroup);
               },
