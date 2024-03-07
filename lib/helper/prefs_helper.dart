@@ -21,6 +21,7 @@ class PrefsHelper extends GetxController {
     clientId = preferences.getString("clientId") ?? "";
     myImage = preferences.getString("myImage") ?? "";
     myName = preferences.getString("myName") ?? "";
+    isProvider =  preferences.getBool("isProvider") ?? false;
 
     forgetPasswordToken =
         preferences.getString(AppConstants.forgetPasswordToken) ?? "";
@@ -79,6 +80,7 @@ class PrefsHelper extends GetxController {
     preferences.setString(AppConstants.bearerToken, "");
     preferences.setString(AppConstants.forgetPasswordToken, "");
     preferences.setString("clientId", "");
+    preferences.setBool("isProvider", false);
     token = "";
     forgetPasswordToken = "";
     clientId = "";
