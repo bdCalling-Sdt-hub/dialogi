@@ -71,7 +71,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
               height: 8.h,
             ),
             const CustomText(
-              maxLines: 2,
+              maxLines: 3,
               text: AppStrings.selectPaymentMethodForUpgrade,
               fontSize: 24,
               fontWeight: FontWeight.w500,

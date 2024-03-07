@@ -61,10 +61,10 @@ class _CommunitySelectFriendsState extends State<CommunitySelectFriends> {
                 alignment: Alignment.center,
                 child: CustomText(
                   right: 20.w,
-                  fontSize: 18,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
                   color: AppColors.blue_500,
-                  text: AppStrings.selectFriends,
+                  text: AppStrings.selectFormPremiumPlus,
                 ),
               ),
             )
@@ -87,7 +87,7 @@ class _CommunitySelectFriendsState extends State<CommunitySelectFriends> {
                           alignment: Alignment.centerRight,
                           child: CustomText(
                               text:
-                                  "${controller.selectedParticipants.length - 1}/5")),
+                                  "${controller.selectedParticipants.length}/5")),
                       Expanded(
                         child: ListView.builder(
                           controller: controller.scrollController,

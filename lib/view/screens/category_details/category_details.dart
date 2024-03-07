@@ -5,6 +5,7 @@ import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/error/error_screen.dart';
+import 'package:dialogi_app/view/widgets/no_data.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,7 +26,6 @@ class _CategoryDetailsState extends State<CategoryDetails> {
 
   bool accessStatus = Get.parameters["accessStatus"] == "true" ? true : false;
 
-
   @override
   void initState() {
     subCategoryController.page = 1;
@@ -39,8 +39,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
 
   @override
   Widget build(BuildContext context) {
-    
-    print("=====================================> categoryId $categoryId") ;
+    print("=====================================> categoryId $categoryId");
     return Scaffold(
         //App Bar
 
@@ -91,58 +90,63 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                     controller.page = 1;
                     controller.subCategoryRepo(categoryId, accessStatus);
                   }),
-                Status.completed => ListView.builder(
-                    controller: controller.scrollController,
-                    // itemCount: controller.subCategoryList.length,
-                    itemCount: controller.isMoreLoading
-                        ? controller.subCategoryList.length + 1
-                        : controller.subCategoryList.length,
-                    itemBuilder: (context, index) {
-                      if (index < controller.subCategoryList.length) {
-                        return GestureDetector(
-                          onTap: () {
-                            Get.toNamed(AppRoutes.questionAns, parameters: {
-                              "title":
-                                  "${controller.subCategoryList[index].subCategory}",
-                              "categoryId": categoryId
-                            });
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(12.r),
-                            margin: EdgeInsets.only(bottom: 16.h),
-                            width: double.maxFinite,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: AppColors.black_50),
-                                borderRadius: BorderRadius.circular(8.r),
-                                color: AppColors.whiteColor),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                //Title
+                Status.completed => controller.subCategoryList.isEmpty
+                    ? const NoData()
+                    : ListView.builder(
+                        controller: controller.scrollController,
+                        // itemCount: controller.subCategoryList.length,
+                        itemCount: controller.isMoreLoading
+                            ? controller.subCategoryList.length + 1
+                            : controller.subCategoryList.length,
+                        itemBuilder: (context, index) {
+                          if (index < controller.subCategoryList.length) {
+                            return GestureDetector(
+                              onTap: () {
+                                Get.toNamed(AppRoutes.questionAns, parameters: {
+                                  "title":
+                                      "${controller.subCategoryList[index].subCategory}",
+                                  "categoryId": categoryId
+                                });
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(12.r),
+                                margin: EdgeInsets.only(bottom: 16.h),
+                                width: double.maxFinite,
+                                decoration: BoxDecoration(
+                                    border:
+                                        Border.all(color: AppColors.black_50),
+                                    borderRadius: BorderRadius.circular(8.r),
+                                    color: AppColors.whiteColor),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    //Title
 
-                                CustomText(
-                                  text: controller
-                                      .subCategoryList[index].subCategory,
+                                    CustomText(
+                                      text: controller
+                                          .subCategoryList[index].subCategory,
+                                    ),
+
+                                    //Question Ammount
+
+                                    CustomText(
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.blue_500,
+                                      text:
+                                          "${controller.subCategoryList[index].count ?? 0} ",
+                                      // "${index} ",
+                                    ),
+                                  ],
                                 ),
-
-                                //Question Ammount
-
-                                CustomText(
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.blue_500,
-                                  text:
-                                      "${controller.subCategoryList[index].count ?? 0} ",
-                                  // "${index} ",
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      } else {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                    },
-                  ),
+                              ),
+                            );
+                          } else {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
+                        },
+                      ),
               })
             ]),
           );

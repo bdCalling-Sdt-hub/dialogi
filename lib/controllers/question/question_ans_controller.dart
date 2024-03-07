@@ -123,10 +123,14 @@ class QuestionAnsController extends GetxController {
 
     print(categoryId);
 
-    var response = await ApiService.getApi("${ApiConstant.questions}/$subCategory/$categoryId?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage");
+    var response = await ApiService.getApi(
+        "${ApiConstant.questions}/$subCategory/$categoryId?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage");
 
-    print("===========================================>${ApiConstant.questions}/$subCategory/$categoryId?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage");
+    print(
+        "===========================================>${ApiConstant.questions}/$subCategory/$categoryId?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage");
 
+    print(
+        "======================================> response ${response.responseJson}");
     if (response.statusCode == 200) {
       print(response.responseJson);
 

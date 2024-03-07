@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:get/get.dart';
@@ -42,7 +43,8 @@ class ApiService {
     };
 
     print("==================================================> url $url");
-    print("==================================================> url $mainHeader");
+    print(
+        "==================================================> url $mainHeader");
 
     try {
       final response = await http
@@ -267,24 +269,24 @@ class ApiService {
   static dynamic handleResponse(http.Response response) {
     switch (response.statusCode) {
       case 200:
-        return ApiResponseModel(200, 'Success', response.body);
+        return ApiResponseModel(response.statusCode, jsonDecode(response.body)['message'], response.body);
       case 201:
-        return ApiResponseModel(201, 'Success', response.body);
+        return ApiResponseModel(response.statusCode, jsonDecode(response.body)['message'], response.body);
       case 401:
         Get.offAllNamed(AppRoutes.signInScreen);
-        return ApiResponseModel(401, "Unauthorized", response.body);
+        return ApiResponseModel(response.statusCode, jsonDecode(response.body)['message'], response.body);
       case 400:
         // Get.offAllNamed(AppRoute.logIn);
-        return ApiResponseModel(400, "Error", response.body);
+        return ApiResponseModel(response.statusCode, jsonDecode(response.body)['message'], response.body);
       case 404:
         // Get.offAllNamed(AppRoute.logIn);
-        return ApiResponseModel(404, "Error", response.body);
+        return ApiResponseModel(response.statusCode, jsonDecode(response.body)['message'], response.body);
       case 409:
         // Get.offAllNamed(AppRoute.logIn);
-        return ApiResponseModel(409, "User already exists", response.body);
+        return ApiResponseModel(response.statusCode, jsonDecode(response.body)['message'], response.body);
       default:
         print(response.statusCode);
-        return ApiResponseModel(500, "Internal Server Error", response.body);
+        return ApiResponseModel(response.statusCode, jsonDecode(response.body)['message'], response.body);
     }
   }
 

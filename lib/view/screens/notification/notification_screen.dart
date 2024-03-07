@@ -7,6 +7,7 @@ import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/container/custom_notification.dart';
 import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
+import 'package:dialogi_app/view/widgets/no_data.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -62,7 +63,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 const Center(child: CircularProgressIndicator()),
               Status.error =>
                 ErrorScreen(onTap: () => controller.notificationsRepo()),
-              Status.completed => Padding(
+              Status.completed =>
+
+              controller.notificationsList.isEmpty
+               ? NoData() :
+                  Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
                   child: ListView.builder(

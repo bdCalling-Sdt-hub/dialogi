@@ -16,7 +16,9 @@ import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:dialogi_app/view/widgets/text_field/custom_text_field.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
@@ -92,7 +94,7 @@ class _QuestionAnsState extends State<QuestionAns> {
 
                     Container(
                       width: double.maxFinite,
-                      height: 110.h,
+                      height: 140.h,
                       padding: const EdgeInsets.all(8),
                       decoration: ShapeDecoration(
                         color: Colors.white,
@@ -102,12 +104,14 @@ class _QuestionAnsState extends State<QuestionAns> {
                       child: Column(
                         children: [
                           Expanded(
-                            child: CustomText(
-                              maxLines: 2,
-                              fontSize: 16.w,
-                              fontWeight: FontWeight.w500,
-                              text: controller.questionAnsModel!.data!
-                                  .attributes!.questions![0].question!,
+                            child: SingleChildScrollView(
+                              child: CustomText(
+                                maxLines: 100,
+                                fontSize: 16.w,
+                                fontWeight: FontWeight.w500,
+                                text: controller.questionAnsModel!.data!
+                                    .attributes!.questions![0].question!,
+                              ),
                             ),
                           ),
                           Row(
@@ -238,7 +242,7 @@ class _QuestionAnsState extends State<QuestionAns> {
                               ),
                               InkWell(
                                 onTap: () =>
-                                    Get.toNamed(AppRoutes.subscriptionsScreen),
+                                    Get.toNamed(AppRoutes.premiumScreen),
                                 child: CustomText(
                                   text: AppStrings.upgradetoPremium,
                                   color: AppColors.blue_500,

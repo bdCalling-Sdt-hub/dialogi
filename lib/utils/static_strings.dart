@@ -82,6 +82,7 @@ class AppStrings {
 
   //Group Chat
   static const String selectFriends = "Select Friends";
+  static const String selectFormPremiumPlus = "Select Premium Plus members";
   static const String createGroup = "Create Group";
   static const String createCommunity = "Create Community";
   static const String setGroupName = "Set Group Name";
@@ -214,9 +215,12 @@ class AppStrings {
   static const String doYouWantToLeaveThisCommunity =
       "Do you want to leave this Community?";
 
-  static const String getEarlyAccess = "Get Early Access";
-  static const String categoryList = "Get Category";
+  static const String getEarlyAccess = "Early Access";
+  static const String categoryList = "General Category";
   static const String mySubscription = "My Subscription";
   static const String noSubscriptionFound = "No Subscription Found";
   static const String premium = "Premium";
+  static const String noData = "No data";
+  static const String buySubscription = "Buy Subscription";
+
 }

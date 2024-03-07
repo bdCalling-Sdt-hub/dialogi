@@ -9,6 +9,7 @@ import 'package:dialogi_app/view/screens/home/screen/inner_widgets/home_drawer.d
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/nav_bar/nav_bar.dart';
+import 'package:dialogi_app/view/widgets/no_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -105,7 +106,14 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           GestureDetector(
               onTap: () {
-                Get.toNamed(AppRoutes.chatListScreen);
+                if(Homecontroller.status == Status.completed) {
+                  if(Homecontroller.accessStatusModel!.data!.isChatAvailable!) {
+                    Get.toNamed(AppRoutes.chatListScreen);
+                  } else {
+                    Get.toNamed(AppRoutes.premiumScreen) ;
+                  }
+                }
+
               },
               child: const CustomImage(
                 imageSrc: AppIcons.chat,
@@ -119,251 +127,259 @@ class _HomeScreenState extends State<HomeScreen> {
           Status.error => ErrorScreen(
               onTap: () => controller.categoryAccessRepo(),
             ),
-          Status.completed => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (controller.earlyAccess.isNotEmpty)
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const CustomText(
-                          left: 4,
-                          text: AppStrings.getEarlyAccess,
-                          color: AppColors.black_500,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                        ),
+          Status.completed =>
+          controller.categoryList.isEmpty && controller.earlyAccess.isEmpty
+              ?const NoData() : Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (controller.earlyAccess.isNotEmpty)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const CustomText(
+                              left: 4,
+                              text: AppStrings.getEarlyAccess,
+                              color: AppColors.black_500,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
 
-                        ///<<<======================== EarlyAccess List Items ===============>>>
-                        SizedBox(
-                          height: Get.height * 0.25,
-                          width: Get.width,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            controller: controller.earlyAccessScrollController,
-                            itemCount: controller.earlyAccess.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              if (index < controller.earlyAccess.length) {
-                                var item = controller.earlyAccess[index];
-                                return GestureDetector(
-                                  onTap: () {
-                                    Get.toNamed(AppRoutes.categoryDetails,
-                                        parameters: {
-                                          "accessStatus": "true",
-                                          "title": item.name!,
-                                          "categoryId": item.sId!
-                                        });
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: Stack(
-                                      clipBehavior: Clip.none,
-                                      children: [
-                                        Container(
-                                          height: Get.height * 0.25,
-                                          width: Get.height * 0.2,
-                                          decoration: BoxDecoration(
-                                              boxShadow: const [
-                                                BoxShadow(
-                                                    color: AppColors.black_100,
-                                                    blurRadius: 3,
-                                                    offset: Offset(0, 2))
-                                              ],
-                                              color: AppColors.whiteColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(8)),
-                                          child: Column(
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 24.0,
-                                                    right: 8.0,
-                                                    left: 8.0),
-                                                child: Container(
-                                                  height: Get.height * 0.15,
-                                                  width: Get.height * 0.15,
-                                                  decoration: ShapeDecoration(
-                                                    image: DecorationImage(
-                                                      image: NetworkImage(
-                                                        "${ApiConstant.baseUrl}${item.image}",
-                                                      ),
-                                                      fit: BoxFit.fill,
-                                                    ),
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        4)),
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                height: 8,
-                                              ),
-                                              CustomText(
-                                                fontSize: 18,
-                                                right: 8.w,
-                                                text: "${item.name}",
-                                                color: AppColors.blue_500,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Positioned(
-                                            top: -10,
-                                            left: -10,
-                                            child: Transform.rotate(
-                                              angle: math.pi / -6,
-                                              child: const SizedBox(
-                                                  height: 80,
-                                                  width: 80,
-                                                  child: Image(
-                                                    image: AssetImage(
-                                                        "assets/images/earlyAccessBadge.png"),
-                                                    fit: BoxFit.fill,
-                                                  )),
-                                            ))
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              } else {
-                                return const Center(
-                                    child: CircularProgressIndicator());
-                              }
-                            },
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Divider(),
-                        ),
-                      ],
-                    ),
-
-                  ///<<<======================== Category List Items ===============>>>
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  const CustomText(
-                    left: 4,
-                    text: AppStrings.categoryList,
-                    color: AppColors.black_500,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 8.0, right: 8, bottom: 12),
-                      child: GridView.builder(
-                          controller: controller.categoryScrollController,
-                          itemCount: controller.categoryList.length,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  mainAxisExtent: 230,
-                                  crossAxisSpacing: 8.w,
-                                  mainAxisSpacing: 8.h),
-                          itemBuilder: (context, index) {
-                            var item = controller.categoryList[index];
-                            if (index < controller.categoryList.length) {
-                              return GestureDetector(
-                                  onTap: () {
-                                    Get.toNamed(AppRoutes.categoryDetails,
-                                        parameters: {
-                                          "accessStatus": "false",
-                                          "title": item.name!,
-                                          "categoryId": item.sId!
-                                        });
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        boxShadow: const [
-                                          BoxShadow(
-                                              color: AppColors.black_100,
-                                              blurRadius: 3,
-                                              offset: Offset(0, 2))
-                                        ],
-                                        color: AppColors.whiteColor,
-                                        borderRadius: BorderRadius.circular(8)),
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8.0,
-                                              right: 8.0,
-                                              left: 8.0,
-                                              bottom: 8),
-                                          child: Container(
-                                            height: 150,
-                                            width: 150,
-                                            decoration: ShapeDecoration(
-                                              image: DecorationImage(
-                                                image: NetworkImage(
-                                                  "${ApiConstant.baseUrl}${item.image}",
-                                                ),
-                                                fit: BoxFit.fill,
-                                              ),
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(4)),
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 8,
-                                        ),
-                                        CustomText(
-                                          fontSize: 18,
-                                          right: 8.w,
-                                          text: "${item.name}",
-                                          color: AppColors.blue_500,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                            ///<<<======================== EarlyAccess List Items ===============>>>
+                            SizedBox(
+                              height: Get.height * 0.25,
+                              width: Get.width,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                controller:
+                                    controller.earlyAccessScrollController,
+                                itemCount: controller.earlyAccess.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  if (index < controller.earlyAccess.length) {
+                                    var item = controller.earlyAccess[index];
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Get.toNamed(AppRoutes.categoryDetails,
+                                            parameters: {
+                                              "accessStatus": "true",
+                                              "title": item.name!,
+                                              "categoryId": item.sId!
+                                            });
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Stack(
+                                          clipBehavior: Clip.none,
                                           children: [
-                                            CustomText(
-                                              fontSize: 14,
-                                              right: 8.w,
-                                              text: "${AppStrings.ques}.",
-                                              color: AppColors.black_500,
-                                              fontWeight: FontWeight.w500,
+                                            Container(
+                                              height: Get.height * 0.25,
+                                              width: Get.height * 0.2,
+                                              decoration: BoxDecoration(
+                                                  boxShadow: const [
+                                                    BoxShadow(
+                                                        color:
+                                                            AppColors.black_100,
+                                                        blurRadius: 3,
+                                                        offset: Offset(0, 2))
+                                                  ],
+                                                  color: AppColors.whiteColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(8)),
+                                              child: Column(
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 24.0,
+                                                            right: 8.0,
+                                                            left: 8.0),
+                                                    child: Container(
+                                                      height: Get.height * 0.15,
+                                                      width: Get.height * 0.15,
+                                                      decoration:
+                                                          ShapeDecoration(
+                                                        image: DecorationImage(
+                                                          image: NetworkImage(
+                                                            "${ApiConstant.baseUrl}${item.image}",
+                                                          ),
+                                                          fit: BoxFit.fill,
+                                                        ),
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            4)),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 8,
+                                                  ),
+                                                  CustomText(
+                                                    fontSize: 18,
+                                                    right: 8.w,
+                                                    text: "${item.name}",
+                                                    color: AppColors.blue_500,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Positioned(
+                                                top: -10,
+                                                left: -10,
+                                                child: Transform.rotate(
+                                                  angle: math.pi / -6,
+                                                  child: const SizedBox(
+                                                      height: 80,
+                                                      width: 80,
+                                                      child: Image(
+                                                        image: AssetImage(
+                                                            "assets/images/earlyAccessBadge.png"),
+                                                        fit: BoxFit.fill,
+                                                      )),
+                                                ))
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    return const Center(
+                                        child: CircularProgressIndicator());
+                                  }
+                                },
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Divider(),
+                            ),
+                          ],
+                        ),
+
+                      ///<<<======================== Category List Items ===============>>>
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      const CustomText(
+                        left: 4,
+                        text: AppStrings.categoryList,
+                        color: AppColors.black_500,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 8.0, right: 8, bottom: 12),
+                          child: GridView.builder(
+                              controller: controller.categoryScrollController,
+                              itemCount: controller.categoryList.length,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      mainAxisExtent: 230,
+                                      crossAxisSpacing: 8.w,
+                                      mainAxisSpacing: 8.h),
+                              itemBuilder: (context, index) {
+                                var item = controller.categoryList[index];
+                                if (index < controller.categoryList.length) {
+                                  return GestureDetector(
+                                      onTap: () {
+                                        Get.toNamed(AppRoutes.categoryDetails,
+                                            parameters: {
+                                              "accessStatus": "false",
+                                              "title": item.name!,
+                                              "categoryId": item.sId!
+                                            });
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                  color: AppColors.black_100,
+                                                  blurRadius: 3,
+                                                  offset: Offset(0, 2))
+                                            ],
+                                            color: AppColors.whiteColor,
+                                            borderRadius:
+                                                BorderRadius.circular(8)),
+                                        child: Column(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8.0,
+                                                  right: 8.0,
+                                                  left: 8.0,
+                                                  bottom: 8),
+                                              child: Container(
+                                                height: 150,
+                                                width: 150,
+                                                decoration: ShapeDecoration(
+                                                  image: DecorationImage(
+                                                    image: NetworkImage(
+                                                      "${ApiConstant.baseUrl}${item.image}",
+                                                    ),
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              4)),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 8,
                                             ),
                                             CustomText(
                                               fontSize: 18,
                                               right: 8.w,
-                                              text: "${item.questionCount}",
-                                              color: AppColors.black_500,
+                                              text: "${item.name}",
+                                              color: AppColors.blue_500,
                                               fontWeight: FontWeight.w500,
                                             ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                CustomText(
+                                                  fontSize: 14,
+                                                  right: 8.w,
+                                                  text: "${AppStrings.ques}.",
+                                                  color: AppColors.black_500,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                                CustomText(
+                                                  fontSize: 18,
+                                                  right: 8.w,
+                                                  text: "${item.questionCount}",
+                                                  color: AppColors.black_500,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ],
+                                            )
                                           ],
-                                        )
-                                      ],
-                                    ),
-                                  ));
-                            } else {
-                              return const Center(
-                                  child: CircularProgressIndicator());
-                            }
-                          }),
-                    ),
-                  )
-                ],
-              ),
-            ),
+                                        ),
+                                      ));
+                                } else {
+                                  return const Center(
+                                      child: CircularProgressIndicator());
+                                }
+                              }),
+                        ),
+                      )
+                    ],
+                  ),
+                )
         };
       }),
     );

@@ -99,7 +99,7 @@ class DiscussionDetailsController extends GetxController {
       repliesList.clear();
       page = 1;
       await discussionDetailsRepo(DiscussionID);
-      isMoreLoading = true;
+      isMoreLoading = false;
       update();
     } else {
       Utils.snackBarMessage(response.statusCode.toString(), response.message);

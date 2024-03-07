@@ -211,8 +211,9 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                               ? controller.repliesList.length + 1
                               : controller.repliesList.length,
                           itemBuilder: (context, index) {
-                            var item = controller.repliesList[index];
+
                             if (index < controller.repliesList.length) {
+                              var item = controller.repliesList[index];
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
