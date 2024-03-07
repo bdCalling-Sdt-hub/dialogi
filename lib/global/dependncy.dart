@@ -1,6 +1,7 @@
 
 import 'package:dialogi_app/controllers/Auth/password_controller.dart';
 import 'package:dialogi_app/controllers/Auth/sign_in_controller.dart';
+import 'package:dialogi_app/controllers/Auth/sign_out_controller.dart';
 import 'package:dialogi_app/controllers/Auth/sign_up_controller.dart';
 import 'package:dialogi_app/controllers/about_us_controller.dart';
 import 'package:dialogi_app/controllers/chat/message_controller.dart';
@@ -45,5 +46,6 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => PaymentController(), fenix: true);
     Get.lazyPut(() => StripePaymentController(), fenix: true);
     Get.lazyPut(() => PaypalPaymentController(), fenix: true);
+    Get.lazyPut(() => SignOutController(), fenix: true);
   }
 }

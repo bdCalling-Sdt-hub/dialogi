@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/services/api_services.dart';
 import 'package:dialogi_app/services/api_url.dart';
+import 'package:dialogi_app/utils/app_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -114,7 +115,7 @@ class SignUpController extends GetxController {
       var data = jsonDecode(response.responseJson);
       if (response.statusCode == 200) {
         if (otpController.text.isEmpty) {
-          Fluttertoast.showToast(msg: "Otp send to you mail");
+          Fluttertoast.showToast(msg: response.message);
           Get.toNamed(
             AppRoutes.signupOtpScreen,
           );
@@ -132,7 +133,7 @@ class SignUpController extends GetxController {
         }
       } else if (response.statusCode == 201) {
         if (otpController.text.isEmpty) {
-          Fluttertoast.showToast(msg: "Otp send to you mail");
+          Fluttertoast.showToast(msg: response.message);
           Get.toNamed(
             AppRoutes.signupOtpScreen,
           );
@@ -147,6 +148,9 @@ class SignUpController extends GetxController {
           PrefsHelper.myName = data['data']["attributes"]["fullName"];
         }
       } else {
+        print(response.statusCode);
+        print(response.message);
+        Utils.snackBarMessage(response.message, "");
         // ApiChecker.checkApi(response);
         // }
       }

@@ -25,126 +25,129 @@ class SetPhotoScreen extends StatefulWidget {
 }
 
 class _SetPhotoScreenState extends State<SetPhotoScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-          backgroundColor: AppColors.background,
-          appBar: CustomAppBar(
-    appBarContent: GestureDetector(
-        onTap: () {
-          Get.back();
-        },
-        child: const CustomImage(
-          imageSrc: AppIcons.chevronLeft,
-          size: 24,
-        )),
-          ),
-          body: GetBuilder<SignUpController>(
-    builder: (controller) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+      backgroundColor: AppColors.background,
+      appBar: CustomAppBar(
+        appBarContent: GestureDetector(
+            onTap: () {
+              Get.back();
+            },
+            child: const CustomImage(
+              imageSrc: AppIcons.chevronLeft,
+              size: 24,
+            )),
+      ),
+      body: GetBuilder<SignUpController>(builder: (controller) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 20, left: 20, right: 20 ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ///<<<==================== Set Profile Picture ===================>>>
 
-            ///<<<==================== Set Profile Picture ===================>>>
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomText(
+                    text: AppStrings.setProfilePicture,
+                    color: AppColors.blue_500,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 24,
+                    top: 24.h,
+                    bottom: 8.h,
+                  ),
 
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomText(
-                  text: AppStrings.setProfilePicture,
-                  color: AppColors.blue_500,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 24,
-                  top: 24.h,
-                  bottom: 8.h,
-                ),
+                  ///fp text
+                  CustomText(
+                    textAlign: TextAlign.start,
+                    maxLines: 3,
+                    text: AppStrings.pleaseuploadApicture,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                    bottom: 44.h,
+                  ),
 
-                ///fp text
-                CustomText(
-                  textAlign: TextAlign.start,
-                  maxLines: 3,
-                  text: AppStrings.pleaseuploadApicture,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                  bottom: 44.h,
-                ),
-
-                ///photo
-                Center(
-                  child: GestureDetector(
-                    onTap: (){
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context){
-                            return const PhotoPopUp();
-                          });
-                    },
-                    child:controller.image!= null ? Container(
-                      height: 100,
-                      width: 100,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: AppColors.blue_400,width: 1),
-                        image: DecorationImage(image: FileImage(File(controller.image!)),
-                        fit: BoxFit.cover
-                        )
-                      ),
-                    ) : Container(
-                      height: 100,
-                      width: 100,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: AppColors.blue_400,width: 1)
-                      ),
-                      child: const Icon(Icons.person_outline_outlined,size: 24,color: AppColors.blue_400,),
+                  ///photo
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return const PhotoPopUp();
+                            });
+                      },
+                      child: controller.image != null
+                          ? Container(
+                              height: 100,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                      color: AppColors.blue_400, width: 1),
+                                  image: DecorationImage(
+                                      image: FileImage(File(controller.image!)),
+                                      fit: BoxFit.cover)),
+                            )
+                          : Container(
+                              height: 100,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                      color: AppColors.blue_400, width: 1)),
+                              child: const Icon(
+                                Icons.person_outline_outlined,
+                                size: 24,
+                                color: AppColors.blue_400,
+                              ),
+                            ),
                     ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
 
+              Column(
+                children: [
+                  ///<<<==================== Skip Button =========================>>>
 
-            Column(
-              children: [
-
-                ///<<<==================== Skip Button =========================>>>
-
-                CustomElevatedButton(
-                  onPressed: () {
-                    Get.toNamed(AppRoutes.setPasswordScreen);
-                  },
-                  titleText: AppStrings.skip,
-                  buttonWidth: MediaQuery.of(context).size.width,
-                  buttonColor: Colors.white,
-                  borderColor: Colors.black,
-                  titleColor: Colors.black87,
-                ),
-                SizedBox(height: 24.h,),
-
-                ///<<<==================== Get Started Button =========================>>>
-
-                CustomElevatedButton(
-                  onPressed: () {
-                    if(controller.image == null){
-                      Fluttertoast.showToast(msg: AppStrings.profilePictureSet);
-                    } else {
+                  CustomElevatedButton(
+                    onPressed: () {
                       Get.toNamed(AppRoutes.setPasswordScreen);
-                    }
-                  },
-                  titleText: AppStrings.getStarted,
-                  buttonWidth: MediaQuery.of(context).size.width,
-                ),
-              ],
-            ),
-          ],
-        ),
-      );
-    }
+                    },
+                    titleText: AppStrings.skip,
+                    buttonWidth: MediaQuery.of(context).size.width,
+                    buttonColor: Colors.white,
+                    borderColor: Colors.black,
+                    titleColor: Colors.black87,
+                  ),
+                  SizedBox(
+                    height: 24.h,
+                  ),
+
+                  ///<<<==================== Get Started Button =========================>>>
+
+                  CustomElevatedButton(
+                    onPressed: () {
+                      if (controller.image == null) {
+                        Fluttertoast.showToast(
+                            msg: AppStrings.profilePictureSet);
+                      } else {
+                        Get.toNamed(AppRoutes.setPasswordScreen);
+                      }
+                    },
+                    titleText: AppStrings.getStarted,
+                    buttonWidth: MediaQuery.of(context).size.width,
+                  ),
+                ],
+              ),
+            ],
           ),
         );
+      }),
+    );
   }
 }

@@ -54,12 +54,15 @@ class SignInController extends GetxController {
         PrefsHelper.setString("clientId", data['data']["attributes"]["_id"]);
         PrefsHelper.setString("myImage", data['data']["attributes"]["image"]);
         PrefsHelper.setString("myName", data['data']["attributes"]["fullName"]);
+        PrefsHelper.setBool("isProvider", false);
 
 
         PrefsHelper.token = data['data']["accessToken"];
         PrefsHelper.clientId = data['data']["attributes"]["_id"];
         PrefsHelper.myImage = data['data']["attributes"]["image"];
         PrefsHelper.myName = data['data']["attributes"]["fullName"];
+        PrefsHelper.isProvider = false;
+
 
 
         print("==========================================->clientId ${data['data']["attributes"]["_id"]}") ;
@@ -112,17 +115,20 @@ class SignInController extends GetxController {
 
         if (response.statusCode == 200) {
           var data = jsonDecode(response.responseJson);
-
           print("======================> data $data") ;
 
           PrefsHelper.setString(AppConstants.bearerToken, data['data']["accessToken"]);
           PrefsHelper.setString("clientId", data['data']["attributes"]["_id"]);
           PrefsHelper.setString("myImage", data['data']["attributes"]["image"]);
           PrefsHelper.setString("myName", data['data']["attributes"]["fullName"]);
+          PrefsHelper.setBool("isProvider", data['data']["attributes"]["loginInWithProvider"]);
+          print("${data['data']["attributes"]["loginInWithProvider"]}");
+
           PrefsHelper.token = data['data']["accessToken"];
           PrefsHelper.clientId = data['data']["attributes"]["_id"];
           PrefsHelper.myImage = data['data']["attributes"]["image"];
           PrefsHelper.myName = data['data']["attributes"]["fullName"];
+          PrefsHelper.isProvider = data['data']["attributes"]["loginInWithProvider"];
 
 
           print("=====================->clientId ${data['data']["attributes"]["_id"]}") ;
