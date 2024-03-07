@@ -10,6 +10,7 @@ class PrefsHelper extends GetxController {
   static String forgetPasswordToken = "";
   static String myImage = "";
   static String myName = "";
+  static bool isProvider = false;
   static String mySubscription = "premium-plus";
 
   ///<<<======================== Get All Data Form Shared Preference ==============>
@@ -81,6 +82,7 @@ class PrefsHelper extends GetxController {
     token = "";
     forgetPasswordToken = "";
     clientId = "";
+    isProvider = false;
     // preferences.remove(AppConstants.bearerToken);
     // preferences.remove(AppConstants.forgetPasswordToken);
     // preferences.remove("clientId");

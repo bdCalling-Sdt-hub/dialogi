@@ -1,3 +1,5 @@
+import 'package:dialogi_app/controllers/Auth/sign_in_controller.dart';
+import 'package:dialogi_app/controllers/Auth/sign_out_controller.dart';
 import 'package:dialogi_app/helper/prefs_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +9,7 @@ import '../../../../widgets/image/custom_image.dart';
 import '../../../../widgets/text/custom_text.dart';
 
 class LogOut {
+
   static Widget customRow({required String icon, required String text}) {
     return GestureDetector(
       onTap: showLogOutPopup,
@@ -39,6 +42,7 @@ class LogOut {
                 onPressed: () {
                   Navigator.pop(context);
                   PrefsHelper.removeAllPrefData();
+                  SignOutController.googleSignOut();
                 },
                 child: const Text("Yes")),
             TextButton(

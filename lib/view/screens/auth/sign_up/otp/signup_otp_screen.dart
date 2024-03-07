@@ -16,6 +16,7 @@ class SignUpOtpScreen extends StatelessWidget {
   SignUpOtpScreen({super.key});
 
   final formKey = GlobalKey<FormState>();
+  SignUpController signUpController = Get.find<SignUpController>();
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +116,9 @@ class SignUpOtpScreen extends StatelessWidget {
                           ? const Center(child: CircularProgressIndicator())
                           : GestureDetector(
                         onTap: () {
-                          controller.signUpUser();
+                          if(signUpController.otpController.text.isEmpty){
+                            controller.signUpUser();
+                          }
                         },
                         child: const CustomText(
                           text: AppStrings.resend,

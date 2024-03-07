@@ -28,6 +28,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("Access Token: ${PrefsHelper.token}");
     return Scaffold(
       backgroundColor: AppColors.background,
       body: GetBuilder<SignInController>(builder: (controller) {

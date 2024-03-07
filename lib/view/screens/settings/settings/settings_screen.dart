@@ -1,5 +1,6 @@
 import 'package:dialogi_app/controllers/settings_controller/settings_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
+import 'package:dialogi_app/helper/prefs_helper.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
@@ -16,6 +17,9 @@ class SettingsScreen extends StatelessWidget {
   SettingsScreen({super.key});
 
   var settingsController = Get.find<SettingsController>();
+
+  bool isProvider = PrefsHelper.isProvider;
+
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +53,9 @@ class SettingsScreen extends StatelessWidget {
           children: [
             ///<<<=================== change password =======================>>>
 
-            CustomSettingsContainer(
+
+              if(isProvider)
+                CustomSettingsContainer(
                 onTap: () {
 
                   Get.toNamed(AppRoutes.settingsChangePasswordScreen);

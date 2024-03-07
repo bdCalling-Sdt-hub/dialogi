@@ -63,6 +63,7 @@ class ApiService {
       //
 
       // }
+
     } on SocketException {
       // Utils.toastMessage("please, check your internet connection");
 
@@ -248,12 +249,11 @@ class ApiService {
       var response = await request.send();
 
       if (response.statusCode == 200) {
-        return ApiResponseModel(
-            200, "Success", await response.stream.bytesToString());
+        String data = await response.stream.bytesToString();
+        return ApiResponseModel(200, jsonDecode(data)['message'], data);
       } else {
-        return ApiResponseModel(response.statusCode, "Error",
-            await response.stream.bytesToString());
-      }
+        String data = await response.stream.bytesToString();
+        return ApiResponseModel(response.statusCode, jsonDecode(data)['message'], data);}
     } on SocketException {
       Get.toNamed(AppRoutes.noInternet);
       return ApiResponseModel(503, "No internet connection", '');
