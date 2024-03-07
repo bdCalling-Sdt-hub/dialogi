@@ -105,7 +105,7 @@ class OtpScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const CustomText(
+                      CustomText(
                         textAlign: TextAlign.start,
                         maxLines: 3,
                         text: AppStrings.didntReceivetheCode,
@@ -117,7 +117,7 @@ class OtpScreen extends StatelessWidget {
                         onTap: () {
 
                         },
-                        child: const CustomText(
+                        child: CustomText(
                           text: AppStrings.resend,
                           fontWeight: FontWeight.w500,
                           fontSize: 18,

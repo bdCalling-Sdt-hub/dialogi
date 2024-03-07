@@ -45,7 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const SizedBox(),
-            const CustomText(
+            CustomText(
               text: AppStrings.profile,
               fontSize: 18,
               fontWeight: FontWeight.w500,

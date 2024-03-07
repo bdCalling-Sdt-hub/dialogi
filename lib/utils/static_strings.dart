@@ -1,222 +1,223 @@
+import 'package:get/get.dart';
+
 class AppStrings {
   //Sign in
 
-  static const String unlockPremiumAccess =
-      "Unlock premium access for unlimited Dialoginess!";
-  static const String getPremium = "Get Premium";
-  static const String getPremiumPlus = "Get Premium Plus";
-  static const String skipForNow = "Skip for now";
-  static const String welcomeToThe = "Welcome to the";
-  static const String dialogiApp = "Dialogi App";
-  static const String enterYourEmail = "Enter your Email";
-  static const String enteryourpassword = "Enter your Password";
-  static const String forgotPassword = "Forgot Password";
-  static const String signIn = "Sign In";
-  static const String signUp = "Sign Up";
-  static const String or = "Or";
-  static const String getOtp = "Get OTP";
-  static const String continuewithGoogle = "Continue with Google";
-  static const String continuewithApple = "Continue with Apple";
-  static const String donthaveanaccount = "Don’t have an account?";
-  static const String passwordMustHave =
-      "Password must 8 characters long & must include letters & digits.";
+  static String unlockPremiumAccess = "Unlock premium access for unlimited Dialoginess!".tr;
+  static String getPremium = "Get Premium".tr;
+  static String getPremiumPlus = "Get Premium Plus".tr;
+  static String skipForNow = "Skip for now".tr;
+  static String welcomeToThe = "Welcome to the".tr;
+  static String dialogiApp = "Dialogi App".tr;
+  static String enterYourEmail = "Enter your Email".tr;
+  static String enteryourpassword = "Enter your Password".tr;
+  static String forgotPassword = "Forgot Password".tr;
+  static String signIn = "Sign In".tr;
+  static String signUp = "Sign Up".tr;
+  static String or = "Or".tr;
+  static String getOtp = "Get OTP".tr;
+  static String continuewithGoogle = "Continue with Google".tr;
+  static String continuewithApple = "Continue with Apple".tr;
+  static String donthaveanaccount = "Don’t have an account?".tr;
+  static String passwordMustHave =
+      "Password must 8 characters long & must include letters & digits.".tr;
 
   //Sign Up
-  static const String createnewaccount = "Create new account";
-  static const String joinusforbetterexperience =
-      "Join us for a better experience";
-  static const String fullname = "Full name";
-  static const String email = "Email";
-  static const String dateofbirth = "Date of birth";
-  static const String address = "Address";
-  static const String continuee = "Continue";
-  static const String alreadyhaveanaccount = "Already have an account?";
-  static const String profilePictureSet = "Set your profile picture";
-  static const String setPassword = "Set Password";
-  static const String passwordshouldBe =
-      "Password must 8 characters long & must include letters & digits ";
-  static const String reenteryourpassword = "Re-enter your password";
-  static const String setProfilePicture = "Set Profile Picture";
-  static const String pleaseuploadApicture =
-      "Please upload a picture to complete your profile.";
-  static const String skip = "Skip";
-  static const String chooseSource = "Choose Source";
-  static const String gallery = "Gallery";
-  static const String camera = "Camera";
-  static const String resend = "Resend";
-  static const String getStarted = "Get Started";
-  static const String photohasbeenuploaded = "Photo has been uploaded.";
+  static String createnewaccount = "Create new account".tr;
+  static String joinusforbetterexperience =
+      "Join us for a better experience".tr;
+  static String fullname = "Full name".tr;
+  static String email = "Email".tr;
+  static String dateofbirth = "Date of birth".tr;
+  static String address = "Address".tr;
+  static String continuee = "Continue".tr;
+  static String alreadyhaveanaccount = "Already have an account?".tr;
+  static String profilePictureSet = "Set your profile picture".tr;
+  static String setPassword = "Set Password".tr;
+  static String passwordshouldBe =
+      "Password must 8 characters long & must include letters & digits ".tr;
+  static String reenteryourpassword = "Re-enter your password".tr;
+  static String setProfilePicture = "Set Profile Picture".tr;
+  static String pleaseuploadApicture =
+      "Please upload a picture to complete your profile.".tr;
+  static String skip = "Skip".tr;
+  static String chooseSource = "Choose Source".tr;
+  static String gallery = "Gallery".tr;
+  static String camera = "Camera".tr;
+  static String resend = "Resend".tr;
+  static String getStarted = "Get Started".tr;
+  static String photohasbeenuploaded = "Photo has been uploaded.".tr;
 
   //Forget Password
 
-  static const String pleaseEnteryourEmailAddresstoreset =
-      "Please enter your email address to reset your password.";
-  static const String getOTP = "Get OTP";
-  static const String wehavesentaverificationcode =
-      "We have sent a verification code to your email address. Please check and enter the code here.";
-  static const String didntreceivethecode = "Didn’t receive the code?";
-  static const String verify = "Verify";
-  static const String resetPassword = "Reset Password";
+  static String pleaseEnteryourEmailAddresstoreset =
+      "Please enter your email address to reset your password.".tr;
+  static String getOTP = "Get OTP".tr;
+  static String wehavesentaverificationcode =
+      "We have sent a verification code to your email address. Please check and enter the code here.".tr;
+  static String didntreceivethecode = "Didn’t receive the code?".tr;
+  static String verify = "Verify".tr;
+  static String resetPassword = "Reset Password".tr;
 
   //Home
 
-  static const String settings = "Settings";
-  static const String logout = "Logout";
-  static const String upgradetoPremiumfor =
-      "Upgrade to Premium for better experience";
-  static const String gotoSubscriptions = "Go to Subscriptions";
-  static const String ques = "Ques";
-  static const String pendingRequests = "Pending Requests";
-  static const String friendRequests = "Friend Requests";
-  static const String communityRequests = "Community Requests";
+  static String settings = "Settings".tr;
+  static String logout = "Logout".tr;
+  static String upgradetoPremiumfor =
+      "Upgrade to Premium for better experience".tr;
+  static String gotoSubscriptions = "Go to Subscriptions".tr;
+  static String ques = "Ques".tr;
+  static String pendingRequests = "Pending Requests".tr;
+  static String friendRequests = "Friend Requests".tr;
+  static String communityRequests = "Community Requests".tr;
 
   //Chat
 
-  static const String chat = "Chat";
-  static const String community = "Community";
-  static const String group = "Group";
-  static const String selectDiscussionPlatform = "Select Discussion Platform";
-  static const String confirm = "Confirm";
-  static const String chatList = "Chat List";
-  static const String typemessage = "Type message";
+  static String chat = "Chat".tr;
+  static String community = "Community".tr;
+  static String group = "Group".tr;
+  static String selectDiscussionPlatform = "Select Discussion Platform".tr;
+  static String confirm = "Confirm".tr;
+  static String chatList = "Chat List".tr;
+  static String typemessage = "Type message".tr;
 
   //Group Chat
-  static const String selectFriends = "Select Friends";
-  static const String createGroup = "Create Group";
-  static const String createCommunity = "Create Community";
+  static String selectFriends = "Select Friends".tr;
+  static String createGroup = "Create Group".tr;
+  static String createCommunity = "Create Community".tr;
   static const String setGroupName = "Set Group Name";
-  static const String setName = "Set Name";
-  static const String enterGroupName = "Enter group name";
-  static const String entertheName = "Enter the name";
+  static String setName = "Set Name".tr;
+  static String enterGroupName = "Enter group name".tr;
+  static String entertheName = "Enter the name".tr;
   static const String create = "Create";
-  static const String groupMembers = "Group members";
-  static const String changeGroupName = "Change Group Name";
-  static const String deleteConversation = "Delete Conversation";
-  static const String leaveGroup = "Leave Group";
-  static const String change = "Change";
+  static String groupMembers = "Group members".tr;
+  static String changeGroupName = "Change Group Name".tr;
+  static String deleteConversation = "Delete Conversation".tr;
+  static String leaveGroup = "Leave Group".tr;
+  static String change = "Change".tr;
   static const String doyouWantToDeletethisGroup =
       "Do you want to delete this group?";
-  static const String yes = "Yes";
-  static const String no = "No";
-  static const String doYouWantToLeaveThisGroup =
-      "Do you want to leave this group?";
-  static const String discusswithFriends = "Discuss with Friends";
+  static String yes = "Yes".tr;
+  static String no = "No".tr;
+  static String doYouWantToLeaveThisGroup =
+      "Do you want to leave this group?".tr;
+  static String discusswithFriends = "Discuss with Friends".tr;
 
-  //Nav Bar
+  //Nav Bar.tr
 
-  static const String home = "Home";
-  static const String category = "Category";
-  static const String friends = "Friends";
-  static const String profile = "Profile";
+  static String home = "Home".tr;
+  static String category = "Category".tr;
+  static String friends = "Friends".tr;
+  static String profile = "Profile".tr;
 
   //Category
 
-  static const String subCategories = "Sub-Categories";
-  static const String closeFriends = "Close Friends";
-  static const String bestFriends = "Best Friends";
-  static const String penFriends = "Pen Friends";
-  static const String enteryouranswer = "Enter your answer";
-  static const String next = "Next";
-  static const String add = "Add";
-  static const String wanttojointhediscussion =
-      "Want to join the discussion with others?";
-  static const String upgradetoPremium = "Premium Subscription";
-  static const String upgradetoPremiumPlus = "Premium Plus Subscription";
-  static const String greatJob = "Great Job!";
-  static const String youHaveCompleted = "You have completed all questions!";
-  static const String gotocategories = "Go to categories";
-  static const String discussions = "Discussions";
-  static const String reply = "Reply";
-  static const String enterTextHere = "Enter your text";
+  static String subCategories = "Sub-Categories".tr;
+  static String closeFriends = "Close Friends".tr;
+  static String bestFriends = "Best Friends".tr;
+  static String penFriends = "Pen Friends".tr;
+  static String enteryouranswer = "Enter your answer".tr;
+  static String next = "Next".tr;
+  static String add = "Add".tr;
+  static String wanttojointhediscussion =
+      "Want to join the discussion with others?".tr;
+  static String upgradetoPremium = "Premium Subscription".tr;
+  static String upgradetoPremiumPlus = "Premium Plus Subscription".tr;
+  static String greatJob = "Great Job!".tr;
+  static String youHaveCompleted = "You have completed all questions!".tr;
+  static String gotocategories = "Go to categories".tr;
+  static String discussions = "Discussions".tr;
+  static String reply = "Reply".tr;
+  static String enterTextHere = "Enter your text".tr;
 
   //Settings
 
-  static const String changePassword = "Change Password";
-  static const String subscriptions = "Subscriptions";
-  static const String privacyPolicy = "Privacy Policy";
-  static const String aboutUs = "About Us";
-  static const String support = "Support";
-  static const String fAQ = "FAQ";
-  static const String deleteAccount = "Delete Account";
-  static const String currentpassword = "Current password";
-  static const String newpassword = "New password";
-  static const String reEnterNewpassword = "Re-enter new password";
-  static const String update = "Update";
-  static const String weHavesentaverificationcode =
-      "We have sent a verification code to your email address. Please check and enter the code here.";
-  static const String didntReceivetheCode = "Didn’t receive the code?";
-  static const String reset = "Reset";
-  static const String changeLanguage = "Change Language";
-  static const String english = "English";
-  static const String german = "German";
-  static const String currentPlan = "Current Plan";
-  static const String premiumPlus = "Premium Plus";
-  static const String cancelPlan = "Cancel Plan";
-  static const String billedMonthly = "Billed Monthly";
-  static const String billingDate = "Billing Date";
-  static const String enteryourCurrentPasswordToDelete =
-      "Enter your current password to delete your account.";
+  static String changePassword = "Change Password".tr;
+  static String subscriptions = "Subscriptions".tr;
+  static String privacyPolicy = "Privacy Policy".tr;
+  static String aboutUs = "About Us".tr;
+  static String support = "Support".tr;
+  static String fAQ = "FAQ".tr;
+  static String deleteAccount = "Delete Account".tr;
+  static String currentpassword = "Current password".tr;
+  static String newpassword = "New password".tr;
+  static String reEnterNewpassword = "Re-enter new password".tr;
+  static String update = "Update".tr;
+  static String weHavesentaverificationcode =
+      "We have sent a verification code to your email address. Please check and enter the code here.".tr;
+  static String didntReceivetheCode = "Didn’t receive the code?".tr;
+  static String reset = "Reset".tr;
+  static String changeLanguage = "Change Language".tr;
+  static String english = "English".tr;
+  static String german = "German".tr;
+  static String currentPlan = "Current Plan".tr;
+  static String premiumPlus = "Premium Plus".tr;
+  static String cancelPlan = "Cancel Plan".tr;
+  static String billedMonthly = "Billed Monthly".tr;
+  static String billingDate = "Billing Date".tr;
+  static String enteryourCurrentPasswordToDelete =
+      "Enter your current password to delete your account.".tr;
 
   //Profile
-  static const String premiumMember = "Premium Member";
-  static const String editProfile = "Edit Profile";
+  static String premiumMember = "Premium Member".tr;
+  static String editProfile = "Edit Profile".tr;
 
   //Upgrade to premium
 
-  static const String addPaymentMethod = "Add Payment Method";
-  static const String selectPaymentMethodForUpgrade =
-      "Select a payment method to upgrade your subscription.";
-  static const String entercardholdername = "Enter cardholder name";
-  static const String cardnumber = "Card number";
-  static const String cVVCVC = "CVV/CVC";
-  static const String mMYY = "MM/YY";
-  static const String proceedToPayment = "Proceed to Payment";
-  static const String successful = "Successful";
-  static const String yourPurchaseSuccessfullydone =
-      "Your purchase has been done successfully ";
-  static const String gotoHome = "Go to Home";
+  static String addPaymentMethod = "Add Payment Method".tr;
+  static String selectPaymentMethodForUpgrade =
+      "Select a payment method to upgrade your subscription.".tr;
+  static String entercardholdername = "Enter cardholder name".tr;
+  static String cardnumber = "Card number".tr;
+  static String cVVCVC = "CVV/CVC".tr;
+  static String mMYY = "MM/YY".tr;
+  static String proceedToPayment = "Proceed to Payment".tr;
+  static String successful = "Successful".tr;
+  static String yourPurchaseSuccessfullydone =
+      "Your purchase has been done successfully ".tr;
+  static String gotoHome = "Go to Home".tr;
 
   //Friends
 
-  static const String cancelAnytime = "Cancel anytime";
-  static const String allFriends = "All Friends";
-  static const String message = "Message";
-  static const String sendRequest = "Send Request";
-  static const String requestSend = "Request Sent";
-  static const String enterName = "Enter name";
-  static const String dob = "date-of-birth";
-  static const String enterLocation = "Enter location";
+  static String cancelAnytime = "Cancel anytime".tr;
+  static String allFriends = "All Friends".tr;
+  static String message = "Message".tr;
+  static String sendRequest = "Send Request".tr;
+  static String requestSend = "Request Sent".tr;
+  static String enterName = "Enter name".tr;
+  static String dob = "date-of-birth".tr;
+  static String enterLocation = "Enter location".tr;
 
   ///Notification
 
-  static const String notification = "Notifications";
-  static const String reject = "Reject";
-  static const String accept = "Accept";
+  static String notification = "Notifications".tr;
+  static String reject = "Reject".tr;
+  static String accept = "Accept".tr;
 
   //Others
 
-  static const String cancelSubscription = "Cancel Subscription?";
-  static const String areYouSure = "Are you sure?";
-  static const String view = "View";
-  static const String noInternet = "No Internet";
-  static const String checkInternet = "Please, check your internet connection";
-  static const String back = "Back";
-  static const String somethingWrong = "Something wrong!";
-  static const String tryAgain = "Try Again";
-  static const String favoriteList = "Favorite List";
-  static const String selectMember = "Select Member";
-  static const String pleaseSelectAtLeastTwoMembers =
-      "Please, select at least two members";
-  static const String createNewCommunity = "Create New Community";
-  static const String communityMembers = "Community members";
-  static const String changeCommunityName = "Change Community Name";
-  static const String leaveCommunity = "Leave Community";
-  static const String doYouWantToLeaveThisCommunity =
-      "Do you want to leave this Community?";
+  static String cancelSubscription = "Cancel Subscription?".tr;
+  static String areYouSure = "Are you sure?".tr;
+  static String view = "View".tr;
+  static String noInternet = "No Internet".tr;
+  static String checkInternet = "Please, check your internet connection".tr;
+  static String back = "Back".tr;
+  static String somethingWrong = "Something wrong!".tr;
+  static String tryAgain = "Try Again".tr;
+  static String favoriteList = "Favorite List".tr;
+  static String selectMember = "Select Member".tr;
+  static String pleaseSelectAtLeastTwoMembers =
+      "Please, select at least two members".tr;
+  static String createNewCommunity = "Create New Community".tr;
+  static String communityMembers = "Community members".tr;
+  static String changeCommunityName = "Change Community Name".tr;
+  static String leaveCommunity = "Leave Community".tr;
+  static String doYouWantToLeaveThisCommunity =
+      "Do you want to leave this Community?".tr;
 
-  static const String getEarlyAccess = "Get Early Access";
-  static const String categoryList = "Get Category";
-  static const String mySubscription = "My Subscription";
-  static const String noSubscriptionFound = "No Subscription Found";
-  static const String premium = "Premium";
+  static String getEarlyAccess = "Early Access".tr;
+  static String categoryList = "General Category".tr;
+  static String mySubscription = "My Subscription".tr;
+  static String noSubscriptionFound = "No Subscription Found".tr;
+  static String premium = "Premium".tr;
 }

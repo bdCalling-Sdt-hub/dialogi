@@ -71,7 +71,7 @@ class ResetPasswordScreen extends StatelessWidget {
                         if (value.isEmpty) {
                           return ApiStaticStrings.fieldCantBeEmpty;
                         } else if (value.length < 8) {
-                          return ApiStaticStrings.passwordLength;
+                          return ApiStaticStrings.passMustContainBoth;
                         } else if (!ApiStaticStrings.passRegExp.hasMatch(value)) {
                           return ApiStaticStrings.passMustContainBoth;
                         } else {

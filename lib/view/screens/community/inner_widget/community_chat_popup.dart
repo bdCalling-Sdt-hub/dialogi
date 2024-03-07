@@ -40,7 +40,7 @@ class CommunityChatPopUps extends StatelessWidget {
                 navigator!.pop();
                 Get.toNamed(AppRoutes.communityMembers);
               },
-              child: const CustomText(
+              child: CustomText(
                 fontSize: 14,
                 text: AppStrings.communityMembers,
               )),
@@ -57,7 +57,7 @@ class CommunityChatPopUps extends StatelessWidget {
                 //     title: AppStrings.changeCommunityName,
                 //     buttonText: AppStrings.change);
               },
-              child: const CustomText(
+              child: CustomText(
                 fontSize: 14,
                 text: AppStrings.changeCommunityName,
               )),
@@ -73,7 +73,7 @@ class CommunityChatPopUps extends StatelessWidget {
                 permissionPopUp(
                     context: context, ontapYes: () {}, ontapNo: () {});
               },
-              child: const CustomText(
+              child: CustomText(
                 fontSize: 14,
                 text: AppStrings.deleteConversation,
               )),
@@ -94,7 +94,7 @@ class CommunityChatPopUps extends StatelessWidget {
                     ontapNo: () {},
                     title: AppStrings.doYouWantToLeaveThisGroup);
               },
-              child: const CustomText(
+              child: CustomText(
                 fontSize: 14,
                 color: AppColors.red_400,
                 text: AppStrings.leaveCommunity,

@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'helper/prefs_helper.dart';
+import 'language/local.dart';
 
 Future<void> configureTts() async {
   FlutterTts flutterTts = FlutterTts();
@@ -61,6 +62,12 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       child: GetMaterialApp(
+        translations: Languages(),
+        locale: const Locale("en", "US"),
+        // locale: Locale(PrefsHelper.localizationLanguageCode,
+        //     PrefsHelper.localizationCountryCode),
+        // fallbackLocale: const Locale("en", "US"),
+        // translations: Languages(),
         theme: ThemeData(scaffoldBackgroundColor: AppColors.background),
         debugShowCheckedModeBanner: false,
         title: 'Dialogi App',

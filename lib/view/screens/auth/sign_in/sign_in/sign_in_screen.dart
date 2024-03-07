@@ -109,7 +109,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     if (value.isEmpty) {
                       return ApiStaticStrings.fieldCantBeEmpty;
                     } else if (value.length < 8) {
-                      return ApiStaticStrings.passwordLength;
+                      return ApiStaticStrings.passMustContainBoth;
                     } else if (!ApiStaticStrings.passRegExp.hasMatch(value)) {
                       return ApiStaticStrings.passMustContainBoth;
                     } else {
@@ -246,7 +246,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const CustomText(
+                      CustomText(
                         text: AppStrings.donthaveanaccount,
                         fontSize: 16,
                       ),
@@ -254,7 +254,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         onTap: () {
                           Get.toNamed(AppRoutes.signUpScreen);
                         },
-                        child: const CustomText(
+                        child: CustomText(
                           text: AppStrings.signUp,
                           fontSize: 18,
                           fontWeight: FontWeight.w500,

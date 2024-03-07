@@ -13,7 +13,7 @@ class NoInternet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AppStrings.noInternet),
+        title: Text(AppStrings.noInternet),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),

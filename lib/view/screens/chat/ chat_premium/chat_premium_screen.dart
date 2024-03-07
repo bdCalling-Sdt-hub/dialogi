@@ -61,7 +61,7 @@ class _ChatPremiumScreenState extends State<ChatPremiumScreen> {
                 imageSrc: AppIcons.chevronLeft,
                 size: 24,
               )),
-          const CustomText(
+          CustomText(
             text: AppStrings.chat,
             fontSize: 18,
             fontWeight: FontWeight.w500,

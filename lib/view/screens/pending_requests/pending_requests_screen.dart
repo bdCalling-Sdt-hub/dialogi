@@ -58,7 +58,7 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                   imageSrc: AppIcons.chevronLeft,
                   size: 24,
                 )),
-            const CustomText(
+            CustomText(
               text: AppStrings.pendingRequests,
               fontSize: 18,
               fontWeight: FontWeight.w500,
@@ -120,7 +120,7 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                                 },
                                 child: Column(
                                   children: [
-                                    const CustomText(
+                                    CustomText(
                                       text: AppStrings.communityRequests,
                                       fontSize: 14,
                                       color: AppColors.blue_500,

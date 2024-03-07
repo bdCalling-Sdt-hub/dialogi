@@ -36,7 +36,7 @@ class _CommunityState extends State<Community> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: const NavBar(currentIndex: 3),
-      appBar: const CustomAppBar(
+      appBar: CustomAppBar(
           appBarContent: Center(
         child: CustomText(
           text: AppStrings.community,

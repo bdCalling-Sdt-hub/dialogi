@@ -231,7 +231,7 @@ class _QuestionAnsState extends State<QuestionAns> {
                         ? const Expanded(child: CommentReply())
                         : Column(
                             children: [
-                              const CustomText(
+                              CustomText(
                                   text: AppStrings.wanttojointhediscussion),
                               SizedBox(
                                 height: 8.h,

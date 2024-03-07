@@ -56,7 +56,7 @@ class SignUpScreen extends StatelessWidget {
 
                   ///<<<===================Join us================================>>>
 
-                  const CustomText(
+                  CustomText(
                     textAlign: TextAlign.start,
                     maxLines: 3,
                     text: AppStrings.joinusforbetterexperience,
@@ -212,7 +212,7 @@ class SignUpScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const CustomText(
+                        CustomText(
                           text: AppStrings.alreadyhaveanaccount,
                           fontSize: 16,
                         ),
@@ -220,7 +220,7 @@ class SignUpScreen extends StatelessWidget {
                           onTap: (){
                             Get.toNamed(AppRoutes.signInScreen);
                           },
-                          child: const CustomText(
+                          child: CustomText(
                             text: AppStrings.signIn,
                             fontSize: 18,
                             fontWeight: FontWeight.w500,

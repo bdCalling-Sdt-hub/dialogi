@@ -41,7 +41,7 @@ class GroupChatPopUps extends StatelessWidget {
                   "chatId": chatId,
                 });
               },
-              child: const CustomText(
+              child: CustomText(
                 fontSize: 14,
                 text: AppStrings.groupMembers,
               )),
@@ -58,7 +58,7 @@ class GroupChatPopUps extends StatelessWidget {
                 //     title: AppStrings.changeGroupName,
                 //     buttonText: AppStrings.change);
               },
-              child: const CustomText(
+              child: CustomText(
                 fontSize: 14,
                 text: AppStrings.changeGroupName,
               )),
@@ -74,7 +74,7 @@ class GroupChatPopUps extends StatelessWidget {
                 permissionPopUp(
                     context: context, ontapYes: () {}, ontapNo: () {});
               },
-              child: const CustomText(
+              child: CustomText(
                 fontSize: 14,
                 text: AppStrings.deleteConversation,
               )),
@@ -94,7 +94,7 @@ class GroupChatPopUps extends StatelessWidget {
                     ontapNo: () {},
                     title: AppStrings.doYouWantToLeaveThisGroup);
               },
-              child: const CustomText(
+              child: CustomText(
                 fontSize: 14,
                 color: AppColors.red_400,
                 text: AppStrings.leaveGroup,

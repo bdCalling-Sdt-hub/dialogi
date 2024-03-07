@@ -47,7 +47,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 imageSrc: AppIcons.chevronLeft,
                 size: 24,
               )),
-          const CustomText(
+          CustomText(
             text: AppStrings.editProfile,
             fontSize: 18,
             fontWeight: FontWeight.w500,

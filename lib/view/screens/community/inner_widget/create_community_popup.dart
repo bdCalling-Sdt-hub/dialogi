@@ -29,7 +29,7 @@ void createCommunityPopUp({
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const CustomText(
+              CustomText(
                 fontWeight: FontWeight.w500,
                 text: AppStrings.setName,
               ),

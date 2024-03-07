@@ -36,7 +36,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: const NavBar(currentIndex: 2),
-        appBar: const CustomAppBar(
+        appBar: CustomAppBar(
             appBarContent: Center(
           child: CustomText(
             text: AppStrings.allFriends,

@@ -46,7 +46,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   imageSrc: AppIcons.chevronLeft,
                   size: 24,
                 )),
-            const CustomText(
+            CustomText(
               text: AppStrings.notification,
               fontSize: 18,
               fontWeight: FontWeight.w500,

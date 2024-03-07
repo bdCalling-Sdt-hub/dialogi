@@ -50,7 +50,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
                 imageSrc: AppIcons.chevronLeft,
                 size: 24,
               )),
-          const CustomText(
+          CustomText(
             text: AppStrings.chatList,
             fontSize: 18,
             fontWeight: FontWeight.w500,

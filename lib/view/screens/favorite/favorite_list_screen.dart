@@ -34,7 +34,7 @@ class _FavoriteListScreenState extends State<FavoriteListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AppStrings.favoriteList),
+        title: Text(AppStrings.favoriteList),
         centerTitle: true,
       ),
       body: GetBuilder<FavouriteController>(
