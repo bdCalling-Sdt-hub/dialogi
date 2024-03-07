@@ -18,11 +18,11 @@ class SettingsScreen extends StatelessWidget {
 
   var settingsController = Get.find<SettingsController>();
 
-  bool isProvider = PrefsHelper.isProvider;
-
 
   @override
   Widget build(BuildContext context) {
+
+    print("======================================>isProvider ${PrefsHelper.isProvider}") ;
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: CustomAppBar(
@@ -54,7 +54,7 @@ class SettingsScreen extends StatelessWidget {
             ///<<<=================== change password =======================>>>
 
 
-              if(isProvider)
+              if(!PrefsHelper.isProvider)
                 CustomSettingsContainer(
                 onTap: () {
 
