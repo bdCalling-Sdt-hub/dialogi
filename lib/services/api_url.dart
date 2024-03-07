@@ -38,4 +38,5 @@ class ApiConstant {
   static const communityChat = "$baseUrl/api/chats/community-chat";
   static const leave = "$baseUrl/api/chats/leave-group";
   static const joinCommunity = "$baseUrl/api/chats/join-community";
+  static const groupName = "$baseUrl/api/chats/group-name";
 }

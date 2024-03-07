@@ -42,26 +42,31 @@ void chooseDiscussPlatform(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: List.generate(
                     discussionPlatformController.discussPlatform.length,
-                    (index) => Row(
-                      children: [
-                        Radio<String>(
-                          value: discussionPlatformController
-                              .discussPlatform[index],
-                          groupValue:
-                              discussionPlatformController.selectedPlatform,
-                          onChanged: (value) {
-                            setState(() {
-                              discussionPlatformController.selectedPlatform =
-                                  value!;
-                            });
-                          },
-                        ),
-                        CustomText(
-                          text: discussionPlatformController
-                              .discussPlatform[index],
-                          fontSize: 18.sp,
-                        ),
-                      ],
+                    (index) => InkWell(
+                      onTap: () {
+                        setState(() {
+                          discussionPlatformController.selectedPlatform = discussionPlatformController.discussPlatform[index] ;
+                        });
+                      },
+                      child: Row(
+                        children: [
+                          Radio<String>(
+                            value: discussionPlatformController.discussPlatform[index],
+                            groupValue: discussionPlatformController.selectedPlatform,
+                            onChanged: (value) {
+                              setState(() {
+                                discussionPlatformController.selectedPlatform =
+                                    value!;
+                              });
+                            },
+                          ),
+                          CustomText(
+                            text: discussionPlatformController
+                                .discussPlatform[index],
+                            fontSize: 18.sp,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

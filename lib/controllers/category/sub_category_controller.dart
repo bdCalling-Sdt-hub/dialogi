@@ -39,6 +39,7 @@ class SubCategoryController extends GetxController {
     print(
         "==========================================> accessStatus $accessStatus");
     if (page == 1) {
+      subCategoryList.clear() ;
       status = Status.loading;
       update();
     }

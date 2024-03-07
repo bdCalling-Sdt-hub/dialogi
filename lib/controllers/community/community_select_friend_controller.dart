@@ -111,6 +111,7 @@ class CommunitySelectFriendsController extends GetxController {
       "participants": jsonEncode(selectedParticipants),
       "groupName": nameController.text,
       "category": categoryId,
+      "type": "community",
       "groupAdmin": PrefsHelper.clientId,
       "question": questionId
     };

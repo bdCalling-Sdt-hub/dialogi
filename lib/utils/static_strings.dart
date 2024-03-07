@@ -223,4 +223,17 @@ class AppStrings {
   static const String noData = "No data";
   static const String buySubscription = "Buy Subscription";
 
+
+
+
+
+
+
+
+  ///===============================================new String ==================================
+  static const String changeName = "Change Name";
+  static const String setCommunityName = "Set Community Name";
+
+
+
 }

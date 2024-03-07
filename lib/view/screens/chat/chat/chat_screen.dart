@@ -26,6 +26,8 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   MessageController chatController = Get.put(MessageController());
 
+
+
   String chatId = Get.parameters["chatId"] ?? "";
   String name = Get.parameters["name"] ?? "";
   String type = Get.parameters["type"] ?? "";
@@ -43,6 +45,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     print("==============================================> chatId $chatId");
     return GetBuilder<MessageController>(builder: (controller) {
       return switch (controller.status) {
@@ -88,9 +91,10 @@ class _ChatScreenState extends State<ChatScreen> {
                         ? controller.messages.length + 1
                         : controller.messages.length,
                     itemBuilder: (BuildContext context, int index) {
-                      final message = controller.messages[index];
+
 
                       if (index < controller.messages.length) {
+                        final message = controller.messages[index];
                         return ChatBubbleMessage(
                           index: index,
                           image: message.image,

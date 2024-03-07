@@ -199,8 +199,8 @@ class ApiService {
 
   ///<<<======================== Delete Api ==============================>>>
 
-  static Future<ApiResponseModel> deleteApi(String url, body,
-      {Map<String, String>? header}) async {
+  static Future<ApiResponseModel> deleteApi(String url,
+      {Map<String, String>? body ,Map<String, String>? header}) async {
     dynamic responseJson;
 
     Map<String, String> mainHeader = {
@@ -208,10 +208,20 @@ class ApiService {
     };
 
     try {
-      final response = await http
-          .post(Uri.parse(url), body: body, headers: header ?? mainHeader)
-          .timeout(const Duration(seconds: timeOut));
-      responseJson = handleResponse(response);
+
+      if(body != null) {
+        final response = await http
+            .delete(Uri.parse(url), body: body, headers: header ?? mainHeader)
+            .timeout(const Duration(seconds: timeOut));
+        responseJson = handleResponse(response) ;
+      }  else {
+        final response = await http
+            .delete(Uri.parse(url), headers: header ?? mainHeader)
+            .timeout(const Duration(seconds: timeOut));
+        responseJson = handleResponse(response) ;
+      }
+
+      ;
     } on SocketException {
       Get.toNamed(AppRoutes.noInternet);
       return ApiResponseModel(503, "No internet connection", '');

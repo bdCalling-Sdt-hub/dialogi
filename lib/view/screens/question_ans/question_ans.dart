@@ -246,7 +246,7 @@ class _QuestionAnsState extends State<QuestionAns> {
                                 onTap: () =>
                                     Get.toNamed(AppRoutes.premiumScreen),
                                 child: CustomText(
-                                  text: AppStrings.upgradetoPremium,
+                                  text: AppStrings.buySubscription,
                                   color: AppColors.blue_500,
                                   fontSize: 20.sp,
                                   fontWeight: FontWeight.w600,

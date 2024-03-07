@@ -116,9 +116,10 @@ class SignUpOtpScreen extends StatelessWidget {
                           ? const Center(child: CircularProgressIndicator())
                           : GestureDetector(
                         onTap: () {
-                          if(signUpController.otpController.text.isEmpty){
+
+                          controller.otpController.clear();
                             controller.signUpUser();
-                          }
+
                         },
                         child: const CustomText(
                           text: AppStrings.resend,

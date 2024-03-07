@@ -22,7 +22,7 @@ class SelectFriendsController extends GetxController {
   List<bool> selectedFriends = [];
   bool isCreateGroup = false;
 
-  List<String> selectedParticipants = [];
+  List<String> selectedParticipants = [PrefsHelper.clientId];
 
   SelectGroupMemberModel? friendListModel;
 
@@ -43,6 +43,7 @@ class SelectFriendsController extends GetxController {
 
   Future<void> friendListRepo() async {
     if (page == 1) {
+      friendList.clear();
       status = Status.loading;
       update();
     }
@@ -106,7 +107,7 @@ class SelectFriendsController extends GetxController {
       "participants": selectedParticipants,
       "subscription": PrefsHelper.mySubscription,
       "groupName": nameController.text,
-      "type": AppStrings.group,
+      "type": "group",
       "groupAdmin": PrefsHelper.clientId,
       "question": questionId
     };

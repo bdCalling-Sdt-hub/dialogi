@@ -1,6 +1,7 @@
 
 
 import 'package:dialogi_app/core/app_routes.dart';
+import 'package:dialogi_app/helper/prefs_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -21,12 +22,17 @@ class DeleteAccountController extends GetxController{
       'password': passwordController.text
     };
 
-    var response =
-        await ApiService.deleteApi(ApiConstant.users, body);
+    print("=========================================> body $body") ;
+    print("=========================================> body ${ApiConstant.users}") ;
 
+
+    var response =
+    await ApiService.deleteApi(ApiConstant.users, body: body);
+
+    print("=========================================> response ${response.responseJson}") ;
     if (response.statusCode == 200) {
       Utils.toastMessage(response.message);
-      Get.offAll(AppRoutes.signInScreen);
+      PrefsHelper.removeAllPrefData();
     } else {
       Get.snackbar(response.statusCode.toString(), response.message);
     }
