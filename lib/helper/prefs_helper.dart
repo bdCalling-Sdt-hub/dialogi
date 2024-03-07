@@ -73,7 +73,6 @@ class PrefsHelper extends GetxController {
 
   ///<<<======================== Get All Data Form Shared Preference ============>
   static Future<void> removeAllPrefData() async {
-    print("kljdfldsjldk");
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.clear();
     preferences.setString(AppConstants.bearerToken, "");
@@ -87,7 +86,6 @@ class PrefsHelper extends GetxController {
     // preferences.remove(AppConstants.forgetPasswordToken);
     // preferences.remove("clientId");
     print("::::$token, $forgetPasswordToken, $clientId");
-
 
     Get.offAllNamed(AppRoutes.signInScreen);
   }

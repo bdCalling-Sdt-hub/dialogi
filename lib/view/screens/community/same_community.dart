@@ -82,7 +82,8 @@ class _SameCommunityState extends State<SameCommunity> {
                   itemBuilder: (context, index) {
                     var item = controller.chatList[index];
                     return GestureDetector(
-                      onTap: () => controller.joinCommunityRepo(item.sId, item.groupName),
+                      onTap: () => controller.joinCommunityRepo(
+                          item.sId, item.groupName, questionId),
                       child: Column(
                         children: [
                           Row(

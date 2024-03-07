@@ -33,6 +33,8 @@ class QuestionAns extends StatefulWidget {
 class _QuestionAnsState extends State<QuestionAns> {
   String title = Get.parameters["title"] ?? "";
   String categoryId = Get.parameters["categoryId"] ?? "";
+  String accessStatus = Get.parameters["accessStatus"] ??  "";
+
 
   QuestionAnsController questionAnsController =
       Get.put(QuestionAnsController());
@@ -44,9 +46,9 @@ class _QuestionAnsState extends State<QuestionAns> {
     questionAnsController.checkDiscuss();
     AdmobAdServices.loadInterstitialAd();
     questionAnsController.discussionPage = 1;
-    questionAnsController.questionsRepo(title, categoryId);
+    questionAnsController.questionsRepo(title, categoryId, accessStatus);
     questionAnsController.discussionScrollController.addListener(() {
-      questionAnsController.scrollControllerCall(title, categoryId);
+      questionAnsController.scrollControllerCall(title, categoryId, accessStatus);
     });
 
     super.initState();
@@ -85,7 +87,7 @@ class _QuestionAnsState extends State<QuestionAns> {
           return switch (controller.status) {
             Status.loading => const Center(child: CircularProgressIndicator()),
             Status.error => ErrorScreen(
-                onTap: () => controller.questionsRepo(title, categoryId)),
+                onTap: () => controller.questionsRepo(title, categoryId, accessStatus)),
             Status.completed => Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
@@ -190,7 +192,7 @@ class _QuestionAnsState extends State<QuestionAns> {
                                   controller.discussionPage = 1;
                                   controller.discussionList = [];
                                   controller.discussionController.clear();
-                                  controller.questionsRepo(title, categoryId);
+                                  controller.questionsRepo(title, categoryId, accessStatus);
                                 } else {
                                   showDialog(
                                       context: context,
@@ -303,9 +305,7 @@ class _QuestionAnsState extends State<QuestionAns> {
                           controller.page = controller.page + 1;
                           controller.discussionPage = 1;
                           controller.discussionList = [];
-                          controller.questionsRepo(title, categoryId);
-                          controller.questionsRepo(title, categoryId);
-                          controller.nextQuestion();
+                          controller.questionsRepo(title, categoryId, accessStatus);
                         } else {
                           showDialog(
                               context: context,

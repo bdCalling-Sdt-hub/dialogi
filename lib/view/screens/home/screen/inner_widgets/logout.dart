@@ -1,6 +1,7 @@
 import 'package:dialogi_app/controllers/Auth/sign_in_controller.dart';
 import 'package:dialogi_app/controllers/Auth/sign_out_controller.dart';
 import 'package:dialogi_app/helper/prefs_helper.dart';
+import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -9,7 +10,6 @@ import '../../../../widgets/image/custom_image.dart';
 import '../../../../widgets/text/custom_text.dart';
 
 class LogOut {
-
   static Widget customRow({required String icon, required String text}) {
     return GestureDetector(
       onTap: showLogOutPopup,
@@ -36,7 +36,7 @@ class LogOut {
       context: Get.context!,
       builder: (context) {
         return AlertDialog(
-          title: Text("Are you sure"),
+          title: const Text(AppStrings.areYouSure),
           actions: [
             TextButton(
                 onPressed: () {
@@ -44,12 +44,12 @@ class LogOut {
                   PrefsHelper.removeAllPrefData();
                   SignOutController.googleSignOut();
                 },
-                child: const Text("Yes")),
+                child: const Text(AppStrings.yes)),
             TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: const Text("No")),
+                child: const Text(AppStrings.no)),
           ],
         );
       },
