@@ -31,9 +31,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
 
-    profileController.nameController.text = profileController.profileModel.data?.attributes?.fullName ?? "" ;
-    profileController.dateController.text = profileController.profileModel.data?.attributes?.dateOfBirth ?? "" ;
-    profileController.addressController.text = profileController.profileModel.data?.attributes?.address ?? "" ;
+    profileController.nameController.text = profileController.profileModel?.data?.attributes?.fullName ?? "" ;
+    profileController.dateController.text = profileController.profileModel?.data?.attributes?.dateOfBirth ?? "" ;
+    profileController.addressController.text = profileController.profileModel?.data?.attributes?.address ?? "" ;
     return Scaffold(
       appBar: CustomAppBar(
           appBarContent: Row(
@@ -61,7 +61,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         child: Column(
           children: [
 
-            ProfileImage(imageURl: "${ApiConstant.baseUrl}${profileController.profileModel.data!.attributes!.image!}"),
+            ProfileImage(imageURl: "${ApiConstant.baseUrl}${profileController.profileModel?.data!.attributes!.image!}"),
 
             SizedBox(height: 44.h,),
             ///<-------- name --------->

@@ -86,11 +86,11 @@ class _HomeDrawerState extends State<HomeDrawer> {
                               shape: BoxShape.circle,
                               image: DecorationImage(
                                   image: NetworkImage(
-                                      "${ApiConstant.baseUrl}${controller.profileModel.data!.attributes!.image}"))),
+                                      "${ApiConstant.baseUrl}${controller.profileModel!.data!.attributes!.image}"))),
                         ),
                         CustomText(
                           text: controller
-                              .profileModel.data!.attributes!.fullName!,
+                              .profileModel!.data!.attributes!.fullName!,
                           left: 8.w,
                         )
                       ],

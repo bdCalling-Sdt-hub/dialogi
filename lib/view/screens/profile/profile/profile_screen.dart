@@ -107,7 +107,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       image: DecorationImage(
                                         fit: BoxFit.fill,
                                         image: NetworkImage(
-                                          "${ApiConstant.baseUrl}${controller.profileModel.data!.attributes!.image!}",
+                                          "${ApiConstant.baseUrl}${controller.profileModel!.data!.attributes!.image!}",
                                         ),
                                       ),
                                       shape: BoxShape.circle,
@@ -120,11 +120,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   onTap: () {
                                     // controller.selectImageCamera();
                                   },
-                                  child: controller.profileModel.data!
+                                  child: controller.profileModel!.data!
                                               .attributes!.subscription ==
                                           "default"
                                       ? const SizedBox()
-                                      : controller.profileModel.data!
+                                      : controller.profileModel!.data!
                                                   .attributes!.subscription ==
                                               "premium"
                                           ? Align(
@@ -167,7 +167,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
 
                       ///premium member
-                      controller.profileModel.data!.attributes!.subscription ==
+                      controller.profileModel!.data!.attributes!.subscription ==
                               "default"
                           ? const SizedBox()
                           : Column(
@@ -185,7 +185,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         size: 24,
                                       ),
                                       CustomText(
-                                        text: controller.profileModel.data!
+                                        text: controller.profileModel!.data!
                                             .attributes!.subscription!,
                                         fontSize: 18,
                                         color: AppColors.whiteColor,
@@ -203,14 +203,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ///profile details
                       ProfileUserDetails(
                         name:
-                            controller.profileModel.data!.attributes!.fullName!,
-                        email: controller.profileModel.data!.attributes!.email!,
+                            controller.profileModel!.data!.attributes!.fullName!,
+                        email: controller.profileModel!.data!.attributes!.email!,
                         dob: controller
-                                .profileModel.data?.attributes?.dateOfBirth
+                                .profileModel?.data?.attributes?.dateOfBirth
                                 ?.split('T')[0] ??
                             "",
                         address:
-                            controller.profileModel.data?.attributes?.address ??
+                            controller.profileModel?.data?.attributes?.address ??
                                 "",
                       )
                     ],

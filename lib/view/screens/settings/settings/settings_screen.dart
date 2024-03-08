@@ -18,11 +18,10 @@ class SettingsScreen extends StatelessWidget {
 
   var settingsController = Get.find<SettingsController>();
 
-
   @override
   Widget build(BuildContext context) {
-
-    print("======================================>isProvider ${PrefsHelper.isProvider}") ;
+    print(
+        "======================================>isProvider ${PrefsHelper.isProvider}");
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: CustomAppBar(
@@ -53,16 +52,14 @@ class SettingsScreen extends StatelessWidget {
           children: [
             ///<<<=================== change password =======================>>>
 
-
-              if(!PrefsHelper.isProvider)
-                CustomSettingsContainer(
-                onTap: () {
-
-                  Get.toNamed(AppRoutes.settingsChangePasswordScreen);
-                },
-                imageSrc: AppIcons.lock,
-                text: AppStrings.changePassword,
-                icon: AppIcons.chevronRight),
+            if (!PrefsHelper.isProvider)
+              CustomSettingsContainer(
+                  onTap: () {
+                    Get.toNamed(AppRoutes.settingsChangePasswordScreen);
+                  },
+                  imageSrc: AppIcons.lock,
+                  text: AppStrings.changePassword,
+                  icon: AppIcons.chevronRight),
 
             ///<<<==================== change Language ======================>>>
             CustomSettingsContainer(
@@ -124,8 +121,6 @@ class SettingsScreen extends StatelessWidget {
 
             ///<<<=================== delete account ========================>>>
 
-
-            if(!PrefsHelper.isProvider)
             CustomSettingsContainer(
                 onTap: () {
                   showDialog(

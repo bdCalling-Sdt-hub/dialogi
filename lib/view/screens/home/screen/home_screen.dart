@@ -38,7 +38,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     Homecontroller.getAccessStatus();
-    profileController.profileRepo();
+    if (profileController.profileModel == null) {
+      profileController.profileRepo();
+    }
     homecontroller.categoryAccessRepo();
     homecontroller.categoryScrollController.addListener(() {
       homecontroller.scrollControllerCall();
@@ -106,14 +108,14 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           GestureDetector(
               onTap: () {
-                if(Homecontroller.status == Status.completed) {
-                  if(Homecontroller.accessStatusModel!.data!.isChatAvailable!) {
+                if (Homecontroller.status == Status.completed) {
+                  if (Homecontroller
+                      .accessStatusModel!.data!.isChatAvailable!) {
                     Get.toNamed(AppRoutes.chatListScreen);
                   } else {
-                    Get.toNamed(AppRoutes.premiumScreen) ;
+                    Get.toNamed(AppRoutes.premiumScreen);
                   }
                 }
-
               },
               child: const CustomImage(
                 imageSrc: AppIcons.chat,
@@ -127,9 +129,10 @@ class _HomeScreenState extends State<HomeScreen> {
           Status.error => ErrorScreen(
               onTap: () => controller.categoryAccessRepo(),
             ),
-          Status.completed =>
-          controller.categoryList.isEmpty && controller.earlyAccess.isEmpty
-              ?const NoData() : Padding(
+          Status.completed => controller.categoryList.isEmpty &&
+                  controller.earlyAccess.isEmpty
+              ? const NoData()
+              : Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

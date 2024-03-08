@@ -31,7 +31,7 @@ class CommunityChatPopUpController extends GetxController {
     }
   }
 
-  ///<<<==================== Group chat delete repo ============================>>>
+  ///<<<==================== Community chat delete repo ============================>>>
 
   Future<void> deleteAccountRepo(String chatId) async {
     isCommunityDelete.value = true;
@@ -49,7 +49,7 @@ class CommunityChatPopUpController extends GetxController {
         "=========================================> response ${response.responseJson}");
     if (response.statusCode == 200) {
       Utils.toastMessage(response.message);
-      Get.toNamed(AppRoutes.community);
+      Get.offAllNamed(AppRoutes.community);
     } else {
       Get.snackbar(response.statusCode.toString(), response.message);
     }

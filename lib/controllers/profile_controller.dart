@@ -21,7 +21,7 @@ class ProfileController extends GetxController {
 
   RxBool updateProfileAccess = false.obs;
 
-  ProfileModel profileModel = ProfileModel();
+  ProfileModel? profileModel ;
 
   TextEditingController nameController = TextEditingController();
 
