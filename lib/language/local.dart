@@ -1,6 +1,6 @@
 import 'package:get/get_navigation/src/root/internacionalization.dart';
 
-class Languages extends Translations {
+class LocalConstants extends Translations {
   @override
   // TODO: implement keys
   Map<String, Map<String, String>> get keys => {
@@ -188,7 +188,8 @@ class Languages extends Translations {
       "OTP send to your email" : "OTP send to your email",
       "Payment Status" : "Payment Status",
       "Payment successfully completed" : "Payment successfully completed",
-      "Connection timed out" : "Connection timed out"
+      "Connection timed out" : "Connection timed out",
+      "This is the conversion text" : "This is the conversion text"
     },
 
 
@@ -378,7 +379,8 @@ class Languages extends Translations {
       "OTP send to your email": "OTP an Ihre E-Mail gesendet",
       "Payment Status": "Zahlungsstatus",
       "Payment successfully completed": "Zahlung erfolgreich abgeschlossen",
-      "Connection timed out": "Verbindung abgelaufen"
+      "Connection timed out": "Verbindung abgelaufen",
+      "Dies ist der Konversionstext" : "Dies ist der Konversionstext"
     }
   };
 }

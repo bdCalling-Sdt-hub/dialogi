@@ -220,4 +220,5 @@ class AppStrings {
   static String mySubscription = "My Subscription".tr;
   static String noSubscriptionFound = "No Subscription Found".tr;
   static String premium = "Premium".tr;
+  static String myText = "This is the conversion text".tr;
 }

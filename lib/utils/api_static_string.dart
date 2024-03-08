@@ -1,4 +1,6 @@
 
+import 'package:get/get.dart';
+
 class ApiStaticStrings {
   //Auth
   static const name = "Name";

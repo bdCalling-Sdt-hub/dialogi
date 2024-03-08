@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       child: GetMaterialApp(
-        translations: Languages(),
+        translations: LocalConstants(),
         locale: const Locale("en", "US"),
         // locale: Locale(PrefsHelper.localizationLanguageCode,
         //     PrefsHelper.localizationCountryCode),

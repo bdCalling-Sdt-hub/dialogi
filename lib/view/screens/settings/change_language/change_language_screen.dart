@@ -17,8 +17,8 @@ class ChangeLanguageScreen extends StatefulWidget {
 
 class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
   final List locale = [
-    {"name": "English", "locale" : Locale("en", "US")},
-    {"name": "German", "locale" : Locale("de", "DE")}
+    {"name": "English", "locale" : const Locale("en", "US")},
+    {"name": "German", "locale" : const Locale("de", "DE")}
   ];
   updateLanguage(Locale locale){
     Get.updateLocale(locale);
@@ -59,15 +59,16 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
         padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
         child: Column(
           children: [
+            Text(AppStrings.myText),
             Column(
               children: List.generate(
-                  language.length, (index) => GestureDetector(
+                  language.length,
+                      (index) => GestureDetector(
                 onTap: (){
-                  var localeLanguage = locale[index];
-                  setState(() {
                     selectedItem = index;
-                    updateLanguage(localeLanguage["locale"]);
-                  });
+                    updateLanguage(locale[index]["locale"]);
+                    print("Language is: ---------------->> ${locale[index]["name"]}, ${locale[index]["locale"]}");
+
                 },
                 child: Container(
                   margin: EdgeInsets.only(bottom: 16.h),
