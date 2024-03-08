@@ -91,7 +91,7 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                                   controller.page = 1;
                                   controller.pendingRequestRepo();
                                 },
-                                child: const CustomText(
+                                child: CustomText(
                                   text: AppStrings.friendRequests,
                                   fontSize: 14,
                                   color: AppColors.blue_500,

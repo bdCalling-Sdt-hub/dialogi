@@ -1,3 +1,5 @@
+import 'package:dialogi_app/controllers/community/community_chat_popup_controller.dart';
+import 'package:dialogi_app/controllers/community/community_list_controller.dart';
 import 'package:dialogi_app/controllers/community/community_member_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
@@ -23,6 +25,8 @@ class CommunityChatPopUps extends StatelessWidget {
 
   final CommunityMemberController communityMemberController =
       Get.put(CommunityMemberController());
+  CommunityChatPopUpController communityChatPopUpController = Get.put(CommunityChatPopUpController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +83,7 @@ class CommunityChatPopUps extends StatelessWidget {
               onTap: () {
                 navigator!.pop();
                 permissionCommunityPopUp(
-                    context: context, ontapYes: () {}, ontapNo: () {});
+                    context: context, ontapYes: () {communityChatPopUpController.deleteAccountRepo(chatId);}, ontapNo: () {});
               },
               child: CustomText(
                 fontSize: 14,

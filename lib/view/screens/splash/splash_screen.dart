@@ -9,7 +9,7 @@ import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../utils/app_constants.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -25,6 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(const Duration(seconds: 2), () {
       getLoggedIn();
     });
+    // TODO: implement initState
     super.initState();
   }
 

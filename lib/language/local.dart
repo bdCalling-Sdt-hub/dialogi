@@ -380,7 +380,7 @@ class LocalConstants extends Translations {
       "Payment Status": "Zahlungsstatus",
       "Payment successfully completed": "Zahlung erfolgreich abgeschlossen",
       "Connection timed out": "Verbindung abgelaufen",
-      "Dies ist der Konversionstext" : "Dies ist der Konversionstext"
+      "This is the conversion text" : "Dies ist der Konversionstext"
     }
   };
 }

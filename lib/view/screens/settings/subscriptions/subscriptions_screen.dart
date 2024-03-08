@@ -44,7 +44,6 @@ class _SubscriptionsScreenState extends State<SubscriptionsScreen> {
   void initState() {
     // TODO: implement initState
     subscriptionController.subscriptionRepo();
-    subscriptionController.subscriptionRepo();
     pageController.addListener(() {
       setState(() {
         currentIndex = pageController.page!.round();
@@ -125,9 +124,12 @@ class _SubscriptionsScreenState extends State<SubscriptionsScreen> {
                   height: 24,
                 ),
                 CustomText(
+                  color: AppColors.blue_500,
                   text: AppStrings.currentPlan,
-                  bottom: 16.h,
+                  fontSize: 18,
                 ),
+                const Divider(),
+                SizedBox(height: 20.h,),
 
                 ///<<<===================== Current Subscription Plan ========================>>>
 
@@ -136,56 +138,10 @@ class _SubscriptionsScreenState extends State<SubscriptionsScreen> {
                   decoration: const BoxDecoration(
                       border: Border(
                           bottom: BorderSide(color: AppColors.black_50, width: 1))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      CustomText(
-                        text: Homecontroller.accessStatusModel!.data!.type == "premium-plus" ? AppStrings.premiumPlus : AppStrings.premium,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16.h,
-                        color: AppColors.blue_500,
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(bottom: 16, top: 16),
-                  decoration: const BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(color: AppColors.black_50, width: 1))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CustomText(
-                        text: AppStrings.billedMonthly,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16.h,
-                      ),
-                      CustomText(
-                        text: '\$${50.00}',
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16.h,
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(bottom: 16, top: 16),
-                  decoration: const BoxDecoration(),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CustomText(
-                        text: AppStrings.billingDate,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16.h,
-                      ),
-                      CustomText(
-                        text: '12/13/24',
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16.h,
-                      ),
-                    ],
+                  child: Center(
+                    child: CustomPremiumCard(
+                      isPremiumPlus: Homecontroller.accessStatusModel!.data!.type == "premium-plus" ? true : false,
+                    ),
                   ),
                 ),
               ],

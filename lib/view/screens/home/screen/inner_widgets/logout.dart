@@ -36,7 +36,7 @@ class LogOut {
       context: Get.context!,
       builder: (context) {
         return AlertDialog(
-          title: const Text(AppStrings.areYouSure),
+          title: Text(AppStrings.areYouSure),
           actions: [
             TextButton(
                 onPressed: () {
@@ -44,12 +44,12 @@ class LogOut {
                   PrefsHelper.removeAllPrefData();
                   SignOutController.googleSignOut();
                 },
-                child: const Text(AppStrings.yes)),
+                child: Text(AppStrings.yes)),
             TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: const Text(AppStrings.no)),
+                child: Text(AppStrings.no)),
           ],
         );
       },

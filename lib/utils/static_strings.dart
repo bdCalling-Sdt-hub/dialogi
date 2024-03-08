@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 class AppStrings {
   //Sign in
 
@@ -81,6 +83,7 @@ class AppStrings {
 
   //Group Chat
   static String selectFriends = "Select Friends".tr;
+  static const String selectFormPremiumPlus = "Select Premium Plus members";
   static String createGroup = "Create Group".tr;
   static String createCommunity = "Create Community".tr;
   static const String setGroupName = "Set Group Name";
@@ -194,18 +197,18 @@ class AppStrings {
 
   //Others
 
-  static String cancelSubscription = "Cancel Subscription?".tr;
-  static String areYouSure = "Are you sure?".tr;
-  static String view = "View".tr;
-  static String noInternet = "No Internet".tr;
-  static String checkInternet = "Please, check your internet connection".tr;
-  static String back = "Back".tr;
-  static String somethingWrong = "Something wrong!".tr;
-  static String tryAgain = "Try Again".tr;
-  static String favoriteList = "Favorite List".tr;
-  static String selectMember = "Select Member".tr;
+  static String cancelSubscription = "Cancel Subscription?";
+  static String areYouSure = "Are you sure?";
+  static String view = "View";
+  static String noInternet = "No Internet";
+  static String checkInternet = "Please, check your internet connection";
+  static String back = "Back";
+  static String somethingWrong = "Something wrong!";
+  static String tryAgain = "Try Again";
+  static String favoriteList = "Favorite List";
+  static String selectMember = "Select Member";
   static String pleaseSelectAtLeastTwoMembers =
-      "Please, select at least two members".tr;
+      "Please, select at least two members";
   static String createNewCommunity = "Create New Community".tr;
   static String communityMembers = "Community members".tr;
   static String changeCommunityName = "Change Community Name".tr;
@@ -221,4 +224,8 @@ class AppStrings {
   static String myText = "This is the conversion text".tr;
   static const String noData = "No data";
   static const String buySubscription = "Buy Subscription";
+
+  ///===============================================new String ==================================
+  static const String changeName = "Change Name";
+  static const String setCommunityName = "Set Community Name";
 }

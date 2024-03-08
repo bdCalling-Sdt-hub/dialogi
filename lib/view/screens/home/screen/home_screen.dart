@@ -138,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const CustomText(
+                            CustomText(
                               left: 4,
                               text: AppStrings.getEarlyAccess,
                               color: AppColors.black_500,
@@ -266,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(
                         height: 8,
                       ),
-                      const CustomText(
+                      CustomText(
                         left: 4,
                         text: AppStrings.categoryList,
                         color: AppColors.black_500,

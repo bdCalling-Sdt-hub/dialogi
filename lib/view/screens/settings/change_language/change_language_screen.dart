@@ -59,14 +59,14 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
         padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
         child: Column(
           children: [
-            Text(AppStrings.myText),
+            Text(AppStrings.myText.tr),
             Column(
               children: List.generate(
                   language.length,
                       (index) => GestureDetector(
                 onTap: (){
                     selectedItem = index;
-                    updateLanguage(locale[index]["locale"]);
+                    Get.updateLocale(locale[index]["locale"]);
                     print("Language is: ---------------->> ${locale[index]["name"]}, ${locale[index]["locale"]}");
 
                 },
