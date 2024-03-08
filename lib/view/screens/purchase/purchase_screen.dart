@@ -70,8 +70,8 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
             SizedBox(
               height: 8.h,
             ),
-            CustomText(
-              maxLines: 2,
+            const CustomText(
+              maxLines: 3,
               text: AppStrings.selectPaymentMethodForUpgrade,
               fontSize: 24,
               fontWeight: FontWeight.w500,

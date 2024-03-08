@@ -2,10 +2,12 @@ import 'package:dialogi_app/controllers/community/community_member_controller.da
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
-import 'package:dialogi_app/view/screens/group_chat/select_friends/create_group_popup.dart';
+import 'package:dialogi_app/view/screens/community/inner_widget/change_community_name.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'create_community_popup.dart';
 
 enum SampleItem {
   itemOne,
@@ -38,7 +40,13 @@ class CommunityChatPopUps extends StatelessWidget {
           child: GestureDetector(
               onTap: () {
                 navigator!.pop();
-                Get.toNamed(AppRoutes.communityMembers);
+                Get.toNamed(AppRoutes.communityMembers,
+                    parameters: {
+                      "chatId": chatId,
+
+                    }
+
+                );
               },
               child: CustomText(
                 fontSize: 14,
@@ -52,10 +60,10 @@ class CommunityChatPopUps extends StatelessWidget {
           child: GestureDetector(
               onTap: () {
                 navigator!.pop();
-                // createGroupPopUp(
-                //     context: context,
-                //     title: AppStrings.changeCommunityName,
-                //     buttonText: AppStrings.change);
+                changeCommunityName(
+                  context: context,
+                  chatId: chatId,
+                );
               },
               child: CustomText(
                 fontSize: 14,
@@ -70,7 +78,7 @@ class CommunityChatPopUps extends StatelessWidget {
           child: GestureDetector(
               onTap: () {
                 navigator!.pop();
-                permissionPopUp(
+                permissionCommunityPopUp(
                     context: context, ontapYes: () {}, ontapNo: () {});
               },
               child: CustomText(
@@ -87,7 +95,7 @@ class CommunityChatPopUps extends StatelessWidget {
               onTap: () {
                 navigator!.pop();
 
-                permissionPopUp(
+                permissionCommunityPopUp(
                     context: context,
                     ontapYes: () =>
                         communityMemberController.leaveCommunityRepo(chatId),

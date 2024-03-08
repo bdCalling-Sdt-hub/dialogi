@@ -8,6 +8,7 @@ import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/container/custom_all_friends.dart';
 import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:dialogi_app/view/widgets/nav_bar/nav_bar.dart';
+import 'package:dialogi_app/view/widgets/no_data.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -51,34 +52,36 @@ class _FriendsScreenState extends State<FriendsScreen> {
             Status.error => ErrorScreen(onTap: () {}),
             Status.completed => Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: ListView.builder(
-                    controller: controller.scrollController,
-                    itemCount: controller.isMoreLoading
-                        ? controller.friendList.length + 1
-                        : controller.friendList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      var item = controller.friendList[index];
+                child: controller.friendList.isNotEmpty
+                    ? ListView.builder(
+                        controller: controller.scrollController,
+                        itemCount: controller.isMoreLoading
+                            ? controller.friendList.length + 1
+                            : controller.friendList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          var item = controller.friendList[index];
 
-                      if (index < controller.friendList.length) {
-                        return Column(
-                          children: [
-                            CustomAllFriends(
-                                imageSrc:
-                                "${ApiConstant.baseUrl}/${item.participants[0].image}",
-                                text: item.participants[0].fullName,
-                                icon: AppIcons.chat,
-                                onTap: () => controller.createChatRoom(
-                                    item.participants[0].sId,
-                                    item.participants[0].fullName)
-                              // onTap: () => controller.addNewChat(),
-                            ),
-                          ],
-                        );
-                      } else {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-
-                    }))
+                          if (index < controller.friendList.length) {
+                            return Column(
+                              children: [
+                                CustomAllFriends(
+                                    imageSrc:
+                                        "${ApiConstant.baseUrl}/${item.participants[0].image}",
+                                    text: item.participants[0].fullName,
+                                    icon: AppIcons.chat,
+                                    onTap: () => controller.createChatRoom(
+                                        item.participants[0].sId,
+                                        item.participants[0].fullName)
+                                    // onTap: () => controller.addNewChat(),
+                                    ),
+                              ],
+                            );
+                          } else {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
+                        })
+                    : const NoData())
           };
         }));
   }

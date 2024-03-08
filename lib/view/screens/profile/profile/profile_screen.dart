@@ -100,25 +100,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: Stack(
                             children: [
                               Center(
-                                child: GestureDetector(
-                                  onTap: () {
-                                    controller.selectImageGallery();
-                                  },
-                                  child: Container(
-                                    height: 108.w,
-                                    width: 108.w,
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          fit: BoxFit.fill,
-                                          image: NetworkImage(
-                                            "${ApiConstant.baseUrl}${controller.profileModel.data!.attributes!.image!}",
-                                          ),
+                                child: Container(
+                                  height: 108.w,
+                                  width: 108.w,
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: NetworkImage(
+                                          "${ApiConstant.baseUrl}${controller.profileModel.data!.attributes!.image!}",
                                         ),
-                                        shape: BoxShape.circle,
-                                        border: Border.all(
-                                            color: AppColors.black_500,
-                                            width: 3.w)),
-                                  ),
+                                      ),
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                          color: AppColors.black_500,
+                                          width: 3.w)),
                                 ),
                               ),
                               GestureDetector(

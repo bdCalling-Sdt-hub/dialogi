@@ -53,7 +53,7 @@ class SocketServices {
 
     socket.on('user-notification::${PrefsHelper.clientId}', (data) {
       print("================> get Data on socket: $data");
-      notificationService.showNotification(data);
+      notificationService.initLocalNotification(message: data);
     });
   }
 }

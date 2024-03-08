@@ -8,6 +8,7 @@ import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/custom_card/custom_card.dart';
 import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:dialogi_app/view/widgets/nav_bar/nav_bar.dart';
+import 'package:dialogi_app/view/widgets/no_data.dart';
 import 'package:dialogi_app/view/widgets/subscription_popup/subcription_popup.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +62,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
               controller.page = 1;
               controller.categoryRepo();
             }),
-          Status.completed => GridView.builder(
+          Status.completed =>
+
+          controller.categoryList.isNotEmpty
+
+             ? GridView.builder(
               controller: controller.scrollController,
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               itemCount: controller.isMoreLoading
@@ -107,6 +112,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 }
               },
             )
+              :const NoData()
         };
       }),
     );

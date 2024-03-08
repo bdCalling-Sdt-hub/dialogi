@@ -123,6 +123,9 @@ class SettingsScreen extends StatelessWidget {
                 icon: AppIcons.chevronRight),
 
             ///<<<=================== delete account ========================>>>
+
+
+            if(!PrefsHelper.isProvider)
             CustomSettingsContainer(
                 onTap: () {
                   showDialog(

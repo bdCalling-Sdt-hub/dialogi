@@ -67,11 +67,14 @@ class SameCommunityController extends GetxController {
     }
   }
 
-  Future<void> joinCommunityRepo(String chatId, String name) async {
+  Future<void> joinCommunityRepo(String chatId, String name, String questionId) async {
     isJoin = true;
     update();
 
-    var body = {"chatId": chatId};
+    var body = {
+      "chatId": chatId,
+      "question": questionId
+    };
 
     if (kDebugMode) {
       print("====================> chatId ${chatId}");

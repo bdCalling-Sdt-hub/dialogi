@@ -25,7 +25,7 @@ Future<void> configureTts() async {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Stripe.publishableKey =
-  'pk_test_51NsL1qAGQlA3WKiIICnGloioSLGGq9pH7mBRb57na8QHzGKDycj9Fy08rkT6AEg8PwyBOzJZLFImpYV9KOAczU1p00THCcecwL';
+      'pk_test_51NsL1qAGQlA3WKiIICnGloioSLGGq9pH7mBRb57na8QHzGKDycj9Fy08rkT6AEg8PwyBOzJZLFImpYV9KOAczU1p00THCcecwL';
   await dotenv.load(fileName: "assets/.env");
 
   DependencyInjection dI = DependencyInjection();
@@ -37,7 +37,7 @@ Future<void> main() async {
   notificationService.initLocalNotification();
   SocketServices.connectToSocket();
   AdmobAdServices.loadInterstitialAd();
-  SocketServices.notifications() ;
+  SocketServices.notifications();
 
   runApp(const MyApp());
 

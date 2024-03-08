@@ -110,7 +110,7 @@ class SignInController extends GetxController {
         var response = await ApiService.postApi(
           ApiConstant.googleSignIn,
           body,
-        ).timeout(const Duration(seconds: 30));
+        );
 
         print("===========${jsonDecode(response.responseJson)}===========");
         signInLoading = false;
@@ -160,7 +160,6 @@ class SignInController extends GetxController {
       signInLoading = false;
       update();
     } catch (exception) {
-      Fluttertoast.showToast(msg: AppConstants.connectionTimedOUt);
       log(exception.toString());
       signInLoading = false;
       update();

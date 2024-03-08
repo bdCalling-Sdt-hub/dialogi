@@ -15,7 +15,7 @@ class NotificationsController extends GetxController {
   bool isMoreLoading = false;
 
   int page = 1;
-  List notificationsList =[] ;
+  List notificationsList = [];
 
   ScrollController scrollController = ScrollController();
 
@@ -33,17 +33,22 @@ class NotificationsController extends GetxController {
   }
 
   Future<void> notificationsRepo() async {
-    status = Status.loading;
-    update();
+    if (page == 1) {
+      notificationsList.clear();
+      status = Status.loading;
+      update();
+    }
 
     var response = await ApiService.getApi(ApiConstant.notifications);
 
     if (response.statusCode == 200) {
       print(response.responseJson);
-      notificationModel = NotificationModel.fromJson(jsonDecode(response.responseJson));
+      notificationModel =
+          NotificationModel.fromJson(jsonDecode(response.responseJson));
 
-      if(notificationModel?.data?.attributes?.notificationList != null) {
-        notificationsList.addAll(notificationModel!.data!.attributes!.notificationList!) ;
+      if (notificationModel?.data?.attributes?.notificationList != null) {
+        notificationsList
+            .addAll(notificationModel!.data!.attributes!.notificationList!);
       }
 
       status = Status.completed;
@@ -54,7 +59,6 @@ class NotificationsController extends GetxController {
       update();
     }
   }
-
 
   String getFormattedDate(String dateString) {
     // String dateString = "2024-02-01T04:39:03.524Z";
@@ -75,7 +79,4 @@ class NotificationsController extends GetxController {
       return "${date} at $time";
     }
   }
-
-
-
 }

@@ -1,5 +1,3 @@
-import 'package:get/get.dart';
-
 class AppStrings {
   //Sign in
 
@@ -221,4 +219,6 @@ class AppStrings {
   static String noSubscriptionFound = "No Subscription Found".tr;
   static String premium = "Premium".tr;
   static String myText = "This is the conversion text".tr;
+  static const String noData = "No data";
+  static const String buySubscription = "Buy Subscription";
 }

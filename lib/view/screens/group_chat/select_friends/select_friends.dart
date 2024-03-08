@@ -9,7 +9,6 @@ import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
 import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -75,11 +74,6 @@ class _SelectFriendsGroupChatState extends State<SelectFriendsGroupChat> {
                       EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h),
                   child: Column(
                     children: [
-                      Align(
-                          alignment: Alignment.centerRight,
-                          child: CustomText(
-                              text:
-                                  "2/${controller.selectedParticipants.length - 1}")),
                       Expanded(
                         child: ListView.builder(
                           itemCount: controller.isMoreLoading

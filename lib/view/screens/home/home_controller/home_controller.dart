@@ -58,6 +58,8 @@ class Homecontroller extends GetxController with GetxServiceMixin {
 
   Future<void> categoryAccessRepo() async {
     if (pageEr == 1 && page == 1) {
+      categoryList.clear();
+      earlyAccess.clear() ;
       homeStatus = Status.loading;
       update();
     }

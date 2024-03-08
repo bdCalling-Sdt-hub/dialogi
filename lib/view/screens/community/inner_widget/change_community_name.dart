@@ -1,3 +1,6 @@
+
+
+import 'package:dialogi_app/controllers/community/community_chat_popup_controller.dart';
 import 'package:dialogi_app/controllers/community/community_select_friend_controller.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
@@ -8,15 +11,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-void createCommunityPopUp({
+void changeCommunityName({
   required BuildContext context,
-  required String questionId,
-  required String categoryId,
+  required String chatId,
   String title = AppStrings.setGroupName,
-  String buttonText = AppStrings.create,
+  String buttonText = AppStrings.changeName,
 }) {
-  final CommunitySelectFriendsController communitySelectFriendsController =
-      Get.put(CommunitySelectFriendsController());
+
+  final CommunityChatPopUpController communityChatPopUpController = Get.put(CommunityChatPopUpController()) ;
+
   showDialog(
     context: context,
     builder: (context) {
@@ -29,13 +32,12 @@ void createCommunityPopUp({
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              CustomText(
+              const CustomText(
                 fontWeight: FontWeight.w500,
                 text: AppStrings.setName,
               ),
               CustomTextField(
-                textEditingController:
-                    communitySelectFriendsController.nameController,
+                textEditingController: communityChatPopUpController.communityName,
                 hintText: AppStrings.entertheName,
               ),
               SizedBox(
@@ -43,11 +45,10 @@ void createCommunityPopUp({
                 child: CustomElevatedButton(
                     onPressed: () {
 
-                      print("===============================> questionId $questionId") ;
+                      print("===============================> questionId $chatId") ;
 
                       navigator!.pop();
-                      communitySelectFriendsController
-                          .createNewCommunityRepo(questionId, categoryId);
+                      communityChatPopUpController.changeCommunityNameRepo(chatId) ;
                     },
                     titleText: buttonText),
               )
@@ -59,7 +60,7 @@ void createCommunityPopUp({
   );
 }
 
-void permissionCommunityPopUp({
+void permissionPopUp({
   required BuildContext context,
   String title = AppStrings.doyouWantToDeletethisGroup,
   required VoidCallback ontapYes,
