@@ -6,6 +6,7 @@ import 'package:dialogi_app/services/socket_service.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -36,9 +37,14 @@ Future<void> main() async {
   await MobileAds.instance.initialize();
   NotificationService notificationService = NotificationService();
   notificationService.initLocalNotification();
+  // notificationService.requestNotificationPermission() ;
   SocketServices.connectToSocket();
   AdmobAdServices.loadInterstitialAd();
   SocketServices.notifications();
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+  FlutterLocalNotificationsPlugin();
+  flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
+      AndroidFlutterLocalNotificationsPlugin>()?.requestNotificationsPermission();
 
   runApp(const MyApp());
 

@@ -64,8 +64,9 @@ dependencies:
   flutter_inappwebview: ^5.7.2+3
   google_mobile_ads: ^4.0.0
   flutter_local_notifications: ^16.3.2
-  url_launcher: ^6.2.4
+  permission_handler: ^11.3.0
   app_settings: ^5.1.1
+  url_launcher: ^6.2.4
   intl: ^0.18.1
 
 
