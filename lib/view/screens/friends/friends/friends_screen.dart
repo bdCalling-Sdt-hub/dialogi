@@ -40,7 +40,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
         appBar: CustomAppBar(
             appBarContent: Center(
           child: CustomText(
-            text: AppStrings.allFriends,
+            text: AppStrings.allFriends.tr,
             fontSize: 18,
             fontWeight: FontWeight.w500,
             color: AppColors.blue_500,

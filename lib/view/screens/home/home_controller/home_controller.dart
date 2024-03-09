@@ -151,7 +151,7 @@ class Homecontroller extends GetxController with GetxServiceMixin {
                     maxLines: 3,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
-                    text: AppStrings.upgradetoPremiumfor,
+                    text: AppStrings.upgradetoPremiumfor.tr,
                   ),
 
                   CustomElevatedButton(
@@ -160,7 +160,7 @@ class Homecontroller extends GetxController with GetxServiceMixin {
                       onPressed: () {
                         Get.toNamed(AppRoutes.premiumScreen);
                       },
-                      titleText: AppStrings.gotoSubscriptions),
+                      titleText: AppStrings.gotoSubscriptions.tr),
                 ],
               ),
             ),

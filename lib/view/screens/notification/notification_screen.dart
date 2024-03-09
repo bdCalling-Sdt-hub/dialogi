@@ -48,7 +48,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   size: 24,
                 )),
             CustomText(
-              text: AppStrings.notification,
+              text: AppStrings.notification.tr,
               fontSize: 18,
               fontWeight: FontWeight.w500,
               color: AppColors.blue_500,

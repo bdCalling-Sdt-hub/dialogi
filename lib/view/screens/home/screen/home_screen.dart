@@ -143,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             CustomText(
                               left: 4,
-                              text: AppStrings.getEarlyAccess,
+                              text: AppStrings.getEarlyAccess.tr,
                               color: AppColors.black_500,
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
@@ -271,7 +271,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       CustomText(
                         left: 4,
-                        text: AppStrings.categoryList,
+                        text: AppStrings.categoryList.tr,
                         color: AppColors.black_500,
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
@@ -357,7 +357,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 CustomText(
                                                   fontSize: 14,
                                                   right: 8.w,
-                                                  text: "${AppStrings.ques}.",
+                                                  text: "${AppStrings.ques.tr}.",
                                                   color: AppColors.black_500,
                                                   fontWeight: FontWeight.w500,
                                                 ),

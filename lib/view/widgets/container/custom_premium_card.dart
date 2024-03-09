@@ -84,8 +84,8 @@ class CustomPremiumCard extends StatelessWidget {
                 textAlign: TextAlign.start,
                 maxLines: 2,
                 text: isPremiumPlus
-                    ? 'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].price}/month'
-                    : 'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].price}/month',
+                    ? 'Get Dialogi Premium \n\$${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].price}/${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].expiryTime} month'
+                    : 'Get Dialogi Premium \n\$${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].price}/${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].expiryTime} month',
                 fontSize: 16.h,
                 fontWeight: FontWeight.w500,
                 color: isPremiumPlus? Colors.white : AppColors.black_500,

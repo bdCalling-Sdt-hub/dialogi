@@ -164,8 +164,8 @@ class LocalConstants extends Translations {
       "Change Community Name" : "Change Community Name",
       "Leave Community" : "Leave Community",
       "Do you want to leave this Community?" : "Do you want to leave this Community?",
-      "Get Early Access" : "Get Early Access",
-      "Get Category" : "Get Category",
+      "Early Access Category" : "Early Access Category",
+      "General Category" : "General Category",
       "My Subscription" : "My Subscription",
       "No Subscription Found" : "No Subscription Found",
       "Premium" : "Premium",
@@ -189,7 +189,10 @@ class LocalConstants extends Translations {
       "Payment Status" : "Payment Status",
       "Payment successfully completed" : "Payment successfully completed",
       "Connection timed out" : "Connection timed out",
-      "This is the conversion text" : "This is the conversion text"
+      "This is the conversion text" : "This is the conversion text",
+      'Home' : 'Home',
+      'Category' : 'Category',
+      'No data' : 'No data'
     },
 
 
@@ -198,7 +201,7 @@ class LocalConstants extends Translations {
 
     'de_DE': {
       "Unlock premium access for unlimited Dialoginess!": "Freischalten Sie den Premium-Zugang für unbegrenzte Dialoginess!",
-      "Get Premium": "Premium erhalten",
+      "Get Premium": "Prämie erhalten",
       "Get Premium Plus": "Erhalten Sie Premium Plus",
       "Skip for now": "Jetzt überspringen",
       "Welcome to the": "Willkommen bei der",
@@ -248,8 +251,8 @@ class LocalConstants extends Translations {
       "Pending Requests": "Ausstehende Anfragen",
       "Friend Requests": "Freundschaftsanfragen",
       "Community Requests": "Community-Anfragen",
-      "Chat": "Chat",
-      "Community": "Community",
+      "Chat": "Plaudern",
+      "Community": "Gemeinschaft",
       "Group": "Gruppe",
       "Select Discussion Platform": "Wählen Sie die Diskussionsplattform",
       "Confirm": "Bestätigen",
@@ -257,7 +260,7 @@ class LocalConstants extends Translations {
       "Type message": "Nachricht eingeben",
       "Select Friends": "Freunde auswählen",
       "Create Group": "Gruppe erstellen",
-      "Create Community": "Community erstellen",
+      "Create Community": "Erstellen Sie eine Community",
       "Set Group Name": "Gruppenname festlegen",
       "Set Name": "Name festlegen",
       "Enter group name": "Gruppennamen eingeben",
@@ -297,7 +300,7 @@ class LocalConstants extends Translations {
       "Subscriptions": "Abonnements",
       "Privacy Policy": "Datenschutzbestimmungen",
       "About Us": "Über uns",
-      "Support": "Support",
+      "Support": "Unterstützung",
       "FAQ": "FAQ",
       "Delete Account": "Konto löschen",
       "Current password": "Aktuelles Passwort",
@@ -311,7 +314,7 @@ class LocalConstants extends Translations {
       "English": "Englisch",
       "German": "Deutsch",
       "Current Plan": "Aktueller Plan",
-      "Premium Plus": "Premium Plus",
+      "Premium Plus": "Prämie Plus",
       "Cancel Plan": "Plan kündigen",
       "Billed Monthly": "Monatlich abgerechnet",
       "Billing Date": "Abrechnungsdatum",
@@ -351,15 +354,15 @@ class LocalConstants extends Translations {
       "Select Member": "Mitglied auswählen",
       "Please, select at least two members": "Bitte wählen Sie mindestens zwei Mitglieder aus",
       "Create New Community": "Neue Community erstellen",
-      "Community members": "Community-Mitglieder",
-      "Change Community Name": "Community-Namen ändern",
-      "Leave Community": "Community verlassen",
-      "Do you want to leave this Community?": "Möchten Sie diese Community verlassen?",
-      "Get Early Access": "Frühen Zugang erhalten",
-      "Get Category": "Kategorie erhalten",
+      "Community members": "Gemeinschaft-Mitglieder",
+      "Change Community Name": "Gemeinschaft-Namen ändern",
+      "Leave Community": "Gemeinschaft verlassen",
+      "Do you want to leave this Community?": "Möchten Sie diese Gemeinschaft verlassen?",
+      "Early Access Category": "Früher Zugang-Kategorie",
+      "General Category": "Allgemeine Kategorie",
       "My Subscription": "Mein Abonnement",
       "No Subscription Found": "Kein Abonnement gefunden",
-      "Premium": "Premium",
+      "Premium": "Prämie",
       "Name": "Name",
       "Name is required": "Name ist erforderlich",
       "Email": "E-Mail",
@@ -380,7 +383,11 @@ class LocalConstants extends Translations {
       "Payment Status": "Zahlungsstatus",
       "Payment successfully completed": "Zahlung erfolgreich abgeschlossen",
       "Connection timed out": "Verbindung abgelaufen",
-      "This is the conversion text" : "Dies ist der Konversionstext"
+      "This is the conversion text" : "Dies ist der Konversionstext",
+      'Home' : 'Heim',
+      'Category' : 'Kategorie',
+      'No data' : 'Keine Daten'
+
     }
   };
 }

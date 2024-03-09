@@ -64,7 +64,7 @@ class _CommunitySelectFriendsState extends State<CommunitySelectFriends> {
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
                   color: AppColors.blue_500,
-                  text: AppStrings.selectFormPremiumPlus,
+                  text: AppStrings.selectFormPremiumPlus.tr,
                 ),
               ),
             )
@@ -157,14 +157,14 @@ class _CommunitySelectFriendsState extends State<CommunitySelectFriends> {
                                     categoryId: categoryId
                                   );
                                 },
-                                titleText: AppStrings.createCommunity)
+                                titleText: AppStrings.createCommunity.tr)
                             : CustomElevatedButton(
                                 buttonColor: AppColors.gray_900,
                                 onPressed: () {
-                                  Utils.snackBarMessage(AppStrings.selectMember,
-                                      AppStrings.pleaseSelectAtLeastTwoMembers);
+                                  Utils.snackBarMessage(AppStrings.selectMember.tr,
+                                      AppStrings.pleaseSelectAtLeastTwoMembers.tr);
                                 },
-                                titleText: AppStrings.createCommunity),
+                                titleText: AppStrings.createCommunity.tr),
                       ),
                     ],
                   ),

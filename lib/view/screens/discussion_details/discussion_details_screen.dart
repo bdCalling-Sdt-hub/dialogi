@@ -371,7 +371,7 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                         Expanded(
                             child: CustomTextField(
                           textEditingController: controller.replyController,
-                          hintText: AppStrings.enterTextHere,
+                          hintText: AppStrings.enterTextHere.tr,
                         )),
                         Padding(
                           padding: EdgeInsets.only(left: 10.w),

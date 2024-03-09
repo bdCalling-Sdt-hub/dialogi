@@ -55,11 +55,11 @@ class _DeleteAccountState extends State<DeleteAccount> {
                 height: 16.h,
               ),
               PrefsHelper.isProvider ?
-                  CustomText(text: AppStrings.areYouSure, fontSize: 18.sp,) :
+                  CustomText(text: AppStrings.areYouSure.tr, fontSize: 18.sp,) :
                 CustomText(
                   textAlign: TextAlign.start,
                   maxLines: 3,
-                  text: AppStrings.enteryourCurrentPasswordToDelete,
+                  text: AppStrings.enteryourCurrentPasswordToDelete.tr,
                   fontWeight: FontWeight.w500,
                   bottom: 16.h,
                 ),
@@ -72,7 +72,7 @@ class _DeleteAccountState extends State<DeleteAccount> {
                       deleteAccountController.passwordController,
                   validator: (value) {
                     if (value.isEmpty) {
-                      return ApiStaticStrings.fieldCantBeEmpty;
+                      return ApiStaticStrings.fieldCantBeEmpty.tr;
                     } else {
                       return null;
                     }
@@ -80,7 +80,7 @@ class _DeleteAccountState extends State<DeleteAccount> {
                   isPassword: true,
                   keyboardType: TextInputType.text,
                   textAlign: TextAlign.start,
-                  hintText: AppStrings.enteryourpassword,
+                  hintText: AppStrings.enteryourpassword.tr,
                   hintStyle: GoogleFonts.prompt(
                       fontSize: 14.h,
                       fontWeight: FontWeight.w400,
@@ -119,7 +119,7 @@ class _DeleteAccountState extends State<DeleteAccount> {
 
 
                 },
-                titleText: AppStrings.deleteAccount,
+                titleText: AppStrings.deleteAccount.tr,
                 buttonColor: AppColors.red_500,
                 buttonWidth: double.infinity,
               )

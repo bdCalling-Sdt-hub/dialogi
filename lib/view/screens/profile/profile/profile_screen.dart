@@ -46,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             const SizedBox(),
             CustomText(
-              text: AppStrings.profile,
+              text: AppStrings.profile.tr,
               fontSize: 18,
               fontWeight: FontWeight.w500,
               color: AppColors.blue_500,

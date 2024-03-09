@@ -4,6 +4,7 @@ import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class NoData extends StatelessWidget {
   const NoData({super.key});
@@ -20,7 +21,7 @@ class NoData extends StatelessWidget {
             size: 70.sp,
           ),
           CustomText(
-            text: AppStrings.noData,
+            text: AppStrings.noData.tr,
             fontSize: 16.h,
             top: 8.h,
           )

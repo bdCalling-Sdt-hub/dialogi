@@ -45,7 +45,7 @@ class ForgetPasswordScreen extends StatelessWidget {
 
                 ///<<<======================forget pass text==========================>>>
                 CustomText(
-                  text: AppStrings.forgotPassword,
+                  text: AppStrings.forgotPassword.tr,
                   color: AppColors.blue_500,
                   fontWeight: FontWeight.w500,
                   fontSize: 24,
@@ -57,7 +57,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                 CustomText(
                   textAlign: TextAlign.start,
                   maxLines: 2,
-                  text: AppStrings.pleaseEnteryourEmailAddresstoreset,
+                  text: AppStrings.pleaseEnteryourEmailAddresstoreset.tr,
                   fontWeight: FontWeight.w500,
                   fontSize: 16,
                   bottom: 44.h,
@@ -68,17 +68,17 @@ class ForgetPasswordScreen extends StatelessWidget {
                   textEditingController: controller.emailController,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return ApiStaticStrings.enterEmail;
+                      return ApiStaticStrings.enterEmail.tr;
                     } else if (!ApiStaticStrings.emailRegexp
                         .hasMatch(controller.emailController.text)) {
-                      return ApiStaticStrings.enterValidEmail;
+                      return ApiStaticStrings.enterValidEmail.tr;
                     } else {
                       return null;
                     }
                   },
                   keyboardType: TextInputType.text,
                   textAlign: TextAlign.start,
-                  hintText: AppStrings.enterYourEmail,
+                  hintText: AppStrings.enterYourEmail.tr,
                   hintStyle: GoogleFonts.prompt(
                       fontSize: 14.h,
                       fontWeight: FontWeight.w400,
@@ -106,7 +106,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                         controller.forgetPasswordRepo();
                       }
                     },
-                    titleText: AppStrings.getOTP)
+                    titleText: AppStrings.getOTP.tr)
               ],
             ),
           ),

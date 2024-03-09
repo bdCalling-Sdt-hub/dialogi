@@ -12,8 +12,8 @@ class PrefsHelper extends GetxController {
   static String myName = "";
   static bool isProvider = false;
   static String mySubscription = "premium-plus";
-  static String localizationLanguageCode = '';
-  static String localizationCountryCode = '';
+  static String localizationLanguageCode = 'en';
+  static String localizationCountryCode = 'US';
 
   ///<<<======================== Get All Data Form Shared Preference ==============>
 
@@ -23,15 +23,19 @@ class PrefsHelper extends GetxController {
     clientId = preferences.getString("clientId") ?? "";
     myImage = preferences.getString("myImage") ?? "";
     myName = preferences.getString("myName") ?? "";
-    isProvider =  preferences.getBool("isProvider") ?? false;
+    isProvider = preferences.getBool("isProvider") ?? false;
     forgetPasswordToken =
         preferences.getString(AppConstants.forgetPasswordToken) ?? "";
-    localizationLanguageCode = preferences.getString("languageCode") ?? "en";
-    localizationCountryCode = preferences.getString("countryCode") ?? "US";
+    localizationLanguageCode =
+        preferences.getString("localizationLanguageCode") ?? "en";
+    localizationCountryCode =
+        preferences.getString("localizationCountryCode") ?? "US";
 
     print("..................$token............................");
 
     print("..................$clientId............................");
+    print("..................$localizationLanguageCode............................");
+    print("..................$localizationCountryCode............................");
   }
 
   ///<<<======================== Get Data Form Shared Preference ==============>

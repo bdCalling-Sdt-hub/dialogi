@@ -49,7 +49,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
             fontSize: 18,
             fontWeight: FontWeight.w500,
             color: AppColors.blue_500,
-            text: AppStrings.category,
+            text: AppStrings.category.tr,
           ),
         ],
       )),

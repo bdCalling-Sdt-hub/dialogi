@@ -38,7 +38,7 @@ class SettingsScreen extends StatelessWidget {
             ),
           ),
           CustomText(
-            text: AppStrings.settings,
+            text: AppStrings.settings.tr,
             fontWeight: FontWeight.w500,
             fontSize: 18.h,
             color: AppColors.blue_500,
@@ -58,7 +58,7 @@ class SettingsScreen extends StatelessWidget {
                     Get.toNamed(AppRoutes.settingsChangePasswordScreen);
                   },
                   imageSrc: AppIcons.lock,
-                  text: AppStrings.changePassword,
+                  text: AppStrings.changePassword.tr,
                   icon: AppIcons.chevronRight),
 
             ///<<<==================== change Language ======================>>>
@@ -67,7 +67,7 @@ class SettingsScreen extends StatelessWidget {
                   Get.toNamed(AppRoutes.changeLanguageScreen);
                 },
                 imageSrc: AppIcons.translate,
-                text: AppStrings.changeLanguage,
+                text: AppStrings.changeLanguage.tr,
                 icon: AppIcons.chevronRight),
 
             ///<<<=================== Subscriptions =========================>>>
@@ -76,7 +76,7 @@ class SettingsScreen extends StatelessWidget {
                   Get.toNamed(AppRoutes.subscriptionsScreen);
                 },
                 imageSrc: AppIcons.subscriptions,
-                text: AppStrings.mySubscription,
+                text: AppStrings.mySubscription.tr,
                 icon: AppIcons.chevronRight),
 
             ///<<<================== Privacy Policy =========================>>>
@@ -86,7 +86,7 @@ class SettingsScreen extends StatelessWidget {
                   settingsController.privacyPolicyRepo();
                 },
                 imageSrc: AppIcons.privacy,
-                text: AppStrings.privacyPolicy,
+                text: AppStrings.privacyPolicy.tr,
                 icon: AppIcons.chevronRight),
 
             ///<<<================== about us ===============================>>>
@@ -96,7 +96,7 @@ class SettingsScreen extends StatelessWidget {
                   settingsController.aboutUsRepo();
                 },
                 imageSrc: AppIcons.aboutUs,
-                text: AppStrings.aboutUs,
+                text: AppStrings.aboutUs.tr,
                 icon: AppIcons.chevronRight),
 
             ///<<<=================== supports ==============================>>>
@@ -106,7 +106,7 @@ class SettingsScreen extends StatelessWidget {
                   settingsController.supportsRepo();
                 },
                 imageSrc: AppIcons.support,
-                text: AppStrings.support,
+                text: AppStrings.support.tr,
                 icon: AppIcons.chevronRight),
 
             ///<<<==================== faq =================================>>>>
@@ -116,7 +116,7 @@ class SettingsScreen extends StatelessWidget {
                   settingsController.faqRepo();
                 },
                 imageSrc: AppIcons.faq,
-                text: AppStrings.fAQ,
+                text: AppStrings.fAQ.tr,
                 icon: AppIcons.chevronRight),
 
             ///<<<=================== delete account ========================>>>
@@ -130,7 +130,7 @@ class SettingsScreen extends StatelessWidget {
                       });
                 },
                 imageSrc: AppIcons.deleteAccount,
-                text: AppStrings.deleteAccount,
+                text: AppStrings.deleteAccount.tr,
                 icon: AppIcons.chevronRight),
           ],
         ),

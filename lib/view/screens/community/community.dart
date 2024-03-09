@@ -45,7 +45,7 @@ class _CommunityState extends State<Community> {
       appBar: CustomAppBar(
           appBarContent: Center(
         child: CustomText(
-          text: AppStrings.community,
+          text: AppStrings.community.tr,
           fontSize: 18,
           fontWeight: FontWeight.w500,
           color: AppColors.blue_500,
@@ -77,7 +77,7 @@ class _CommunityState extends State<Community> {
                                       Get.toNamed(AppRoutes.chatScreen,
                                           parameters: {
                                             "chatId": item.sId,
-                                            "type": AppStrings.community,
+                                            "type": AppStrings.community.tr,
                                             "name": item.groupName
                                           });
                                     },
@@ -146,7 +146,7 @@ class _CommunityState extends State<Community> {
                         child: CustomButton(
                         onPressed: () => Get.toNamed(AppRoutes.premiumScreen),
                         buttonBgColor: AppColors.blue_500,
-                        titleText: AppStrings.buySubscription,
+                        titleText: AppStrings.buySubscription.tr,
                         buttonWidth: 200.w,
                       ))
           };

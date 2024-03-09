@@ -43,7 +43,7 @@ class SettingsChangePasswordScreen extends StatelessWidget {
             ),
           ),
           CustomText(
-            text: AppStrings.changePassword,
+            text: AppStrings.changePassword.tr,
             fontWeight: FontWeight.w500,
             fontSize: 18.h,
             color: AppColors.blue_500,
@@ -70,14 +70,14 @@ class SettingsChangePasswordScreen extends StatelessWidget {
                         passwordController.currentPasswordController,
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return ApiStaticStrings.fieldCantBeEmpty;
+                        return ApiStaticStrings.fieldCantBeEmpty.tr;
                       }
                       return null;
                     },
                     isPassword: true,
                     keyboardType: TextInputType.text,
                     textAlign: TextAlign.start,
-                    hintText: AppStrings.currentpassword,
+                    hintText: AppStrings.currentpassword.tr,
                     hintStyle: GoogleFonts.prompt(
                         fontSize: 14.h,
                         fontWeight: FontWeight.w400,
@@ -106,11 +106,11 @@ class SettingsChangePasswordScreen extends StatelessWidget {
                         passwordController.newPasswordController,
                     validator: (value) {
                       if (value.isEmpty) {
-                        return ApiStaticStrings.fieldCantBeEmpty;
+                        return ApiStaticStrings.fieldCantBeEmpty.tr;
                       } else if (value.length < 8) {
-                        return ApiStaticStrings.passMustContainBoth;
+                        return ApiStaticStrings.passMustContainBoth.tr;
                       } else if (!ApiStaticStrings.passRegExp.hasMatch(value)) {
-                        return ApiStaticStrings.passMustContainBoth;
+                        return ApiStaticStrings.passMustContainBoth.tr;
                       } else {
                         return null;
                       }
@@ -118,7 +118,7 @@ class SettingsChangePasswordScreen extends StatelessWidget {
                     isPassword: true,
                     keyboardType: TextInputType.text,
                     textAlign: TextAlign.start,
-                    hintText: AppStrings.newpassword,
+                    hintText: AppStrings.newpassword.tr,
                     hintStyle: GoogleFonts.prompt(
                         fontSize: 14.h,
                         fontWeight: FontWeight.w400,
@@ -149,7 +149,7 @@ class SettingsChangePasswordScreen extends StatelessWidget {
                     validator: (value) {
                       if (value !=
                           passwordController.newPasswordController.text) {
-                        return ApiStaticStrings.passDoesNotMatch;
+                        return ApiStaticStrings.passDoesNotMatch.tr;
                       } else {
                         return null;
                       }
@@ -157,7 +157,7 @@ class SettingsChangePasswordScreen extends StatelessWidget {
                     isPassword: true,
                     keyboardType: TextInputType.text,
                     textAlign: TextAlign.start,
-                    hintText: AppStrings.reenteryourpassword,
+                    hintText: AppStrings.reenteryourpassword.tr,
                     hintStyle: GoogleFonts.prompt(
                         fontSize: 14.h,
                         fontWeight: FontWeight.w400,
@@ -183,7 +183,7 @@ class SettingsChangePasswordScreen extends StatelessWidget {
                       Get.toNamed(AppRoutes.settingsForgetPasswordScreen);
                     },
                     child: CustomText(
-                      text: AppStrings.forgotPassword,
+                      text: AppStrings.forgotPassword.tr,
                       fontWeight: FontWeight.w500,
                       fontSize: 18.h,
                       color: AppColors.red_500,
@@ -213,7 +213,7 @@ class SettingsChangePasswordScreen extends StatelessWidget {
                           passwordController.changePasswordRepo();
                         }
                       },
-                      titleText: AppStrings.update),
+                      titleText: AppStrings.update.tr),
                 );
         },
       ),

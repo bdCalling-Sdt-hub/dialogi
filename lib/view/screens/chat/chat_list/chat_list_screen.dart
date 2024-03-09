@@ -51,7 +51,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
                 size: 24,
               )),
           CustomText(
-            text: AppStrings.chatList,
+            text: AppStrings.chatList.tr,
             fontSize: 18,
             fontWeight: FontWeight.w500,
             color: AppColors.blue_500,

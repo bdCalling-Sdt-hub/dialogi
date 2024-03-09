@@ -39,7 +39,7 @@ class _FaqScreenState extends State<FaqScreen> {
             ),
           ),
           CustomText(
-            text: AppStrings.fAQ,
+            text: AppStrings.fAQ.tr,
             fontWeight: FontWeight.w500,
             fontSize: 18.h,
             color: AppColors.blue_500,

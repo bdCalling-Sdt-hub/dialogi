@@ -56,7 +56,7 @@ class _SelectFriendsGroupChatState extends State<SelectFriendsGroupChat> {
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                   color: AppColors.blue_500,
-                  text: AppStrings.selectFriends,
+                  text: AppStrings.selectFriends.tr,
                 ),
               ),
             )
@@ -142,14 +142,14 @@ class _SelectFriendsGroupChatState extends State<SelectFriendsGroupChat> {
                                     questionId: questionId
                                   );
                                 },
-                                titleText: AppStrings.createGroup)
+                                titleText: AppStrings.createGroup.tr)
                             : CustomElevatedButton(
                                 buttonColor: AppColors.gray_900,
                                 onPressed: () {
-                                  Utils.snackBarMessage(AppStrings.selectMember,
-                                      AppStrings.pleaseSelectAtLeastTwoMembers);
+                                  Utils.snackBarMessage(AppStrings.selectMember.tr,
+                                      AppStrings.pleaseSelectAtLeastTwoMembers.tr);
                                 },
-                                titleText: AppStrings.createGroup),
+                                titleText: AppStrings.createGroup.tr),
                       )
                     ],
                   ),

@@ -80,7 +80,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
                     CustomText(
                       maxLines: 3,
                       textAlign: TextAlign.start,
-                      text: AppStrings.unlockPremiumAccess,
+                      text: AppStrings.unlockPremiumAccess.tr,
                       fontSize: 30.h,
                       fontWeight: FontWeight.w600,
                       bottom: 24.h,
@@ -115,8 +115,8 @@ class _PremiumScreenState extends State<PremiumScreen> {
                                   });
                             },
                             titleText: currentIndex == 0
-                                ? AppStrings.getPremium
-                                : AppStrings.getPremiumPlus),
+                                ? AppStrings.getPremium.tr
+                                : AppStrings.getPremiumPlus.tr),
                         const SizedBox(
                           height: 16,
                         ),

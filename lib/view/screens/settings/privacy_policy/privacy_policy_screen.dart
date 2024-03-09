@@ -33,7 +33,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
                 ),
               ),
               CustomText(
-                text: AppStrings.privacyPolicy,
+                text: AppStrings.privacyPolicy.tr,
                 fontWeight: FontWeight.w500,
                 fontSize: 18.h,
                 color: AppColors.blue_500,
@@ -50,7 +50,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
               data: settingsController
                   .contentModelInfo!.data!.attributes?.content
                   .toString() ??
-                  "No Data Found",
+                  "No Data Found".tr,
             ),
           ],
         ),

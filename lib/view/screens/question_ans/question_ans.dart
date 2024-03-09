@@ -76,7 +76,7 @@ class _QuestionAnsState extends State<QuestionAns> {
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
                 color: AppColors.blue_500,
-                text: title,
+                text: title.tr,
               ),
             ),
           )
@@ -175,7 +175,7 @@ class _QuestionAnsState extends State<QuestionAns> {
                         height: 90.h,
                         maxLines: 2,
                         textEditingController: controller.discussionController,
-                        hintText: AppStrings.enteryouranswer,
+                        hintText: AppStrings.enteryouranswer.tr,
                       ),
                     ),
 
@@ -198,11 +198,11 @@ class _QuestionAnsState extends State<QuestionAns> {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialogs(
-                                            successtext: AppStrings.greatJob,
+                                            successtext: AppStrings.greatJob.tr,
                                             completeText:
-                                                AppStrings.youHaveCompleted,
+                                                AppStrings.youHaveCompleted.tr,
                                             buttonText:
-                                                AppStrings.gotocategories,
+                                                AppStrings.gotocategories.tr,
                                             onPressed: () {
                                               Get.toNamed(
                                                   AppRoutes.categoryScreen);
@@ -210,7 +210,7 @@ class _QuestionAnsState extends State<QuestionAns> {
                                       });
                                 }
                               },
-                              titleText: AppStrings.skip),
+                              titleText: AppStrings.skip.tr),
                         ),
                         SizedBox(
                           width: 20.w,
@@ -220,7 +220,7 @@ class _QuestionAnsState extends State<QuestionAns> {
                               onPressed: () {
                                 controller.addDiscussionRepo(title);
                               },
-                              titleText: AppStrings.add),
+                              titleText: AppStrings.add.tr),
                         ),
                       ],
                     ),
@@ -238,7 +238,7 @@ class _QuestionAnsState extends State<QuestionAns> {
                         : Column(
                             children: [
                               CustomText(
-                                  text: AppStrings.wanttojointhediscussion),
+                                  text: AppStrings.wanttojointhediscussion.tr),
                               SizedBox(
                                 height: 8.h,
                               ),
@@ -246,7 +246,7 @@ class _QuestionAnsState extends State<QuestionAns> {
                                 onTap: () =>
                                     Get.toNamed(AppRoutes.premiumScreen),
                                 child: CustomText(
-                                  text: AppStrings.buySubscription,
+                                  text: AppStrings.buySubscription.tr,
                                   color: AppColors.blue_500,
                                   fontSize: 20.sp,
                                   fontWeight: FontWeight.w600,
@@ -287,7 +287,7 @@ class _QuestionAnsState extends State<QuestionAns> {
                                   .attributes!.questions![0].sId!,
                             );
                           },
-                          titleText: AppStrings.discusswithFriends),
+                          titleText: AppStrings.discusswithFriends.tr),
                 ),
                 SizedBox(
                   width: 10.w,
@@ -311,16 +311,16 @@ class _QuestionAnsState extends State<QuestionAns> {
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialogs(
-                                    successtext: AppStrings.greatJob,
-                                    completeText: AppStrings.youHaveCompleted,
-                                    buttonText: AppStrings.gotocategories,
+                                    successtext: AppStrings.greatJob.tr,
+                                    completeText: AppStrings.youHaveCompleted.tr,
+                                    buttonText: AppStrings.gotocategories.tr,
                                     onPressed: () {
                                       Get.offAllNamed(AppRoutes.categoryScreen);
                                     });
                               });
                         }
                       },
-                      titleText: AppStrings.next),
+                      titleText: AppStrings.next.tr),
                 ),
               ],
             ),

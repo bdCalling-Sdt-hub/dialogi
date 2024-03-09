@@ -37,7 +37,7 @@ class SettingsGetOtp extends StatelessWidget {
             ),
           ),
           CustomText(
-            text: AppStrings.getOTP,
+            text: AppStrings.getOTP.tr,
             fontWeight: FontWeight.w500,
             fontSize: 18.h,
             color: AppColors.blue_500,
@@ -58,7 +58,7 @@ class SettingsGetOtp extends StatelessWidget {
                 CustomText(
                   textAlign: TextAlign.start,
                   maxLines: 3,
-                  text: AppStrings.weHavesentaverificationcode,
+                  text: AppStrings.weHavesentaverificationcode.tr,
                   fontWeight: FontWeight.w400,
                   fontSize: 16,
                   bottom: 44.h,
@@ -77,7 +77,7 @@ class SettingsGetOtp extends StatelessWidget {
                     if (value!.length <= 6) {
                       return null;
                     } else {
-                      return "Please enter the OTP code.";
+                      return "Please enter the OTP code.".tr;
                     }
                   },
                   autoFocus: true,
@@ -107,7 +107,7 @@ class SettingsGetOtp extends StatelessWidget {
                     CustomText(
                       textAlign: TextAlign.start,
                       maxLines: 3,
-                      text: AppStrings.didntReceivetheCode,
+                      text: AppStrings.didntReceivetheCode.tr,
                       fontWeight: FontWeight.w400,
                       fontSize: 14.w,
                       color: AppColors.blue_500,
@@ -120,7 +120,7 @@ class SettingsGetOtp extends StatelessWidget {
                         textDecoration: TextDecoration.underline,
                         textAlign: TextAlign.start,
                         maxLines: 3,
-                        text: AppStrings.resend,
+                        text: AppStrings.resend.tr,
                         fontWeight: FontWeight.w400,
                         fontSize: 14.w,
                         color: AppColors.blue_500,
@@ -140,7 +140,7 @@ class SettingsGetOtp extends StatelessWidget {
                         passwordController.settingsVerifyOtpRepo();
                       }
                     },
-                    titleText: AppStrings.verify)
+                    titleText: AppStrings.verify.tr)
               ],
             ),
           ),
