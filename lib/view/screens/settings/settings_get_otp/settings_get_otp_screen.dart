@@ -13,6 +13,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+import '../../../../helper/prefs_helper.dart';
+
 class SettingsGetOtp extends StatelessWidget {
   SettingsGetOtp({super.key});
 
@@ -47,105 +49,144 @@ class SettingsGetOtp extends StatelessWidget {
       )),
       body: GetBuilder<PasswordController>(
         builder: (passwordController) {
-        return Padding(
-          padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 20.w),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ///otp text
-                CustomText(
-                  textAlign: TextAlign.start,
-                  maxLines: 3,
-                  text: AppStrings.weHavesentaverificationcode.tr,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16,
-                  bottom: 44.h,
-                ),
-
-                ///pin code
-                PinCodeTextField(
-                  controller: passwordController.settingsOtpController,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                  ],
-                  keyboardType: const TextInputType.numberWithOptions(signed: true),
-                  cursorColor: Colors.black,
-                  appContext: (context),
-                  validator: (value) {
-                    if (value!.length <= 6) {
-                      return null;
-                    } else {
-                      return "Please enter the OTP code.".tr;
-                    }
-                  },
-                  autoFocus: true,
-                  pinTheme: PinTheme(
-                    shape: PinCodeFieldShape.box,
-                    borderRadius: BorderRadius.circular(8),
-                    fieldHeight: 56.h,
-                    fieldWidth: 44.w,
-                    activeFillColor: Colors.white,
-                    selectedFillColor: Colors.white,
-                    inactiveFillColor: Colors.white,
-                    borderWidth: 0.1,
-                    errorBorderColor: AppColors.blue_300,
-                    selectedColor: AppColors.blue_300,
-                    activeColor: AppColors.blue_300,
-                    inactiveColor: AppColors.blue_300,
+          return Padding(
+            padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 20.w),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ///otp text
+                  CustomText(
+                    textAlign: TextAlign.start,
+                    maxLines: 3,
+                    text: AppStrings.weHavesentaverificationcode.tr,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                    bottom: 44.h,
                   ),
-                  length: 6,
-                  enableActiveFill: true,
-                ),
-                SizedBox(
-                  height: 24.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CustomText(
-                      textAlign: TextAlign.start,
-                      maxLines: 3,
-                      text: AppStrings.didntReceivetheCode.tr,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14.w,
-                      color: AppColors.blue_500,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        passwordController.settingsVerifyOtpRepo();
-                      },
-                      child: CustomText(
-                        textDecoration: TextDecoration.underline,
-                        textAlign: TextAlign.start,
-                        maxLines: 3,
-                        text: AppStrings.resend.tr,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14.w,
-                        color: AppColors.blue_500,
-                      ),
-                    ),
-                  ],
-                ),
-                const Spacer(),
 
-                ///<<<======================= Verify Button =====================>>>
-
-                passwordController.isLoading? const Center(child:CircularProgressIndicator())
-                    : CustomElevatedButton(
-                    buttonWidth: Get.width,
-                    onPressed: () {
-                      if(_formKey.currentState!.validate()){
-                        passwordController.settingsVerifyOtpRepo();
+                  ///pin code
+                  PinCodeTextField(
+                    controller: passwordController.settingsOtpController,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    keyboardType:
+                        const TextInputType.numberWithOptions(signed: true),
+                    cursorColor: Colors.black,
+                    appContext: (context),
+                    validator: (value) {
+                      if (value!.length <= 6) {
+                        return null;
+                      } else {
+                        return "Please enter the OTP code.".tr;
                       }
                     },
-                    titleText: AppStrings.verify.tr)
-              ],
+                    autoFocus: true,
+                    pinTheme: PinTheme(
+                      shape: PinCodeFieldShape.box,
+                      borderRadius: BorderRadius.circular(8),
+                      fieldHeight: 56.h,
+                      fieldWidth: 44.w,
+                      activeFillColor: Colors.white,
+                      selectedFillColor: Colors.white,
+                      inactiveFillColor: Colors.white,
+                      borderWidth: 0.1,
+                      errorBorderColor: AppColors.blue_300,
+                      selectedColor: AppColors.blue_300,
+                      activeColor: AppColors.blue_300,
+                      inactiveColor: AppColors.blue_300,
+                    ),
+                    length: 6,
+                    enableActiveFill: true,
+                  ),
+                  SizedBox(
+                    height: 24.h,
+                  ),
+                  PrefsHelper.localizationCountryCode == "DE"
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomText(
+                              textAlign: TextAlign.start,
+                              maxLines: 3,
+                              text: AppStrings.didntReceivetheCode.tr,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                              color: AppColors.blue_500,
+                            ),
+                            passwordController.isLoading
+                                ? const Center(
+                                    child: CircularProgressIndicator())
+                                : GestureDetector(
+                                    onTap: () {
+                                      passwordController.settingsOtpController
+                                          .clear();
+                                      passwordController
+                                          .settingsForgetPasswordRepo();
+                                    },
+                                    child: CustomText(
+                                      textAlign: TextAlign.start,
+                                      text: AppStrings.resend.tr,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18,
+                                      color: AppColors.blue_500,
+                                    ),
+                                  ),
+                          ],
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CustomText(
+                              textAlign: TextAlign.start,
+                              maxLines: 3,
+                              text: AppStrings.didntReceivetheCode.tr,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                              color: AppColors.blue_500,
+                            ),
+                            passwordController.isLoading
+                                ? const Center(
+                                    child: CircularProgressIndicator())
+                                : GestureDetector(
+                                    onTap: () {
+                                      passwordController.settingsOtpController
+                                          .clear();
+                                      passwordController
+                                          .settingsForgetPasswordRepo();
+                                    },
+                                    child: CustomText(
+                                      textAlign: TextAlign.start,
+                                      text: AppStrings.resend.tr,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18,
+                                      color: AppColors.blue_500,
+                                    ),
+                                  ),
+                          ],
+                        ),
+                  const Spacer(),
+
+                  ///<<<======================= Verify Button =====================>>>
+
+                  passwordController.isLoading
+                      ? const Center(child: CircularProgressIndicator())
+                      : CustomElevatedButton(
+                          buttonWidth: Get.width,
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              passwordController.settingsVerifyOtpRepo();
+                            }
+                          },
+                          titleText: AppStrings.verify.tr)
+                ],
+              ),
             ),
-          ),
-        );
-      },),
+          );
+        },
+      ),
     );
   }
 }

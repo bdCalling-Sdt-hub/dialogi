@@ -132,7 +132,7 @@ class _DeleteAccountState extends State<DeleteAccount> {
 
   void buildPermissionPopUp(BuildContext context) {
     return permissionPopUp(
-                    title: AppStrings.areYouSure,
+                    title: AppStrings.areYouSure.tr,
                     context: context,
                     ontapYes: () {
                       deleteAccountController.deleteAccountRepo();

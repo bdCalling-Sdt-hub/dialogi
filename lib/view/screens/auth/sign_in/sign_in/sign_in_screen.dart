@@ -109,10 +109,6 @@ class _SignInScreenState extends State<SignInScreen> {
                   validator: (value) {
                     if (value.isEmpty) {
                       return ApiStaticStrings.fieldCantBeEmpty.tr;
-                    } else if (value.length < 8) {
-                      return ApiStaticStrings.passMustContainBoth.tr;
-                    } else if (!ApiStaticStrings.passRegExp.hasMatch(value)) {
-                      return ApiStaticStrings.passMustContainBoth.tr;
                     } else {
                       return null;
                     }
