@@ -56,12 +56,14 @@ class SignInController extends GetxController {
         PrefsHelper.setString("clientId", data['data']["attributes"]["_id"]);
         PrefsHelper.setString("myImage", data['data']["attributes"]["image"]);
         PrefsHelper.setString("myName", data['data']["attributes"]["fullName"]);
+        PrefsHelper.setString("myEmail", emailController.text);
         PrefsHelper.setBool("isProvider", false);
 
         PrefsHelper.token = data['data']["accessToken"];
         PrefsHelper.clientId = data['data']["attributes"]["_id"];
         PrefsHelper.myImage = data['data']["attributes"]["image"];
         PrefsHelper.myName = data['data']["attributes"]["fullName"];
+        PrefsHelper.myEmail = emailController.text;
         PrefsHelper.isProvider = false;
 
         print(
@@ -70,7 +72,7 @@ class SignInController extends GetxController {
 
         print(
             "=============================> token ${data['data']["accessToken"]}");
-        Get.toNamed(AppRoutes.homeScreen);
+        Get.offAllNamed(AppRoutes.homeScreen);
         emailController.clear();
         passwordController.clear();
         signInLoading = false;

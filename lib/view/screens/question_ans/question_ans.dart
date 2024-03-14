@@ -210,7 +210,9 @@ class _QuestionAnsState extends State<QuestionAns> {
                                       });
                                 }
                               },
-                              titleText: AppStrings.skip.tr),
+                              titleText: AppStrings.skip.tr,
+                            titleSize: 17,
+                          ),
                         ),
                         SizedBox(
                           width: 20.w,
@@ -218,9 +220,11 @@ class _QuestionAnsState extends State<QuestionAns> {
                         Expanded(
                           child: CustomElevatedButton(
                               onPressed: () {
-                                controller.addDiscussionRepo(title);
+                                controller.discussionController.text.isEmpty ? null : controller.addDiscussionRepo(title);
                               },
-                              titleText: AppStrings.add.tr),
+                              titleText: AppStrings.add.tr,
+                            titleSize: 17,
+                          ),
                         ),
                       ],
                     ),
@@ -276,7 +280,7 @@ class _QuestionAnsState extends State<QuestionAns> {
                           buttonColor: AppColors.whiteColor,
                           borderColor: AppColors.black_600,
                           titleColor: AppColors.black_400,
-                          titleSize: 14.w,
+                          titleSize: 12,
                           buttonHeight: 36,
                           onPressed: () {
                             //   Get.toNamed(AppRoutes.selectFriends);
@@ -297,7 +301,7 @@ class _QuestionAnsState extends State<QuestionAns> {
 
                 Expanded(
                   child: CustomElevatedButton(
-                      titleSize: 14.w,
+                      titleSize: 13,
                       buttonHeight: 36,
                       onPressed: () {
                         controller.nextQuestion();

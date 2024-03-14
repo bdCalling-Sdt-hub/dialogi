@@ -115,13 +115,13 @@ class SignUpOtpScreen extends StatelessWidget {
                               fontSize: 16,
                               color: AppColors.blue_500,
                             ),
-                            controller.signUpLoading
+                            controller.isOtpResend
                                 ? const Center(
                                     child: CircularProgressIndicator())
-                                : GestureDetector(
+                                : InkWell(
                                     onTap: () {
                                       controller.otpController.clear();
-                                      controller.signUpUser();
+                                      controller.signUpUser(isResend: true);
                                     },
                                     child: CustomText(
                                       textAlign: TextAlign.start,
@@ -144,13 +144,13 @@ class SignUpOtpScreen extends StatelessWidget {
                               fontSize: 16,
                               color: AppColors.blue_500,
                             ),
-                            controller.signUpLoading
+                            controller.isOtpResend
                                 ? const Center(
                                     child: CircularProgressIndicator())
-                                : GestureDetector(
+                                : InkWell(
                                     onTap: () {
                                       controller.otpController.clear();
-                                      controller.signUpUser();
+                                      controller.signUpUser(isResend: true);
                                     },
                                     child: CustomText(
                                       text: AppStrings.resend.tr,

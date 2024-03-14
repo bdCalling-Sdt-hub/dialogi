@@ -15,7 +15,7 @@ class ApiStaticStrings {
   static const String fieldCantBeEmpty = "Field can't be empty";
   static RegExp passRegExp = RegExp(r'(?=.*[a-z])(?=.*[0-9])');
   static const String passMustContainBoth =
-      "Password must be 8 characters long & contain both \nalphabets and numerics";
+      "Password must be 8 characters & contain both \nalphabets and numerics";
   static const String passDoesNotMatch = "Password does not match";
   static const signUp = "Sign Up";
   static const conTiNue= "Continue";

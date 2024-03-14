@@ -40,7 +40,7 @@ class LogOut {
           title: Text(AppStrings.areYouSure.tr),
           actions: [
             TextButton(
-                style: ButtonStyle(
+                style: const ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(AppColors.blue_500),
                 ),
                 onPressed: () {
@@ -48,15 +48,18 @@ class LogOut {
                   PrefsHelper.removeAllPrefData();
                   SignOutController.googleSignOut();
                 },
-                child: Text(AppStrings.yes.tr, style: TextStyle(color: AppColors.whiteColor),)),
+                child: Text(AppStrings.yes.tr, style: const TextStyle(color: AppColors.whiteColor),)),
             TextButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(AppColors.blue_500),
+                style: const ButtonStyle(
+                  side: MaterialStatePropertyAll(
+                    BorderSide(color: AppColors.blue_500),
+                  ),
+                  // backgroundColor: MaterialStatePropertyAll(AppColors.blue_500),
                 ),
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text(AppStrings.no.tr, style: TextStyle(color: AppColors.whiteColor),)),
+                child: Text(AppStrings.no.tr, style: const TextStyle(color: AppColors.black_500 ),)),
           ],
         );
       },

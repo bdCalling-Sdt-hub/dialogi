@@ -185,8 +185,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         size: 24,
                                       ),
                                       CustomText(
-                                        text: controller.profileModel!.data!
-                                            .attributes!.subscription!,
+                                        text: capitalize(controller.profileModel!.data!
+                                            .attributes!.subscription!),
                                         fontSize: 18,
                                         color: AppColors.whiteColor,
                                         left: 12,
@@ -219,5 +219,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
             };
           },
         ));
+  }
+  String capitalize(String text) {
+    List<String> words = text.split("-");
+    for (int i = 0; i < words.length; i++) {
+      String word = words[i];
+      if (word.isNotEmpty) {
+        words[i] = word[0].toUpperCase() + word.substring(1);
+      }
+    }
+    return words.join("-");
   }
 }

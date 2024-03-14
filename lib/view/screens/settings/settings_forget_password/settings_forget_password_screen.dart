@@ -74,12 +74,12 @@ class _SettingsForgetPasswordScreenState
                 ///<<<================= Email Text Field =======================>>>
 
                 CustomTextField(
-                  textEditingController: passwordController.settingsEmailController,
+                  // textEditingController: passwordController.settingsEmailController,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return ApiStaticStrings.enterEmail.tr;
                     } else if (!ApiStaticStrings.emailRegexp
-                        .hasMatch(passwordController.settingsEmailController.text)) {
+                        .hasMatch("passwordController.settingsEmailController.text")) {
                       return ApiStaticStrings.enterValidEmail.tr;
                     } else {
                       return null;

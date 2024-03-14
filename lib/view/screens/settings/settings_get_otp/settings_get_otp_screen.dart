@@ -68,6 +68,7 @@ class SettingsGetOtp extends StatelessWidget {
 
                   ///pin code
                   PinCodeTextField(
+                    autoDisposeControllers: false,
                     controller: passwordController.settingsOtpController,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
@@ -116,15 +117,12 @@ class SettingsGetOtp extends StatelessWidget {
                               fontSize: 16,
                               color: AppColors.blue_500,
                             ),
-                            passwordController.isLoading
-                                ? const Center(
-                                    child: CircularProgressIndicator())
-                                : GestureDetector(
+                             InkWell(
                                     onTap: () {
                                       passwordController.settingsOtpController
                                           .clear();
                                       passwordController
-                                          .settingsForgetPasswordRepo();
+                                          .settingsForgetPasswordRepo(isReSend: true);
                                     },
                                     child: CustomText(
                                       textAlign: TextAlign.start,
@@ -147,10 +145,7 @@ class SettingsGetOtp extends StatelessWidget {
                               fontSize: 16,
                               color: AppColors.blue_500,
                             ),
-                            passwordController.isLoading
-                                ? const Center(
-                                    child: CircularProgressIndicator())
-                                : GestureDetector(
+                             InkWell(
                                     onTap: () {
                                       passwordController.settingsOtpController
                                           .clear();

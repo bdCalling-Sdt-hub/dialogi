@@ -111,7 +111,7 @@ class SettingsChangePasswordScreen extends StatelessWidget {
                         return ApiStaticStrings.passMustContainBoth.tr;
                       } else if (!ApiStaticStrings.passRegExp.hasMatch(value)) {
                         return ApiStaticStrings.passMustContainBoth.tr;
-                      } else {
+                      } else{
                         return null;
                       }
                     },
@@ -178,9 +178,10 @@ class SettingsChangePasswordScreen extends StatelessWidget {
 
                   ///<<<======================= Forget Password ====================>>>
 
-                  GestureDetector(
+                  passwordController.isLoading? const Center(child: CircularProgressIndicator()): GestureDetector(
                     onTap: () {
-                      Get.toNamed(AppRoutes.settingsForgetPasswordScreen);
+                      // Get.toNamed(AppRoutes.settingsForgetPasswordScreen);
+                      passwordController.settingsForgetPasswordRepo();
                     },
                     child: CustomText(
                       text: AppStrings.forgotPassword.tr,

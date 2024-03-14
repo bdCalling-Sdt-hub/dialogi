@@ -115,13 +115,10 @@ class OtpScreen extends StatelessWidget {
                               fontSize: 16,
                               color: AppColors.blue_500,
                             ),
-                            controller.isLoading
-                                ? const Center(
-                                    child: CircularProgressIndicator())
-                                : GestureDetector(
+                            InkWell(
                                     onTap: () {
                                       controller.settingsOtpController.clear();
-                                      controller.settingsForgetPasswordRepo();
+                                      controller.forgetPasswordRepo();
                                     },
                                     child: CustomText(
                                       textAlign: TextAlign.start,
@@ -144,13 +141,10 @@ class OtpScreen extends StatelessWidget {
                               fontSize: 16,
                               color: AppColors.blue_500,
                             ),
-                            controller.isLoading
-                                ? const Center(
-                                    child: CircularProgressIndicator())
-                                : GestureDetector(
+                            InkWell(
                                     onTap: () {
-                                      controller.settingsOtpController.clear();
-                                      controller.settingsForgetPasswordRepo();
+                                      controller.otpController.clear();
+                                      controller.forgetPasswordRepo(isResend: true);
                                     },
                                     child: CustomText(
                                       textAlign: TextAlign.start,

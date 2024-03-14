@@ -34,7 +34,7 @@ class _CustomImageState extends State<CustomImage> {
         widget.imageSrc,
         // ignore: deprecated_member_use
         color: widget.imageColor,
-        fit: BoxFit.fill,
+        fit: BoxFit.contain,
         height: widget.size, width: widget.size,
       );
     }
@@ -42,7 +42,7 @@ class _CustomImageState extends State<CustomImage> {
     if (widget.imageType == ImageType.png) {
       imageWidget = Image.asset(
         widget.imageSrc,
-        fit: BoxFit.fill,
+        fit: BoxFit.contain,
         color: widget.imageColor,
         height: widget.size,
         width: widget.size,
