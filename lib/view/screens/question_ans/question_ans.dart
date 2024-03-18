@@ -2,6 +2,7 @@ import 'package:dialogi_app/controllers/question/question_ans_controller.dart';
 import 'package:dialogi_app/controllers/question/question_ans_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/global/api_response_model.dart';
+import 'package:dialogi_app/helper/prefs_helper.dart';
 import 'package:dialogi_app/services/admob_ad_services.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
@@ -111,8 +112,11 @@ class _QuestionAnsState extends State<QuestionAns> {
                                 maxLines: 100,
                                 fontSize: 16.w,
                                 fontWeight: FontWeight.w500,
-                                text: controller.questionAnsModel!.data!
-                                    .attributes!.questions![0].question!,
+                                text: PrefsHelper.localizationLanguageCode == 'en'
+                                    ? controller.questionAnsModel!.data!
+                                    .attributes!.questions![0].question!
+                                    : controller.questionAnsModel!.data!
+                                    .attributes!.questions![0].questionGr!,
                               ),
                             ),
                           ),
@@ -242,6 +246,7 @@ class _QuestionAnsState extends State<QuestionAns> {
                         : Column(
                             children: [
                               CustomText(
+                                maxLines: 2,
                                   text: AppStrings.wanttojointhediscussion.tr),
                               SizedBox(
                                 height: 8.h,

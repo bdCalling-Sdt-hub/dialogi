@@ -4,8 +4,7 @@ class QuestionAnsModel {
   String? message;
   Data? data;
 
-  QuestionAnsModel(
-      {this.status, this.statusCode, this.message, this.data});
+  QuestionAnsModel({this.status, this.statusCode, this.message, this.data});
 
   QuestionAnsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -86,21 +85,27 @@ class Attributes {
 class Questions {
   String? sId;
   String? question;
+  String? questionGr;
   String? subCategory;
+  bool? isEarlyAccessAvailable;
   List<Discussions>? discussions;
   bool? isFavourite;
 
   Questions(
       {this.sId,
         this.question,
+        this.questionGr,
         this.subCategory,
+        this.isEarlyAccessAvailable,
         this.discussions,
         this.isFavourite});
 
   Questions.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     question = json['question'];
+    questionGr = json['questionGr'];
     subCategory = json['subCategory'];
+    isEarlyAccessAvailable = json['isEarlyAccessAvailable'];
     if (json['discussions'] != null) {
       discussions = <Discussions>[];
       json['discussions'].forEach((v) {
@@ -114,7 +119,9 @@ class Questions {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
     data['question'] = this.question;
+    data['questionGr'] = this.questionGr;
     data['subCategory'] = this.subCategory;
+    data['isEarlyAccessAvailable'] = this.isEarlyAccessAvailable;
     if (this.discussions != null) {
       data['discussions'] = this.discussions!.map((v) => v.toJson()).toList();
     }
