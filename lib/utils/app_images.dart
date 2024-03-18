@@ -23,6 +23,7 @@ static const String premium = "$baseUrl/premium.png";
 static const String crown = "$baseUrl/crown.png";
 static const String isLike = "$baseUrl/isLike.png";
 static const String isDislike = "$baseUrl/isDislike.png";
+static const String noData = "$baseUrl/noData.png";
 
 
 

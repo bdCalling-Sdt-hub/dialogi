@@ -8,6 +8,7 @@ import 'package:dialogi_app/utils/app_constants.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/screens/Testing/testing_screen.dart';
+import 'package:dialogi_app/view/screens/home/screen/inner_widgets/logout.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,9 +31,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
       required String text,
       required VoidCallback ontap}) {
     return GestureDetector(
-      onTap: () {
-        ontap();
-      },
+      onTap: ontap,
       child: Container(
         decoration: const BoxDecoration(),
         child: Row(
@@ -87,11 +86,11 @@ class _HomeDrawerState extends State<HomeDrawer> {
                               shape: BoxShape.circle,
                               image: DecorationImage(
                                   image: NetworkImage(
-                                      "${ApiConstant.baseUrl}${controller.profileModel.data!.attributes!.image}"))),
+                                      "${ApiConstant.baseUrl}${controller.profileModel!.data!.attributes!.image}"))),
                         ),
                         CustomText(
                           text: controller
-                              .profileModel.data!.attributes!.fullName!,
+                              .profileModel!.data!.attributes!.fullName!,
                           left: 8.w,
                         )
                       ],
@@ -107,7 +106,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
               customRow(
                   icon: AppIcons.pendingReq,
-                  text: AppStrings.pendingRequests,
+                  text: AppStrings.pendingRequests.tr,
                   ontap: () {
                     Get.toNamed(AppRoutes.pendingRequestsScreen);
                   }),
@@ -119,7 +118,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
               customRow(
                   icon: AppIcons.setting,
-                  text: AppStrings.settings,
+                  text: AppStrings.settings.tr,
                   ontap: () {
                     Get.toNamed(AppRoutes.settingsScreen);
                   }),
@@ -142,7 +141,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                         color: AppColors.blue_500,
                       ),
                       CustomText(
-                        text: AppStrings.favoriteList,
+                        text: AppStrings.favoriteList.tr,
                         left: 16.w,
                       )
                     ],
@@ -169,7 +168,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                         color: AppColors.blue_500,
                       ),
                       CustomText(
-                        text: "Test Mobile Ad",
+                        text: "Test Mobile Ad".tr,
                         left: 16.w,
                       )
                     ],
@@ -183,16 +182,10 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
               ///<<<====================== Logout =============================>>>
 
-              customRow(
-                  icon: AppIcons.logout,
-                  text: AppStrings.logout,
-                  ontap: () async {
-                    await PrefsHelper.removeAllPrefData();
-                    PrefsHelper.setString(AppConstants.bearerToken, "");
-                    PrefsHelper.setString(AppConstants.forgetPasswordToken, "");
-                    PrefsHelper.setString("clientId", "");
-                    Get.offAllNamed(AppRoutes.signInScreen);
-                  }),
+              LogOut.customRow(
+                icon: AppIcons.logout,
+                text: AppStrings.logout.tr,
+              ),
             ],
           ));
     });

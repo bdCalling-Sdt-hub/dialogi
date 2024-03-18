@@ -41,6 +41,7 @@ class CategoryController extends GetxController {
     print("=====================================> page $page");
 
     if (page == 1) {
+      categoryList.clear() ;
       status = Status.loading;
       update();
     }

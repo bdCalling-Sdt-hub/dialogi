@@ -40,6 +40,7 @@ class FriendController extends GetxController {
 
   Future<void> friendListRepo() async {
     if (page == 1) {
+      friendList.clear();
       status = Status.loading;
       update();
     }

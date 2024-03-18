@@ -38,7 +38,7 @@ class SubscriptionPopup {
                     size: 60.r,
                   ),
 
-                  const CustomText(
+                  CustomText(
                     maxLines: 3,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,

@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 
 void createGroupPopUp(
     {required BuildContext context,
+      required String questionId ,
     String title = AppStrings.setGroupName,
     String buttonText = AppStrings.create}) {
   final SelectFriendsController selectFriendsController =
@@ -27,7 +28,7 @@ void createGroupPopUp(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const CustomText(
+              CustomText(
                 fontWeight: FontWeight.w500,
                 text: AppStrings.setName,
               ),
@@ -40,7 +41,7 @@ void createGroupPopUp(
                 child: CustomElevatedButton(
                     onPressed: () {
                       navigator!.pop();
-                      selectFriendsController.createNewGroup() ;
+                      selectFriendsController.createNewGroup(questionId) ;
 
                     },
                     titleText: buttonText),
@@ -86,7 +87,7 @@ void permissionPopUp({
                         navigator!.pop();
                         ontapYes();
                       },
-                      titleText: AppStrings.yes),
+                      titleText: AppStrings.yes.tr),
                   CustomElevatedButton(
                       buttonWidth: 120.w,
                       buttonHeight: 36.h,
@@ -94,7 +95,7 @@ void permissionPopUp({
                         navigator!.pop();
                         ontapNo();
                       },
-                      titleText: AppStrings.no),
+                      titleText: AppStrings.no.tr),
                 ],
               )
             ],

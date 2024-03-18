@@ -32,11 +32,11 @@ class _NavBarState extends State<NavBar> {
   ];
 
   List<String> selectedText = [
-    'Home',
-    'Category',
-    'Friends',
-    'Community',
-    'Profile'
+    'Home'.tr,
+    'Category'.tr,
+    'Friends'.tr,
+    'Community'.tr,
+    'Profile'.tr
   ];
 
   List<String> unselectedIcon = [

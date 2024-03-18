@@ -9,7 +9,6 @@ import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
 import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -25,7 +24,7 @@ class _SelectFriendsGroupChatState extends State<SelectFriendsGroupChat> {
   final SelectFriendsController selectFriendsController =
       Get.put(SelectFriendsController());
 
-  // final String discussPlatform = Get.parameters["discussPlatform"] ?? "";
+  final String questionId = Get.parameters["questionId"] ?? "";
 
   @override
   void initState() {
@@ -57,7 +56,7 @@ class _SelectFriendsGroupChatState extends State<SelectFriendsGroupChat> {
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                   color: AppColors.blue_500,
-                  text: AppStrings.selectFriends,
+                  text: AppStrings.selectFriends.tr,
                 ),
               ),
             )
@@ -75,11 +74,6 @@ class _SelectFriendsGroupChatState extends State<SelectFriendsGroupChat> {
                       EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h),
                   child: Column(
                     children: [
-                      Align(
-                          alignment: Alignment.centerRight,
-                          child: CustomText(
-                              text:
-                                  "2/${controller.selectedParticipants.length - 1}")),
                       Expanded(
                         child: ListView.builder(
                           itemCount: controller.isMoreLoading
@@ -145,16 +139,17 @@ class _SelectFriendsGroupChatState extends State<SelectFriendsGroupChat> {
                                 onPressed: () {
                                   createGroupPopUp(
                                     context: context,
+                                    questionId: questionId
                                   );
                                 },
-                                titleText: AppStrings.createGroup)
+                                titleText: AppStrings.createGroup.tr)
                             : CustomElevatedButton(
                                 buttonColor: AppColors.gray_900,
                                 onPressed: () {
-                                  Utils.snackBarMessage(AppStrings.selectMember,
-                                      AppStrings.pleaseSelectAtLeastTwoMembers);
+                                  Utils.snackBarMessage(AppStrings.selectMember.tr,
+                                      AppStrings.pleaseSelectAtLeastTwoMembers.tr);
                                 },
-                                titleText: AppStrings.createGroup),
+                                titleText: AppStrings.createGroup.tr),
                       )
                     ],
                   ),

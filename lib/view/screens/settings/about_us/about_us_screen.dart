@@ -33,7 +33,7 @@ class AboutUsScreen extends StatelessWidget {
               ),
             ),
             CustomText(
-              text: AppStrings.aboutUs,
+              text: AppStrings.aboutUs.tr,
               fontWeight: FontWeight.w500,
               fontSize: 18.h,
               color: AppColors.blue_500,
@@ -52,7 +52,7 @@ class AboutUsScreen extends StatelessWidget {
                       data: settingsController
                               .contentModelInfo!.data!.attributes?.content
                               .toString() ??
-                          "No Data Found",
+                          "No Data Found".tr,
                     ),
                   ],
                 ),

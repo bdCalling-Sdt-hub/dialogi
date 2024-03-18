@@ -64,10 +64,20 @@ dependencies:
   flutter_inappwebview: ^5.7.2+3
   google_mobile_ads: ^4.0.0
   flutter_local_notifications: ^16.3.2
-  url_launcher: ^6.2.4
+  permission_handler: ^11.3.0
   app_settings: ^5.1.1
+  url_launcher: ^6.2.4
+  intl: ^0.18.1
+  icons_launcher: ^2.1.7
 
 
+icons_launcher:
+  image_path: 'assets/images/app_icon.png'
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +89,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -96,6 +107,7 @@ flutter:
     - assets/icons/
     - assets/images/
     - assets/.env
+    - assets/images/earlyAccessBadge.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -30,53 +30,72 @@ class Homecontroller extends GetxController with GetxServiceMixin {
   static Status status = Status.loading;
   Status homeStatus = Status.loading;
 
+  List earlyAccess = [];
+
+  List categoryList = [];
+
   static AccessStatusModel? accessStatusModel;
   HomeCategoriesModel? homeCategoriesModel;
   final ScrollController categoryScrollController = ScrollController();
   final ScrollController earlyAccessScrollController = ScrollController();
-  int pageErCount = 1;
-  int pageCount = 1;
-  int limitCount = 10;
 
+  int pageEr = 1;
+  int page = 1;
 
   ///<<<==================== Page Scroll Method ==================================>>>
   Future<void> scrollControllerCall() async {
-    if(categoryScrollController.position.pixels == categoryScrollController.position.maxScrollExtent){
+    if (categoryScrollController.position.pixels ==
+        categoryScrollController.position.maxScrollExtent) {
       await categoryAccessRepo();
     }
-    if(earlyAccessScrollController.position.pixels == earlyAccessScrollController.position.maxScrollExtent){
+    if (earlyAccessScrollController.position.pixels ==
+        earlyAccessScrollController.position.maxScrollExtent) {
       await categoryAccessRepo();
     }
   }
 
-
   ///<<<=================== Category Access Repo ==============================>>>
 
-  Future<void> categoryAccessRepo() async{
+  Future<void> categoryAccessRepo() async {
+    if (pageEr == 1 && page == 1) {
+      categoryList.clear();
+      earlyAccess.clear() ;
+      homeStatus = Status.loading;
+      update();
+    }
 
-    homeStatus = Status.loading;
-    update();
-    
-    try{
-      var response = await ApiService.getApi("${ApiConstant.categoryType}?pageEr=$pageErCount&limitEr=$limitCount&page=$pageCount&limit=$limitCount").timeout(const Duration(seconds: 30));
+    try {
+      var response = await ApiService.getApi(
+              "${ApiConstant.categoryType}?pageEr=$pageEr&page=$page")
+          .timeout(const Duration(seconds: 30));
+
       print("Response json : ${response.responseJson}");
-      if (response.statusCode == 200){
-        homeCategoriesModel = HomeCategoriesModel.fromJson(jsonDecode(response.responseJson));
-        print("${response.message}");
+      if (response.statusCode == 200) {
+        homeCategoriesModel =
+            HomeCategoriesModel.fromJson(jsonDecode(response.responseJson));
 
+        if (homeCategoriesModel?.data?.attributes?.categoryList != null) {
+          categoryList
+              .addAll(homeCategoriesModel!.data!.attributes!.categoryList!);
+        }
+
+        if (homeCategoriesModel?.data?.attributes?.earlyAccessList != null) {
+          earlyAccess
+              .addAll(homeCategoriesModel!.data!.attributes!.earlyAccessList!);
+        }
+
+        page = page + 1;
+        pageEr = pageEr + 1;
         homeStatus = Status.completed;
         update();
-        pageCount++;
-        pageErCount++;
-      } else{
+      } else {
         homeStatus = Status.error;
       }
-    } catch (exception){
+    } catch (exception) {
       Fluttertoast.showToast(msg: AppConstants.connectionTimedOUt);
       log(exception.toString());
     }
   }
-
 
   static getAccessStatus({bool isPopUp = false}) async {
     status = Status.loading;
@@ -128,11 +147,11 @@ class Homecontroller extends GetxController with GetxServiceMixin {
                     size: 60.r,
                   ),
 
-                  const CustomText(
+                  CustomText(
                     maxLines: 3,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
-                    text: AppStrings.upgradetoPremiumfor,
+                    text: AppStrings.upgradetoPremiumfor.tr,
                   ),
 
                   CustomElevatedButton(
@@ -141,7 +160,7 @@ class Homecontroller extends GetxController with GetxServiceMixin {
                       onPressed: () {
                         Get.toNamed(AppRoutes.premiumScreen);
                       },
-                      titleText: AppStrings.gotoSubscriptions),
+                      titleText: AppStrings.gotoSubscriptions.tr),
                 ],
               ),
             ),
@@ -166,115 +185,3 @@ class Homecontroller extends GetxController with GetxServiceMixin {
   }
 }
 
-
-
-
-
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MyScrollableScreen(),
-    );
-  }
-}
-
-class MyScrollableScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Scrollable Screen with Pagination'),
-      ),
-      body: MyApiDataList(),
-    );
-  }
-}
-
-class MyApiDataList extends StatelessWidget {
-  final MyApiController controller = Get.put(MyApiController());
-
-  @override
-  Widget build(BuildContext context) {
-    return GetBuilder<MyApiController>(
-      builder: (controller) {
-        return ListView.builder(
-          itemCount: controller.apiData.length + 1, // +1 for loading indicator at the end
-          itemBuilder: (context, index) {
-            if (index < controller.apiData.length) {
-              return ListTile(
-                title: Text(controller.apiData[index]),
-                // Add more widgets or customize based on your API data
-              );
-            } else {
-              // Loading indicator
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: controller.isLoading
-                      ? CircularProgressIndicator()
-                      : SizedBox.shrink(),
-                ),
-              );
-            }
-          },
-          controller: ScrollController()..addListener(() => _scrollListener(controller)),
-        );
-      },
-    );
-  }
-
-  void _scrollListener(MyApiController controller) {
-    if (controller.isLoading) return;
-
-    if (controller.apiData.isNotEmpty &&
-        controller.apiData.length % 10 == 0 && // Adjust based on your desired condition
-        controller.apiData.length == controller.currentPage * 10) {
-      controller.fetchData();
-    }
-  }
-}
-
-class MyApiController extends GetxController {
-  List<String> apiData = [];
-  int currentPage = 1;
-  bool isLoading = false;
-
-  Future<void> fetchData() async {
-    try {
-      isLoading = true;
-      update();
-
-      List<String> newData = await fetchApiData(currentPage);
-
-      apiData.addAll(newData);
-      currentPage++;
-    } finally {
-      isLoading = false;
-      update();
-    }
-  }
-
-  Future<List<String>> fetchApiData(int page) async {
-    final String apiUrl = 'YOUR_API_ENDPOINT_HERE?page=$page&limit=10'; // Replace with your actual API endpoint
-
-    try {
-      final response = await http.get(Uri.parse(apiUrl));
-
-      if (response.statusCode == 200) {
-        // Assuming your API returns a list of strings
-        List<String> data = List<String>.from(json.decode(response.body));
-        return data;
-      } else {
-        throw Exception('Failed to load data');
-      }
-    } catch (e) {
-      throw Exception('Error: $e');
-    }
-  }
-}

@@ -29,21 +29,21 @@ class CustomPremiumCard extends StatelessWidget {
       List premiumFeaturesList = [
         premiumSubscriptionData?.isAddAvailable == true? "Ad. after ${premiumSubscriptionData?.addFrequency} videos" : "Ad-free experience",
         premiumSubscriptionData?.isEarlyAccessAvailable == true? "Early access is available" : "Early access isn't available",
-        premiumSubscriptionData?.isQuestionAccessUnlimited == true? "Access to all available questions" : "Access to ${premiumSubscriptionData?.questionAccessNumber} questions",
-        premiumSubscriptionData?.isCategoryAccessUnlimited == true? "Access to the additional categories" : "Get access ${premiumSubscriptionData?.categoryAccessNumber} categories",
-        "Access to the Messaging feature",
-        premiumSubscriptionData?.isGroupChatAvailable == true? "Access to the Group chat feature" : "Group chat feature not available",
-        "Access to the Community Discussion"
+        premiumSubscriptionData?.isQuestionAccessUnlimited == true? "All available questions" : "Get ${premiumSubscriptionData?.questionAccessNumber} questions",
+        premiumSubscriptionData?.isCategoryAccessUnlimited == true? "Additional categories" : "Get ${premiumSubscriptionData?.categoryAccessNumber} categories",
+        "Messaging feature",
+        premiumSubscriptionData?.isGroupChatAvailable == true? "Group chat feature" : "Group chat feature not available",
+        "Community Discussion"
       ];
 
       List premiumPlusFeaturesList = [
         premiumPlusSubscriptionData?.isAddAvailable == true? "Ad. after ${premiumPlusSubscriptionData?.addFrequency} videos" : "Ad-free experience",
         premiumPlusSubscriptionData?.isEarlyAccessAvailable == true? "Early access is available" : "Early access isn't available",
-        premiumPlusSubscriptionData?.isQuestionAccessUnlimited == true? "Access to all available questions" : "Access to ${premiumPlusSubscriptionData?.questionAccessNumber} questions",
-        premiumPlusSubscriptionData?.isCategoryAccessUnlimited == true? "Access to the additional categories" : "Get access ${premiumPlusSubscriptionData?.categoryAccessNumber} categories",
-        "Access to the Messaging feature",
-        premiumPlusSubscriptionData?.isGroupChatAvailable == true? "Access to the Group chat feature" : "Group chat feature not available",
-        "Access to the Community Discussion"
+        premiumPlusSubscriptionData?.isQuestionAccessUnlimited == true? "All available questions" : "Get ${premiumPlusSubscriptionData?.questionAccessNumber} questions",
+        premiumPlusSubscriptionData?.isCategoryAccessUnlimited == true? "Additional categories" : "Get ${premiumPlusSubscriptionData?.categoryAccessNumber} categories",
+        "Messaging feature",
+        premiumPlusSubscriptionData?.isGroupChatAvailable == true? "Group chat feature" : "Group chat feature not available",
+        "Community Discussion"
       ];
       return switch(subscriptionController.status){
         Status.loading => const Center(child: CircularProgressIndicator()),
@@ -84,8 +84,8 @@ class CustomPremiumCard extends StatelessWidget {
                 textAlign: TextAlign.start,
                 maxLines: 2,
                 text: isPremiumPlus
-                    ? 'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].price}/month'
-                    : 'Get Dialogi Premium \$${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].price}/month',
+                    ? 'Get Dialogi Premium \n\$${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].price}/${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].expiryTime} month'
+                    : 'Get Dialogi Premium \n\$${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].price}/${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].expiryTime} month',
                 fontSize: 16.h,
                 fontWeight: FontWeight.w500,
                 color: isPremiumPlus? Colors.white : AppColors.black_500,

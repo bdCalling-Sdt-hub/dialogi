@@ -36,6 +36,7 @@ class GroupMemberController extends GetxController {
 
   Future<void> groupMemberRepo(String chatId) async {
     if (page == 1) {
+      memberList.clear() ;
       status = Status.loading;
       update();
     }

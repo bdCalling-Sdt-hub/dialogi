@@ -60,13 +60,13 @@ class QuestionAnsController extends GetxController {
       Get.put(SubCategoryController());
 
   Future<void> scrollControllerCall(
-      String subCategory, String categoryId) async {
+      String subCategory, String categoryId, accessStatus) async {
     if (discussionScrollController.position.pixels ==
         discussionScrollController.position.maxScrollExtent) {
       isLoadingMoreDiscussion = true;
 
       update();
-      await questionsRepo(subCategory, categoryId);
+      await questionsRepo(subCategory, categoryId, accessStatus);
       isLoadingMoreDiscussion = false;
       update();
     } else {
@@ -76,8 +76,6 @@ class QuestionAnsController extends GetxController {
   }
 
   nextQuestion() {
-    AdmobAdServices.interstitialAd.show();
-
     if (Homecontroller.status == Status.completed) {
       bool isAds = Homecontroller.accessStatusModel!.data!.questionAccessed! %
               Homecontroller.accessStatusModel!.data!.addFrequency! ==
@@ -113,7 +111,7 @@ class QuestionAnsController extends GetxController {
     }
   }
 
-  Future<void> questionsRepo(String subCategory, String categoryId) async {
+  Future<void> questionsRepo(String subCategory, String categoryId, String accessStatus) async {
     if (discussionPage == 1) {
       status = Status.loading;
       update();
@@ -123,10 +121,14 @@ class QuestionAnsController extends GetxController {
 
     print(categoryId);
 
-    var response = await ApiService.getApi("${ApiConstant.questions}/$subCategory/$categoryId?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage");
+    var response = await ApiService.getApi(
+        "${ApiConstant.questions}/$subCategory/$categoryId?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage&accessStatus=$accessStatus");
 
-    print("===========================================>${ApiConstant.questions}/$subCategory/$categoryId?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage");
+    print(
+        "===========================================>${ApiConstant.questions}/$subCategory/$categoryId?page=$page&limit=1&discussionLimit=10&discussionPage=$discussionPage&accessStatus=false");
 
+    print(
+        "======================================> response ${response.responseJson}");
     if (response.statusCode == 200) {
       print(response.responseJson);
 

@@ -1,6 +1,8 @@
 
 
+import 'package:dialogi_app/controllers/Auth/sign_out_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
+import 'package:dialogi_app/helper/prefs_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +11,7 @@ import '../../services/api_url.dart';
 import '../../utils/app_utils.dart';
 
 class DeleteAccountController extends GetxController{
+
 
   TextEditingController passwordController = TextEditingController();
   bool isLoading = false;
@@ -21,12 +24,18 @@ class DeleteAccountController extends GetxController{
       'password': passwordController.text
     };
 
-    var response =
-        await ApiService.deleteApi(ApiConstant.users, body);
+    print("=========================================> body $body") ;
+    print("=========================================> body ${ApiConstant.users}") ;
 
+
+    var response =
+    await ApiService.deleteApi(ApiConstant.users, body: body);
+
+    print("=========================================> response ${response.responseJson}") ;
     if (response.statusCode == 200) {
       Utils.toastMessage(response.message);
-      Get.offAll(AppRoutes.signInScreen);
+      SignOutController.googleSignOut();
+      PrefsHelper.removeAllPrefData();
     } else {
       Get.snackbar(response.statusCode.toString(), response.message);
     }

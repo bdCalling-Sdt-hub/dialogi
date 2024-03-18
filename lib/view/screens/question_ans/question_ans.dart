@@ -16,7 +16,9 @@ import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:dialogi_app/view/widgets/text_field/custom_text_field.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
@@ -31,6 +33,8 @@ class QuestionAns extends StatefulWidget {
 class _QuestionAnsState extends State<QuestionAns> {
   String title = Get.parameters["title"] ?? "";
   String categoryId = Get.parameters["categoryId"] ?? "";
+  String accessStatus = Get.parameters["accessStatus"] ??  "";
+
 
   QuestionAnsController questionAnsController =
       Get.put(QuestionAnsController());
@@ -42,9 +46,9 @@ class _QuestionAnsState extends State<QuestionAns> {
     questionAnsController.checkDiscuss();
     AdmobAdServices.loadInterstitialAd();
     questionAnsController.discussionPage = 1;
-    questionAnsController.questionsRepo(title, categoryId);
+    questionAnsController.questionsRepo(title, categoryId, accessStatus);
     questionAnsController.discussionScrollController.addListener(() {
-      questionAnsController.scrollControllerCall(title, categoryId);
+      questionAnsController.scrollControllerCall(title, categoryId, accessStatus);
     });
 
     super.initState();
@@ -52,9 +56,7 @@ class _QuestionAnsState extends State<QuestionAns> {
 
   @override
   Widget build(BuildContext context) {
-
-
-    print("====================================> categoryId $categoryId") ;
+    print("====================================> categoryId $categoryId");
     return Scaffold(
       //AppBar
 
@@ -74,7 +76,7 @@ class _QuestionAnsState extends State<QuestionAns> {
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
                 color: AppColors.blue_500,
-                text: title,
+                text: title.tr,
               ),
             ),
           )
@@ -85,7 +87,7 @@ class _QuestionAnsState extends State<QuestionAns> {
           return switch (controller.status) {
             Status.loading => const Center(child: CircularProgressIndicator()),
             Status.error => ErrorScreen(
-                onTap: () => controller.questionsRepo(title, categoryId)),
+                onTap: () => controller.questionsRepo(title, categoryId, accessStatus)),
             Status.completed => Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
@@ -94,7 +96,7 @@ class _QuestionAnsState extends State<QuestionAns> {
 
                     Container(
                       width: double.maxFinite,
-                      height: 110.h,
+                      height: 140.h,
                       padding: const EdgeInsets.all(8),
                       decoration: ShapeDecoration(
                         color: Colors.white,
@@ -104,12 +106,14 @@ class _QuestionAnsState extends State<QuestionAns> {
                       child: Column(
                         children: [
                           Expanded(
-                            child: CustomText(
-                              maxLines: 2,
-                              fontSize: 16.w,
-                              fontWeight: FontWeight.w500,
-                              text: controller.questionAnsModel!.data!
-                                  .attributes!.questions![0].question!,
+                            child: SingleChildScrollView(
+                              child: CustomText(
+                                maxLines: 100,
+                                fontSize: 16.w,
+                                fontWeight: FontWeight.w500,
+                                text: controller.questionAnsModel!.data!
+                                    .attributes!.questions![0].question!,
+                              ),
                             ),
                           ),
                           Row(
@@ -171,7 +175,7 @@ class _QuestionAnsState extends State<QuestionAns> {
                         height: 90.h,
                         maxLines: 2,
                         textEditingController: controller.discussionController,
-                        hintText: AppStrings.enteryouranswer,
+                        hintText: AppStrings.enteryouranswer.tr,
                       ),
                     ),
 
@@ -188,17 +192,17 @@ class _QuestionAnsState extends State<QuestionAns> {
                                   controller.discussionPage = 1;
                                   controller.discussionList = [];
                                   controller.discussionController.clear();
-                                  controller.questionsRepo(title, categoryId);
+                                  controller.questionsRepo(title, categoryId, accessStatus);
                                 } else {
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialogs(
-                                            successtext: AppStrings.greatJob,
+                                            successtext: AppStrings.greatJob.tr,
                                             completeText:
-                                                AppStrings.youHaveCompleted,
+                                                AppStrings.youHaveCompleted.tr,
                                             buttonText:
-                                                AppStrings.gotocategories,
+                                                AppStrings.gotocategories.tr,
                                             onPressed: () {
                                               Get.toNamed(
                                                   AppRoutes.categoryScreen);
@@ -206,7 +210,9 @@ class _QuestionAnsState extends State<QuestionAns> {
                                       });
                                 }
                               },
-                              titleText: AppStrings.skip),
+                              titleText: AppStrings.skip.tr,
+                            titleSize: 17,
+                          ),
                         ),
                         SizedBox(
                           width: 20.w,
@@ -214,9 +220,11 @@ class _QuestionAnsState extends State<QuestionAns> {
                         Expanded(
                           child: CustomElevatedButton(
                               onPressed: () {
-                                controller.addDiscussionRepo(title);
+                                controller.discussionController.text.isEmpty ? null : controller.addDiscussionRepo(title);
                               },
-                              titleText: AppStrings.add),
+                              titleText: AppStrings.add.tr,
+                            titleSize: 17,
+                          ),
                         ),
                       ],
                     ),
@@ -233,16 +241,16 @@ class _QuestionAnsState extends State<QuestionAns> {
                         ? const Expanded(child: CommentReply())
                         : Column(
                             children: [
-                              const CustomText(
-                                  text: AppStrings.wanttojointhediscussion),
+                              CustomText(
+                                  text: AppStrings.wanttojointhediscussion.tr),
                               SizedBox(
                                 height: 8.h,
                               ),
                               InkWell(
                                 onTap: () =>
-                                    Get.toNamed(AppRoutes.subscriptionsScreen),
+                                    Get.toNamed(AppRoutes.premiumScreen),
                                 child: CustomText(
-                                  text: AppStrings.upgradetoPremium,
+                                  text: AppStrings.buySubscription.tr,
                                   color: AppColors.blue_500,
                                   fontSize: 20.sp,
                                   fontWeight: FontWeight.w600,
@@ -272,13 +280,18 @@ class _QuestionAnsState extends State<QuestionAns> {
                           buttonColor: AppColors.whiteColor,
                           borderColor: AppColors.black_600,
                           titleColor: AppColors.black_400,
-                          titleSize: 14.w,
+                          titleSize: 12,
                           buttonHeight: 36,
                           onPressed: () {
                             //   Get.toNamed(AppRoutes.selectFriends);
-                            chooseDiscussPlatform(context: context);
+                            chooseDiscussPlatform(
+                              context: context,
+                              categoryId: categoryId,
+                              questionId: controller.questionAnsModel!.data!
+                                  .attributes!.questions![0].sId!,
+                            );
                           },
-                          titleText: AppStrings.discusswithFriends),
+                          titleText: AppStrings.discusswithFriends.tr),
                 ),
                 SizedBox(
                   width: 10.w,
@@ -288,7 +301,7 @@ class _QuestionAnsState extends State<QuestionAns> {
 
                 Expanded(
                   child: CustomElevatedButton(
-                      titleSize: 14.w,
+                      titleSize: 13,
                       buttonHeight: 36,
                       onPressed: () {
                         controller.nextQuestion();
@@ -296,24 +309,22 @@ class _QuestionAnsState extends State<QuestionAns> {
                           controller.page = controller.page + 1;
                           controller.discussionPage = 1;
                           controller.discussionList = [];
-                          controller.questionsRepo(title, categoryId);
-                          controller.questionsRepo(title, categoryId);
-                          controller.nextQuestion();
+                          controller.questionsRepo(title, categoryId, accessStatus);
                         } else {
                           showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialogs(
-                                    successtext: AppStrings.greatJob,
-                                    completeText: AppStrings.youHaveCompleted,
-                                    buttonText: AppStrings.gotocategories,
+                                    successtext: AppStrings.greatJob.tr,
+                                    completeText: AppStrings.youHaveCompleted.tr,
+                                    buttonText: AppStrings.gotocategories.tr,
                                     onPressed: () {
                                       Get.offAllNamed(AppRoutes.categoryScreen);
                                     });
                               });
                         }
                       },
-                      titleText: AppStrings.next),
+                      titleText: AppStrings.next.tr),
                 ),
               ],
             ),

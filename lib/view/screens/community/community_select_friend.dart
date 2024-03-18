@@ -29,6 +29,9 @@ class _CommunitySelectFriendsState extends State<CommunitySelectFriends> {
   CommunitySelectFriendsController communitySelectFriendsController =
       Get.put(CommunitySelectFriendsController());
 
+  String questionId = Get.parameters["questionId"] ?? "";
+  String categoryId = Get.parameters["categoryId"] ?? "";
+
   @override
   void initState() {
     communitySelectFriendsController.friendListRepo();
@@ -41,6 +44,8 @@ class _CommunitySelectFriendsState extends State<CommunitySelectFriends> {
 
   @override
   Widget build(BuildContext context) {
+
+    print("===============================> questionId $questionId") ;
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: CustomAppBar(
@@ -56,10 +61,10 @@ class _CommunitySelectFriendsState extends State<CommunitySelectFriends> {
                 alignment: Alignment.center,
                 child: CustomText(
                   right: 20.w,
-                  fontSize: 18,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
                   color: AppColors.blue_500,
-                  text: AppStrings.selectFriends,
+                  text: AppStrings.selectFormPremiumPlus.tr,
                 ),
               ),
             )
@@ -82,7 +87,7 @@ class _CommunitySelectFriendsState extends State<CommunitySelectFriends> {
                           alignment: Alignment.centerRight,
                           child: CustomText(
                               text:
-                                  "${controller.selectedParticipants.length - 1}/5")),
+                                  "${controller.selectedParticipants.length}/5")),
                       Expanded(
                         child: ListView.builder(
                           controller: controller.scrollController,
@@ -148,16 +153,18 @@ class _CommunitySelectFriendsState extends State<CommunitySelectFriends> {
                                 onPressed: () {
                                   createCommunityPopUp(
                                     context: context,
+                                    questionId: questionId,
+                                    categoryId: categoryId
                                   );
                                 },
-                                titleText: AppStrings.createCommunity)
+                                titleText: AppStrings.createCommunity.tr)
                             : CustomElevatedButton(
                                 buttonColor: AppColors.gray_900,
                                 onPressed: () {
-                                  Utils.snackBarMessage(AppStrings.selectMember,
-                                      AppStrings.pleaseSelectAtLeastTwoMembers);
+                                  Utils.snackBarMessage(AppStrings.selectMember.tr,
+                                      AppStrings.pleaseSelectAtLeastTwoMembers.tr);
                                 },
-                                titleText: AppStrings.createCommunity),
+                                titleText: AppStrings.createCommunity.tr),
                       ),
                     ],
                   ),

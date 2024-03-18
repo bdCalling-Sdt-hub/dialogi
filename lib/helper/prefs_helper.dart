@@ -1,3 +1,4 @@
+import 'package:dialogi_app/core/app_routes.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,7 +10,11 @@ class PrefsHelper extends GetxController {
   static String forgetPasswordToken = "";
   static String myImage = "";
   static String myName = "";
+  static String myEmail = "";
+  static bool isProvider = false;
   static String mySubscription = "premium-plus";
+  static String localizationLanguageCode = 'en';
+  static String localizationCountryCode = 'US';
 
   ///<<<======================== Get All Data Form Shared Preference ==============>
 
@@ -19,13 +24,20 @@ class PrefsHelper extends GetxController {
     clientId = preferences.getString("clientId") ?? "";
     myImage = preferences.getString("myImage") ?? "";
     myName = preferences.getString("myName") ?? "";
-
+    myEmail = preferences.getString("myEmail") ?? "";
+    isProvider = preferences.getBool("isProvider") ?? false;
     forgetPasswordToken =
         preferences.getString(AppConstants.forgetPasswordToken) ?? "";
+    localizationLanguageCode =
+        preferences.getString("localizationLanguageCode") ?? "en";
+    localizationCountryCode =
+        preferences.getString("localizationCountryCode") ?? "US";
 
     print("..................$token............................");
 
     print("..................$clientId............................");
+    print("..................$localizationLanguageCode............................");
+    print("..................$localizationCountryCode............................");
   }
 
   ///<<<======================== Get Data Form Shared Preference ==============>
@@ -76,12 +88,19 @@ class PrefsHelper extends GetxController {
     preferences.setString(AppConstants.bearerToken, "");
     preferences.setString(AppConstants.forgetPasswordToken, "");
     preferences.setString("clientId", "");
+    preferences.setString("myEmail", "");
+    preferences.setBool("isProvider", false);
     token = "";
     forgetPasswordToken = "";
     clientId = "";
+    isProvider = false;
+    myName = "";
+    myEmail = "";
     // preferences.remove(AppConstants.bearerToken);
     // preferences.remove(AppConstants.forgetPasswordToken);
     // preferences.remove("clientId");
     print("::::$token, $forgetPasswordToken, $clientId");
+
+    Get.offAllNamed(AppRoutes.signInScreen);
   }
 }

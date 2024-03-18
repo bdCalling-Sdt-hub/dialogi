@@ -41,9 +41,9 @@ class PendingRequestController extends GetxController {
   }
 
   Future<void> pendingRequestRepo() async {
-
     if (page == 1) {
       isCommunityRequest = false;
+      friendRequestList.clear();
       status = Status.loading;
       update();
     }
@@ -80,15 +80,12 @@ class PendingRequestController extends GetxController {
       await communityRequestRepo();
       isMoreLoadingCommunity = false;
       update();
-
-
-
     }
   }
 
   Future<void> communityRequestRepo() async {
-
     if (communityPage == 1) {
+      communityRequest.clear();
       isCommunityRequest = true;
       status = Status.loading;
       update();
@@ -119,7 +116,8 @@ class PendingRequestController extends GetxController {
     }
   }
 
-  Future<void> requestActionRepo(String userId, String status, int index) async {
+  Future<void> requestActionRepo(
+      String userId, String status, int index) async {
     actionIsLoading = true;
     update();
 
@@ -147,18 +145,18 @@ class PendingRequestController extends GetxController {
     update();
   }
 
-
-  Future<void> communityRequestActionRepo(String requestId, String status, int index) async {
-
-
+  Future<void> communityRequestActionRepo(
+      String requestId, String status, int index) async {
     Map<String, String> body = {
       "status": status,
     };
 
     print("===========================>body $body");
-    print("===========================>body ${ApiConstant.communityChat}/$requestId");
-    var response =
-        await ApiService.patchApi("${ApiConstant.communityChat}/$requestId", body: body);
+    print(
+        "===========================>body ${ApiConstant.communityChat}/$requestId");
+    var response = await ApiService.patchApi(
+        "${ApiConstant.communityChat}/$requestId",
+        body: body);
 
     print(response.responseJson);
 
@@ -170,13 +168,7 @@ class PendingRequestController extends GetxController {
     } else {
       Utils.snackBarMessage(response.statusCode.toString(), response.message);
     }
-
-
   }
-
-
-
-
 
   String getFormattedDate(String dateString) {
     // String dateString = "2024-02-01T04:39:03.524Z";

@@ -61,8 +61,8 @@ class _ChatPremiumScreenState extends State<ChatPremiumScreen> {
                 imageSrc: AppIcons.chevronLeft,
                 size: 24,
               )),
-          const CustomText(
-            text: AppStrings.chat,
+          CustomText(
+            text: AppStrings.chat.tr,
             fontSize: 18,
             fontWeight: FontWeight.w500,
             color: AppColors.blue_500,
@@ -79,7 +79,7 @@ class _ChatPremiumScreenState extends State<ChatPremiumScreen> {
             CustomText(
               maxLines: 3,
               textAlign: TextAlign.start,
-              text: AppStrings.unlockPremiumAccess,
+              text: AppStrings.unlockPremiumAccess.tr,
               fontSize: 30.h,
               fontWeight: FontWeight.w600,
               bottom: 24.h,
@@ -118,8 +118,8 @@ class _ChatPremiumScreenState extends State<ChatPremiumScreen> {
                       });
                     },
                     titleText: currentIndex == 0
-                        ? AppStrings.getPremium
-                        : AppStrings.getPremiumPlus),
+                        ? AppStrings.getPremium.tr
+                        : AppStrings.getPremiumPlus.tr),
                 const SizedBox(
                   height: 16,
                 ),
@@ -130,7 +130,7 @@ class _ChatPremiumScreenState extends State<ChatPremiumScreen> {
                   child: CustomText(
                     maxLines: 3,
                     textAlign: TextAlign.start,
-                    text: AppStrings.skipForNow,
+                    text: AppStrings.skipForNow.tr,
                     fontSize: 18.h,
                     fontWeight: FontWeight.w500,
                     color: AppColors.blue_500,

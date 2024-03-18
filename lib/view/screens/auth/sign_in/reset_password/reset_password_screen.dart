@@ -45,7 +45,7 @@ class ResetPasswordScreen extends StatelessWidget {
                     ///<<<=================forget password text======================>>>
 
                     CustomText(
-                      text: AppStrings.resetPassword,
+                      text: AppStrings.resetPassword.tr,
                       color: AppColors.blue_500,
                       fontWeight: FontWeight.w500,
                       fontSize: 24,
@@ -57,7 +57,7 @@ class ResetPasswordScreen extends StatelessWidget {
                     CustomText(
                       textAlign: TextAlign.start,
                       maxLines: 3,
-                      text: AppStrings.passwordMustHave,
+                      text: AppStrings.passwordMustHave.tr,
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
                       bottom: 44.h,
@@ -69,11 +69,11 @@ class ResetPasswordScreen extends StatelessWidget {
                       textEditingController: controller.passwordController,
                       validator: (value) {
                         if (value.isEmpty) {
-                          return ApiStaticStrings.fieldCantBeEmpty;
+                          return ApiStaticStrings.fieldCantBeEmpty.tr;
                         } else if (value.length < 8) {
-                          return ApiStaticStrings.passwordLength;
+                          return ApiStaticStrings.passMustContainBoth.tr;
                         } else if (!ApiStaticStrings.passRegExp.hasMatch(value)) {
-                          return ApiStaticStrings.passMustContainBoth;
+                          return ApiStaticStrings.passMustContainBoth.tr;
                         } else {
                           return null;
                         }
@@ -81,7 +81,7 @@ class ResetPasswordScreen extends StatelessWidget {
                       isPassword: true,
                       keyboardType: TextInputType.text,
                       textAlign: TextAlign.start,
-                      hintText: AppStrings.enteryourpassword,
+                      hintText: AppStrings.enteryourpassword.tr,
                       hintStyle: GoogleFonts.prompt(
                           fontSize: 14.h,
                           fontWeight: FontWeight.w400,
@@ -109,7 +109,7 @@ class ResetPasswordScreen extends StatelessWidget {
                       textEditingController: controller.confirmPasswordController,
                       validator: (value) {
                         if(value != controller.passwordController.text){
-                          return ApiStaticStrings.passDoesNotMatch;
+                          return ApiStaticStrings.passDoesNotMatch.tr;
                         } else {
                           return null;
                         }
@@ -117,7 +117,7 @@ class ResetPasswordScreen extends StatelessWidget {
                       isPassword: true,
                       keyboardType: TextInputType.text,
                       textAlign: TextAlign.start,
-                      hintText: AppStrings.reenteryourpassword,
+                      hintText: AppStrings.reenteryourpassword.tr,
                       hintStyle: GoogleFonts.prompt(
                           fontSize: 14.h,
                           fontWeight: FontWeight.w400,
@@ -145,7 +145,7 @@ class ResetPasswordScreen extends StatelessWidget {
                             controller.resetPasswordRepo();
                           }
                         },
-                        titleText: AppStrings.resetPassword)
+                        titleText: AppStrings.resetPassword.tr)
                   ],
                 ),
               ),

@@ -1,7 +1,8 @@
 class ApiConstant {
   ///<<<=================Base Url=========================>>>
   // static const baseUrl = "http://192.168.10.18:3000";
-  static const baseUrl = "http://103.145.138.78:3000";
+  // static const baseUrl = "http://103.145.138.78:3000";
+  static const baseUrl = "https://api.dialogi.net";
 
 
   static const signUp = "$baseUrl/api/users/sign-up";
@@ -38,4 +39,5 @@ class ApiConstant {
   static const communityChat = "$baseUrl/api/chats/community-chat";
   static const leave = "$baseUrl/api/chats/leave-group";
   static const joinCommunity = "$baseUrl/api/chats/join-community";
+  static const groupName = "$baseUrl/api/chats/group-name";
 }

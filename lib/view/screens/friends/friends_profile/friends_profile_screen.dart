@@ -167,7 +167,7 @@ class _FriendsProfileScreenState extends State<FriendsProfileScreen> {
                   child: userID == PrefsHelper.clientId
                       ? const SizedBox()
                       : controller.sendIsLoading
-                          ? const CircularProgressIndicator()
+                          ? const Center(child: CircularProgressIndicator())
                           : controller.friendProfileModel!.data!.attributes!
                                       .friendRequestStatus ==
                                   "accepted"
@@ -184,7 +184,7 @@ class _FriendsProfileScreenState extends State<FriendsProfileScreen> {
 
                                     // Get.toNamed(AppRoutes.chatScreen);
                                   },
-                                  titleText: AppStrings.message)
+                                  titleText: AppStrings.message.tr)
                               : controller.friendProfileModel!.data!.attributes!
                                           .friendRequestStatus ==
                                       "pending"
@@ -192,13 +192,13 @@ class _FriendsProfileScreenState extends State<FriendsProfileScreen> {
                                       onPressed: () {
                                         // Get.toNamed(AppRoutes.chatScreen);
                                       },
-                                      titleText: AppStrings.requestSend,
+                                      titleText: AppStrings.requestSend.tr,
                                       buttonColor: AppColors.black_300,
                                     )
                                   : CustomElevatedButton(
                                       onPressed: () =>
                                           controller.sendRequestRepo(userID),
-                                      titleText: AppStrings.sendRequest))),
+                                      titleText: AppStrings.sendRequest.tr))),
         };
       },
     );

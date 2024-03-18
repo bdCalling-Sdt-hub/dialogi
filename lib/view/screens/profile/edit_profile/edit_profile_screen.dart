@@ -31,9 +31,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
 
-    profileController.nameController.text = profileController.profileModel.data?.attributes?.fullName ?? "" ;
-    profileController.dateController.text = profileController.profileModel.data?.attributes?.dateOfBirth ?? "" ;
-    profileController.addressController.text = profileController.profileModel.data?.attributes?.address ?? "" ;
+    profileController.nameController.text = profileController.profileModel?.data?.attributes?.fullName ?? "" ;
+    profileController.dateController.text = profileController.profileModel?.data?.attributes?.dateOfBirth ?? "" ;
+    profileController.addressController.text = profileController.profileModel?.data?.attributes?.address ?? "" ;
     return Scaffold(
       appBar: CustomAppBar(
           appBarContent: Row(
@@ -47,8 +47,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 imageSrc: AppIcons.chevronLeft,
                 size: 24,
               )),
-          const CustomText(
-            text: AppStrings.editProfile,
+          CustomText(
+            text: AppStrings.editProfile.tr,
             fontSize: 18,
             fontWeight: FontWeight.w500,
             color: AppColors.blue_500,
@@ -61,7 +61,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         child: Column(
           children: [
 
-            ProfileImage(imageURl: "${ApiConstant.baseUrl}${profileController.profileModel.data!.attributes!.image!}"),
+            ProfileImage(imageURl: "${ApiConstant.baseUrl}${profileController.profileModel?.data!.attributes!.image!}"),
 
             SizedBox(height: 44.h,),
             ///<-------- name --------->
@@ -69,7 +69,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               textEditingController: profileController.nameController,
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
-              hintText: AppStrings.enterName,
+              hintText: AppStrings.enterName.tr,
               hintStyle: GoogleFonts.prompt(
                   fontSize: 14.h,
                   fontWeight: FontWeight.w400,
@@ -111,7 +111,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               textEditingController: profileController.dateController,
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
-              hintText: AppStrings.dob,
+              hintText: AppStrings.dob.tr,
               hintStyle: GoogleFonts.prompt(
                   fontSize: 14.h,
                   fontWeight: FontWeight.w400,
@@ -152,7 +152,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               textEditingController: profileController.addressController,
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
-              hintText: AppStrings.address,
+              hintText: AppStrings.address.tr,
               hintStyle: GoogleFonts.prompt(
                   fontSize: 14.h,
                   fontWeight: FontWeight.w400,
@@ -177,7 +177,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
         child: CustomElevatedButton(
             onPressed: () => profileController.updateProfileRepo(),
-            titleText: AppStrings.update),
+            titleText: AppStrings.update.tr),
       ),
     );
   }
