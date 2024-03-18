@@ -1,11 +1,15 @@
+import 'package:dialogi_app/controllers/community/community_chat_popup_controller.dart';
+import 'package:dialogi_app/controllers/community/community_list_controller.dart';
 import 'package:dialogi_app/controllers/community/community_member_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
-import 'package:dialogi_app/view/screens/group_chat/select_friends/create_group_popup.dart';
+import 'package:dialogi_app/view/screens/community/inner_widget/change_community_name.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'create_community_popup.dart';
 
 enum SampleItem {
   itemOne,
@@ -17,9 +21,12 @@ enum SampleItem {
 class CommunityChatPopUps extends StatelessWidget {
   CommunityChatPopUps({super.key, required this.chatId});
 
-  String chatId ;
+  String chatId;
 
-  final CommunityMemberController communityMemberController = Get.put(CommunityMemberController()) ;
+  final CommunityMemberController communityMemberController =
+      Get.put(CommunityMemberController());
+  CommunityChatPopUpController communityChatPopUpController = Get.put(CommunityChatPopUpController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +44,15 @@ class CommunityChatPopUps extends StatelessWidget {
           child: GestureDetector(
               onTap: () {
                 navigator!.pop();
-                Get.toNamed(AppRoutes.communityMembers);
+                Get.toNamed(AppRoutes.communityMembers,
+                    parameters: {
+                      "chatId": chatId,
+
+                    }
+
+                );
               },
-              child: const CustomText(
+              child: CustomText(
                 fontSize: 14,
                 text: AppStrings.communityMembers,
               )),
@@ -51,12 +64,12 @@ class CommunityChatPopUps extends StatelessWidget {
           child: GestureDetector(
               onTap: () {
                 navigator!.pop();
-                createGroupPopUp(
-                    context: context,
-                    title: AppStrings.changeCommunityName,
-                    buttonText: AppStrings.change);
+                changeCommunityName(
+                  context: context,
+                  chatId: chatId,
+                );
               },
-              child: const CustomText(
+              child: CustomText(
                 fontSize: 14,
                 text: AppStrings.changeCommunityName,
               )),
@@ -69,10 +82,10 @@ class CommunityChatPopUps extends StatelessWidget {
           child: GestureDetector(
               onTap: () {
                 navigator!.pop();
-                permissionPopUp(
-                    context: context, ontapYes: () {}, ontapNo: () {});
+                permissionCommunityPopUp(
+                    context: context, ontapYes: () {communityChatPopUpController.deleteAccountRepo(chatId);}, ontapNo: () {});
               },
-              child: const CustomText(
+              child: CustomText(
                 fontSize: 14,
                 text: AppStrings.deleteConversation,
               )),
@@ -86,13 +99,14 @@ class CommunityChatPopUps extends StatelessWidget {
               onTap: () {
                 navigator!.pop();
 
-                permissionPopUp(
+                permissionCommunityPopUp(
                     context: context,
-                    ontapYes: () => communityMemberController.leaveCommunityRepo(chatId),
+                    ontapYes: () =>
+                        communityMemberController.leaveCommunityRepo(chatId),
                     ontapNo: () {},
                     title: AppStrings.doYouWantToLeaveThisGroup);
               },
-              child: const CustomText(
+              child: CustomText(
                 fontSize: 14,
                 color: AppColors.red_400,
                 text: AppStrings.leaveCommunity,

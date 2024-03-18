@@ -76,11 +76,13 @@ class FriendProfileController extends GetxController {
       print(
           "===============================================================> Received acknowledgment: $data");
 
-      Get.toNamed(AppRoutes.chatScreen, parameters: {
+      Get.toNamed(AppRoutes.chatScreen,
+          parameters: {
         "chatId": data['data']['chatId'],
         "type": "single",
         "name": name
-      });
+      }
+      );
     });
   }
 }

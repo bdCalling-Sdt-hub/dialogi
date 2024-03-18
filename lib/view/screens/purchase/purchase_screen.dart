@@ -53,8 +53,8 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
               )),
           CustomText(
             text: premium == "true"
-                ? AppStrings.upgradetoPremium
-                : AppStrings.upgradetoPremiumPlus,
+                ? AppStrings.upgradetoPremium.tr
+                : AppStrings.upgradetoPremiumPlus.tr,
             fontSize: 18,
             fontWeight: FontWeight.w500,
             color: AppColors.blue_500,
@@ -70,9 +70,9 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
             SizedBox(
               height: 8.h,
             ),
-            const CustomText(
-              maxLines: 2,
-              text: AppStrings.selectPaymentMethodForUpgrade,
+            CustomText(
+              maxLines: 3,
+              text: AppStrings.selectPaymentMethodForUpgrade.tr,
               fontSize: 24,
               fontWeight: FontWeight.w500,
               color: AppColors.blue_500,
@@ -408,7 +408,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                 //           });
                 //     });
               },
-              titleText: AppStrings.proceedToPayment),
+              titleText: AppStrings.proceedToPayment.tr),
         );
       },),
     );

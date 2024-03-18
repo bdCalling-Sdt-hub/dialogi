@@ -1,11 +1,13 @@
+import 'package:dialogi_app/controllers/group_chat/group_chat_popUp_controller.dart';
 import 'package:dialogi_app/controllers/group_chat/group_member_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
-import 'package:dialogi_app/view/screens/group_chat/select_friends/create_group_popup.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'change_group_name.dart';
 
 enum SampleItem {
   itemOne,
@@ -18,8 +20,11 @@ class GroupChatPopUps extends StatelessWidget {
   GroupChatPopUps({super.key, required this.chatId});
 
   String chatId;
-  
-  final GroupMemberController groupMemberController = Get.put(GroupMemberController()) ;
+
+  final GroupMemberController groupMemberController =
+      Get.put(GroupMemberController());
+
+  GroupChatPoopUpController groupChatPoopUpController = Get.put(GroupChatPoopUpController()) ;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +46,7 @@ class GroupChatPopUps extends StatelessWidget {
                   "chatId": chatId,
                 });
               },
-              child: const CustomText(
+              child: CustomText(
                 fontSize: 14,
                 text: AppStrings.groupMembers,
               )),
@@ -53,12 +58,9 @@ class GroupChatPopUps extends StatelessWidget {
           child: GestureDetector(
               onTap: () {
                 navigator!.pop();
-                createGroupPopUp(
-                    context: context,
-                    title: AppStrings.changeGroupName,
-                    buttonText: AppStrings.change);
+                changeGroupName(context: context, chatId: chatId);
               },
-              child: const CustomText(
+              child: CustomText(
                 fontSize: 14,
                 text: AppStrings.changeGroupName,
               )),
@@ -71,10 +73,10 @@ class GroupChatPopUps extends StatelessWidget {
           child: GestureDetector(
               onTap: () {
                 navigator!.pop();
-                permissionPopUp(
-                    context: context, ontapYes: () {}, ontapNo: () {});
+                groupPermissionPopUp(
+                    context: context, ontapYes: () => groupChatPoopUpController.deleteAccountRepo(chatId), ontapNo: () {});
               },
-              child: const CustomText(
+              child: CustomText(
                 fontSize: 14,
                 text: AppStrings.deleteConversation,
               )),
@@ -88,13 +90,14 @@ class GroupChatPopUps extends StatelessWidget {
               onTap: () {
                 navigator!.pop();
 
-                permissionPopUp(
+                groupPermissionPopUp(
                     context: context,
-                    ontapYes: () => groupMemberController.leaveCommunityRepo(chatId),
+                    ontapYes: () =>
+                        groupMemberController.leaveCommunityRepo(chatId),
                     ontapNo: () {},
                     title: AppStrings.doYouWantToLeaveThisGroup);
               },
-              child: const CustomText(
+              child: CustomText(
                 fontSize: 14,
                 color: AppColors.red_400,
                 text: AppStrings.leaveGroup,

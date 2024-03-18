@@ -53,7 +53,7 @@ class _GroupMembersState extends State<GroupMembers> {
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                   color: AppColors.blue_500,
-                  text: AppStrings.groupMembers,
+                  text: AppStrings.groupMembers.tr,
                 ),
               ),
             )

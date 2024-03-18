@@ -50,19 +50,18 @@ class CommentReply extends StatelessWidget {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Image of the main comment person
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.toNamed(
-                                          AppRoutes.friendsProfileScreen,
-                                          parameters: {
-                                            "userID": "${comment.user!.sId}"
-                                          });
-                                    },
-                                    child: Container(
+                              InkWell(
+                                onTap: () {
+                                  Get.toNamed(AppRoutes.friendsProfileScreen,
+                                      parameters: {
+                                        "userID": "${comment.user!.sId}"
+                                      });
+                                },
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Image of the main comment person
+                                    Container(
                                       width: 26.w,
                                       height: 26.w,
                                       decoration: BoxDecoration(
@@ -74,27 +73,27 @@ class CommentReply extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  const SizedBox(width: 8),
+                                    const SizedBox(width: 8),
 
-                                  // Name and comment of the main comment person
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        CustomText(
-                                            text: comment.user!.fullName!),
-                                        const SizedBox(height: 8),
-                                        CustomText(
-                                          maxLines: 1,
-                                          textAlign: TextAlign.left,
-                                          text: comment.discussion!,
-                                        ),
-                                      ],
+                                    // Name and comment of the main comment person
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          CustomText(
+                                              text: comment.user!.fullName!),
+                                          const SizedBox(height: 8),
+                                          CustomText(
+                                            maxLines: 1,
+                                            textAlign: TextAlign.left,
+                                            text: comment.discussion!,
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
 
                               // Like Dislike reply
@@ -113,7 +112,12 @@ class CommentReply extends StatelessWidget {
                                           : Row(
                                               children: [
                                                 comment.isLiked
-                                                    ? Icon(Icons.thumb_up_alt_rounded, color: AppColors.blue_500,)
+                                                    ? Icon(
+                                                        Icons
+                                                            .thumb_up_alt_rounded,
+                                                        color:
+                                                            AppColors.blue_500,
+                                                      )
                                                     : CustomImage(
                                                         imageSrc: AppIcons.like,
                                                         size: 24.sp,
@@ -148,9 +152,8 @@ class CommentReply extends StatelessWidget {
                                                     : CustomImage(
                                                         imageSrc:
                                                             AppIcons.dislike,
-                                                  size: 24.sp,
-
-                                                ),
+                                                        size: 24.sp,
+                                                      ),
                                                 SizedBox(width: 10.w),
                                                 CustomText(
                                                     text: comment.dislikes

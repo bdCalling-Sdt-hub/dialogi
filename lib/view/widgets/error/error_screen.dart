@@ -41,7 +41,7 @@ class ErrorScreen extends StatelessWidget {
                   topRight: Radius.circular(32.r),
                   bottomLeft: Radius.circular(32.r),
                 ))),
-            child: const Text(
+            child: Text(
               AppStrings.tryAgain,
               style: TextStyle(
                   fontSize: 18,

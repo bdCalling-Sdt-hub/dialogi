@@ -8,6 +8,7 @@ import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/container/custom_pending_requests.dart';
 import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
+import 'package:dialogi_app/view/widgets/no_data.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -58,8 +59,8 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                   imageSrc: AppIcons.chevronLeft,
                   size: 24,
                 )),
-            const CustomText(
-              text: AppStrings.pendingRequests,
+            CustomText(
+              text: AppStrings.pendingRequests.tr,
               fontSize: 18,
               fontWeight: FontWeight.w500,
               color: AppColors.blue_500,
@@ -91,7 +92,7 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                                   controller.pendingRequestRepo();
                                 },
                                 child: CustomText(
-                                  text: AppStrings.friendRequests,
+                                  text: AppStrings.friendRequests.tr,
                                   fontSize: 14,
                                   color: AppColors.blue_500,
                                 ),
@@ -120,8 +121,8 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                                 },
                                 child: Column(
                                   children: [
-                                    const CustomText(
-                                      text: AppStrings.communityRequests,
+                                    CustomText(
+                                      text: AppStrings.communityRequests.tr,
                                       fontSize: 14,
                                       color: AppColors.blue_500,
                                     ),
@@ -156,64 +157,72 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                     ),
                     Expanded(
                         child: controller.isCommunityRequest
-                            ? ListView.builder(
-                                itemCount: controller.isMoreLoadingCommunity
-                                    ? controller.communityRequest.length + 1
-                                    : controller.communityRequest.length,
-                                controller:
-                                    controller.communityScrollController,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var item = controller.communityRequest[index];
-                                  if (index <
-                                      controller.communityRequest.length) {
-                                    return CustomPendingRequests(
-                                      pendingText: item.chat.groupName,
-                                      image:
-                                          "${ApiConstant.baseUrl}/${item.chat.image}",
-                                      timeText: controller
-                                          .getFormattedDate(item.createdAt),
-                                      onTapReject: () =>
-                                          controller.communityRequestActionRepo(
-                                              item.sId, "rejected", index),
-                                      onTapAccept: () =>
-                                          controller.communityRequestActionRepo(
-                                              item.sId, "accepted", index),
-                                    );
-                                  } else {
-                                    return const Center(
-                                        child: CircularProgressIndicator());
-                                  }
-                                })
-                            : ListView.builder(
-                                controller: controller.scrollController,
-                                itemCount: controller.isMoreLoading
-                                    ? controller.friendRequestList.length + 1
-                                    : controller.friendRequestList.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var item =
-                                      controller.friendRequestList[index];
+                            ? controller.communityRequest.isEmpty
+                                ? const NoData()
+                                : ListView.builder(
+                                    itemCount: controller.isMoreLoadingCommunity
+                                        ? controller.communityRequest.length + 1
+                                        : controller.communityRequest.length,
+                                    controller:
+                                        controller.communityScrollController,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      if (index <
+                                          controller.communityRequest.length) {
+                                        var item =
+                                            controller.communityRequest[index];
+                                        return CustomPendingRequests(
+                                          pendingText: item.chat.groupName,
+                                          image:
+                                              "${ApiConstant.baseUrl}/${item.chat.image}",
+                                          timeText: controller
+                                              .getFormattedDate(item.createdAt),
+                                          onTapReject: () => controller
+                                              .communityRequestActionRepo(
+                                                  item.sId, "rejected", index),
+                                          onTapAccept: () => controller
+                                              .communityRequestActionRepo(
+                                                  item.sId, "accepted", index),
+                                        );
+                                      } else {
+                                        return const Center(
+                                            child: CircularProgressIndicator());
+                                      }
+                                    })
+                            : controller.friendRequestList.isEmpty
+                                ? const NoData()
+                                : ListView.builder(
+                                    controller: controller.scrollController,
+                                    itemCount: controller.isMoreLoading
+                                        ? controller.friendRequestList.length +
+                                            1
+                                        : controller.friendRequestList.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      var item =
+                                          controller.friendRequestList[index];
 
-                                  if (index <
-                                      controller.friendRequestList.length) {
-                                    return CustomPendingRequests(
-                                      pendingText:
-                                          item.participants[0].fullName,
-                                      image:
-                                          "${ApiConstant.baseUrl}/${item.participants[0].image}",
-                                      timeText: controller
-                                          .getFormattedDate(item.createdAt),
-                                      onTapReject: () =>
-                                          controller.requestActionRepo(
-                                              item.sId, "rejected", index),
-                                      onTapAccept: () =>
-                                          controller.requestActionRepo(
-                                              item.sId, "accepted", index),
-                                    );
-                                  } else {
-                                    return const Center(
-                                        child: CircularProgressIndicator());
-                                  }
-                                })),
+                                      if (index <
+                                          controller.friendRequestList.length) {
+                                        return CustomPendingRequests(
+                                          pendingText:
+                                              item.participants[0].fullName,
+                                          image:
+                                              "${ApiConstant.baseUrl}/${item.participants[0].image}",
+                                          timeText: controller
+                                              .getFormattedDate(item.createdAt),
+                                          onTapReject: () =>
+                                              controller.requestActionRepo(
+                                                  item.sId, "rejected", index),
+                                          onTapAccept: () =>
+                                              controller.requestActionRepo(
+                                                  item.sId, "accepted", index),
+                                        );
+                                      } else {
+                                        return const Center(
+                                            child: CircularProgressIndicator());
+                                      }
+                                    })),
                   ],
                 ),
               ),

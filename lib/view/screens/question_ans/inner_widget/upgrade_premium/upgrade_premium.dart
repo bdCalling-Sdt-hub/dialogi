@@ -15,7 +15,7 @@ class UpgradePremium extends StatelessWidget {
       children: [
         ///upgrade premium
 
-        const CustomText(
+        CustomText(
           text: AppStrings.wanttojointhediscussion,
           fontWeight: FontWeight.w500,
         ),
@@ -26,7 +26,7 @@ class UpgradePremium extends StatelessWidget {
           onTap: () {
             Get.toNamed(AppRoutes.purchaseScreen);
           },
-          child: const CustomText(
+          child: CustomText(
             text: AppStrings.upgradetoPremium,
             fontWeight: FontWeight.w600,
             fontSize: 16,

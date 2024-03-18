@@ -17,6 +17,10 @@ class MessageController extends GetxController {
   bool isMessage = false;
   bool isMoreLoading = false;
 
+  String chatId = "";
+  String name = "";
+  String type = "";
+
   final ScrollController scrollController = ScrollController();
 
   final List<ChatMessageModel> messages = [];

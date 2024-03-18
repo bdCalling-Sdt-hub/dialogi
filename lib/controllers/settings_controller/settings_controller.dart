@@ -24,9 +24,8 @@ class SettingsController extends GetxController {
 
     Get.toNamed(AppRoutes.aboutUsScreen);
 
-    Map<String, String> header = {};
 
-    ApiService.getApi(ApiConstant.aboutUs, header:header)
+    ApiService.getApi(ApiConstant.aboutUs,)
         .then((apiResponseModel) {
       print(
           "=========> ${apiResponseModel.statusCode}<===> ${apiResponseModel.responseJson}<========");
@@ -35,7 +34,6 @@ class SettingsController extends GetxController {
 
         var jsonData = jsonDecode(apiResponseModel.responseJson);
         contentModelInfo = ContentModel.fromJson(jsonData);
-        print("=========>${contentModelInfo!.data!.attributes!.content}<========");
 
       } else {
         Get.snackbar(
@@ -65,7 +63,6 @@ class SettingsController extends GetxController {
 
         var jsonData = jsonDecode(apiResponseModel.responseJson);
         contentModelInfo = ContentModel.fromJson(jsonData);
-        print("=========>${contentModelInfo!.data!.attributes!.content}<========");
 
       } else {
         Get.snackbar(
@@ -95,8 +92,6 @@ class SettingsController extends GetxController {
 
         var jsonData = jsonDecode(apiResponseModel.responseJson);
         faqContentModelData = FaqContentModel.fromJson(jsonData);
-        print("=========>${faqContentModelData!.data!.attributes![0].question}<========");
-        print("=========>${faqContentModelData!.data!.attributes![0].answer}<========");
         isGetData.value = true;
 
       } else {
@@ -128,8 +123,6 @@ class SettingsController extends GetxController {
 
         var jsonData = jsonDecode(apiResponseModel.responseJson);
         contentModelInfo = ContentModel.fromJson(jsonData);
-        print("=========>${contentModelInfo!.data!.attributes!.content}<========");
-
       } else {
         Get.snackbar(
             apiResponseModel.statusCode.toString(), apiResponseModel.message);

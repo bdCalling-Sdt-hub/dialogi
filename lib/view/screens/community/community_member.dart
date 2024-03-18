@@ -18,7 +18,8 @@ class CommunityMembers extends StatefulWidget {
 }
 
 class _CommunityMembersState extends State<CommunityMembers> {
-  String chatId = "65e2c2f1c40b89a8d280ac90";
+  String chatId = Get.parameters["chatId"] ?? "";
+
 
   CommunityMemberController communityMemberController = Get.put(CommunityMemberController()) ;
 
@@ -34,6 +35,8 @@ class _CommunityMembersState extends State<CommunityMembers> {
 
   @override
   Widget build(BuildContext context) {
+
+    print("===========================>? Chat Id $chatId") ;
 
     return Scaffold(
         appBar: CustomAppBar(
@@ -52,7 +55,7 @@ class _CommunityMembersState extends State<CommunityMembers> {
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                   color: AppColors.blue_500,
-                  text: AppStrings.communityMembers,
+                  text: AppStrings.communityMembers.tr,
                 ),
               ),
             )

@@ -33,7 +33,7 @@ class SupportScreen extends StatelessWidget {
             ),
           ),
           CustomText(
-            text: AppStrings.support,
+            text: AppStrings.support.tr,
             fontWeight: FontWeight.w500,
             fontSize: 18.h,
             color: AppColors.blue_500,
@@ -51,7 +51,7 @@ class SupportScreen extends StatelessWidget {
                     data: settingsController
                             .contentModelInfo!.data!.attributes?.content
                             .toString() ??
-                        "No Data Found",
+                        "No Data Found".tr,
                   ),
                 ],
               ),

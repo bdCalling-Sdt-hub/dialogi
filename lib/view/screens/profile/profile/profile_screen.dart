@@ -45,8 +45,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const SizedBox(),
-            const CustomText(
-              text: AppStrings.profile,
+            CustomText(
+              text: AppStrings.profile.tr,
               fontSize: 18,
               fontWeight: FontWeight.w500,
               color: AppColors.blue_500,
@@ -100,36 +100,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: Stack(
                             children: [
                               Center(
-                                child: GestureDetector(
-                                  onTap: () {
-                                    controller.selectImageGallery();
-                                  },
-                                  child: Container(
-                                    height: 108.w,
-                                    width: 108.w,
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          fit: BoxFit.fill,
-                                          image: NetworkImage(
-                                            "${ApiConstant.baseUrl}${controller.profileModel.data!.attributes!.image!}",
-                                          ),
+                                child: Container(
+                                  height: 108.w,
+                                  width: 108.w,
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: NetworkImage(
+                                          "${ApiConstant.baseUrl}${controller.profileModel!.data!.attributes!.image!}",
                                         ),
-                                        shape: BoxShape.circle,
-                                        border: Border.all(
-                                            color: AppColors.black_500,
-                                            width: 3.w)),
-                                  ),
+                                      ),
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                          color: AppColors.black_500,
+                                          width: 3.w)),
                                 ),
                               ),
                               GestureDetector(
                                   onTap: () {
                                     // controller.selectImageCamera();
                                   },
-                                  child: controller.profileModel.data!
+                                  child: controller.profileModel!.data!
                                               .attributes!.subscription ==
                                           "default"
                                       ? const SizedBox()
-                                      : controller.profileModel.data!
+                                      : controller.profileModel!.data!
                                                   .attributes!.subscription ==
                                               "premium"
                                           ? Align(
@@ -172,7 +167,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
 
                       ///premium member
-                      controller.profileModel.data!.attributes!.subscription ==
+                      controller.profileModel!.data!.attributes!.subscription ==
                               "default"
                           ? const SizedBox()
                           : Column(
@@ -190,8 +185,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         size: 24,
                                       ),
                                       CustomText(
-                                        text: controller.profileModel.data!
-                                            .attributes!.subscription!,
+                                        text: capitalize(controller.profileModel!.data!
+                                            .attributes!.subscription!),
                                         fontSize: 18,
                                         color: AppColors.whiteColor,
                                         left: 12,
@@ -208,14 +203,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ///profile details
                       ProfileUserDetails(
                         name:
-                            controller.profileModel.data!.attributes!.fullName!,
-                        email: controller.profileModel.data!.attributes!.email!,
+                            controller.profileModel!.data!.attributes!.fullName!,
+                        email: controller.profileModel!.data!.attributes!.email!,
                         dob: controller
-                                .profileModel.data?.attributes?.dateOfBirth
+                                .profileModel?.data?.attributes?.dateOfBirth
                                 ?.split('T')[0] ??
                             "",
                         address:
-                            controller.profileModel.data?.attributes?.address ??
+                            controller.profileModel?.data?.attributes?.address ??
                                 "",
                       )
                     ],
@@ -224,5 +219,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
             };
           },
         ));
+  }
+  String capitalize(String text) {
+    List<String> words = text.split("-");
+    for (int i = 0; i < words.length; i++) {
+      String word = words[i];
+      if (word.isNotEmpty) {
+        words[i] = word[0].toUpperCase() + word.substring(1);
+      }
+    }
+    return words.join("-");
   }
 }

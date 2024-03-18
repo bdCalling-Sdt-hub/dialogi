@@ -9,7 +9,7 @@ import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../utils/app_constants.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -19,30 +19,27 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
     DeviceUtils.allScreenUtils();
     Timer(const Duration(seconds: 2), () {
       getLoggedIn();
     });
+    // TODO: implement initState
     super.initState();
   }
 
   Future<void> getLoggedIn() async {
-
-    print("====================================================>token ${PrefsHelper.token}");
-
+    print(
+        "====================================================>token ${PrefsHelper.token}");
 
     try {
-
       // Get.toNamed(AppRoutes.premiumScreen);
       if (PrefsHelper.token.isNotEmpty) {
         Get.offAllNamed(AppRoutes.homeScreen);
       } else {
         Get.offAllNamed(AppRoutes.signInScreen);
       }
-
     } catch (e) {
       print(e.toString());
     }

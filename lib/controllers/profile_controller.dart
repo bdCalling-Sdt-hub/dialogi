@@ -21,7 +21,7 @@ class ProfileController extends GetxController {
 
   RxBool updateProfileAccess = false.obs;
 
-  ProfileModel profileModel = ProfileModel();
+  ProfileModel? profileModel ;
 
   TextEditingController nameController = TextEditingController();
 
@@ -86,7 +86,7 @@ class ProfileController extends GetxController {
         url: ApiConstant.users, imagePath: image, body: body);
 
     if (response.statusCode == 200) {
-      Get.offAllNamed(AppRoutes.homeScreen);
+      Get.offAllNamed(AppRoutes.profileScreen);
 
       print("=============================================> Update Successful");
     } else {

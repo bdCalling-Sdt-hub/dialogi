@@ -44,7 +44,7 @@ Future<void> paymentRepo({required String payerId,required String amount, requir
      body = {
       "amount" : amount,
       "paymentId" : StripePaymentController.payerId,
-      "payment_method" : paymentMethod,
+      "paymentMethod" : paymentMethod,
       "name" : subscriptionName,
       "sku" : "subscription",
       "price": amount,
@@ -56,7 +56,7 @@ Future<void> paymentRepo({required String payerId,required String amount, requir
     body = {
       "amount" : amount,
       "paymentId" : payerId,
-      "payment_method" : paymentMethod,
+      "paymentMethod" : paymentMethod,
       "name" : subscriptionName,
       "sku" : "subscription",
       "price": amount,

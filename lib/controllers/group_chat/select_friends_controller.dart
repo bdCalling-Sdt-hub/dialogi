@@ -43,6 +43,7 @@ class SelectFriendsController extends GetxController {
 
   Future<void> friendListRepo() async {
     if (page == 1) {
+      friendList.clear();
       status = Status.loading;
       update();
     }
@@ -92,7 +93,7 @@ class SelectFriendsController extends GetxController {
     selectedFriends[index] = value;
     update();
 
-    if (selectedParticipants.length > 2) {
+    if (selectedParticipants.length > 1) {
       isCreateGroup = true;
       update();
     } else {
@@ -101,13 +102,14 @@ class SelectFriendsController extends GetxController {
     }
   }
 
-  createNewGroup() async {
+  createNewGroup(String questionId) async {
     var body = {
       "participants": selectedParticipants,
       "subscription": PrefsHelper.mySubscription,
       "groupName": nameController.text,
-      "type": AppStrings.group,
-      "groupAdmin": PrefsHelper.clientId
+      "type": "group",
+      "groupAdmin": PrefsHelper.clientId,
+      "question": questionId
     };
 
     if (kDebugMode) {

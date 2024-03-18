@@ -3,6 +3,7 @@ import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class CustomCard extends StatelessWidget {
   final String img;
@@ -57,7 +58,7 @@ class CustomCard extends StatelessWidget {
 
                     CustomText(
                       right: 8.w,
-                      text: AppStrings.ques,
+                      text: "${AppStrings.ques.tr}.",
                       color: AppColors.black_300,
                     ),
 

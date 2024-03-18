@@ -211,8 +211,9 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                               ? controller.repliesList.length + 1
                               : controller.repliesList.length,
                           itemBuilder: (context, index) {
-                            var item = controller.repliesList[index];
+
                             if (index < controller.repliesList.length) {
+                              var item = controller.repliesList[index];
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -370,7 +371,7 @@ class _DiscussionDetailsScreenState extends State<DiscussionDetailsScreen> {
                         Expanded(
                             child: CustomTextField(
                           textEditingController: controller.replyController,
-                          hintText: AppStrings.enterTextHere,
+                          hintText: AppStrings.enterTextHere.tr,
                         )),
                         Padding(
                           padding: EdgeInsets.only(left: 10.w),

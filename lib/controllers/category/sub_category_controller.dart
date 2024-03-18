@@ -39,9 +39,11 @@ class SubCategoryController extends GetxController {
     print(
         "==========================================> accessStatus $accessStatus");
     if (page == 1) {
+      subCategoryList.clear() ;
       status = Status.loading;
       update();
     }
+
 
     Map<String, String> header = {
       'Authorization': "Bearer ${PrefsHelper.token}"

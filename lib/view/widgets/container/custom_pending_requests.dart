@@ -65,7 +65,7 @@ class CustomPendingRequests extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                               border: Border.all(color: AppColors.black_500,width: 1)
                           ),
-                          child: const CustomText(
+                          child: CustomText(
                             text: AppStrings.reject,
                             fontWeight: FontWeight.w600,
 
@@ -83,7 +83,7 @@ class CustomPendingRequests extends StatelessWidget {
                             color: AppColors.black_500,
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: const CustomText(
+                          child: CustomText(
                             text: AppStrings.accept,
                             fontWeight: FontWeight.w600,
                             color: AppColors.whiteColor,

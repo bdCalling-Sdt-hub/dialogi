@@ -2,6 +2,7 @@ import 'package:dialogi_app/controllers/favourite_controller.dart';
 import 'package:dialogi_app/global/api_response_model.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/view/widgets/error/error_screen.dart';
+import 'package:dialogi_app/view/widgets/no_data.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class _FavoriteListScreenState extends State<FavoriteListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AppStrings.favoriteList),
+        title: Text(AppStrings.favoriteList.tr),
         centerTitle: true,
       ),
       body: GetBuilder<FavouriteController>(
@@ -47,7 +48,11 @@ class _FavoriteListScreenState extends State<FavoriteListScreen> {
                 controller.page = 1;
                 controller.getFavouriteRepo();
               }),
-            Status.completed => ListView.builder(
+            Status.completed =>
+
+            controller.favouriteList.isEmpty
+            ? const NoData() :
+                ListView.builder(
                 controller: controller.scrollController,
                 itemCount: controller.isMoreLoading
                     ? controller.favouriteList.length + 1
