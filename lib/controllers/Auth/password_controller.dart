@@ -21,7 +21,7 @@ class PasswordController extends GetxController {
   TextEditingController reEnterNewPasswordController = TextEditingController();
 
   ///<<<============== Settings Page Forget Password Controllers ============>>>
-  TextEditingController settingsEmailController = TextEditingController();
+  // TextEditingController settingsEmailController = TextEditingController();
   TextEditingController settingsOtpController = TextEditingController();
 
   ///<<<============== Settings Reset Password Controllers ======================>>>
@@ -30,16 +30,15 @@ class PasswordController extends GetxController {
       TextEditingController();
 
   bool isLoading = false;
+  String forgetPasswordToken = "";
 
   ///<<<==================Forget Password Repo===============================>>>
 
-  Future<void> forgetPasswordRepo() async {
-    isLoading = true;
-    update();
-    // var header = {
-    //   'Content-Type': 'application/json',
-    //   'Cookie': 'i18next=en'
-    // };
+  Future<void> forgetPasswordRepo({bool isResend = false}) async {
+    if(!isResend){
+      isLoading = true;
+      update();
+    }
     Map<String, String> body = {
       "email": emailController.text,
     };
@@ -52,6 +51,7 @@ class PasswordController extends GetxController {
         "--------------------Status Code: ${response.statusCode}--------------------");
 
     if (response.statusCode == 200) {
+      Utils.toastMessage(AppConstants.otpSend);
       Get.toNamed(AppRoutes.otpScreen);
     } else if (response.statusCode == 404) {
       Utils.toastMessage(AppConstants.userNotExist);
@@ -84,7 +84,10 @@ class PasswordController extends GetxController {
 
       PrefsHelper.setString(AppConstants.forgetPasswordToken,
           responseData['data']["forgetPasswordToken"]);
+      forgetPasswordToken = responseData['data']["forgetPasswordToken"];
       Get.toNamed(AppRoutes.resetPasswordScreen);
+      print("Forget password token:=>>> ${responseData['data']["forgetPasswordToken"]}");
+
     } else if (response.statusCode == 400) {
       Utils.toastMessage(response.message);
     } else {
@@ -101,8 +104,9 @@ class PasswordController extends GetxController {
     isLoading = true;
     update();
     Map<String, String> header = {
-      "Forget-password": "Forget-password ${PrefsHelper.forgetPasswordToken}",
+      "Forget-password": "Forget-password $forgetPasswordToken",
     };
+    print("Forget Password Token ::::$forgetPasswordToken");
 
     Map<String, String> body = {
       "email": emailController.text,
@@ -162,15 +166,13 @@ class PasswordController extends GetxController {
 
   ///<<<================ Settings Forget Password Repo ======================>>>
 
-  Future<void> settingsForgetPasswordRepo() async {
-    isLoading = true;
-    update();
-    // var header = {
-    //   'Content-Type': 'application/json',
-    //   'Cookie': 'i18next=en'
-    // };
+  Future<void> settingsForgetPasswordRepo({bool isReSend = false}) async {
+    if(!isReSend){
+      isLoading = true;
+      update();
+    }
     Map<String, String> body = {
-      "email": settingsEmailController.text,
+      "email": PrefsHelper.myEmail,
     };
     var response = await ApiService.postApi(
       ApiConstant.forgetPassword,
@@ -199,7 +201,7 @@ class PasswordController extends GetxController {
     update();
 
     Map<String, String> body = {
-      "email": settingsEmailController.text,
+      "email": PrefsHelper.myEmail,
       "otp": settingsOtpController.text
     };
     var response = await ApiService.postApi(
@@ -241,7 +243,7 @@ class PasswordController extends GetxController {
     };
 
     Map<String, String> body = {
-      "email": settingsEmailController.text,
+      "email": PrefsHelper.myEmail,
       "password": settingsPasswordController.text
     };
     var response = await ApiService.postApi(ApiConstant.resetPassword, body,

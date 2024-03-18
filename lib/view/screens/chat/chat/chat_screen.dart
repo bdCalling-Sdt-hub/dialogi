@@ -75,7 +75,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
                 type == "single"
                     ? const SizedBox()
-                    : type == AppStrings.community
+                    : type == AppStrings.community.tr
                         ? CommunityChatPopUps(chatId: chatId)
                         : GroupChatPopUps(
                             chatId: chatId,
@@ -128,7 +128,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           maxLines: null,
                           keyboardType: TextInputType.text,
                           textAlign: TextAlign.start,
-                          hintText: AppStrings.typemessage,
+                          hintText: AppStrings.typemessage.tr,
                           hintStyle: GoogleFonts.prompt(
                               fontSize: 14.h,
                               fontWeight: FontWeight.w400,

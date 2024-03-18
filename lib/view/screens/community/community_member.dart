@@ -55,7 +55,7 @@ class _CommunityMembersState extends State<CommunityMembers> {
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                   color: AppColors.blue_500,
-                  text: AppStrings.communityMembers,
+                  text: AppStrings.communityMembers.tr,
                 ),
               ),
             )

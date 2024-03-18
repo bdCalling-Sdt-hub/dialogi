@@ -60,7 +60,7 @@ class _SameCommunityState extends State<SameCommunity> {
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
                 color: AppColors.blue_500,
-                text: AppStrings.community,
+                text: AppStrings.community.tr,
               ),
             ),
           )
@@ -131,7 +131,7 @@ class _SameCommunityState extends State<SameCommunity> {
                 "categoryId": categoryId,
               });
             },
-            titleText: AppStrings.createNewCommunity),
+            titleText: AppStrings.createNewCommunity.tr),
       ),
     );
   }

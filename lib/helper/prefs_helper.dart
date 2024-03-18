@@ -10,10 +10,11 @@ class PrefsHelper extends GetxController {
   static String forgetPasswordToken = "";
   static String myImage = "";
   static String myName = "";
+  static String myEmail = "";
   static bool isProvider = false;
   static String mySubscription = "premium-plus";
-  static String localizationLanguageCode = '';
-  static String localizationCountryCode = '';
+  static String localizationLanguageCode = 'en';
+  static String localizationCountryCode = 'US';
 
   ///<<<======================== Get All Data Form Shared Preference ==============>
 
@@ -23,15 +24,20 @@ class PrefsHelper extends GetxController {
     clientId = preferences.getString("clientId") ?? "";
     myImage = preferences.getString("myImage") ?? "";
     myName = preferences.getString("myName") ?? "";
-    isProvider =  preferences.getBool("isProvider") ?? false;
+    myEmail = preferences.getString("myEmail") ?? "";
+    isProvider = preferences.getBool("isProvider") ?? false;
     forgetPasswordToken =
         preferences.getString(AppConstants.forgetPasswordToken) ?? "";
-    localizationLanguageCode = preferences.getString("languageCode") ?? "en";
-    localizationCountryCode = preferences.getString("countryCode") ?? "US";
+    localizationLanguageCode =
+        preferences.getString("localizationLanguageCode") ?? "en";
+    localizationCountryCode =
+        preferences.getString("localizationCountryCode") ?? "US";
 
     print("..................$token............................");
 
     print("..................$clientId............................");
+    print("..................$localizationLanguageCode............................");
+    print("..................$localizationCountryCode............................");
   }
 
   ///<<<======================== Get Data Form Shared Preference ==============>
@@ -82,11 +88,14 @@ class PrefsHelper extends GetxController {
     preferences.setString(AppConstants.bearerToken, "");
     preferences.setString(AppConstants.forgetPasswordToken, "");
     preferences.setString("clientId", "");
+    preferences.setString("myEmail", "");
     preferences.setBool("isProvider", false);
     token = "";
     forgetPasswordToken = "";
     clientId = "";
     isProvider = false;
+    myName = "";
+    myEmail = "";
     // preferences.remove(AppConstants.bearerToken);
     // preferences.remove(AppConstants.forgetPasswordToken);
     // preferences.remove("clientId");

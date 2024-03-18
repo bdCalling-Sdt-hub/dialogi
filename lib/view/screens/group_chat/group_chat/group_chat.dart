@@ -68,7 +68,7 @@ class _GroupChatState extends State<GroupChat> {
                       )),
                   CustomText(
                     left: 25.w,
-                    text: AppStrings.community,
+                    text: AppStrings.community.tr,
                     fontSize: 18.w,
                     fontWeight: FontWeight.w500,
                     color: AppColors.blue_500,
@@ -119,7 +119,7 @@ class _GroupChatState extends State<GroupChat> {
                           child: CustomTextField(
                             keyboardType: TextInputType.text,
                             textAlign: TextAlign.start,
-                            hintText: AppStrings.typemessage,
+                            hintText: AppStrings.typemessage.tr,
                             hintStyle: GoogleFonts.prompt(
                                 fontSize: 14.h,
                                 fontWeight: FontWeight.w400,

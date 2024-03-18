@@ -47,14 +47,14 @@ class _SignInScreenState extends State<SignInScreen> {
                 ///<<<=================== welcome text =========================>>>
                 CustomText(
                   textAlign: TextAlign.start,
-                  text: AppStrings.welcomeToThe,
+                  text: AppStrings.welcomeToThe.tr,
                   fontSize: 18.h,
                   fontWeight: FontWeight.w500,
                   bottom: 8,
                 ),
                 CustomText(
                   textAlign: TextAlign.start,
-                  text: AppStrings.dialogiApp,
+                  text: AppStrings.dialogiApp.tr,
                   fontSize: 30.h,
                   fontWeight: FontWeight.w500,
                   color: AppColors.blue_500,
@@ -69,10 +69,10 @@ class _SignInScreenState extends State<SignInScreen> {
                 CustomTextField(
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return ApiStaticStrings.enterEmail;
+                      return ApiStaticStrings.enterEmail.tr;
                     } else if (!ApiStaticStrings.emailRegexp
                         .hasMatch(controller.emailController.text)) {
-                      return ApiStaticStrings.enterValidEmail;
+                      return ApiStaticStrings.enterValidEmail.tr;
                     } else {
                       return null;
                     }
@@ -80,7 +80,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   textEditingController: controller.emailController,
                   keyboardType: TextInputType.text,
                   textAlign: TextAlign.start,
-                  hintText: AppStrings.enterYourEmail,
+                  hintText: AppStrings.enterYourEmail.tr,
                   hintStyle: GoogleFonts.prompt(
                       fontSize: 14.h,
                       fontWeight: FontWeight.w400,
@@ -108,11 +108,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 CustomTextField(
                   validator: (value) {
                     if (value.isEmpty) {
-                      return ApiStaticStrings.fieldCantBeEmpty;
-                    } else if (value.length < 8) {
-                      return ApiStaticStrings.passMustContainBoth;
-                    } else if (!ApiStaticStrings.passRegExp.hasMatch(value)) {
-                      return ApiStaticStrings.passMustContainBoth;
+                      return ApiStaticStrings.fieldCantBeEmpty.tr;
                     } else {
                       return null;
                     }
@@ -121,7 +117,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   isPassword: true,
                   keyboardType: TextInputType.text,
                   textAlign: TextAlign.start,
-                  hintText: AppStrings.enteryourpassword,
+                  hintText: AppStrings.enteryourpassword.tr,
                   hintStyle: GoogleFonts.prompt(
                       fontSize: 14.h,
                       fontWeight: FontWeight.w400,
@@ -146,7 +142,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     Get.toNamed(AppRoutes.forgetPasswordScreen);
                   },
                   child: CustomText(
-                    text: AppStrings.forgotPassword,
+                    text: AppStrings.forgotPassword.tr,
                     color: AppColors.red_500,
                     fontWeight: FontWeight.w500,
                     fontSize: 18,
@@ -166,14 +162,14 @@ class _SignInScreenState extends State<SignInScreen> {
                     }
                     // Get.toNamed(AppRoutes.homeScreen);
                   },
-                  titleText: AppStrings.signIn,
+                  titleText: AppStrings.signIn.tr,
                   buttonWidth: MediaQuery.of(context).size.width,
                 ),
 
                 ///or
                 Center(
                   child: CustomText(
-                    text: 'Or',
+                    text: 'Or'.tr,
                     fontWeight: FontWeight.w500,
                     fontSize: 14,
                     top: 24.h,
@@ -199,7 +195,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           imageType: ImageType.svg,
                         ),
                         CustomText(
-                          text: AppStrings.continuewithGoogle,
+                          text: AppStrings.continuewithGoogle.tr,
                           color: AppColors.black_500,
                           fontWeight: FontWeight.w500,
                           fontSize: 18,
@@ -229,7 +225,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         imageType: ImageType.svg,
                       ),
                       CustomText(
-                        text: AppStrings.continuewithApple,
+                        text: AppStrings.continuewithApple.tr,
                         color: AppColors.black_500,
                         fontWeight: FontWeight.w500,
                         fontSize: 18,
@@ -248,7 +244,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CustomText(
-                        text: AppStrings.donthaveanaccount,
+                        text: AppStrings.donthaveanaccount.tr,
                         fontSize: 16,
                       ),
                       GestureDetector(
@@ -256,7 +252,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           Get.toNamed(AppRoutes.signUpScreen);
                         },
                         child: CustomText(
-                          text: AppStrings.signUp,
+                          text: AppStrings.signUp.tr,
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                           color: AppColors.blue_500,

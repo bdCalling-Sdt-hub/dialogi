@@ -46,7 +46,7 @@ class SignUpScreen extends StatelessWidget {
                   ///<<<===================Create new account====================>>>
 
                   CustomText(
-                    text: AppStrings.createnewaccount,
+                    text: AppStrings.createnewaccount.tr,
                     color: AppColors.blue_500,
                     fontWeight: FontWeight.w500,
                     fontSize: 24,
@@ -59,7 +59,7 @@ class SignUpScreen extends StatelessWidget {
                   CustomText(
                     textAlign: TextAlign.start,
                     maxLines: 3,
-                    text: AppStrings.joinusforbetterexperience,
+                    text: AppStrings.joinusforbetterexperience.tr,
                     fontWeight: FontWeight.w500,
                     fontSize: 16,
                   ),
@@ -71,7 +71,7 @@ class SignUpScreen extends StatelessWidget {
                     textEditingController: controller.nameController,
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return ApiStaticStrings.enterFullName;
+                        return ApiStaticStrings.enterFullName.tr;
                       }
                       else {
                         return null;
@@ -79,7 +79,7 @@ class SignUpScreen extends StatelessWidget {
                     },
                     keyboardType: TextInputType.text,
                     textAlign: TextAlign.start,
-                    hintText: AppStrings.fullname,
+                    hintText: AppStrings.fullname.tr,
                     hintStyle: GoogleFonts.prompt(
                         fontSize: 14.h,
                         fontWeight: FontWeight.w400,
@@ -105,17 +105,17 @@ class SignUpScreen extends StatelessWidget {
                     textEditingController: controller.emailController,
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return ApiStaticStrings.enterEmail;
+                        return ApiStaticStrings.enterEmail.tr;
                       } else if (!ApiStaticStrings.emailRegexp
                           .hasMatch(controller.emailController.text)) {
-                        return ApiStaticStrings.enterValidEmail;
+                        return ApiStaticStrings.enterValidEmail.tr;
                       } else {
                         return null;
                       }
                     },
                     keyboardType: TextInputType.text,
                     textAlign: TextAlign.start,
-                    hintText: AppStrings.enterYourEmail,
+                    hintText: AppStrings.enterYourEmail.tr,
                     hintStyle: GoogleFonts.prompt(
                         fontSize: 14.h,
                         fontWeight: FontWeight.w400,
@@ -145,7 +145,7 @@ class SignUpScreen extends StatelessWidget {
                     textEditingController: controller.birthDayController,
                     keyboardType: TextInputType.text,
                     textAlign: TextAlign.start,
-                    hintText: AppStrings.dateofbirth,
+                    hintText: AppStrings.dateofbirth.tr,
                     hintStyle: GoogleFonts.prompt(
                         fontSize: 14.h,
                         fontWeight: FontWeight.w400,
@@ -173,7 +173,7 @@ class SignUpScreen extends StatelessWidget {
                     textEditingController: controller.addressController,
                     keyboardType: TextInputType.text,
                     textAlign: TextAlign.start,
-                    hintText: AppStrings.address,
+                    hintText: AppStrings.address.tr,
                     hintStyle: GoogleFonts.prompt(
                         fontSize: 14.h,
                         fontWeight: FontWeight.w400,
@@ -201,7 +201,7 @@ class SignUpScreen extends StatelessWidget {
                       if(_formKey.currentState!.validate()){
                         Get.toNamed(AppRoutes.setPhotoScreen);
                     }
-                  }, titleText: AppStrings.continuee,buttonWidth: Get.width,),
+                  }, titleText: AppStrings.continuee.tr,buttonWidth: Get.width,),
 
 
                   SizedBox(height: 24.h,),
@@ -213,7 +213,7 @@ class SignUpScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomText(
-                          text: AppStrings.alreadyhaveanaccount,
+                          text: AppStrings.alreadyhaveanaccount.tr,
                           fontSize: 16,
                         ),
                         GestureDetector(
@@ -221,7 +221,7 @@ class SignUpScreen extends StatelessWidget {
                             Get.toNamed(AppRoutes.signInScreen);
                           },
                           child: CustomText(
-                            text: AppStrings.signIn,
+                            text: AppStrings.signIn.tr,
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
                             color: AppColors.blue_500,

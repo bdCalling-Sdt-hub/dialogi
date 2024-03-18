@@ -48,7 +48,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 size: 24,
               )),
           CustomText(
-            text: AppStrings.editProfile,
+            text: AppStrings.editProfile.tr,
             fontSize: 18,
             fontWeight: FontWeight.w500,
             color: AppColors.blue_500,
@@ -69,7 +69,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               textEditingController: profileController.nameController,
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
-              hintText: AppStrings.enterName,
+              hintText: AppStrings.enterName.tr,
               hintStyle: GoogleFonts.prompt(
                   fontSize: 14.h,
                   fontWeight: FontWeight.w400,
@@ -111,7 +111,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               textEditingController: profileController.dateController,
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
-              hintText: AppStrings.dob,
+              hintText: AppStrings.dob.tr,
               hintStyle: GoogleFonts.prompt(
                   fontSize: 14.h,
                   fontWeight: FontWeight.w400,
@@ -152,7 +152,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               textEditingController: profileController.addressController,
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
-              hintText: AppStrings.address,
+              hintText: AppStrings.address.tr,
               hintStyle: GoogleFonts.prompt(
                   fontSize: 14.h,
                   fontWeight: FontWeight.w400,
@@ -177,7 +177,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
         child: CustomElevatedButton(
             onPressed: () => profileController.updateProfileRepo(),
-            titleText: AppStrings.update),
+            titleText: AppStrings.update.tr),
       ),
     );
   }

@@ -59,7 +59,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                   color: AppColors.blue_500,
-                  text: title,
+                  text: title.tr,
                 ),
               ),
             )
@@ -72,7 +72,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               //Sub Category Title
               CustomText(
-                text: AppStrings.subCategories,
+                text: AppStrings.subCategories.tr,
                 right: 20.w,
                 fontSize: 18,
                 bottom: 16.h,

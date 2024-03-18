@@ -46,7 +46,7 @@ class _SettingsForgetPasswordScreenState
             ),
           ),
           CustomText(
-            text: AppStrings.forgotPassword,
+            text: AppStrings.forgotPassword.tr,
             fontWeight: FontWeight.w500,
             fontSize: 18.h,
             color: AppColors.blue_500,
@@ -65,7 +65,7 @@ class _SettingsForgetPasswordScreenState
                 CustomText(
                   textAlign: TextAlign.start,
                   maxLines: 2,
-                  text: AppStrings.pleaseEnteryourEmailAddresstoreset,
+                  text: AppStrings.pleaseEnteryourEmailAddresstoreset.tr,
                   fontWeight: FontWeight.w400,
                   fontSize: 16.h,
                   bottom: 44.h,
@@ -74,20 +74,20 @@ class _SettingsForgetPasswordScreenState
                 ///<<<================= Email Text Field =======================>>>
 
                 CustomTextField(
-                  textEditingController: passwordController.settingsEmailController,
+                  // textEditingController: passwordController.settingsEmailController,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return ApiStaticStrings.enterEmail;
+                      return ApiStaticStrings.enterEmail.tr;
                     } else if (!ApiStaticStrings.emailRegexp
-                        .hasMatch(passwordController.settingsEmailController.text)) {
-                      return ApiStaticStrings.enterValidEmail;
+                        .hasMatch("passwordController.settingsEmailController.text")) {
+                      return ApiStaticStrings.enterValidEmail.tr;
                     } else {
                       return null;
                     }
                   },
                   keyboardType: TextInputType.text,
                   textAlign: TextAlign.start,
-                  hintText: AppStrings.email,
+                  hintText: AppStrings.email.tr,
                   hintStyle: GoogleFonts.prompt(
                       fontSize: 14.h,
                       fontWeight: FontWeight.w400,
@@ -125,7 +125,7 @@ class _SettingsForgetPasswordScreenState
                     passwordController.settingsForgetPasswordRepo();
                   }
                 },
-                titleText: AppStrings.getOTP),
+                titleText: AppStrings.getOTP.tr),
               );
       },),
     );

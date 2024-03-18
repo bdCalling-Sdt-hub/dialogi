@@ -70,11 +70,12 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       child: GetMaterialApp(
         translations: LocalConstants(),
-        locale: const Locale("en", "US"),
-        // locale: Locale(PrefsHelper.localizationLanguageCode,
-        //     PrefsHelper.localizationCountryCode),
-        // fallbackLocale: const Locale("en", "US"),
-        // translations: Languages(),
+        // locale: const Locale("en", "US"),
+        defaultTransition: Transition.noTransition,
+        locale: Locale(PrefsHelper.localizationLanguageCode,
+            PrefsHelper.localizationCountryCode),
+        fallbackLocale: const Locale("en", "US"),
+
         theme: ThemeData(scaffoldBackgroundColor: AppColors.background),
         debugShowCheckedModeBanner: false,
         title: 'Dialogi App',

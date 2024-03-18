@@ -87,7 +87,7 @@ void permissionPopUp({
                         navigator!.pop();
                         ontapYes();
                       },
-                      titleText: AppStrings.yes),
+                      titleText: AppStrings.yes.tr),
                   CustomElevatedButton(
                       buttonWidth: 120.w,
                       buttonHeight: 36.h,
@@ -95,7 +95,7 @@ void permissionPopUp({
                         navigator!.pop();
                         ontapNo();
                       },
-                      titleText: AppStrings.no),
+                      titleText: AppStrings.no.tr),
                 ],
               )
             ],

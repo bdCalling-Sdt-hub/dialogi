@@ -52,7 +52,7 @@ class _SetPhotoScreenState extends State<SetPhotoScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomText(
-                    text: AppStrings.setProfilePicture,
+                    text: AppStrings.setProfilePicture.tr,
                     color: AppColors.blue_500,
                     fontWeight: FontWeight.w500,
                     fontSize: 24,
@@ -64,7 +64,7 @@ class _SetPhotoScreenState extends State<SetPhotoScreen> {
                   CustomText(
                     textAlign: TextAlign.start,
                     maxLines: 3,
-                    text: AppStrings.pleaseuploadApicture,
+                    text: AppStrings.pleaseuploadApicture.tr,
                     fontWeight: FontWeight.w500,
                     fontSize: 16,
                     bottom: 44.h,
@@ -118,7 +118,7 @@ class _SetPhotoScreenState extends State<SetPhotoScreen> {
                     onPressed: () {
                       Get.toNamed(AppRoutes.setPasswordScreen);
                     },
-                    titleText: AppStrings.skip,
+                    titleText: AppStrings.skip.tr,
                     buttonWidth: MediaQuery.of(context).size.width,
                     buttonColor: Colors.white,
                     borderColor: Colors.black,
@@ -139,7 +139,7 @@ class _SetPhotoScreenState extends State<SetPhotoScreen> {
                         Get.toNamed(AppRoutes.setPasswordScreen);
                       }
                     },
-                    titleText: AppStrings.getStarted,
+                    titleText: AppStrings.getStarted.tr,
                     buttonWidth: MediaQuery.of(context).size.width,
                   ),
                 ],

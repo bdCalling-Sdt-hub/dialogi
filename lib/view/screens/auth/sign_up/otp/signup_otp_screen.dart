@@ -1,4 +1,5 @@
 import 'package:dialogi_app/controllers/Auth/sign_up_controller.dart';
+import 'package:dialogi_app/helper/prefs_helper.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/app_icons.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
@@ -6,6 +7,7 @@ import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/buttons/custom_elevated_button.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -44,7 +46,7 @@ class SignUpOtpScreen extends StatelessWidget {
                   ///<<<================Get otp text=============================>>>
 
                   CustomText(
-                    text: AppStrings.getOTP,
+                    text: AppStrings.getOTP.tr,
                     color: AppColors.blue_500,
                     fontWeight: FontWeight.w500,
                     fontSize: 24,
@@ -55,7 +57,7 @@ class SignUpOtpScreen extends StatelessWidget {
                   CustomText(
                     textAlign: TextAlign.start,
                     maxLines: 3,
-                    text: AppStrings.weHavesentaverificationcode,
+                    text: AppStrings.weHavesentaverificationcode.tr,
                     fontWeight: FontWeight.w400,
                     fontSize: 16,
                     bottom: 44.h,
@@ -75,7 +77,7 @@ class SignUpOtpScreen extends StatelessWidget {
                     appContext: (context),
                     validator: (value) {
                       if (value!.length != 6) {
-                        return "Please enter the OTP code.";
+                        return "Please enter the OTP code.".tr;
                       }
                     },
                     autoFocus: true,
@@ -101,35 +103,64 @@ class SignUpOtpScreen extends StatelessWidget {
                   ),
 
                   ///didn't receive the code
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CustomText(
-                        textAlign: TextAlign.start,
-                        maxLines: 3,
-                        text: AppStrings.didntReceivetheCode,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16,
-                        color: AppColors.blue_500,
-                      ),
-                      controller.signUpLoading
-                          ? const Center(child: CircularProgressIndicator())
-                          : GestureDetector(
-                        onTap: () {
-
-                          controller.otpController.clear();
-                            controller.signUpUser();
-
-                        },
-                        child: CustomText(
-                          text: AppStrings.resend,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          color: AppColors.blue_500,
+                  PrefsHelper.localizationCountryCode == "DE"
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomText(
+                              textAlign: TextAlign.start,
+                              maxLines: 3,
+                              text: AppStrings.didntReceivetheCode.tr,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                              color: AppColors.blue_500,
+                            ),
+                            controller.isOtpResend
+                                ? const Center(
+                                    child: CircularProgressIndicator())
+                                : InkWell(
+                                    onTap: () {
+                                      controller.otpController.clear();
+                                      controller.signUpUser(isResend: true);
+                                    },
+                                    child: CustomText(
+                                      textAlign: TextAlign.start,
+                                      text: AppStrings.resend.tr,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18,
+                                      color: AppColors.blue_500,
+                                    ),
+                                  ),
+                          ],
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CustomText(
+                              textAlign: TextAlign.start,
+                              maxLines: 3,
+                              text: AppStrings.didntReceivetheCode.tr,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                              color: AppColors.blue_500,
+                            ),
+                            controller.isOtpResend
+                                ? const Center(
+                                    child: CircularProgressIndicator())
+                                : InkWell(
+                                    onTap: () {
+                                      controller.otpController.clear();
+                                      controller.signUpUser(isResend: true);
+                                    },
+                                    child: CustomText(
+                                      text: AppStrings.resend.tr,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18,
+                                      color: AppColors.blue_500,
+                                    ),
+                                  ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
                 ],
               ),
             ),
@@ -143,12 +174,12 @@ class SignUpOtpScreen extends StatelessWidget {
             child: controller.signUpLoading
                 ? const Center(child: CircularProgressIndicator())
                 : CustomElevatedButton(
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    controller.signUpUser();
-                  }
-                },
-                titleText: AppStrings.verify),
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        controller.signUpUser();
+                      }
+                    },
+                    titleText: AppStrings.verify.tr),
           );
         },
       ),

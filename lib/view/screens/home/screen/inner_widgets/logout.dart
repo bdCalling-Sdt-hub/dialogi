@@ -1,6 +1,7 @@
 import 'package:dialogi_app/controllers/Auth/sign_in_controller.dart';
 import 'package:dialogi_app/controllers/Auth/sign_out_controller.dart';
 import 'package:dialogi_app/helper/prefs_helper.dart';
+import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,20 +37,29 @@ class LogOut {
       context: Get.context!,
       builder: (context) {
         return AlertDialog(
-          title: Text(AppStrings.areYouSure),
+          title: Text(AppStrings.areYouSure.tr),
           actions: [
             TextButton(
+                style: const ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(AppColors.blue_500),
+                ),
                 onPressed: () {
                   Navigator.pop(context);
                   PrefsHelper.removeAllPrefData();
                   SignOutController.googleSignOut();
                 },
-                child: Text(AppStrings.yes)),
+                child: Text(AppStrings.yes.tr, style: const TextStyle(color: AppColors.whiteColor),)),
             TextButton(
+                style: const ButtonStyle(
+                  side: MaterialStatePropertyAll(
+                    BorderSide(color: AppColors.blue_500),
+                  ),
+                  // backgroundColor: MaterialStatePropertyAll(AppColors.blue_500),
+                ),
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text(AppStrings.no)),
+                child: Text(AppStrings.no.tr, style: const TextStyle(color: AppColors.black_500 ),)),
           ],
         );
       },

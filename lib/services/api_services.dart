@@ -39,7 +39,8 @@ class ApiService {
     dynamic responseJson;
 
     Map<String, String> mainHeader = {
-      'Authorization': "Bearer ${PrefsHelper.token}"
+      'Authorization': "Bearer ${PrefsHelper.token}",
+      'Accept-Language': PrefsHelper.localizationLanguageCode,
     };
 
     print("==================================================> url $url");
@@ -88,7 +89,8 @@ class ApiService {
     dynamic responseJson;
 
     Map<String, String> mainHeader = {
-      'Authorization': "Bearer ${PrefsHelper.token}"
+      'Authorization': "Bearer ${PrefsHelper.token}",
+      'Accept-Language': PrefsHelper.localizationLanguageCode
     };
 
     print("==================================================> url $url");
@@ -131,7 +133,8 @@ class ApiService {
     dynamic responseJson;
 
     Map<String, String> mainHeader = {
-      'Authorization': "Bearer ${PrefsHelper.token}"
+      'Authorization': "Bearer ${PrefsHelper.token}",
+      'Accept-Language': PrefsHelper.localizationLanguageCode
     };
 
     try {
@@ -165,7 +168,8 @@ class ApiService {
     dynamic responseJson;
 
     Map<String, String> mainHeader = {
-      'Authorization': "Bearer ${PrefsHelper.token}"
+      'Authorization': "Bearer ${PrefsHelper.token}",
+      'Accept-Language': PrefsHelper.localizationLanguageCode
     };
 
     try {
@@ -204,7 +208,8 @@ class ApiService {
     dynamic responseJson;
 
     Map<String, String> mainHeader = {
-      'Authorization': "Bearer ${PrefsHelper.token}"
+      'Authorization': "Bearer ${PrefsHelper.token}",
+      'Accept-Language': PrefsHelper.localizationLanguageCode
     };
 
     try {
@@ -323,6 +328,7 @@ class ApiService {
       }
 
       request.headers['Authorization'] = "Bearer ${PrefsHelper.token}";
+      request.headers['Accept-Language'] = PrefsHelper.localizationLanguageCode;
 
       var response = await request.send();
 

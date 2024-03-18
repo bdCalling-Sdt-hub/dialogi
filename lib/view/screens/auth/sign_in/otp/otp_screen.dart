@@ -13,9 +13,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+import '../../../../../helper/prefs_helper.dart';
+
 class OtpScreen extends StatelessWidget {
   OtpScreen({super.key});
-
 
   final formKey = GlobalKey<FormState>();
 
@@ -45,7 +46,7 @@ class OtpScreen extends StatelessWidget {
                   ///<<<================Get otp text=============================>>>
 
                   CustomText(
-                    text: AppStrings.getOTP,
+                    text: AppStrings.getOTP.tr,
                     color: AppColors.blue_500,
                     fontWeight: FontWeight.w500,
                     fontSize: 24,
@@ -56,7 +57,7 @@ class OtpScreen extends StatelessWidget {
                   CustomText(
                     textAlign: TextAlign.start,
                     maxLines: 3,
-                    text: AppStrings.weHavesentaverificationcode,
+                    text: AppStrings.weHavesentaverificationcode.tr,
                     fontWeight: FontWeight.w400,
                     fontSize: 16,
                     bottom: 44.h,
@@ -76,7 +77,7 @@ class OtpScreen extends StatelessWidget {
                     appContext: (context),
                     validator: (value) {
                       if (value!.length != 6) {
-                        return "Please enter the OTP code.";
+                        return "Please enter the OTP code.".tr;
                       }
                     },
                     autoFocus: true,
@@ -102,47 +103,80 @@ class OtpScreen extends StatelessWidget {
                   ),
 
                   ///didn't receive the code
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CustomText(
-                        textAlign: TextAlign.start,
-                        maxLines: 3,
-                        text: AppStrings.didntReceivetheCode,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16,
-                        color: AppColors.blue_500,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-
-                        },
-                        child: CustomText(
-                          text: AppStrings.resend,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          color: AppColors.blue_500,
+                  PrefsHelper.localizationCountryCode == "DE"
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomText(
+                              textAlign: TextAlign.start,
+                              maxLines: 3,
+                              text: AppStrings.didntReceivetheCode.tr,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                              color: AppColors.blue_500,
+                            ),
+                            InkWell(
+                                    onTap: () {
+                                      controller.settingsOtpController.clear();
+                                      controller.forgetPasswordRepo();
+                                    },
+                                    child: CustomText(
+                                      textAlign: TextAlign.start,
+                                      text: AppStrings.resend.tr,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18,
+                                      color: AppColors.blue_500,
+                                    ),
+                                  ),
+                          ],
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CustomText(
+                              textAlign: TextAlign.start,
+                              maxLines: 3,
+                              text: AppStrings.didntReceivetheCode.tr,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                              color: AppColors.blue_500,
+                            ),
+                            InkWell(
+                                    onTap: () {
+                                      controller.otpController.clear();
+                                      controller.forgetPasswordRepo(isResend: true);
+                                    },
+                                    child: CustomText(
+                                      textAlign: TextAlign.start,
+                                      text: AppStrings.resend.tr,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18,
+                                      color: AppColors.blue_500,
+                                    ),
+                                  ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
-                  Spacer(),
-
-                  controller.isLoading? const Center(child: CircularProgressIndicator())
-                      : CustomElevatedButton(
-                    buttonWidth: Get.width,
-                      onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          controller.verifyOtpRepo();
-                        }
-                      },
-                      titleText: AppStrings.verify)
                 ],
               ),
             ),
           );
         },
       ),
+      bottomNavigationBar: GetBuilder<PasswordController>(builder: (controller) {
+        return controller.isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+              child: CustomElevatedButton(
+              buttonWidth: Get.width,
+              onPressed: () {
+                if (formKey.currentState!.validate()) {
+                  controller.verifyOtpRepo();
+                }
+              },
+              titleText: AppStrings.verify.tr),
+            );
+      },),
     );
   }
 }

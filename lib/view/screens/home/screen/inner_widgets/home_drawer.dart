@@ -106,7 +106,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
               customRow(
                   icon: AppIcons.pendingReq,
-                  text: AppStrings.pendingRequests,
+                  text: AppStrings.pendingRequests.tr,
                   ontap: () {
                     Get.toNamed(AppRoutes.pendingRequestsScreen);
                   }),
@@ -118,7 +118,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
               customRow(
                   icon: AppIcons.setting,
-                  text: AppStrings.settings,
+                  text: AppStrings.settings.tr,
                   ontap: () {
                     Get.toNamed(AppRoutes.settingsScreen);
                   }),
@@ -141,7 +141,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                         color: AppColors.blue_500,
                       ),
                       CustomText(
-                        text: AppStrings.favoriteList,
+                        text: AppStrings.favoriteList.tr,
                         left: 16.w,
                       )
                     ],
@@ -168,7 +168,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                         color: AppColors.blue_500,
                       ),
                       CustomText(
-                        text: "Test Mobile Ad",
+                        text: "Test Mobile Ad".tr,
                         left: 16.w,
                       )
                     ],
@@ -184,7 +184,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
               LogOut.customRow(
                 icon: AppIcons.logout,
-                text: AppStrings.logout,
+                text: AppStrings.logout.tr,
               ),
             ],
           ));

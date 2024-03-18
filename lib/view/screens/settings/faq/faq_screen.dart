@@ -5,6 +5,7 @@ import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
 import 'package:dialogi_app/view/widgets/error/error_screen.dart';
 import 'package:dialogi_app/view/widgets/image/custom_image.dart';
+import 'package:dialogi_app/view/widgets/no_data.dart';
 import 'package:dialogi_app/view/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -39,7 +40,7 @@ class _FaqScreenState extends State<FaqScreen> {
             ),
           ),
           CustomText(
-            text: AppStrings.fAQ,
+            text: AppStrings.fAQ.tr,
             fontWeight: FontWeight.w500,
             fontSize: 18.h,
             color: AppColors.blue_500,
@@ -55,7 +56,13 @@ class _FaqScreenState extends State<FaqScreen> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 24, horizontal: 20),
                     child: Column(children: [
+                      settingsController.faqContentModelData!.data!.attributes!.isNotEmpty ?
                       Column(
+
+
+
+
+
                         children: List.generate(
                             settingsController
                                 .faqContentModelData!.data!.attributes!.length,
@@ -115,7 +122,7 @@ class _FaqScreenState extends State<FaqScreen> {
                                     ),
                                   ),
                                 )),
-                      ),
+                      ) : const Center(child: NoData()),
                     ]),
                   )
                 : ErrorScreen(onTap: () {

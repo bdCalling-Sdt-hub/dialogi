@@ -72,7 +72,7 @@ class _SubscriptionsScreenState extends State<SubscriptionsScreen> {
             ),
           ),
           CustomText(
-            text: AppStrings.mySubscription,
+            text: AppStrings.mySubscription.tr,
             fontWeight: FontWeight.w500,
             fontSize: 18.h,
             color: AppColors.blue_500,
@@ -125,7 +125,7 @@ class _SubscriptionsScreenState extends State<SubscriptionsScreen> {
                 ),
                 CustomText(
                   color: AppColors.blue_500,
-                  text: AppStrings.currentPlan,
+                  text: AppStrings.currentPlan.tr,
                   fontSize: 18,
                 ),
                 const Divider(),
@@ -189,7 +189,7 @@ class _SubscriptionsScreenState extends State<SubscriptionsScreen> {
                       CustomText(
                         maxLines: 3,
                         textAlign: TextAlign.start,
-                        text: AppStrings.noSubscriptionFound,
+                        text: AppStrings.noSubscriptionFound.tr,
                         fontSize: 24,
                         fontWeight: FontWeight.w600,
                         bottom: 36.h,
@@ -233,8 +233,8 @@ class _SubscriptionsScreenState extends State<SubscriptionsScreen> {
                   });
             },
             titleText: currentIndex == 0
-                ? AppStrings.getPremium
-                : AppStrings.getPremiumPlus),
+                ? AppStrings.getPremium.tr
+                : AppStrings.getPremiumPlus.tr),
       ),
     );
   }

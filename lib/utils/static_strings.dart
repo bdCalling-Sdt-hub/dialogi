@@ -211,7 +211,7 @@ class AppStrings {
   static String doYouWantToLeaveThisCommunity =
       "Do you want to leave this Community?";
 
-  static String getEarlyAccess = "Early Access";
+  static String getEarlyAccess = "Early Access Category";
   static String categoryList = "General Category";
   static String mySubscription = "My Subscription";
   static String noSubscriptionFound = "No Subscription Found";

@@ -60,7 +60,7 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                   size: 24,
                 )),
             CustomText(
-              text: AppStrings.pendingRequests,
+              text: AppStrings.pendingRequests.tr,
               fontSize: 18,
               fontWeight: FontWeight.w500,
               color: AppColors.blue_500,
@@ -92,7 +92,7 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                                   controller.pendingRequestRepo();
                                 },
                                 child: CustomText(
-                                  text: AppStrings.friendRequests,
+                                  text: AppStrings.friendRequests.tr,
                                   fontSize: 14,
                                   color: AppColors.blue_500,
                                 ),
@@ -122,7 +122,7 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                                 child: Column(
                                   children: [
                                     CustomText(
-                                      text: AppStrings.communityRequests,
+                                      text: AppStrings.communityRequests.tr,
                                       fontSize: 14,
                                       color: AppColors.blue_500,
                                     ),
