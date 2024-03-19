@@ -16,6 +16,7 @@ import 'package:get/get.dart';
 
 
 import '../controllers/Auth/delete_account_controller.dart';
+import '../controllers/friends/search_friends_controller.dart';
 import '../controllers/profile_controller.dart';
 import '../controllers/settings_controller/settings_controller.dart';
 
@@ -70,5 +71,6 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => StripePaymentController(), fenix: true);
     Get.lazyPut(() => PaypalPaymentController(), fenix: true);
     Get.lazyPut(() => SignOutController(), fenix: true);
+    Get.lazyPut(() => SearchFriendsController(), fenix: true);
   }
 }

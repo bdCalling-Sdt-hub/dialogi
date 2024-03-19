@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:dialogi_app/controllers/category/sub_category_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/global/api_response_model.dart';
+import 'package:dialogi_app/helper/prefs_helper.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/widgets/app_bar/custom_app_bar.dart';
@@ -21,9 +24,9 @@ class CategoryDetails extends StatefulWidget {
 class _CategoryDetailsState extends State<CategoryDetails> {
   SubCategoryController subCategoryController =
       Get.put(SubCategoryController());
+  String titleGr = Get.parameters["titleGr"] ?? " ";
   String title = Get.parameters["title"] ?? " ";
   String categoryId = Get.parameters["categoryId"] ?? " ";
-
   bool accessStatus = Get.parameters["accessStatus"] == "true" ? true : false;
 
   @override
@@ -59,7 +62,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                   color: AppColors.blue_500,
-                  text: title.tr,
+                  text: PrefsHelper.localizationLanguageCode == "en"? title : titleGr,
                 ),
               ),
             )
@@ -103,8 +106,8 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                             return GestureDetector(
                               onTap: () {
                                 Get.toNamed(AppRoutes.questionAns, parameters: {
-                                  "title":
-                                      "${controller.subCategoryList[index].subCategory}",
+                                  "titleGr" : "${controller.subCategoryList[index].subCategoryGr}",
+                                  "title": "${controller.subCategoryList[index].subCategory}",
                                   "categoryId": categoryId,
                                   "accessStatus": accessStatus.toString(),
                                 });
@@ -125,8 +128,9 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                                     //Title
 
                                     CustomText(
-                                      text: controller
-                                          .subCategoryList[index].subCategory,
+                                      text: PrefsHelper.localizationLanguageCode == "en"
+                                          ? controller.subCategoryList[index].subCategory
+                                          : controller.subCategoryList[index].subCategoryGr,
                                     ),
 
                                     //Question Ammount

@@ -177,6 +177,8 @@ class AppStrings {
 
   static String cancelAnytime = "Cancel anytime";
   static String allFriends = "All Friends";
+  static String searchFriends = "Search Friends";
+  static String searchYourFriends = "Search Your Friends";
   static String message = "Message";
   static String sendRequest = "Send Request";
   static String requestSend = "Request Sent";

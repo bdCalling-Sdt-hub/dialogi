@@ -4,8 +4,7 @@ class SubCategoryModel {
   String? message;
   Data? data;
 
-  SubCategoryModel(
-      {this.status, this.statusCode, this.message, this.data,});
+  SubCategoryModel({this.status, this.statusCode, this.message, this.data});
 
   SubCategoryModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -82,22 +81,22 @@ class Attributes {
 
 class SubCategoryList {
   int? count;
-  String? sId;
   String? subCategory;
+  String? subCategoryGr;
 
-  SubCategoryList({this.count, this.sId, this.subCategory});
+  SubCategoryList({this.count, this.subCategory, this.subCategoryGr});
 
   SubCategoryList.fromJson(Map<String, dynamic> json) {
     count = json['count'];
-    sId = json['_id'];
     subCategory = json['subCategory'];
+    subCategoryGr = json['subCategoryGr'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['count'] = this.count;
-    data['_id'] = this.sId;
     data['subCategory'] = this.subCategory;
+    data['subCategoryGr'] = this.subCategoryGr;
     return data;
   }
 }
