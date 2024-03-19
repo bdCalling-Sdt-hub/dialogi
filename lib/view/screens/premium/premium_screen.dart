@@ -78,7 +78,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
                           icon: Icon(Icons.cancel_rounded, size: 30.w,)),
                     ),
                     CustomText(
-                      maxLines: 3,
+                      maxLines: 4,
                       textAlign: TextAlign.start,
                       text: AppStrings.unlockPremiumAccess.tr,
                       fontSize: 30.h,

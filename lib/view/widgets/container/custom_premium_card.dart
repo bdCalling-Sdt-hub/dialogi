@@ -27,23 +27,23 @@ class CustomPremiumCard extends StatelessWidget {
       var premiumPlusSubscriptionData = subscriptionController.subscriptionsPlanModel?.data?.attributes?.subscriptionsList?[1];
 
       List premiumFeaturesList = [
-        premiumSubscriptionData?.isAddAvailable == true? "Ad. after ${premiumSubscriptionData?.addFrequency} videos" : "Ad-free experience",
-        premiumSubscriptionData?.isEarlyAccessAvailable == true? "Early access is available" : "Early access isn't available",
-        premiumSubscriptionData?.isQuestionAccessUnlimited == true? "All available questions" : "Get ${premiumSubscriptionData?.questionAccessNumber} questions",
-        premiumSubscriptionData?.isCategoryAccessUnlimited == true? "Additional categories" : "Get ${premiumSubscriptionData?.categoryAccessNumber} categories",
-        "Messaging feature",
-        premiumSubscriptionData?.isGroupChatAvailable == true? "Group chat feature" : "Group chat feature not available",
-        "Community Discussion"
+        premiumSubscriptionData?.isAddAvailable == true? "${"Ad. after".tr} ${premiumSubscriptionData?.addFrequency} ${"videos".tr}" : "Ad-free experience".tr,
+        premiumSubscriptionData?.isEarlyAccessAvailable == true? "Early access is available".tr : "Early access isn't available".tr,
+        premiumSubscriptionData?.isQuestionAccessUnlimited == true? "All available questions".tr : "${"Get".tr} ${premiumSubscriptionData?.questionAccessNumber} ${"questions".tr}",
+        premiumSubscriptionData?.isCategoryAccessUnlimited == true? "Additional categories".tr : "${"Get".tr} ${premiumSubscriptionData?.categoryAccessNumber} ${"categories".tr}",
+        "Messaging feature".tr,
+        premiumSubscriptionData?.isGroupChatAvailable == true? "Group chat feature".tr : "Group chat feature not available".tr,
+        "Community Discussion".tr
       ];
 
       List premiumPlusFeaturesList = [
-        premiumPlusSubscriptionData?.isAddAvailable == true? "Ad. after ${premiumPlusSubscriptionData?.addFrequency} videos" : "Ad-free experience",
-        premiumPlusSubscriptionData?.isEarlyAccessAvailable == true? "Early access is available" : "Early access isn't available",
-        premiumPlusSubscriptionData?.isQuestionAccessUnlimited == true? "All available questions" : "Get ${premiumPlusSubscriptionData?.questionAccessNumber} questions",
-        premiumPlusSubscriptionData?.isCategoryAccessUnlimited == true? "Additional categories" : "Get ${premiumPlusSubscriptionData?.categoryAccessNumber} categories",
-        "Messaging feature",
-        premiumPlusSubscriptionData?.isGroupChatAvailable == true? "Group chat feature" : "Group chat feature not available",
-        "Community Discussion"
+        premiumPlusSubscriptionData?.isAddAvailable == true? "${"Ad. after".tr} ${premiumPlusSubscriptionData?.addFrequency} ${"videos".tr}" : "Ad-free experience".tr,
+        premiumPlusSubscriptionData?.isEarlyAccessAvailable == true? "Early access is available".tr : "Early access isn't available".tr,
+        premiumPlusSubscriptionData?.isQuestionAccessUnlimited == true? "All available questions".tr : "${"Get".tr} ${premiumPlusSubscriptionData?.questionAccessNumber} ${"questions".tr}",
+        premiumPlusSubscriptionData?.isCategoryAccessUnlimited == true? "Additional categories".tr : "${"Get".tr} ${premiumPlusSubscriptionData?.categoryAccessNumber} ${"categories".tr}",
+        "Messaging feature".tr,
+        premiumPlusSubscriptionData?.isGroupChatAvailable == true? "Group chat feature".tr : "Group chat feature not available".tr,
+        "Community Discussion".tr
       ];
       return switch(subscriptionController.status){
         Status.loading => const Center(child: CircularProgressIndicator()),
@@ -82,13 +82,32 @@ class CustomPremiumCard extends StatelessWidget {
               ),
               CustomText(
                 textAlign: TextAlign.start,
-                maxLines: 2,
-                text: isPremiumPlus
-                    ? 'Get Dialogi Premium \n\$${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].price}/${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].expiryTime} month'
-                    : 'Get Dialogi Premium \n\$${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].price}/${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].expiryTime} month',
+                  text: isPremiumPlus
+                      ? "Get Dialogi Premium Plus".tr : "Get Dialogi Premium".tr,
                 fontSize: 16.h,
                 fontWeight: FontWeight.w500,
                 color: isPremiumPlus? Colors.white : AppColors.black_500,
+              ),
+              Row(
+                children: [
+                  CustomText(
+                    textAlign: TextAlign.start,
+                    maxLines: 2,
+                    text: isPremiumPlus
+                        ? '\$${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].price}/${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].expiryTime} '
+                        : '\$${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].price}/${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].expiryTime} ',
+                    fontSize: 16.h,
+                    fontWeight: FontWeight.w500,
+                    color: isPremiumPlus? Colors.white : AppColors.black_500,
+                  ),
+                  CustomText(
+                    textAlign: TextAlign.start,
+                    text: "Month".tr,
+                    fontSize: 16.h,
+                    fontWeight: FontWeight.w500,
+                    color: isPremiumPlus? Colors.white : AppColors.black_500,
+                  ),
+                ],
               ),
               SizedBox(
                 height: 16.h,

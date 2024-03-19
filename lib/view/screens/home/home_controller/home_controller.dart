@@ -131,17 +131,16 @@ class Homecontroller extends GetxController with GetxServiceMixin {
                 color: AppColors.whiteColor,
                 borderRadius: BorderRadius.circular(16.r)),
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+              padding: const EdgeInsets.only(bottom: 24, left: 20, right: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  // Align(
-                  //   alignment: Alignment.topRight,
-                  //   child: Padding(
-                  //     padding: EdgeInsets.all(8.r),
-                  //     child: CustomImage(imageSrc: AppIcons.cancel),
-                  //   ),
-                  // ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                        onPressed: () => Get.back(),
+                        icon: Icon(Icons.cancel_rounded, size: 30.w,)),
+                  ),
                   CustomImage(
                     imageSrc: AppIcons.crown,
                     size: 60.r,
