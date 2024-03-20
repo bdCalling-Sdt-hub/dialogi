@@ -93,7 +93,7 @@ class CommunitySelectFriendsController extends GetxController {
     selectedFriends[index] = value;
     update();
 
-    if (selectedParticipants.length > 1 && selectedParticipants.length < 5) {
+    if (selectedParticipants.length > 1 && selectedParticipants.length < 6) {
       isCreateGroup = true;
       update();
       print("dkjfkljdshkfklds");
@@ -134,6 +134,7 @@ class CommunitySelectFriendsController extends GetxController {
         "type": AppStrings.community,
         "name": nameController.text
       });
+      selectedParticipants.clear() ;
     } else {
       Get.snackbar(response.statusCode.toString(), response.message);
     }

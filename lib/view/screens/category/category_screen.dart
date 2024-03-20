@@ -1,6 +1,7 @@
 import 'package:dialogi_app/controllers/category/category_controller.dart';
 import 'package:dialogi_app/core/app_routes.dart';
 import 'package:dialogi_app/global/api_response_model.dart';
+import 'package:dialogi_app/helper/prefs_helper.dart';
 import 'package:dialogi_app/utils/app_colors.dart';
 import 'package:dialogi_app/utils/static_strings.dart';
 import 'package:dialogi_app/view/screens/home/home_controller/home_controller.dart';
@@ -90,6 +91,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 .categoryAccessNumber !=
                             0) {
                           Get.toNamed(AppRoutes.categoryDetails, parameters: {
+                            "titleGr" : controller.categoryList[index].nameGr,
                             "title": controller.categoryList[index].name,
                             "categoryId": controller.categoryList[index].sId
                           });
@@ -103,7 +105,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     child: CustomCard(
                         img:
                             "${ApiConstant.baseUrl}${controller.categoryList[index].image}",
-                        title: controller.categoryList[index].name.toString(),
+                        title: PrefsHelper.localizationLanguageCode == "en"
+                            ? controller.categoryList[index].name.toString()
+                            : controller.categoryList[index].nameGr.toString(),
                         queNum: controller.categoryList[index].questionCount
                             .toString()),
                   );

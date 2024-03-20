@@ -71,7 +71,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
               height: 8.h,
             ),
             CustomText(
-              maxLines: 3,
+              maxLines: 4,
               text: AppStrings.selectPaymentMethodForUpgrade.tr,
               fontSize: 24,
               fontWeight: FontWeight.w500,
@@ -384,7 +384,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                       ? "${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].price}"
                       : "${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].price}",
                     subscriptionName: premium == "true"? "Premium" : "Premium Plus",
-                    currency: 'USD', );
+                    currency: 'EUR', );
 
                 } else if(paypalCardChecked){
                   print("object");
@@ -393,7 +393,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                         ? "${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].price}"
                         : "${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].price}",
                       subscriptionName: premium == "true"? "Premium" : "Premium Plus",
-                      currency: 'USD',),
+                      currency: 'EUR',),
                   ));
                 }
                 // showDialog(

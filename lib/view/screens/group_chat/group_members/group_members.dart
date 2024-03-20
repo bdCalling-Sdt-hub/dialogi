@@ -25,6 +25,7 @@ class _GroupMembersState extends State<GroupMembers> {
 
   @override
   void initState() {
+    groupMemberController.page =1 ;
     groupMemberController.groupMemberRepo(chatId);
     groupMemberController.scrollController.addListener(() {
       groupMemberController.scrollControllerCall(chatId);

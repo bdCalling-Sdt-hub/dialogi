@@ -235,7 +235,11 @@ class LocalConstants extends Translations {
           "Buy Subscription": "Buy Subscription",
           "Get Dialogi Premium Plus": "Get Dialogi Premium Plus",
           "Get Dialogi Premium": "Get Dialogi Premium",
-          "Month": "Month"
+          "Month": "Month",
+          "Search Friends" : "Search Friends",
+          "Search Your Friends" : "Search Your Friends",
+          "reply": "reply",
+          "Please, select  Five members": "Please, select  Five members",
         },
 
         'de_DE': {
@@ -469,6 +473,10 @@ class LocalConstants extends Translations {
           "Buy Subscription": "Abonnement kaufen",
           "Get Dialogi Premium Plus": "Erhalte Dialogi Premium Plus",
           "Get Dialogi Premium": "Erhalte Dialogi Premium",
-          "Month": "Monat"
+          "Month": "Monat",
+          "Search Friends" : "Suche Freunde",
+          "Search Your Friends" : "Suche deine Freunde",
+          "reply" : "reply",
+          "Please, select  Five members": "Veuillez sélectionner cinq membres",
         }};
 }

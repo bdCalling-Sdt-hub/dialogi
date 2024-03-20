@@ -90,12 +90,13 @@ class CustomPremiumCard extends StatelessWidget {
               ),
               Row(
                 children: [
+                  Icon(Icons.euro, color: isPremiumPlus? Colors.white : AppColors.black_500, size: 20,),
                   CustomText(
                     textAlign: TextAlign.start,
                     maxLines: 2,
                     text: isPremiumPlus
-                        ? '\$${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].price}/${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].expiryTime} '
-                        : '\$${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].price}/${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].expiryTime} ',
+                        ? '${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].price}/${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![1].expiryTime} '
+                        : '${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].price}/${subscriptionController.subscriptionsPlanModel!.data!.attributes!.subscriptionsList![0].expiryTime} ',
                     fontSize: 16.h,
                     fontWeight: FontWeight.w500,
                     color: isPremiumPlus? Colors.white : AppColors.black_500,

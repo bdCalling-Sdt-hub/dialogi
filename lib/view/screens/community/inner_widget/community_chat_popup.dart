@@ -25,8 +25,8 @@ class CommunityChatPopUps extends StatelessWidget {
 
   final CommunityMemberController communityMemberController =
       Get.put(CommunityMemberController());
-  CommunityChatPopUpController communityChatPopUpController = Get.put(CommunityChatPopUpController());
-
+  CommunityChatPopUpController communityChatPopUpController =
+      Get.put(CommunityChatPopUpController());
 
   @override
   Widget build(BuildContext context) {
@@ -41,76 +41,72 @@ class CommunityChatPopUps extends StatelessWidget {
 
         PopupMenuItem<SampleItem>(
           value: SampleItem.itemOne,
-          child: GestureDetector(
-              onTap: () {
-                navigator!.pop();
-                Get.toNamed(AppRoutes.communityMembers,
-                    parameters: {
-                      "chatId": chatId,
-
-                    }
-
-                );
-              },
-              child: CustomText(
-                fontSize: 14,
-                text: AppStrings.communityMembers,
-              )),
+          onTap: () {
+            navigator!.pop();
+            Get.toNamed(AppRoutes.communityMembers, parameters: {
+              "chatId": chatId,
+            });
+          },
+          child: CustomText(
+            fontSize: 14,
+            text: AppStrings.communityMembers,
+          ),
         ),
         //================================change Group Name=============================
 
         PopupMenuItem<SampleItem>(
           value: SampleItem.itemTwo,
-          child: GestureDetector(
-              onTap: () {
-                navigator!.pop();
-                changeCommunityName(
-                  context: context,
-                  chatId: chatId,
-                );
-              },
-              child: CustomText(
-                fontSize: 14,
-                text: AppStrings.changeCommunityName,
-              )),
+          onTap: () {
+            navigator!.pop();
+            changeCommunityName(
+              context: context,
+              chatId: chatId,
+            );
+          },
+          child: CustomText(
+            fontSize: 14,
+            text: AppStrings.changeCommunityName,
+          ),
         ),
 
         //================================Delete Conversation============================
 
         PopupMenuItem<SampleItem>(
           value: SampleItem.itemThree,
-          child: GestureDetector(
-              onTap: () {
-                navigator!.pop();
-                permissionCommunityPopUp(
-                    context: context, ontapYes: () {communityChatPopUpController.deleteAccountRepo(chatId);}, ontapNo: () {});
-              },
-              child: CustomText(
-                fontSize: 14,
-                text: AppStrings.deleteConversation,
-              )),
+          onTap: () {
+            navigator!.pop();
+            permissionCommunityPopUp(
+                context: context,
+                ontapYes: () {
+                  communityChatPopUpController.deleteAccountRepo(chatId);
+                },
+                ontapNo: () {});
+          },
+          child: CustomText(
+            fontSize: 14,
+            text: AppStrings.deleteConversation,
+          ),
         ),
 
         //================================Left Group==================================
 
         PopupMenuItem<SampleItem>(
           value: SampleItem.itemfour,
-          child: GestureDetector(
-              onTap: () {
-                navigator!.pop();
+          onTap: () {
+            navigator!.pop();
 
-                permissionCommunityPopUp(
-                    context: context,
-                    ontapYes: () =>
-                        communityMemberController.leaveCommunityRepo(chatId),
-                    ontapNo: () {},
-                    title: AppStrings.doYouWantToLeaveThisGroup);
-              },
-              child: CustomText(
-                fontSize: 14,
-                color: AppColors.red_400,
-                text: AppStrings.leaveCommunity,
-              )),
+            permissionCommunityPopUp(
+                context: context,
+                ontapYes: () =>
+                    communityMemberController.leaveCommunityRepo(chatId),
+                ontapNo: () {},
+                title: AppStrings.doYouWantToLeaveThisGroup);
+          },
+          child: CustomText(
+            fontSize: 14,
+            color: AppColors.red_400,
+            text: AppStrings.leaveCommunity,
+          ),
         ),
       ],
     );

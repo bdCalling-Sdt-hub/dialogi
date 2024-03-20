@@ -13,7 +13,8 @@ import '../../utils/app_utils.dart';
 
 class GroupMemberController extends GetxController {
   Status status = Status.completed;
-  bool isMoreLoading = false ;
+  bool isMoreLoading = false;
+
   List memberList = [];
 
   bool isLeave = false;
@@ -26,17 +27,17 @@ class GroupMemberController extends GetxController {
   Future<void> scrollControllerCall(String chatId) async {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
-      isMoreLoading = false ;
+      isMoreLoading = false;
       update();
       await groupMemberRepo(chatId);
-      isMoreLoading = false ;
+      isMoreLoading = false;
       update();
     }
   }
 
   Future<void> groupMemberRepo(String chatId) async {
     if (page == 1) {
-      memberList.clear() ;
+      memberList.clear();
       status = Status.loading;
       update();
     }
@@ -69,9 +70,8 @@ class GroupMemberController extends GetxController {
     }
   }
 
-  Future<void> leaveCommunityRepo(String chatId) async {
-    isLeave = true;
-    update();
+  Future<void> leaveGroupRepo(String chatId) async {
+
 
     var body = {
       "type": "group" //or community
@@ -85,8 +85,6 @@ class GroupMemberController extends GetxController {
     }
 
     if (response.statusCode == 200) {
-      isLeave = false;
-      update();
       Get.back(result: chatId);
     } else {
       Utils.snackBarMessage(response.statusCode.toString(), response.message);

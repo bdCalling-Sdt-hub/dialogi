@@ -26,6 +26,7 @@ class _CommunityMembersState extends State<CommunityMembers> {
 
   @override
   void initState() {
+    communityMemberController.page =1 ;
     communityMemberController.communityMemberRepo(chatId) ;
     communityMemberController.scrollController.addListener(() {
       communityMemberController.scrollControllerCall(chatId) ;
@@ -97,6 +98,7 @@ class _CommunityMembersState extends State<CommunityMembers> {
                               ),
                             ],
                           ),
+                          Divider(height: 24.h,)
                           // if (index != lastIndex)
                           //   Container(
                           //     height: 2.h,

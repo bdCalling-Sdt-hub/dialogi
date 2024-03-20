@@ -44,8 +44,7 @@ class _CommunitySelectFriendsState extends State<CommunitySelectFriends> {
 
   @override
   Widget build(BuildContext context) {
-
-    print("===============================> questionId $questionId") ;
+    print("===============================> questionId $questionId");
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: CustomAppBar(
@@ -137,7 +136,8 @@ class _CommunitySelectFriendsState extends State<CommunitySelectFriends> {
                                 ],
                               );
                             } else {
-                              return const Center(child: CircularProgressIndicator());
+                              return const Center(
+                                  child: CircularProgressIndicator());
                             }
                           },
                         ),
@@ -152,17 +152,18 @@ class _CommunitySelectFriendsState extends State<CommunitySelectFriends> {
                             ? CustomElevatedButton(
                                 onPressed: () {
                                   createCommunityPopUp(
-                                    context: context,
-                                    questionId: questionId,
-                                    categoryId: categoryId
-                                  );
+                                      context: context,
+                                      questionId: questionId,
+                                      categoryId: categoryId);
                                 },
                                 titleText: AppStrings.createCommunity.tr)
                             : CustomElevatedButton(
                                 buttonColor: AppColors.gray_900,
                                 onPressed: () {
-                                  Utils.snackBarMessage(AppStrings.selectMember.tr,
-                                      AppStrings.pleaseSelectAtLeastTwoMembers.tr);
+                                  Utils.snackBarMessage(
+                                      AppStrings.selectMember.tr,
+                                      controller.selectedParticipants.length < 2 ?
+                                      AppStrings.pleaseSelectAtLeastTwoMembers.tr : "Please, select  Five members".tr );
                                 },
                                 titleText: AppStrings.createCommunity.tr),
                       ),

@@ -90,6 +90,7 @@ class Homecontroller extends GetxController with GetxServiceMixin {
         update();
       } else {
         homeStatus = Status.error;
+        update();
       }
     } catch (exception) {
       Fluttertoast.showToast(msg: AppConstants.connectionTimedOUt);

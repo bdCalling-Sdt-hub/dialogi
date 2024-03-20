@@ -133,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   controller.earlyAccess.isEmpty
               ? const NoData()
               : Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -142,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CustomText(
-                              left: 4,
+                              left: 4.w,
                               text: AppStrings.getEarlyAccess.tr,
                               color: AppColors.black_500,
                               fontSize: 20,
@@ -166,12 +166,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Get.toNamed(AppRoutes.categoryDetails,
                                             parameters: {
                                               "accessStatus": "true",
-                                              "title": item.name!,
+                                              "title": item.name,
+                                              "titleGr" : item.nameGr,
                                               "categoryId": item.sId!
                                             });
                                       },
                                       child: Padding(
-                                        padding: const EdgeInsets.all(4.0),
+                                        padding: EdgeInsets.all(4.w),
                                         child: Stack(
                                           clipBehavior: Clip.none,
                                           children: [
@@ -188,15 +189,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   ],
                                                   color: AppColors.whiteColor,
                                                   borderRadius:
-                                                      BorderRadius.circular(8)),
+                                                      BorderRadius.circular(8.r)),
                                               child: Column(
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsets.only(
-                                                            top: 24.0,
-                                                            right: 8.0,
-                                                            left: 8.0),
+                                                        EdgeInsets.only(
+                                                            top: 24.h,
+                                                            right: 8.w,
+                                                            left: 8.w),
                                                     child: Container(
                                                       height: Get.height * 0.15,
                                                       width: Get.height * 0.15,
@@ -213,17 +214,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            4)),
+                                                                            4.r)),
                                                       ),
                                                     ),
                                                   ),
-                                                  const SizedBox(
-                                                    height: 8,
+                                                  SizedBox(
+                                                    height: 8.h,
                                                   ),
                                                   CustomText(
                                                     fontSize: 18,
                                                     right: 8.w,
-                                                    text: "${item.name}",
+                                                    text: PrefsHelper.localizationLanguageCode == "en"
+                                                        ? "${item.name}"
+                                                        : "${item.nameGr}",
                                                     color: AppColors.blue_500,
                                                     fontWeight: FontWeight.w500,
                                                   ),
@@ -235,10 +238,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 left: -10,
                                                 child: Transform.rotate(
                                                   angle: math.pi / -6,
-                                                  child: const SizedBox(
-                                                      height: 80,
-                                                      width: 80,
-                                                      child: Image(
+                                                  child: SizedBox(
+                                                      height: 80.h,
+                                                      width: 80.w,
+                                                      child: const Image(
                                                         image: AssetImage(
                                                             "assets/images/earlyAccessBadge.png"),
                                                         fit: BoxFit.fill,
@@ -255,41 +258,41 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                               ),
                             ),
-                            const SizedBox(
-                              height: 8,
+                            SizedBox(
+                              height: 8.h,
                             ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 16.0),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16.w),
                               child: Divider(),
                             ),
                           ],
                         ),
 
                       ///<<<======================== Category List Items ===============>>>
-                      const SizedBox(
-                        height: 8,
+                      SizedBox(
+                        height: 8.h,
                       ),
                       CustomText(
-                        left: 4,
+                        left: 4.w,
                         text: AppStrings.categoryList.tr,
                         color: AppColors.black_500,
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
                       ),
-                      const SizedBox(
-                        height: 8,
+                      SizedBox(
+                        height: 8.h,
                       ),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 8.0, right: 8, bottom: 12),
+                          padding: EdgeInsets.only(
+                              left: 8.w, right: 8.w, bottom: 12.h),
                           child: GridView.builder(
                               controller: controller.categoryScrollController,
                               itemCount: controller.categoryList.length,
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2,
-                                      mainAxisExtent: 230,
+                                      mainAxisExtent: 230.h,
                                       crossAxisSpacing: 8.w,
                                       mainAxisSpacing: 8.h),
                               itemBuilder: (context, index) {
@@ -300,7 +303,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Get.toNamed(AppRoutes.categoryDetails,
                                             parameters: {
                                               "accessStatus": "false",
-                                              "title": item.name!,
+                                              "titleGr" : item.nameGr,
+                                              "title": item.name,
                                               "categoryId": item.sId!
                                             });
                                       },
@@ -318,14 +322,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                         child: Column(
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 8.0,
-                                                  right: 8.0,
-                                                  left: 8.0,
-                                                  bottom: 8),
+                                              padding: EdgeInsets.only(
+                                                  top: 8.h,
+                                                  right: 8.w,
+                                                  left: 8.w,
+                                                  bottom: 8.h),
                                               child: Container(
-                                                height: 150,
-                                                width: 150,
+                                                height: 150.h,
+                                                width: 150.w,
                                                 decoration: ShapeDecoration(
                                                   image: DecorationImage(
                                                     image: NetworkImage(
@@ -336,17 +340,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   shape: RoundedRectangleBorder(
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              4)),
+                                                              4.r)),
                                                 ),
                                               ),
-                                            ),
-                                            const SizedBox(
-                                              height: 8,
                                             ),
                                             CustomText(
                                               fontSize: 18,
                                               right: 8.w,
-                                              text: "${item.name}",
+                                              text: PrefsHelper.localizationLanguageCode == "en"
+                                                  ? "${item.name}"
+                                                  : "${item.nameGr}",
                                               color: AppColors.blue_500,
                                               fontWeight: FontWeight.w500,
                                             ),

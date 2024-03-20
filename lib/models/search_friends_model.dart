@@ -1,12 +1,13 @@
-class CategoryModel {
+
+class SearchFriendsModel {
   String? status;
   String? statusCode;
   String? message;
   Data? data;
 
-  CategoryModel({this.status, this.statusCode, this.message, this.data});
+  SearchFriendsModel({this.status, this.statusCode, this.message, this.data});
 
-  CategoryModel.fromJson(Map<String, dynamic> json) {
+  SearchFriendsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     statusCode = json['statusCode'];
     message = json['message'];
@@ -26,11 +27,13 @@ class CategoryModel {
 }
 
 class Data {
+  String? type;
   Attributes? attributes;
 
-  Data({this.attributes});
+  Data({this.type, this.attributes});
 
   Data.fromJson(Map<String, dynamic> json) {
+    type = json['type'];
     attributes = json['attributes'] != null
         ? new Attributes.fromJson(json['attributes'])
         : null;
@@ -38,6 +41,7 @@ class Data {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['type'] = this.type;
     if (this.attributes != null) {
       data['attributes'] = this.attributes!.toJson();
     }
@@ -46,16 +50,16 @@ class Data {
 }
 
 class Attributes {
-  List<CategoryList>? categoryList;
+  List<UserList>? userList;
   Pagination? pagination;
 
-  Attributes({this.categoryList, this.pagination});
+  Attributes({this.userList, this.pagination});
 
   Attributes.fromJson(Map<String, dynamic> json) {
-    if (json['categoryList'] != null) {
-      categoryList = <CategoryList>[];
-      json['categoryList'].forEach((v) {
-        categoryList!.add(new CategoryList.fromJson(v));
+    if (json['userList'] != null) {
+      userList = <UserList>[];
+      json['userList'].forEach((v) {
+        userList!.add(new UserList.fromJson(v));
       });
     }
     pagination = json['pagination'] != null
@@ -65,8 +69,8 @@ class Attributes {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.categoryList != null) {
-      data['categoryList'] = this.categoryList!.map((v) => v.toJson()).toList();
+    if (this.userList != null) {
+      data['userList'] = this.userList!.map((v) => v.toJson()).toList();
     }
     if (this.pagination != null) {
       data['pagination'] = this.pagination!.toJson();
@@ -75,39 +79,67 @@ class Attributes {
   }
 }
 
-class CategoryList {
+class UserList {
   String? sId;
-  String? name;
-  String? type;
+  String? fullName;
+  String? email;
+  String? password;
+  bool? isDeleted;
   String? image;
-  String? nameGr;
-  int? questionCount;
+  String? role;
+  String? subscription;
+  bool? loginInWithProvider;
+  int? iV;
+  String? createdAt;
+  String? updatedAt;
+  String? subscriptionId;
 
-  CategoryList(
+  UserList(
       {this.sId,
-        this.name,
-        this.type,
+        this.fullName,
+        this.email,
+        this.password,
+        this.isDeleted,
         this.image,
-        this.nameGr,
-        this.questionCount});
+        this.role,
+        this.subscription,
+        this.loginInWithProvider,
+        this.iV,
+        this.createdAt,
+        this.updatedAt,
+        this.subscriptionId});
 
-  CategoryList.fromJson(Map<String, dynamic> json) {
+  UserList.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
-    name = json['name'];
-    type = json['type'];
+    fullName = json['fullName'];
+    email = json['email'];
+    password = json['password'];
+    isDeleted = json['isDeleted'];
     image = json['image'];
-    nameGr = json['nameGr'];
-    questionCount = json['questionCount'];
+    role = json['role'];
+    subscription = json['subscription'];
+    loginInWithProvider = json['loginInWithProvider'];
+    iV = json['__v'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    subscriptionId = json['subscriptionId'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
-    data['name'] = this.name;
-    data['type'] = this.type;
+    data['fullName'] = this.fullName;
+    data['email'] = this.email;
+    data['password'] = this.password;
+    data['isDeleted'] = this.isDeleted;
     data['image'] = this.image;
-    data['nameGr'] = this.nameGr;
-    data['questionCount'] = this.questionCount;
+    data['role'] = this.role;
+    data['subscription'] = this.subscription;
+    data['loginInWithProvider'] = this.loginInWithProvider;
+    data['__v'] = this.iV;
+    data['createdAt'] = this.createdAt;
+    data['updatedAt'] = this.updatedAt;
+    data['subscriptionId'] = this.subscriptionId;
     return data;
   }
 }
@@ -117,15 +149,21 @@ class Pagination {
   int? totalPages;
   int? currentPage;
   int? limit;
+  int? totalUsers;
 
   Pagination(
-      {this.totalResults, this.totalPages, this.currentPage, this.limit});
+      {this.totalResults,
+        this.totalPages,
+        this.currentPage,
+        this.limit,
+        this.totalUsers});
 
   Pagination.fromJson(Map<String, dynamic> json) {
     totalResults = json['totalResults'];
     totalPages = json['totalPages'];
     currentPage = json['currentPage'];
     limit = json['limit'];
+    totalUsers = json['totalUsers'];
   }
 
   Map<String, dynamic> toJson() {
@@ -134,6 +172,7 @@ class Pagination {
     data['totalPages'] = this.totalPages;
     data['currentPage'] = this.currentPage;
     data['limit'] = this.limit;
+    data['totalUsers'] = this.totalUsers;
     return data;
   }
 }

@@ -13,8 +13,6 @@ import '../../services/api_url.dart';
 import '../../utils/app_utils.dart';
 
 class CommunityMemberController extends GetxController {
-
-
   Status status = Status.completed;
   Status statusMore = Status.completed;
   List communityList = [];
@@ -41,6 +39,7 @@ class CommunityMemberController extends GetxController {
 
   Future<void> communityMemberRepo(String chatId) async {
     if (page == 1) {
+      communityList.clear() ;
       status = Status.loading;
       update();
     }
@@ -74,9 +73,6 @@ class CommunityMemberController extends GetxController {
   }
 
   Future<void> leaveCommunityRepo(String chatId) async {
-    isLeave = true;
-    update();
-
     var body = {
       "type": "community" //or community
     };
@@ -89,14 +85,9 @@ class CommunityMemberController extends GetxController {
     }
 
     if (response.statusCode == 200) {
-      isLeave = false;
-      update();
       Get.offAllNamed(AppRoutes.community);
     } else {
       Utils.snackBarMessage(response.statusCode.toString(), response.message);
     }
   }
-
-
-
 }

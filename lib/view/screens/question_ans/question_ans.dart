@@ -32,6 +32,7 @@ class QuestionAns extends StatefulWidget {
 }
 
 class _QuestionAnsState extends State<QuestionAns> {
+  String titleGr = Get.parameters["titleGr"] ?? "";
   String title = Get.parameters["title"] ?? "";
   String categoryId = Get.parameters["categoryId"] ?? "";
   String accessStatus = Get.parameters["accessStatus"] ??  "";
@@ -77,7 +78,7 @@ class _QuestionAnsState extends State<QuestionAns> {
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
                 color: AppColors.blue_500,
-                text: title.tr,
+                text: PrefsHelper.localizationLanguageCode == "en"? title : titleGr,
               ),
             ),
           )
@@ -241,7 +242,7 @@ class _QuestionAnsState extends State<QuestionAns> {
 
                     //   const UpgradePremium()
 
-                    Homecontroller.accessStatusModel!.data!.type != "default"
+                    Homecontroller.accessStatusModel!.data!.type != "default" /// use null safety instead of null check
                         ? const Expanded(child: CommentReply())
                         : Column(
                             children: [

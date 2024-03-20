@@ -29,7 +29,7 @@ class CommentReply extends StatelessWidget {
           CustomText(
             fontSize: 16,
             fontWeight: FontWeight.w500,
-            text: AppStrings.discussions,
+            text: AppStrings.discussions.tr,
             bottom: 16.h,
           ),
 
@@ -167,7 +167,7 @@ class CommentReply extends StatelessWidget {
                                           comment.sId!, index),
                                       child: Center(
                                           child: CustomText(
-                                        text: AppStrings.reply,
+                                        text: AppStrings.reply.tr,
                                         left: 10.w,
                                         right: 10.w,
                                         textAlign: TextAlign.center,
@@ -199,12 +199,12 @@ class CommentReply extends StatelessWidget {
                                               ))
                                           : CustomText(
                                               text:
-                                                  "${AppStrings.view} ${comment.totalReplies} ${AppStrings.reply}",
+                                                  "${AppStrings.view.tr} ${comment.totalReplies} ${AppStrings.reply.tr}",
                                               color: AppColors.blue_600,
                                             )
                                       : CustomText(
                                           text:
-                                              "${AppStrings.view} ${comment.totalReplies} ${AppStrings.reply}",
+                                              "${AppStrings.view.tr} ${comment.totalReplies} ${AppStrings.reply.tr}",
                                           color: AppColors.blue_600,
                                         ),
                                 ),
@@ -318,7 +318,7 @@ class CommentReply extends StatelessWidget {
                     Expanded(
                         child: CustomTextField(
                       textEditingController: controller.replyController,
-                      hintText: AppStrings.enterTextHere,
+                      hintText: AppStrings.enterTextHere.tr,
                     )),
                     Padding(
                       padding: EdgeInsets.only(left: 10.w),

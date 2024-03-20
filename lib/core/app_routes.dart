@@ -17,6 +17,7 @@ import 'package:dialogi_app/view/screens/community/same_community.dart';
 import 'package:dialogi_app/view/screens/favorite/favorite_list_screen.dart';
 import 'package:dialogi_app/view/screens/friends/friends/friends_screen.dart';
 import 'package:dialogi_app/view/screens/friends/friends_profile/friends_profile_screen.dart';
+import 'package:dialogi_app/view/screens/friends/search_friends/search_friends_screen.dart';
 import 'package:dialogi_app/view/screens/group_chat/group_chat/group_chat.dart';
 import 'package:dialogi_app/view/screens/group_chat/group_members/group_members.dart';
 import 'package:dialogi_app/view/screens/group_chat/select_friends/select_friends.dart';
@@ -94,6 +95,7 @@ class AppRoutes {
   static String communitySelectFriends = "/community_select_friend.dart";
   static String sameCommunity = "/same_community.dart";
   static String community = "/community.dart";
+  static String searchFriendsScreen = "/search_friends_screen.dart";
 
   static List<GetPage> routes = [
     GetPage(name: splashScreen, page: () => const SplashScreen()),
@@ -153,5 +155,6 @@ class AppRoutes {
     GetPage(name: sameCommunity, page: () => const SameCommunity()),
     GetPage(name: communityMembers, page: () => const CommunityMembers()),
     GetPage(name: community, page: () => const Community()),
+    GetPage(name: searchFriendsScreen, page: () => const SearchFriendsScreen()),
   ];
 }
