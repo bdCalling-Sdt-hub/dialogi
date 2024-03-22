@@ -1,7 +1,7 @@
 class ApiConstant {
   ///<<<=================Base Url=========================>>>
-  // static const baseUrl = "http://192.168.10.18:3000";
-  static const baseUrl = "http://103.145.138.78:3000";
+  static const baseUrl = "http://192.168.10.61:3000";
+  // static const baseUrl = "http://103.145.138.78:3000";
   // static const baseUrl = "https://api.dialogi.net";
 
 
