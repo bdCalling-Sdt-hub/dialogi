@@ -50,7 +50,7 @@ class CategoryController extends GetxController {
       'Authorization': "Bearer ${PrefsHelper.token}"
     };
     var response = await ApiService.getApi(
-        "${ApiConstant.categories}?page=$page",
+        "${ApiConstant.categories}?page=$page&accessStatus=false",
         header: header);
 
     if (response.statusCode == 200) {

@@ -3,11 +3,10 @@ import 'package:get/get_navigation/src/root/internacionalization.dart';
 class LocalConstants extends Translations {
   @override
   // TODO: implement keys
-  Map<String, Map<String, String>> get keys =>
-      {
+  Map<String, Map<String, String>> get keys => {
         'en_US': {
           "Unlock premium access for unlimited Dialoginess!":
-          "Unlock premium access for unlimited Dialoginess!",
+              "Unlock premium access for unlimited Dialoginess!",
           "Get Premium": "Get Premium",
           "Get Premium Plus": "Get Premium Plus",
           "Skip for now": "Skip for now",
@@ -24,7 +23,7 @@ class LocalConstants extends Translations {
           "Continue with Apple": "Continue with Apple",
           "Don’t have an account?": "Don’t have an account?",
           "Password must 8 characters long & must include letters & digits.":
-          "Password must 8 characters long & must include letters & digits.",
+              "Password must 8 characters long & must include letters & digits.",
           "Create new account": "Create new account",
           "Join us for a better experience": "Join us for a better experience",
           "Full name": "Full name",
@@ -36,11 +35,11 @@ class LocalConstants extends Translations {
           "Set your profile picture": "Set your profile picture",
           "Set Password": "Set Password",
           "Password must 8 characters long & must include letters & digits ":
-          "Password must 8 characters long & must include letters & digits ",
+              "Password must 8 characters long & must include letters & digits ",
           "Re-enter your password": "Re-enter your password",
           "Set Profile Picture": "Set Profile Picture",
           "Please upload a picture to complete your profile.":
-          "Please upload a picture to complete your profile.",
+              "Please upload a picture to complete your profile.",
           "Skip": "Skip",
           "Choose Source": "Choose Source",
           "Gallery": "Gallery",
@@ -49,17 +48,17 @@ class LocalConstants extends Translations {
           "Get Started": "Get Started",
           "Photo has been uploaded.": "Photo has been uploaded.",
           "Please enter your email address to reset your password.":
-          "Please enter your email address to reset your password.",
+              "Please enter your email address to reset your password.",
           "Get OTP": "Get OTP",
           "We have sent a verification code to your email address. Please check and enter the code here.":
-          "We have sent a verification code to your email address. Please check and enter the code here.",
+              "We have sent a verification code to your email address. Please check and enter the code here.",
           "Didn’t receive the code?": "Didn’t receive the code?",
           "Verify": "Verify",
           "Reset Password": "Reset Password",
           "Settings": "Settings",
           "Logout": "Logout",
           "Upgrade to Premium for better experience":
-          "Upgrade to Premium for better experience",
+              "Upgrade to Premium for better experience",
           "Go to Subscriptions": "Go to Subscriptions",
           "Ques": "Ques",
           "Pending Requests": "Pending Requests",
@@ -86,11 +85,11 @@ class LocalConstants extends Translations {
           "Leave Group": "Leave Group",
           "Change": "Change",
           "Do you want to delete this group?":
-          "Do you want to delete this group?",
+              "Do you want to delete this group?",
           "Yes": "Yes",
           "No": "No",
           "Do you want to leave this group?":
-          "Do you want to leave this group?",
+              "Do you want to leave this group?",
           "Discuss with Friends": "Discuss with Friends",
           "Home": "Home",
           "Category": "Category",
@@ -104,12 +103,12 @@ class LocalConstants extends Translations {
           "Next": "Next",
           "Add": "Add",
           "Want to join the discussion with others?":
-          "Want to join the discussion with others?",
+              "Want to join the discussion with others?",
           "Premium Subscription": "Premium Subscription",
           "Premium Plus Subscription": "Premium Plus Subscription",
           "Great Job!": "Great Job!",
           "You have completed all questions!":
-          "You have completed all questions!",
+              "You have completed all questions!",
           "Go to categories": "Go to categories",
           "Discussions": "Discussions",
           "Reply": "Reply",
@@ -126,7 +125,7 @@ class LocalConstants extends Translations {
           "Re-enter new password": "Re-enter new password",
           "Update": "Update",
           "We have sent a verification code to your email address. Please check and enter the code here.":
-          "We have sent a verification code to your email address. Please check and enter the code here.",
+              "We have sent a verification code to your email address. Please check and enter the code here.",
           "Didn’t receive the code?": "Didn’t receive the code?",
           "Reset": "Reset",
           "Change Language": "Change Language",
@@ -138,12 +137,12 @@ class LocalConstants extends Translations {
           "Billed Monthly": "Billed Monthly",
           "Billing Date": "Billing Date",
           "Enter your current password to delete your account.":
-          "Enter your current password to delete your account.",
+              "Enter your current password to delete your account.",
           "Premium Member": "Premium Member",
           "Edit Profile": "Edit Profile",
           "Add Payment Method": "Add Payment Method",
           "Select a payment method to upgrade your subscription.":
-          "Select a payment method to upgrade your subscription.",
+              "Select a payment method to upgrade your subscription.",
           "Enter cardholder name": "Enter cardholder name",
           "Card number": "Card number",
           "CVV/CVC": "CVV/CVC",
@@ -151,7 +150,7 @@ class LocalConstants extends Translations {
           "Proceed to Payment": "Proceed to Payment",
           "Successful": "Successful",
           "Your purchase has been done successfully ":
-          "Your purchase has been done successfully ",
+              "Your purchase has been done successfully ",
           "Go to Home": "Go to Home",
           "Cancel anytime": "Cancel anytime",
           "All Friends": "All Friends",
@@ -169,20 +168,20 @@ class LocalConstants extends Translations {
           "View": "View",
           "No Internet": "No Internet",
           "Please, check your internet connection":
-          "Please, check your internet connection",
+              "Please, check your internet connection",
           "Back": "Back",
           "Something wrong!": "Something wrong!",
           "Try Again": "Try Again",
           "Favorite List": "Favorite List",
           "Select Member": "Select Member",
           "Please, select at least two members":
-          "Please, select at least two members",
+              "Please, select at least two members",
           "Create New Community": "Create New Community",
           "Community members": "Community members",
           "Change Community Name": "Change Community Name",
           "Leave Community": "Leave Community",
           "Do you want to leave this Community?":
-          "Do you want to leave this Community?",
+              "Do you want to leave this Community?",
           "Early Access Category": "Early Access Category",
           "General Category": "General Category",
           "My Subscription": "My Subscription",
@@ -194,11 +193,11 @@ class LocalConstants extends Translations {
           "Email is required": "Email is required",
           "Enter your address": "Enter your address",
           "Wrong password!!! Please enter your current password":
-          "Wrong password!!! Please enter your current password",
+              "Wrong password!!! Please enter your current password",
           "Enter valid email": "Enter valid email",
           "Field can't be empty": "Field can't be empty",
           "Password must be 8 characters long & must contain both alphabets and numerics":
-          "Password must be 8 characters long & must contain both alphabets and numerics",
+              "Password must be 8 characters long & must contain both alphabets and numerics",
           "Password does not match": "Password does not match",
           "Sign Up": "Sign Up",
           "Continue": "Continue",
@@ -240,7 +239,7 @@ class LocalConstants extends Translations {
 
         'de_DE': {
           "Unlock premium access for unlimited Dialoginess!":
-          "Schalten Sie den Premium-Zugang für unbegrenzte Dialoginess frei!",
+              "Schalten Sie den Premium-Zugang für unbegrenzte Dialoginess frei!",
           "Get Premium": "Premium erhalten",
           "Get Premium Plus": "Holen Sie sich Premium Plus",
           "Skip for now": "Vorerst überspringen",
@@ -257,10 +256,10 @@ class LocalConstants extends Translations {
           "Continue with Apple": "Mit Apple fortfahren",
           "Don’t have an account?": "Sie haben noch kein Konto?",
           "Password must 8 characters long & must include letters & digits.":
-          "Das Passwort muss 8 Zeichen lang sein und Buchstaben und Ziffern enthalten.",
+              "Das Passwort muss 8 Zeichen lang sein und Buchstaben und Ziffern enthalten.",
           "Create new account": "Neues Konto erstellen",
           "Join us for a better experience":
-          "Treten Sie uns bei für ein besseres Erlebnis",
+              "Treten Sie uns bei für ein besseres Erlebnis",
           "Full name": "Vollständiger Name",
           "Email": "E-Mail",
           "Date of birth": "Geburtsdatum",
@@ -270,11 +269,11 @@ class LocalConstants extends Translations {
           "Set your profile picture": "Stellen Sie Ihr Profilbild ein",
           "Set Password": "Passwort festlegen",
           "Password must 8 characters long & must include letters & digits ":
-          "Das Passwort muss 8 Zeichen lang sein und Buchstaben und Ziffern enthalten",
+              "Das Passwort muss 8 Zeichen lang sein und Buchstaben und Ziffern enthalten",
           "Re-enter your password": "Geben Sie Ihr Passwort erneut ein",
           "Set Profile Picture": "Profilbild einstellen",
           "Please upload a picture to complete your profile.":
-          "Bitte laden Sie ein Bild hoch, um Ihr Profil zu vervollständigen.",
+              "Bitte laden Sie ein Bild hoch, um Ihr Profil zu vervollständigen.",
           "Skip": "überspringen",
           "Choose Source": "Quelle wählen",
           "Gallery": "Galerie",
@@ -283,16 +282,16 @@ class LocalConstants extends Translations {
           "Get Started": "Beginnen Sie",
           "Photo has been uploaded.": "Das Foto wurde hochgeladen.",
           "Please enter your email address to reset your password.":
-          "Bitte geben Sie Ihre E-Mail-Adresse ein, um Ihr Passwort zurückzusetzen.",
+              "Bitte geben Sie Ihre E-Mail-Adresse ein, um Ihr Passwort zurückzusetzen.",
           "We have sent a verification code to your email address. Please check and enter the code here.":
-          "Wir haben einen Verifizierungscode an Ihre E-Mail-Adresse gesendet. Bitte überprüfen Sie den Code und geben Sie ihn hier ein.",
+              "Wir haben einen Verifizierungscode an Ihre E-Mail-Adresse gesendet. Bitte überprüfen Sie den Code und geben Sie ihn hier ein.",
           "Didn’t receive the code?": "Haben Sie den Code nicht erhalten?",
           "Verify": "Überprüfen Sie",
           "Reset Password": "Passwort zurücksetzen",
           "Settings": "Einstellungen",
           "Logout": "Abmelden",
           "Upgrade to Premium for better experience":
-          "Upgrade auf Premium für ein besseres Erlebnis",
+              "Upgrade auf Premium für ein besseres Erlebnis",
           "Go to Subscriptions": "Zu den Abonnements gehen",
           "Ques": "Fragen",
           "Pending Requests": "Ausstehende Anfragen",
@@ -319,11 +318,11 @@ class LocalConstants extends Translations {
           "Leave Group": "Gruppe verlassen",
           "Change": "ändern",
           "Do you want to delete this group?":
-          "Möchten Sie diese Gruppe löschen?",
+              "Möchten Sie diese Gruppe löschen?",
           "Yes": "Ja",
           "No": "Nein",
           "Do you want to leave this group?":
-          "Möchten Sie diese Gruppe verlassen?",
+              "Möchten Sie diese Gruppe verlassen?",
           "Discuss with Friends": "Diskutieren Sie mit Freunden",
           "Home": "Startseite",
           "Category": "Kategorie",
@@ -337,12 +336,12 @@ class LocalConstants extends Translations {
           "Next": "Nächste",
           "Add": "hinzufügen",
           "Want to join the discussion with others?":
-          "Möchten Sie sich an der Diskussion mit anderen beteiligen?",
+              "Möchten Sie sich an der Diskussion mit anderen beteiligen?",
           "Premium Subscription": "Premium-Abonnement",
           "Premium Plus Subscription": "Premium Plus Abonnement",
           "Great Job!": "Gute Arbeit!",
           "You have completed all questions!":
-          "Sie haben alle Fragen beantwortet!",
+              "Sie haben alle Fragen beantwortet!",
           "Go to categories": "Zu den Kategorien",
           "Discussions": "Diskussionen",
           "Reply": "Antwort",
@@ -359,7 +358,7 @@ class LocalConstants extends Translations {
           "Re-enter new password": "Neues Passwort erneut eingeben",
           "Update": "aktualisieren",
           "We have sent a verification code to your email address. Please check and enter the code here.":
-          "en einen Verifizierungscode an Ihre E-Mail-Adresse gesendet. Bitte überprüfen Sie den Code und geben Sie ihn hier ein.",
+              "en einen Verifizierungscode an Ihre E-Mail-Adresse gesendet. Bitte überprüfen Sie den Code und geben Sie ihn hier ein.",
           "Didn’t receive the code?": "Haben Sie den Code nicht erhalten?",
           "Reset": "Zurücksetzen",
           "Change Language": "Sprache ändern",
@@ -371,12 +370,12 @@ class LocalConstants extends Translations {
           "Billed Monthly": "Monatliche Abrechnung",
           "Billing Date": "Datum der Abrechnung",
           "Enter your current password to delete your account.":
-          "Geben Sie Ihr aktuelles Passwort ein, um Ihr Konto zu löschen.",
+              "Geben Sie Ihr aktuelles Passwort ein, um Ihr Konto zu löschen.",
           "Premium Member": "Premium-Mitglied",
           "Edit Profile": "Profil bearbeiten",
           "Add Payment Method": "Zahlungsmethode hinzufügen",
           "Select a payment method to upgrade your subscription.":
-          "Wählen Sie eine Zahlungsmethode für das Upgrade Ihres Abonnements.",
+              "Wählen Sie eine Zahlungsmethode für das Upgrade Ihres Abonnements.",
           "Enter cardholder name": "Name des Karteninhabers eingeben",
           "Card number": "Kartennummer",
           "CVV/CVC": "CVV/CVC",
@@ -384,7 +383,7 @@ class LocalConstants extends Translations {
           "Proceed to Payment": "Weiter zur Zahlung",
           "Successful": "Erfolgreich",
           "Your purchase has been done successfully ":
-          "Ihr Einkauf wurde erfolgreich abgeschlossen",
+              "Ihr Einkauf wurde erfolgreich abgeschlossen",
           "Go to Home": "Nach Hause gehen",
           "Cancel anytime": "Jederzeit abbrechen",
           "All Friends": "Alle Freunde",
@@ -402,20 +401,20 @@ class LocalConstants extends Translations {
           "View": "Ansicht",
           "No Internet": "Kein Internet",
           "Please, check your internet connection":
-          "Bitte überprüfen Sie Ihre Internetverbindung",
+              "Bitte überprüfen Sie Ihre Internetverbindung",
           "Back": "Zurück",
           "Something wrong!": "Etwas ist falsch!",
           "Try Again": "Erneut versuchen",
           "Favorite List": "Favoritenliste",
           "Select Member": "Mitglied auswählen",
           "Please, select at least two members":
-          "Bitte, wählen Sie mindestens zwei Mitglieder",
+              "Bitte, wählen Sie mindestens zwei Mitglieder",
           "Create New Community": "Neue Gemeinschaft erstellen",
           "Community members": "Mitglieder der Gemeinschaft",
           "Change Community Name": "Community-Name ändern",
           "Leave Community": "Gemeinschaft verlassen",
           "Do you want to leave this Community?":
-          "Möchten Sie diese Community verlassen?",
+              "Möchten Sie diese Community verlassen?",
           "Early Access Category": "Frühzeitigen Zugang erhalten",
           "General Category": "Kategorie erhalten",
           "My Subscription": "Mein Abonnement",
@@ -427,11 +426,11 @@ class LocalConstants extends Translations {
           "Email is required": "E-Mail ist erforderlich",
           "Enter your address": "Geben Sie Ihre Adresse ein",
           "Wrong password!!! Please enter your current password":
-          "Falsches Passwort!!! Bitte geben Sie Ihr aktuelles Passwort ein",
+              "Falsches Passwort!!! Bitte geben Sie Ihr aktuelles Passwort ein",
           "Enter valid email": "Geben Sie eine gültige E-Mail-Adresse ein",
           "Field can't be empty": "Feld darf nicht leer sein",
           "Password must be 8 characters long & must contain both alphabets and numerics":
-          "Das Passwort muss 8 Zeichen lang sein und sowohl Buchstaben als auch Zahlen enthalten",
+              "Das Passwort muss 8 Zeichen lang sein und sowohl Buchstaben als auch Zahlen enthalten",
           "Password does not match": "Passwort stimmt nicht überein",
           "Sign Up": "Registrieren",
           "Continue": "Fortfahren",

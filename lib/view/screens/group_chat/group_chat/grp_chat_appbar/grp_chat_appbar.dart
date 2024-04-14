@@ -39,69 +39,65 @@ class GroupChatPopUps extends StatelessWidget {
 
         PopupMenuItem<SampleItem>(
           value: SampleItem.itemOne,
-          child: GestureDetector(
-              onTap: () {
-                navigator!.pop();
-                Get.toNamed(AppRoutes.groupMembers, parameters: {
-                  "chatId": chatId,
-                });
-              },
-              child: CustomText(
-                fontSize: 14,
-                text: AppStrings.groupMembers,
-              )),
+          onTap: () {
+            navigator!.pop();
+            Get.toNamed(AppRoutes.groupMembers, parameters: {
+              "chatId": chatId,
+            });
+          },
+          child: CustomText(
+            fontSize: 14,
+            text: AppStrings.groupMembers,
+          ),
         ),
         //================================change Group Name=============================
 
         PopupMenuItem<SampleItem>(
           value: SampleItem.itemTwo,
-          child: GestureDetector(
-              onTap: () {
-                navigator!.pop();
-                changeGroupName(context: context, chatId: chatId);
-              },
-              child: CustomText(
-                fontSize: 14,
-                text: AppStrings.changeGroupName,
-              )),
+          onTap: () {
+            navigator!.pop();
+            changeGroupName(context: context, chatId: chatId);
+          },
+          child: CustomText(
+            fontSize: 14,
+            text: AppStrings.changeGroupName,
+          ),
         ),
 
         //================================Delete Conversation============================
 
         PopupMenuItem<SampleItem>(
           value: SampleItem.itemThree,
-          child: GestureDetector(
-              onTap: () {
-                navigator!.pop();
-                groupPermissionPopUp(
-                    context: context, ontapYes: () => groupChatPoopUpController.deleteAccountRepo(chatId), ontapNo: () {});
-              },
-              child: CustomText(
-                fontSize: 14,
-                text: AppStrings.deleteConversation,
-              )),
+          onTap: () {
+            navigator!.pop();
+            groupPermissionPopUp(
+                context: context, ontapYes: () => groupChatPoopUpController.deleteAccountRepo(chatId), ontapNo: () {});
+          },
+          child: CustomText(
+            fontSize: 14,
+            text: AppStrings.deleteConversation,
+          ),
         ),
 
         //================================Left Group==================================
 
         PopupMenuItem<SampleItem>(
           value: SampleItem.itemfour,
-          child: GestureDetector(
-              onTap: () {
-                navigator!.pop();
+          onTap: () {
+            navigator!.pop();
 
-                groupPermissionPopUp(
-                    context: context,
-                    ontapYes: () =>
-                        groupMemberController.leaveCommunityRepo(chatId),
-                    ontapNo: () {},
-                    title: AppStrings.doYouWantToLeaveThisGroup);
-              },
-              child: CustomText(
-                fontSize: 14,
-                color: AppColors.red_400,
-                text: AppStrings.leaveGroup,
-              )),
+            groupPermissionPopUp(
+                context: context,
+                ontapYes: () =>
+                    groupMemberController.leaveGroupRepo(chatId),
+                ontapNo: () {},
+                title: AppStrings.doYouWantToLeaveThisGroup);
+          },
+          child: CustomText(
+            fontSize: 14,
+            color: AppColors.red_400,
+            text: AppStrings.leaveGroup,
+          ),
         ),
       ],
     );

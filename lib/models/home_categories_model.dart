@@ -50,7 +50,7 @@ class Attributes {
   List<CategoryList>? categoryList;
   Pagination? pagination;
   List<EarlyAccessList>? earlyAccessList;
-  PaginationEr? paginationEr;
+  Pagination? paginationEr;
 
   Attributes(
       {this.categoryList,
@@ -75,7 +75,7 @@ class Attributes {
       });
     }
     paginationEr = json['paginationEr'] != null
-        ? new PaginationEr.fromJson(json['paginationEr'])
+        ? new Pagination.fromJson(json['paginationEr'])
         : null;
   }
 
@@ -101,36 +101,36 @@ class Attributes {
 class CategoryList {
   String? sId;
   String? name;
+  String? nameGr;
   String? type;
   String? image;
   int? questionCount;
-  bool? isEarlyAccessAvailable;
 
   CategoryList(
       {this.sId,
         this.name,
+        this.nameGr,
         this.type,
         this.image,
-        this.questionCount,
-        this.isEarlyAccessAvailable});
+        this.questionCount});
 
   CategoryList.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     name = json['name'];
+    nameGr = json['nameGr'];
     type = json['type'];
     image = json['image'];
     questionCount = json['questionCount'];
-    isEarlyAccessAvailable = json['isEarlyAccessAvailable'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
     data['name'] = this.name;
+    data['nameGr'] = this.nameGr;
     data['type'] = this.type;
     data['image'] = this.image;
     data['questionCount'] = this.questionCount;
-    data['isEarlyAccessAvailable'] = this.isEarlyAccessAvailable;
     return data;
   }
 }
@@ -164,14 +164,16 @@ class Pagination {
 class EarlyAccessList {
   String? sId;
   String? name;
+  String? nameGr;
   String? type;
   String? image;
 
-  EarlyAccessList({this.sId, this.name, this.type, this.image});
+  EarlyAccessList({this.sId, this.name, this.nameGr, this.type, this.image});
 
   EarlyAccessList.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     name = json['name'];
+    nameGr = json['nameGr'];
     type = json['type'];
     image = json['image'];
   }
@@ -180,34 +182,9 @@ class EarlyAccessList {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
     data['name'] = this.name;
+    data['nameGr'] = this.nameGr;
     data['type'] = this.type;
     data['image'] = this.image;
-    return data;
-  }
-}
-
-class PaginationEr {
-  int? totalResults;
-  int? totalPagesEr;
-  int? currentPageEr;
-  int? limitEr;
-
-  PaginationEr(
-      {this.totalResults, this.totalPagesEr, this.currentPageEr, this.limitEr});
-
-  PaginationEr.fromJson(Map<String, dynamic> json) {
-    totalResults = json['totalResults'];
-    totalPagesEr = json['totalPagesEr'];
-    currentPageEr = json['currentPageEr'];
-    limitEr = json['limitEr'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['totalResults'] = this.totalResults;
-    data['totalPagesEr'] = this.totalPagesEr;
-    data['currentPageEr'] = this.currentPageEr;
-    data['limitEr'] = this.limitEr;
     return data;
   }
 }

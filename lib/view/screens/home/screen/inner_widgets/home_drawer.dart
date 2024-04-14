@@ -86,11 +86,10 @@ class _HomeDrawerState extends State<HomeDrawer> {
                               shape: BoxShape.circle,
                               image: DecorationImage(
                                   image: NetworkImage(
-                                      "${ApiConstant.baseUrl}${controller.profileModel!.data!.attributes!.image}"))),
+                                      "${ApiConstant.baseUrl}${controller.profileModel!.data!.attributes!.image}"))), /// used null safety instead of null check
                         ),
                         CustomText(
-                          text: controller
-                              .profileModel!.data!.attributes!.fullName!,
+                          text: "${controller.profileModel!.data!.attributes!.fullName}" , /// used null safety instead of null check
                           left: 8.w,
                         )
                       ],
