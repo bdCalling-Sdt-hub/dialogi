@@ -234,7 +234,8 @@ class LocalConstants extends Translations {
           "Buy Subscription": "Buy Subscription",
           "Get Dialogi Premium Plus": "Get Dialogi Premium Plus",
           "Get Dialogi Premium": "Get Dialogi Premium",
-          "Month": "Month"
+          "Month": "Month",
+          "No question found" : "No question found"
         },
 
         'de_DE': {
@@ -468,6 +469,7 @@ class LocalConstants extends Translations {
           "Buy Subscription": "Abonnement kaufen",
           "Get Dialogi Premium Plus": "Erhalte Dialogi Premium Plus",
           "Get Dialogi Premium": "Erhalte Dialogi Premium",
-          "Month": "Monat"
+          "Month": "Monat",
+          "No question found" : "Keine Frage gefunden"
         }};
 }

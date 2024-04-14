@@ -58,7 +58,8 @@ class _FavoriteListScreenState extends State<FavoriteListScreen> {
                     ? controller.favouriteList.length + 1
                     : controller.favouriteList.length,
                 itemBuilder: (context, index) {
-                  var item = controller.favouriteList[index].question;
+                  var item = controller.favouriteList[index];
+                  print("item ==========$item");
 
                   if (index < controller.favouriteList.length) {
                     return Column(
@@ -80,7 +81,7 @@ class _FavoriteListScreenState extends State<FavoriteListScreen> {
                               fontSize: 20.sp,
                             )),
                           ),
-                          title: Text(item.question),
+                          title: Text(item.question ?? "No question found".tr),
                         ),
                         const Divider()
                       ],
